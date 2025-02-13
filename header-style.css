@@ -1,0 +1,222 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-container{
+    background-color: #101010;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    bottom: 90%;
+}
+
+.searching-container{
+    position: relative;
+    float: center;
+    margin: auto;
+    height: 55%;
+    width: 40%;
+}
+
+.searchbar-container{
+    position: absolute;
+    float: left;
+    left: 0%;
+    right: 15%;
+    top: 0%;
+    bottom: 0%;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.searchbutton-container{
+    float: right;
+    position: absolute;
+    left: 85%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.searchbar{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    font-size: large;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.searchbutton{
+    width: 100%;
+    height: 100%;
+    background-color: #bc1d1d;
+    color: white;
+    font-size: 120%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.searchbutton:hover {
+    background-color: #771414;
+}
+
+.logo-container{
+    position: relative;
+    height: 100%;
+    left: 3%;
+    width: 17vw;
+    background-color: red;
+    float: center;
+    overflow: hidden;
+}
+
+.logo-container h1{
+    width: 100%;
+    top: 5%;
+    height: 100%;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+.right-container{
+    position: relative;
+    height: 100%;
+    right: 3%;
+    width: 17vw;
+}
+
+.profile-container{
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+}
+
+.profile-image{
+    border-radius: 50px;
+    height: 80%;
+    position: absolute;
+    left: 28%;
+    right: 30%;
+    top: 10%;
+    margin: auto;
+    aspect-ratio: 1/1;
+}
+
+.dropdown-button-container{
+    position:absolute;
+    top: 0%;
+    bottom: 0%;
+    width: 50%;
+    left: 25%;
+}
+
+.dropdown-button {
+    width: 100%;
+    height: 100%;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown-container{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    min-width: 150px;
+}
+
+.dropdown-container a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+
+.menu-container:hover .dropdown-container {
+    display: block;
+}
+
+.dropdown-container a:hover {
+    background-color: #f0f0f0;
+}
+
+.log-reg-container{
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 10%;
+    right: 10%;
+}
+
+.log-container{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 60%;
+}
+
+.reg-container{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 40%;
+}
+
+.login{
+    width: 100%;
+    height: 100%;
+    background-color: #448abc;
+    color: white;
+    font-size: 120%;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.login:hover {
+    background-color: #376f96;
+}
+
+.register{
+    width: 100%;
+    height: 100%;
+    background-color: #243397;
+    color: white;
+    font-size: 120%;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.register:hover {
+    background-color: #222b65;
+}
