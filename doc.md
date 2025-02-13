@@ -28,43 +28,27 @@
 </ul>
 <em>Página de Venta de Entradas</em>
 <ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>Plano del estadio</li>
+  <li>Selección de pista o grada (Primer Modelo)</li>
+  <li>En un modelo más avanzado, permitir la selección por zona</li>
+  <li>Selección del número de entradas</li>
+  <li>Botón de compra</li>
 </ul>
 <em>Página de Cobro</em>
 <ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>Introducir los datos de la tarjeta</li>
 </ul>
 <em>Página de Confirmación de Compra</em>
 <ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>Muestra un mensaje de que la compra ha ido bien la compra</li>
+  <li>Botón para volver atrás</li>
 </ul>
-<em>Iniciar Sesión/ Registrarse</em>
-<ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-</ul>
-<em>Perfil</em>
-<ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-</ul>
+<em>Iniciar Sesión</em> <br>
+<em>Registro</em> <br>
+<em>Perfil</em> <br>
 
 ## Entidades
+<em>Usuario</em>
+<em>Artista</em>
+<em>Concierto</em>
+<em>Entrada</em>
