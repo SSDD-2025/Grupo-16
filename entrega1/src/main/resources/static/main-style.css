@@ -1,0 +1,27 @@
+.title-container {
+    background-color: rgb(156, 156, 156);
+}
+
+.image-container {
+    display: inline-block;
+}
+
+.buy {
+    margin-top: 2%; 
+    margin-left:8%;
+}
+
+.info {
+    margin-top: 2%; 
+    margin-left:8%;
+}
+
+.artist-photo{
+    width: 60%;
+    height: 30%;
+}
+
+.concert-photo{
+    width: 40%;
+    height: 20%;
+}
