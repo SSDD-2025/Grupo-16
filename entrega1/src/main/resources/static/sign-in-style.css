@@ -1,13 +1,13 @@
-#logInSection {
+#log-in-section {
     text-align: center;
     position: relative; margin-top: -4%;
 }
 
-#registerSection {
+.register-section {
     text-align: center;
     position: relative; margin-top: -4%;
 }
 
-#registerButton {
+#register-button {
     text-align: center;
 }

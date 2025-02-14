@@ -1,0 +1,26 @@
+#title {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 350%;
+}
+
+#subtitle {
+    text-align: center;
+    margin-top: 2%;
+    font-size: 150%;
+}
+
+.video-container {
+    text-align: center;
+    height: 230px;
+    width: 350px;
+    margin-top: 3%;
+    margin-left: 37%;
+    overflow: hidden;
+}
+
+.video-container video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
