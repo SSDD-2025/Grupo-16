@@ -8,16 +8,18 @@
             {{>header}}
         </header>
         <!-- Next Concerts -->
-        {{#session_ongoing}}
-            <h1>Next Concerts in your Area:</h1>
-        {{/session_ongoing}}
-        {{^session_ongoing}}
-            <h1>Next Concerts:</h1>
-        {{/session_ongoing}}
+        <div class="title-container">
+            {{#session_ongoing}}
+                <h1>Next Concerts in your Area:</h1>
+            {{/session_ongoing}}
+            {{^session_ongoing}}
+                <h1>Next Concerts:</h1>
+            {{/session_ongoing}}
+        </div>
 
         <!-- Show Concerts -->
         {{#concert_list}}
-            <div>
+            <div class="image-container">
                 <form method="post" action=""> <!-- Controller who takes u to the buying page for that concert -->
                     <img class="concert-photo" src="{{url}}"> <br>
                     <input class="buy-tickets" type="submit" value="Buy Tickets"> <!-- name or id of concert-->
@@ -33,7 +35,7 @@
 
         <!-- Show Concerts -->
         {{#artist_list}}
-            <div>
+            <div class="image-container">
                 <form method="post" action=""> <!-- Controller who takes u to the buying page for that artist -->
                     <img class="artist-photo" src="{{url}}"> <br>
                     <input class="info-artist" type="submit" value="Show Info"> <!-- name or id of artist-->
