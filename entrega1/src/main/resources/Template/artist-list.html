@@ -1,0 +1,13 @@
+<!-- HTML doc injectable -->
+<!-- it shows a list of artist with the artist photo and a button to go to their info page -->
+{{#artist_list}}
+<div class="image-container">
+    <form method="post" action=""> <!-- Controller who takes u to the buying page for that artist -->
+        <img class="artist-photo" src="{{url}}"> <br>
+        <input class="info-artist" type="submit" value="Show Info"> <!-- name or id of artist-->
+    </form>
+</div>
+{{/artist_list}}
+{{^artist_list}}
+    <p>There are no artists to show</p>
+{{/artist_list}}

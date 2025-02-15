@@ -1,54 +1,63 @@
-# Documentación Versión 1
-## Requisitos
+# Documentation Version 1
+## Requirement
 
-## Diseño
-<em>Página de Inicio:</em>
+## Design
+<em>Main Page:</em>
 <ul>
-  <li>Buscador (permitirá filtrar)</li>
-  <li>Permite iniciar sesión</li>
-  <li>Consultar perfil</li>
-  <li>Ajustes</li>
-  <li>Muestra los próximos conciertos por fama del artista (para usuarios anónimos)</li>
-  <li>Muestra los próximos conciertos cerca de su zona (para usuarios registrados)</li>
-  <li>Descubrir artistas nuevos dados de alta</li>
+  <li>Searcher (it lets you to filter the search)</li>
+  <li>Log In</li>
+  <li>Check user page</li>
+  <li>Settings</li>
+  <li>For anon users, shows upcoming concerts taking place (sorted by artist fame)</li>
+  <li>For registered users, shows upcoming concert taking place at the continent (could be country) of the user</li>
+  <li>Show the new artists subscribed at the website</li>
 </ul>
-<em>Página del Artista:</em>
+<em>Artist Page:</em>
 <ul>
-  <li>Toda la información del artista presente en la BBDD</li>
-  <li>Imagen del artista</li>
-  <li>Próximos conciertos: opción para ver más conciertos</li>
-  <li>Álbumes más destacados</li>
-  <li>Botones para ver en Spotify y Apple Music</li>
-  <li>Videoclip del artista</li>
+  <li>All the information of the artist kept at the database</li>
+  <li>Image</li>
+  <li>Upcoming concerts (with an option to see more --> extra)</li>
+  <li>Most notable albums</li>
+  <li>Buttons linking to Spotify and Apple Music</li>
+  <li>Most notable music video</li>
 </ul>
-<em>Página de Selección de Conciertos</em>
+<em>Select Concert Page:</em>
 <ul>
-  <li>Listado de conciertos del artista en concreto (todas las fechas disponibles). Si no hay conciertos, se muestra un mensaje informando que no existe concierto.</li>
-  <li>Botón bonito que permita ver la información del concierto (showinfo) y al desplegarse, permita quitarla (showless)</li>
+  <li>List of concerts by an especified artist (with all the posible dates). If there are no concerts, it will show a message informing it doesn't exist</li>
+  <li>Cute button to show the information about the concert (showInfo) and to hide ir (showLess)</li>
 </ul>
-<em>Página de Venta de Entradas</em>
+<em>Puchase Page:</em>
 <ul>
-  <li>Plano del estadio</li>
-  <li>Selección de pista o grada (Primer Modelo)</li>
-  <li>En un modelo más avanzado, permitir la selección por zona</li>
-  <li>Selección del número de entradas</li>
-  <li>Botón de compra</li>
+  <li>Stadium map</li>
+  <li>Choose between pit or bleachers (in a further model it could be possible to choose between more specific seats)</li>
+  <li>Select number of tickets</li>
+  <li>Button to purchase</li>
 </ul>
-<em>Página de Cobro</em>
+<em>Charge Page:</em>
 <ul>
-  <li>Introducir los datos de la tarjeta</li>
+  <li>Insert the information of the bank card</li>
 </ul>
-<em>Página de Confirmación de Compra</em>
+<em>Purchase Confirmation Page:</em>
 <ul>
-  <li>Muestra un mensaje de que la compra ha ido bien la compra</li>
-  <li>Botón para volver atrás</li>
+  <li>It shows the information whether if the purchase was successful or not</li>
+  <li>Go to main page button</li>
 </ul>
-<em>Iniciar Sesión</em> <br>
-<em>Registro</em> <br>
-<em>Perfil</em> <br>
+<em>Log In</em> <br>
+<em>Register</em> <br>
+<em>User Page:</em> <br>
 
-## Entidades
-<em>Usuario</em>
-<em>Artista</em>
-<em>Concierto</em>
-<em>Entrada</em>
+## Entities
+<em>User</em>
+<em>Artist</em>
+<em>Concert</em>
+<em>Ticket</em>
+
+## Main Page Information
+The main page is composed by two distincted parts: display a list of concerts and display a list of artists. First, it displays a list of concerts (which changes if de user is logged or not). If the user is not logged, it will show a finite number of concerts, one besides the other (in a row) that are sorted by artist's fame. If the user is logged, it will show a list of concerts being held at the same country/ continent as the user. In both cases, for each concert it will show the image of the promotional poster and, below it, a button connecting to the purchase page of that concert. The concert's list it is indicated by the variable `concert-list` and the boolean variable to know if the user is logged is called `is-logged`.
+
+For the artist's list, it is an injectable HTML called artist-list.html (see its information later on this page).
+
+Important notes on element styling is that the `div` elements containing the photo and the button of each concert it has the display:inline-block that lets a finite number of concerts being on the same row (depending on the dimensions of the page on the computer). The same style is applied to the `div` inside the injectable HTML artist-list.html.
+
+## Artist-List Injectable
+It is a HTML document specifically to be injected into a main HTML document. Displays the list of artist (which is passed through a variable) by placing the photo of each artist in a row and, below each one, a button connecting to the artist's page. This variable list is called `artist-list` and, if it is null, it will show the message "There are no artist to show".

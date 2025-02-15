@@ -9,12 +9,12 @@
         </header>
         <!-- Next Concerts -->
         <div class="title-container">
-            {{#session_ongoing}}
+            {{#is-logged}}
                 <h1>Next Concerts in your Area:</h1>
-            {{/session_ongoing}}
-            {{^session_ongoing}}
+            {{/is-logged}}
+            {{^is-logged}}
                 <h1>Next Concerts:</h1>
-            {{/session_ongoing}}
+            {{/is-logged}}
         </div>
 
         <!-- Show Concerts -->
@@ -33,18 +33,8 @@
         <!-- Meet New Artist -->
         <h1>Meet::</h1>
 
-        <!-- Show Concerts -->
-        {{#artist_list}}
-            <div class="image-container">
-                <form method="post" action=""> <!-- Controller who takes u to the buying page for that artist -->
-                    <img class="artist-photo" src="{{url}}"> <br>
-                    <input class="info-artist" type="submit" value="Show Info"> <!-- name or id of artist-->
-                </form>
-            </div>
-        {{/artist_list}}
-        {{^artist_list}}
-            <p>There are no new artists</p>
-        {{/artist_list}}
+        <!-- Show New Artist -->
+        {{>artist-list}}
 
     </body>
 </html>
