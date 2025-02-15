@@ -3,6 +3,10 @@
     position: relative; margin-top: -4%;
 }
 
+#link:hover {
+    cursor: pointer;
+}
+
 .register-section {
     text-align: center;
     position: relative; margin-top: -4%;
@@ -10,4 +14,8 @@
 
 #register-button {
     text-align: center;
+}
+
+#country-selector:hover {
+    cursor: pointer;
 }

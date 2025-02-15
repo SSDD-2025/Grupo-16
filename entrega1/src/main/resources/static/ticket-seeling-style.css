@@ -1,0 +1,94 @@
+.container {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 20px 0;
+}
+
+#title {
+    color: white;
+    display: inline-block;
+    margin: 0;
+}
+
+#image {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px;
+}
+
+#image:hover {
+    cursor: pointer;
+    background-color: #3A3A3A;
+}
+
+#concert-title {
+    text-align: left;
+    font-size: 150%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 7%;
+}
+
+#content {
+    text-align: center;
+    font-size: 180%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 2%;
+}
+
+.ticket-selection {
+    font-size: 110%;
+    margin-top: 4%;
+    margin-left: 13%;
+}
+
+.ticket-selection h3 {
+    margin-left: 12%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#stadium {
+    height: 300px;
+}
+
+#zone {
+    position: absolute;
+    margin-top: -25.9%;
+    transform: translateX(-20%);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 47%;
+}
+
+#zone-selector {
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 15%;
+}
+
+#zone-selector:hover {
+    cursor: pointer;
+}
+
+#continue-button {
+    position: absolute;
+    margin-top: -15%;
+    margin-left: 57%;
+    height: 100px;
+    width: 200px;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #28A745;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background 0.3s ease-in-out;
+}
+
+#continue-button:hover {
+    cursor: pointer;
+    background-color: #37D058;
+}
