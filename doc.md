@@ -84,7 +84,7 @@ This file can be found with the name `sign-in.html` and the styles that were use
 This page will only display a message telling the user that the ticket purchase was succesfull. Furthermore, this will help the web application to follow the principles of accessibility, more specifically, robustness, showing a feedback to the user that everything went correctly.
 
 ## Header (Injectable)
-The header will be present almos everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
+The header will be present almost everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
 
 Logo zone: presential and brand purposes place where the logo is displayed.
 
