@@ -82,3 +82,20 @@ This file can be found with the name `sign-in.html` and the styles that were use
 
 ## Purchase Confirmation
 This page will only display a message telling the user that the ticket purchase was succesfull. Furthermore, this will help the web application to follow the principles of accessibility, more specifically, robustness, showing a feedback to the user that everything went correctly.
+
+## Header (Injectable)
+The header will be present almos everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
+
+Logo zone: presential and brand purposes place where the logo is displayed.
+
+Searching zone: contains the searching bar and search button. From here, searches can be made as far as artists and concerts are concerned.
+
+Right zone: user based zone, that grants accessibility to the user.
+<ul>
+  <li>If the user is not registered or logged, shows the Login and Register buttons.</li>
+  <li>If the user is logged, displays a button with it's profile photo and a dropdown menu with direct access to: My profile, My concerts and My artists.</li>
+</ul>
+
+__Mustache variables:__ `is-logged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
+
+__Use:__ To include the header into an HTML page, it should be injected using `{{>header}}` between a `<header></header>` block, located inside the `body` of the file. The styles used for the header are located at the `header-style.css`, be sure to link the file correctly.
