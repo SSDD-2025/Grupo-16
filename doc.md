@@ -61,3 +61,24 @@ Important notes on element styling is that the `div` elements containing the pho
 
 ## Artist-List Injectable
 It is a HTML document specifically to be injected into a main HTML document. Displays the list of artist (which is passed through a variable) by placing the photo of each artist in a row and, below each one, a button connecting to the artist's page. This variable list is called `artist-list` and, if it is null, it will show the message "There are no artist to show".
+
+## Sign In and Sign Up
+In this HTML document, the user will be able to create an account (in case he does not have any account or wants to create another one) and log in to an existing account with his credentials.
+
+At the design level, both alternatives were designed on the same page, however, depending on whether or not the user is in the database,one design or another will be shown. This is the most relevant information regarding those posibilities:
+### Sign In:
+<ul>
+  <li>Everything its contained in a <strong> <em> form </em> </strong> block usign the <strong> <em> post </em> </strong> method, so the information entered by the user can be collected and used throught his session. The corresponding button will follow the <strong> <em> TBD </em> </strong> action. </li>
+  <li>The user must enter his username or the email he used when creating the account, as well as the password.</li>
+</ul>
+
+### Sign Up
+<ul>
+  <li>It will have the same aspects as those mentioned above, but, aditionally, the user must select his country, in order to perform certain functionalities which will be explained on its corresponding page.</li>
+  <li>The corresponding button will follow the <strong> <em> TBD </em> </strong> action.</li>
+</ul>
+
+This file can be found with the name `sign-in.html` and the styles that were used in the `style-sign-in.css` file.
+
+## Purchase Confirmation
+This page will only display a message telling the user that the ticket purchase was succesfull. Furthermore, this will help the web application to follow the principles of accessibility, more specifically, robustness, showing a feedback to the user that everything went correctly.
