@@ -53,7 +53,7 @@
 <em>Ticket</em>
 
 ## Main Page Information
-The main page is composed by two distincted parts: display a list of concerts and display a list of artists. First, it displays a list of concerts (which changes if de user is logged or not). If the user is not logged, it will show a finite number of concerts, one besides the other (in a row) that are sorted by artist's fame. If the user is logged, it will show a list of concerts being held at the same country/ continent as the user. In both cases, for each concert it will show the image of the promotional poster and, below it, a button connecting to the purchase page of that concert. The concert's list it is indicated by the variable `concert-list` and the boolean variable to know if the user is logged is called `is-logged`.
+The main page is composed by two distincted parts: display a list of concerts and display a list of artists. First, it displays a list of concerts (which changes if the user is logged or not). If the user is not logged, it will show a finite number of concerts, one besides the other (in a row) that are sorted by artist's fame. If the user is logged, it will show a list of concerts being held at the same country/ continent as the user. In both cases, for each concert it will show the image of the promotional poster and, below it, a button connecting to the purchase page of that concert. The concert's list it is indicated by the variable `concert-list` and the boolean variable to know if the user is logged is called `is-logged`.
 
 For the artist's list, it is an injectable HTML called artist-list.html (see its information later on this page).
 
