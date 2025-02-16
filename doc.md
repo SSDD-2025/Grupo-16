@@ -211,14 +211,59 @@ The concert contained in `concert.html` is an injectable piece of code that, loc
 </ul>
 
 __Mustache variables:__ 
-<ul>
-  <li>`coverImage`: Concert main image or promotional cover.</li>
-  <li>`artist.name`: Concerts artist name.</li>
-  <li>`hour` and `place`: Exact hour and place where the concert takes place.</li>
-  <li>`description`: Concert brief general description (no more than one line).</li>
-  <li>`-index`: Used to implement the More Info button.</li>
-  <li>`longDescription`: Concert detailed description.</li>
-  <li>`link.to.ticket.sale` and `link.to.artist.page`: to be implemented shortly.`</li>
-</ul>
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>artist.name</td>
+      <td>Artist's name</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>coverImage</td>
+      <td>Concert main image or promotional cover</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>hour</td>
+      <td>Hour when the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>place</td>
+      <td>Place where the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>desciption</td>
+      <td>Concert brief general description (no more than one line)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>longDescription</td>
+      <td>Concert detailed description</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>-index</td>
+      <td>Used to implement the More Info button</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>link.to.ticket.sale</td>
+      <td>To be implemented shortly</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>link.to.artist.page</td>
+      <td>To be implemented shortly</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
 
 __Use:__ To include the concert into an HTML page, it should be injected using `{{>concert}}`, located between a Mustahce `{{#listOfConcerts}}{{/listOfConcerts}}` block, inside the `body` of the file. The styles used for each concert are located at the `concert-style.css`, be sure to link the file correctly.
