@@ -50,3 +50,17 @@ main{ /*Let's the main part grow as far as it can*/
 header { /*Ensures that the header does not overlap the main part of the program*/
     margin-bottom: 9vh;
 }
+
+#footer{
+    background-color:black;
+    width:100%;
+    height: 20%;
+    margin-top: 5%;
+}
+
+#footer p{
+    color: white;
+    margin-left: 10%;
+    position: absolute;
+    margin-top: 5%;
+}

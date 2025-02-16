@@ -355,3 +355,6 @@ Below this block there is a small block in a darker shade that shows the total p
 At last, there is another gray block with a form. This form is for the user to write down the information of his/ her credit card so the purchase can be completed. For now, this information will not be saved (as an complement to this proyect, the user can save their credit card information and it will show at this form as default information). This form is composed of three input text (cardholder name, card id and cvv), a select to choose from different card types and a month input to enter the expiration date. Below everything there is a submit button that takes you to the purchase confirmation page.
 
 All the styles of this page are specified in the `purchase-style.css` document.
+
+## Footer (Injectable)
+The footer.html is a static injectable document that consists of a black div containing the name, phone number and email of the company that runs the webpage. It is shown at all the main pages as the footer of the page. For that, it should be injected at this main pages inside the block &lt;footer&gt; and its style is included at the `common-style.css`.
