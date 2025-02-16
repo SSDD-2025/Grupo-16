@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="header-style.css">
+<div class="header-container">
+    <div class="logo-container"> <!--Header container Divisor: Logo zone-->
+        <h1>LOGO</h1>
+    </div>
+    <div class="searching-container"> <!--Header container Divisor: Searchbar zone-->
+        <form action="">
+            <div class="searchbar-container"> <!--Searchbar-->
+                <input class="searchbar" type="search" name="search" placeholder="Artist...">
+            </div>
+            <div class="searchbutton-container"> <!--Submit search button-->
+                <input type="submit" value="Search" class="searchbutton">
+            </div>
+        </form>
+    </div>
+    <div class="right-container"> <!--Header container Divisor: Profile/Login zone -->
+        {{#is-logged}} <!--When the user is logged, the profile photo and configurations are shown-->
+        <div class="profile-container">
+            <div class="menu-container">
+                <div class="dropdown-button-container">
+                    <button class="dropdown-button"> <!--Button that activates the dropdown menu with action=hover-->
+                        <img class="profile-image" src="link.to.image"> 
+                    </button>
+                </div>
+                <div class="dropdown-container"> <!--Dropdown menu content: Links to User's pages-->
+                    <a href="link.to.profile">My Profile</a>
+                    <a href="link.to.concerts">My Concerts</a>
+                    <a href="link.to.artists">My Artists</a>
+                </div>
+            </div>
+        </div>
+        {{/is-logged}}
+        {{^is-logged}} <!--When the user is not logged, the login/register buttons are shown-->
+        <div class="log-reg-container">
+            <div class="log-container">
+                <button class="login" onclick="window.location.href='link.to.login.page'">Login</button>
+            </div>
+            <div class="reg-container">
+                <button class="register" onclick="window.location.href='link.to.register.page'">Register</button>
+            </div>
+        </div>
+        {{/is-logged}}
+    </div>
+</div>
