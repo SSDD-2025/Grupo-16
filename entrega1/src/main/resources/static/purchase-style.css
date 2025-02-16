@@ -1,0 +1,65 @@
+.tickets-info-container{
+    background-color: rgb(200, 200, 200);
+    border-radius: 12px;
+    width: 50%;
+    height: 30%;
+    margin:auto;
+    margin-top: 4%;
+    padding: 2%;
+    margin-bottom: 2%;
+}
+
+.price-container{
+    background-color: rgb(169, 169, 169);
+    border-radius: 12px;
+    width: 40%;
+    height: 4%;
+    margin:auto;
+    text-align:center;
+}
+
+span{
+    font-weight: bold;
+    font-size: 160%;
+    margin-top: 3%;
+}
+
+.info-container{
+    display: inline-block;
+    width: 40%;
+    height: 80%;
+    margin-right: 30%;
+    position: absolute;
+}
+
+.image-container{
+    display: inline-block;
+    width: 20%;
+    height: 90%;
+    margin-top: 2%;
+    margin-left: 70%;
+}
+    
+.poster{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.form-container{
+    background-color: rgb(200, 200, 200);
+    border-radius: 12px;
+    width: 60%;
+    height: auto;
+    margin:auto;
+    padding: 2%;
+    margin-top: 2%;
+
+    /*We need the form at the front so the user can interact with it*/
+    position: relative;
+    z-index: 1;
+}
+
+input[type="submit"]:hover {
+    background-color: #b3b3b3;
+}

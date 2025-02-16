@@ -344,3 +344,14 @@ Great part of this information is managed through mustache variables, which are 
 In the `profile.html` file, it gives the user the option to upload the photo he wants as a profile picture. This photo will be saved in the database along with all the information related to a specific user, and this is the reason for the `user.hasProfilePicture`variable usage, if there is an image loaded in the database (`user.hasProfilePicture = true`) said image will be displayed, otherwise, a default image will be displayed.
 
 This file can be found with the name `ticket-selling.html` and the styles that were used in the `ticket-selling-style.css` file.
+
+## Purchase Page
+The main purpose of this page is to confirm the selected tickets and enter the information of the user's credit card to complete the tickets purchase.
+
+At first it shows a gray block with the ticket information. Everything revolves around the variable `ticket`, which contains the tickets that are being purchased. If null, it will show an error message and a link to go back to the main page. If the ticket is an object it will show its information using the variables `name` (concert name), `date` (concert date), `number` (number of tickets purchase), `type` (type of the tickets) and `price` (price of the tickets per unit). Besides the information, it shows the concert poster using the variable `concert-poster` (which is the URL to the image). Below the information there is a button that lets the user to cancel the purchase and takes him back either to the main page or to the select ticket page (TO BE DISCUSSED).
+
+Below this block there is a small block in a darker shade that shows the total pricing of the tickets (multiply ticket price by the number of tickets).
+
+At last, there is another gray block with a form. This form is for the user to write down the information of his/ her credit card so the purchase can be completed. For now, this information will not be saved (as an complement to this proyect, the user can save their credit card information and it will show at this form as default information). This form is composed of three input text (cardholder name, card id and cvv), a select to choose from different card types and a month input to enter the expiration date. Below everything there is a submit button that takes you to the purchase confirmation page.
+
+All the styles of this page are specified in the `purchase-style.css` document.
