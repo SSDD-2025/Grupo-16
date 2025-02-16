@@ -183,7 +183,7 @@ This file can be found with the name `sign-in.html` and the styles that were use
 This page will only display a message telling the user that the ticket purchase was succesfull. Furthermore, this will help the web application to follow the principles of accessibility, more specifically, robustness, showing a feedback to the user that everything went correctly.
 
 ## Header (Injectable)
-The header will be present almost everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
+The header in file `header.html` will be present almost everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
 
 Logo zone: presential and brand purposes place where the logo is displayed.
 
@@ -198,3 +198,27 @@ Right zone: user based zone, that grants accessibility to the user.
 __Mustache variables:__ `is-logged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
 
 __Use:__ To include the header into an HTML page, it should be injected using `{{>header}}` between a `<header></header>` block, located inside the `body` of the file. The styles used for the header are located at the `header-style.css`, be sure to link the file correctly.
+
+## Concert (Injectable)
+The concert contained in `concert.html` is an injectable piece of code that, located inside a Mustache Concert list, displays with style each concert most important information. It is thought to be injected inside a general container, but it is recommended to inject it inside a `general-container` class container. Each concert entry is structured in five parts with different purposes.
+
+<ul>
+  <li>Cover Image: shows the cover or promotional image of the concert.</li>
+  <li>Date: displays in a bigger and remarked style the date of the concert.</li>
+  <li>General information: artist name, hour, location and brief description of the concert.</li>
+  <li>Buttons: Get Tickets, More Info and Artist Page buttons.</li>
+  <li>Long description: initially hidden and when the More Info button is toogled, it is shown extra information of the concert.</li>
+</ul>
+
+__Mustache variables:__ 
+<ul>
+  <li>`coverImage`: Concert main image or promotional cover.</li>
+  <li>`artist.name`: Concerts artist name.</li>
+  <li>`hour` and `place`: Exact hour and place where the concert takes place.</li>
+  <li>`description`: Concert brief general description (no more than one line).</li>
+  <li>`-index`: Used to implement the More Info button.</li>
+  <li>`longDescription`: Concert detailed description.</li>
+  <li>`link.to.ticket.sale` and `link.to.artist.page`: to be implemented shortly.`</li>
+</ul>
+
+__Use:__ To include the concert into an HTML page, it should be injected using `{{>concert}}`, located between a Mustahce `{{#listOfConcerts}}{{/listOfConcerts}}` block, inside the `body` of the file. The styles used for each concert are located at the `concert-style.css`, be sure to link the file correctly.
