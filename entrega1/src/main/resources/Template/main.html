@@ -10,31 +10,21 @@
         <!-- Next Concerts -->
         <div class="title-container">
             {{#is-logged}}
-                <h1>Next Concerts in your Area:</h1>
+                <h1>Upcoming Concerts in your Area:</h1>
             {{/is-logged}}
             {{^is-logged}}
-                <h1>Next Concerts:</h1>
+                <h1>Upcoming Concerts:</h1>
             {{/is-logged}}
         </div>
 
         <!-- Show Concerts -->
-        {{#concert_list}}
-            <div class="image-container">
-                <form method="post" action=""> <!-- Controller who takes u to the buying page for that concert -->
-                    <img class="concert-photo" src="{{url}}"> <br>
-                    <input class="buy-tickets" type="submit" value="Buy Tickets"> <!-- name or id of concert-->
-                </form>
-            </div>
-        {{/concert_list}}
-        {{^concert_list}}
-            <p>There are no concerts soon</p>
-        {{/concert_list}}
+        {{>display-concerts}}
 
         <!-- Meet New Artist -->
-        <h1>Meet::</h1>
+        <h1>Meet:</h1>
 
         <!-- Show New Artist -->
-        {{>artist-list}}
+        {{>display-artists}}
 
     </body>
 </html>
