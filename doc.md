@@ -328,12 +328,12 @@ Great part of this information is managed through mustache variables, which are 
       <td>Yes</td>
     </tr>
     <tr>
-      <td>concertName</td>
+      <td>concert.name</td>
       <td>Is the name of the selected concert</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>stadiumName</td>
+      <td>concert.place</td>
       <td>Is the name of the stadium where the concert will be held</td>
       <td>No</td>
     </tr>
