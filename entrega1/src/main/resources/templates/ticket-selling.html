@@ -20,12 +20,10 @@
             {{/user.hasProfilePicture}}
         </a>
     </div>
-    <h2 id="concert-title"><strong>{{concertName}}</strong></h2> <!-- concertName is the name of the key whose value 
-                                                                    is the name of the concert the user has chosen-->
+    <h2 id="concert-title"><strong>{{concert.name}}</strong></h2> <!-- concert.name is the name of the sleected concert-->
     <h2 id="content"><strong>Choose the ticket of your preference</strong></h2>
     <div class="ticket-selection">
-        <h3><strong>{{stadiumName}}</strong></h3> <!-- stadiumName is the name of the key whose value 
-                                                        is the name of the stadium where the event will be held-->
+        <h3><strong>{{concert.place}}</strong></h3> <!-- concert.place is the name of the stadium where the concert will be held.-->
         <img id="stadium" src="./media/stadium.png">
         <h3 id="zone"><strong>Choose the zone</strong></h4>
         <select id="zone-selector">
