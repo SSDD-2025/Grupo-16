@@ -1,0 +1,52 @@
+/*common-styles.css is conceived as a style-unifying document so that every part of the webpage has the same esthetics as far as colour, shape and behaviour is concerned*/
+
+*{ /*General style settings to begin with*/
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title-container{
+    width: 90%;
+    height: auto; /*The height of the container relies on the content*/
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    margin: 3vw auto 2vw auto; /*Horizontally centered but has styled vertical spacing*/
+    background-color: rgb(218, 214, 214);
+    display: flex;
+    align-items: center; /*Center text vertically*/
+    justify-content: left; /*Center text horizontally*/
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title{ /*Title style, conceived to be used inside a title-container*/
+    font-weight: 600;
+    text-align: left;
+    font-size: clamp(1rem, 2vw, 2.5rem); /*Adjust text size dynamically*/
+}
+
+.general-container{ /*Container with general purpose such as: showing artist list or concert list*/
+    width: 90%;
+    height: auto;
+    position: relative;
+    margin: 1vw auto 1vw auto; /*Horizontally centered but has one visual width margin vertically*/
+    padding: 0.3rem 0.3rem 0.3rem 0.3rem; /*Gives spacing*/
+    background-color: rgb(243, 243, 243);
+}
+
+body { /*General settings for the big containers behaviour*/
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+main{ /*Let's the main part grow as far as it can*/
+    flex: 1;
+}
+
+header { /*Ensures that the header does not overlap the main part of the program*/
+    margin-bottom: 9vh;
+}
