@@ -1,0 +1,49 @@
+<!--Concert list that can be injected into a general container to show a search made by the user-->
+<link rel="stylesheet" href="concert-style.css">
+<div class="concert-container"> <!--Big general container ensuring space between different objects and also containing every hidden element-->
+    <div class="main-container"> <!--Container with every non-hidden element-->
+        <div class="concert-photo-container"><!--Image of the concert's poster/promotional photo-->
+            <img src="{{coverImage}}">
+        </div>
+
+        <div class="horizontal-separator"></div>
+
+        <div class="concert-date-container"><!--Date of the concert-->
+            DATE TO BE IMPLEMENTED
+        </div>
+
+        <div class="horizontal-separator"></div>
+
+        <div class="concert-info-container"><!--Information of the concert-->
+            <div class="artist-name">
+                <p>{{artist.name}}</p>
+            </div>
+
+            <div class="concert-info">
+                {{hour}} · {{place}}
+                <br>
+                {{description}}
+            </div>
+        </div>
+
+        <div class="horizontal-separator"></div>
+
+        <div class="buttons-container">
+            <button class="concert-button" onclick="window.location.href='link.to.ticket.sale'">Get
+                Tickets</button>
+            <button class="concert-button" onclick="window.location.href='link.to.artist.page'">Artist
+                Page</button>
+            <label for="more-info-{{-index}}" class="concert-button">More info</label>
+            <!--Button that toogles the checkbox to show the hidden extra information-->
+        </div>
+    </div>
+
+    <!--Chechbox toogled with a label inside the visual part-->
+    <input type="checkbox" id="more-info-{{-index}}" class="more-info-toggle">
+
+    <!--Container with hidden information-->
+    <div class="more-info-container"> <!--Detailed information container-->
+        <p>{{longDescription}}</p> <!--For example, extra artist information (to be decided)-->
+    </div>
+
+</div>
