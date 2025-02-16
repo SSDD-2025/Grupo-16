@@ -239,7 +239,7 @@ __Mustache variables:__
       <td>No</td>
     </tr>
     <tr>
-      <td>desciption</td>
+      <td>description</td>
       <td>Concert brief general description (no more than one line)</td>
       <td>Yes</td>
     </tr>
@@ -267,3 +267,41 @@ __Mustache variables:__
 </table>
 
 __Use:__ To include the concert into an HTML page, it should be injected using `{{>concert}}`, located between a Mustahce `{{#listOfConcerts}}{{/listOfConcerts}}` block, inside the `body` of the file. The styles used for each concert are located at the `concert-style.css`, be sure to link the file correctly.
+
+## Search page
+The search page contained in `search-page.html` is a dynamic piece of code that displays artists and concerts related to a search made by the user in the header's searchbar. If the user is logged, an extra section is shown with concerts related with the user's preferences. 
+
+It makes use of `header`, `footer`, `display-artists` and `concert` injectable pieces of code. Three main sections can be distinguished:
+<ul>
+  <li>Artists: artists whose artist name is related with the search made by the user.</li>
+  <li>Concerts: concerts which name or artist name is related with the search made by the user.</li>
+  <li>Concerts near you (if the user is logged): same as concerts section but ensuring the concert takes place near where the user is registered.</li>
+</ul>
+
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>isLogged</td>
+      <td>The user is or is not logged</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>personalConcertsList</td>
+      <td>Concerts near the user (if logged) list</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>generalConcertsList</td>
+      <td>Concert list matching the search of the user</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+__Use:__ The search page HTML is a base file that need to have injected the files: `header`, `footer`, `display-artists` and `concert` in order to work correctly. The styles used for this page are contained in the general css `common-styles.css`, be sure to link the file correctly.

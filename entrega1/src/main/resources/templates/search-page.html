@@ -1,0 +1,68 @@
+<!--Search page: page where the user arrives when a search is made. There are shown: artists matching the search, concerts matching the search and if the user
+is logged, concerts in his country matching the search and the country-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Searches displayer page</title>
+    <link rel="stylesheet" href="common-styles.css">
+</head>
+
+<body>
+    <header> <!--Header inyection-->
+        {{>header}}
+    </header>
+
+    <main>
+        <!--Search made by artist name: Row of artists-->
+        <div class="title-container"> <!--Title container: ARTISTS-->
+            <div class="title">
+                Artists
+            </div>
+        </div>
+
+        <div class="general-container"> <!--Artist container-->
+            {{>display-artists}}
+        </div>
+
+        {{#isLogged}} <!--If the user is logged, country matching concerts are displayed-->
+        <!--User personal search made filtering the country: Concert lines-->
+        <div class="title-container"> <!--Title container: CONCERTS NEAR YOU-->
+            <div class="title">
+                Concerts near you
+            </div>
+        </div>
+
+        <div class="general-container"> <!--Concerts container-->
+            {{#personalConcertsList}}
+            {{>concert}}
+            {{/personalConcertsList}}
+            {{^personalConcertsList}}
+            <h1>No concerts near you found.</h1>
+            {{/personalConcertsList}}
+        </div>
+
+        {{/isLogged}}
+
+        <!--Search made by artist name: Row of artists-->
+        <div class="title-container"> <!--Title container: CONCERTS (general)-->
+            <div class="title">
+                Concerts
+            </div>
+        </div>
+
+        <div class="general-container"> <!--Concerts container-->
+            {{#generalConcertsList}} <!--If there are concerts matching the search, show a list of them-->
+            {{>concert}}
+            {{/generalConcertsList}}
+            {{^generalConcertsList}} <!--Otherwise, show that there are no concerts found-->
+            <h1>No concerts found.</h1>
+            {{/generalConcertsList}}
+        </div>
+    </main>
+
+    <footer>
+        {{>footer}}
+    </footer>
+</body>
+
+</html>
