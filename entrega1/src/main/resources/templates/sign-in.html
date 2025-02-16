@@ -12,52 +12,52 @@
     </div>
     <!-- Depending on whether the user is registered or not in the database, two html templates will be displayed,
          the login template or the registration template--> 
-    {{#userName}} <!-- Log in template-->
+    {{#user.existUser}} <!-- Log in template-->
         <div id="log-in-section">
-            <h1>Iniciar Sesión</h1>
+            <h1>Sign In</h1>
             <form action="" method="post">
-                <p>Introduzca su nombre de usuario o email</p>
+                <p>Enter your username or email</p>
                 <input type="text" name="userName">
-                <p>Introduzca su contraseña</p>
+                <p>Enter your password</p>
                 <input type="password" name="password">
                 <br>
                 <br>
-                <input type="submit" value="Iniciar Sesión">
+                <input type="submit" value="Log In">
             </form>
         </div>
         <br>
         <div id="register-button">
-            <p>¿Aún no tienes cuenta?</p>
-            <a id="link" href="">Registrarme</a> <!-- Falta colocar el enlace del link de registarme
+            <p>Don´t have an account yet?</p>
+            <a id="link" href="">Sign Up</a> <!-- Falta colocar el enlace del link de registarme
                                                             Para que el controlador se encargue de ello-->
         </div>
-    {{/userName}}
+    {{/user.existUser}}
 
-    {{^userName}} <!-- Register template-->
+    {{^user.existUser}} <!-- Register template-->
     <div class="register-section">
-        <h1>Registarse</h1>
+        <h1>Sign Up</h1>
         <form action="" method="post"> <!-- Falta la ruta para el controlador-->
-            <p>Introduzca su correo electrónico</p>
+            <p>Enter your email</p>
             <input type="email" name="email">
-            <p>Introduzca su nombre de usuario</p>
+            <p>ENter your username</p>
             <input type="text" name="userName">
-            <p>Introduzca su contraseña</p>
+            <p>Enter your password</p>
             <input type="password" name="password">
-            <p>Seleccione su país</p>
+            <p>Choose your country</p>
             <select id="country-selector"> <!-- For the first version there will be continents name, 
                                                 later on the dseign, they will be replaced by countries-->
                 <option value="country1">America</option>
-                <option value="country2">Europa</option>
+                <option value="country2">Europe</option>
                 <option value="country3">Asia</option>
-                <option value="country4">Oceanía</option>
+                <option value="country4">Oceania</option>
                 <option value="country5">Africa</option>
                 <select disabled="disabled"></select>
             </select>
             <br>
             <br>
-            <input type="submit" value="Registrarme">
+            <input type="submit" value="Sign Up">
         </form>
     </div>
-    {{/userName}}
+    {{/user.existUser}}
 </body>
 </html>

@@ -5,39 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Selling</title>
     <link rel="stylesheet" href="main-style.css">
-    <link rel="stylesheet" href="ticket-seeling-style.css">
+    <link rel="stylesheet" href="ticket-selling-style.css">
 </head>
 <body class="title-container">
     <div class="container">
-        <h1 id="title">Venta de Entradas</h1>
+        <h1 id="title">Ticket Selling</h1>
         <!-- When the user click on his picture, it will open the html file corresponding to the user´s information-->
         <a href=""> <!-- PENDING CODE: Here will be the name of the html file corresponding to the profile-->
-            {{#hasProfilePicture}}
+            {{#user.hasProfilePicture}}
                 <!-- PENDING CODE: The profile picture will be loaded from the database.-->
-            {{/hasProfilePicture}}
-            {{^hasProfilePicture}} <!-- The user does not have a profile picture, so it will shown this default picture-->
+            {{/user.hasProfilePicture}}
+            {{^user.hasProfilePicture}} <!-- The user does not have a profile picture, so it will shown this default picture-->
                 <img id="image" src="./media/profile.png">
-            {{/hasProfilePicture}}
+            {{/user.hasProfilePicture}}
         </a>
     </div>
     <h2 id="concert-title"><strong>{{concertName}}</strong></h2> <!-- concertName is the name of the key whose value 
                                                                     is the name of the concert the user has chosen-->
-    <h2 id="content"><strong>Seleccione la entrada de su preferencia</strong></h2>
+    <h2 id="content"><strong>Choose the ticket of your preference</strong></h2>
     <div class="ticket-selection">
         <h3><strong>{{stadiumName}}</strong></h3> <!-- stadiumName is the name of the key whose value 
                                                         is the name of the stadium where the event will be held-->
         <img id="stadium" src="./media/stadium.png">
-        <h3 id="zone"><strong>Selecciona la zona</strong></h4>
+        <h3 id="zone"><strong>Choose the zone</strong></h4>
         <select id="zone-selector">
-            <option value="North">Fondo Norte</option>
-            <option value="East">Lateral Este</option>
-            <option value="West">Lateral Oeste</option>
-            <option value="Floor">Pista</option>
+            <option value="North">North Side</option>
+            <option value="East">East Side</option>
+            <option value="West">West Side</option>
+            <option value="Floor">Floor</option>
             <select disabled="disabled"></select>
         </select>
     </div>
     <form action="" method="post"> <!-- It will be needed to specify the action of the button-->
-        <input id="continue-button" type="submit" value="Continuar">
+        <input id="continue-button" type="submit" value="Continue">
     </form>
 </body>
 </html>
