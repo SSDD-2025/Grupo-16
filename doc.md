@@ -177,10 +177,15 @@ At the design level, both alternatives were designed on the same page, however, 
   <li>The corresponding button will follow the <strong> <em> TBD </em> </strong> action.</li>
 </ul>
 
-This file can be found with the name `sign-in.html` and the styles that were used in the `style-sign-in.css` file.
+### Mustache Variable
+The only mustache variable used in this file was `user.existUser`. This is a boolean variable belonging to the `User` class, which indicates whether the user already exists in the database (has an account) or not, and depending on this, it will show one layout or another.
+
+This file can be found with the name `sign-in.html` and the styles that were used in the `sign-in-style.css` file.
 
 ## Purchase Confirmation
 This page will only display a message telling the user that the ticket purchase was succesfull. Furthermore, this will help the web application to follow the principles of accessibility, more specifically, robustness, showing a feedback to the user that everything went correctly.
+
+This file can be found with the name `purchase-confirmation.html` and the styles that were used in the `purchase-confirmation-style.css` file.
 
 ## Header (Injectable)
 The header in file `header.html` will be present almost everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
@@ -305,3 +310,37 @@ __Mustache variables:__
 </table>
 
 __Use:__ The search page HTML is a base file that need to have injected the files: `header`, `footer`, `display-artists` and `concert` in order to work correctly. The styles used for this page are contained in the general css `common-styles.css`, be sure to link the file correctly.
+
+## Ticket Selling
+The main purpose of this page is to manage the sellection of the ticket that the user wants to purchase. This page will give the user the possibility to access its profile in any instance of the process by clicking his profile picture, located in the upper right corner of the page. In its body, will show the name of the selected concert, an image of the plan of the stadium where said event will take place, where all its sections will be well specified, and next to this, a dropdown menu to select the user´s preferred section.
+
+Great part of this information is managed through mustache variables, which are the following ones:
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>user.hasProfilePicture</td>
+      <td>Indicates if the user has a profile picture</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>concertName</td>
+      <td>Is the name of the selected concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>stadiumName</td>
+      <td>Is the name of the stadium where the concert will be held</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+### Profile Photo Management
+In the `profile.html` file, it gives the user the option to upload the photo he wants as a profile picture. This photo will be saved in the database along with all the information related to a specific user, and this is the reason for the `user.hasProfilePicture`variable usage, if there is an image loaded in the database (`user.hasProfilePicture = true`) said image will be displayed, otherwise, a default image will be displayed.
+
+This file can be found with the name `ticket-selling.html` and the styles that were used in the `ticket-selling-style.css` file.
