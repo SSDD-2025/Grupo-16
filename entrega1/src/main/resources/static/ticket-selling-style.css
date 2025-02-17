@@ -74,9 +74,15 @@
     cursor: pointer;
 }
 
+.ticket-selection input {
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 13%;
+}
+
 #continue-button {
     position: absolute;
-    margin-top: -15%;
+    margin-top: -10%;
     margin-left: 57%;
     height: 100px;
     width: 200px;

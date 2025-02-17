@@ -17,9 +17,9 @@
             <h1>Sign In</h1>
             <form action="" method="post">
                 <p>Enter your username or email</p>
-                <input type="text" name="userName">
+                <input type="text" name="userName" placeholder="User Name">
                 <p>Enter your password</p>
-                <input type="password" name="password">
+                <input type="password" name="password" placeholder="Password">
                 <br>
                 <br>
                 <input type="submit" value="Log In">
@@ -29,7 +29,7 @@
         <div id="register-button">
             <p>Don´t have an account yet?</p>
             <a id="link" href="">Sign Up</a> <!-- Falta colocar el enlace del link de registarme
-                                                            Para que el controlador se encargue de ello-->
+                                            Para que el controlador se encargue de ello-->
         </div>
     {{/user.existUser}}
 
@@ -38,14 +38,14 @@
         <h1>Sign Up</h1>
         <form action="" method="post"> <!-- Falta la ruta para el controlador-->
             <p>Enter your email</p>
-            <input type="email" name="email">
-            <p>ENter your username</p>
-            <input type="text" name="userName">
+            <input type="email" name="email" placeholder="Email">
+            <p>Enter your username</p>
+            <input type="text" name="userName" placeholder="User Name">
             <p>Enter your password</p>
-            <input type="password" name="password">
+            <input type="password" name="password" placeholder="Password">
             <p>Choose your country</p>
             <select id="country-selector"> <!-- For the first version there will be continents name, 
-                                                later on the dseign, they will be replaced by countries-->
+                                                later on the design, they will be replaced by countries-->
                 <option value="country1">America</option>
                 <option value="country2">Europe</option>
                 <option value="country3">Asia</option>
