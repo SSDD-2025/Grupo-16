@@ -1,0 +1,111 @@
+<!--Profile page where personal and intransferible settings and objects can be found: my artist, 
+my profile and my concerts (where tickets are)-->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Panel</title>
+    <link rel="stylesheet" href="common-styles.css">
+    <link rel="stylesheet" href="personal-pages-style.css">
+</head>
+
+<body>
+    <header> <!--Header injection-->
+        {{>header}}
+    </header>
+
+    <main>
+        <!--Personal panel piece of code-->
+        <link rel="stylesheet" href="personal-panel-style.css">
+        <div class="side-container"> <!--It is thought to be a left sided personal pannel, but could be relocated-->
+            <div class="personal-image-container">
+                <img src="link.to.my.profile.image">
+            </div>
+            <h2>Personal Panel</h2>
+            <ul>
+                <li><a href="link.to.my.artists">My Artists</a></li> <!--Followed artists-->
+                <li><a href="link.to.my.concerts">My Concerts</a></li> <!--User's tickets-->
+                <li><a href="link.to.my.profile">My Profile</a></li> <!--User's personal information-->
+            </ul>
+        </div>
+
+        <!--Projector piece of code-->
+        {{#showPersonalInfo}} <!--If the "My Profile" link is clicked-->
+        <div class="display-container"> <!--Personal Information Section container-->
+            <div class="title-container"> <!--Section title with style-->
+                <div class="title">
+                    Personal information
+                </div>
+            </div>
+
+            <div class="general-container">
+                <div class="attribute-container"> <!--Username-->
+                    <label for="username">Username</label>
+                    <input type="text" value="{{username}}" id="username" readonly>
+                </div>
+
+                <div class="attribute-container"> <!--Email-->
+                    <label for="email">E-mail</label>
+                    <input type="text" value="{{email}}" id="email" readonly>
+                </div>
+
+                <!--More Personal information categories to be added-->
+            </div>
+
+            <div class="title-container">
+                <div class="title">
+                    Visual information
+                </div>
+            </div>
+
+            <div class="general-container"> <!--Place where the user can update its profile photo-->
+                <div class="attribute-container">
+                    <label for="user-photo">Personal photo</label>
+                    <input type="file" value="link.to.my.profile.image" id="user.photo">
+                </div>
+
+                <!--More Personal information categories to be added-->
+            </div>
+
+            <!--More categories of information to be added-->
+        </div>
+        {{/showPersonalInfo}}
+
+        {{#showMyArtists}} <!--If the "My Artists" link is clicked-->
+        <div class="display-container"> <!--Followed artists Section container-->
+            <div class="title-container"> <!--Section title with style-->
+                <div class="title">
+                    Followed Artists
+                </div>
+            </div>
+
+            <div class="general-container">
+                {{>display-artists}} <!--Display followed artists-->
+            </div>
+
+            <!--More categories of information about artists to be added-->
+        </div>
+        {{/showMyArtists}}
+
+        {{#showMyConcerts}} <!--If the "My Concerts" link is clicked-->
+        <div class="display-container"> <!--Tickets Section container-->
+            <div class="title-container"> <!--Section title with style-->
+                <div class="title">
+                    My Concerts
+                </div>
+            </div>
+
+            <div class="general-container">
+                {{>display-tickets}} <!--Display bought tickets-->
+            </div>
+        </div>
+        {{/showMyConcerts}}
+
+    </main>
+
+    <footer> <!--Inject the footer-->
+        {{>../static/footer}}
+    </footer>
+</body>
+
+</html>

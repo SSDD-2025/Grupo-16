@@ -1,0 +1,17 @@
+<!--Ticket List injectable HTML-->
+{{#ticketList}} <!--If there are tickets in the list, they is displayed-->
+<div class="ticket-container">
+    <div class="photo-container"> <!--Image of the concert-->
+        <img src="link.to.concert.image">
+    </div>
+    <div class="concert-title"> <!--Concert name-->
+        <p>{{concert.name}}<p>
+    </div>
+    <div class="ticket-info"> <!--Specific ticket information such as zone or place-->
+        {{info}}
+    </div>
+</div>
+{{/ticketList}}
+{{^ticketList}} <!--If there are no tickets, the following message is shown-->
+    <p>There are no tickets to show</p>
+{{/ticketList}}

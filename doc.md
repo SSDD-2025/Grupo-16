@@ -200,7 +200,7 @@ Right zone: user based zone, that grants accessibility to the user.
   <li>If the user is logged, displays a button with it's profile photo and a dropdown menu with direct access to: My profile, My concerts and My artists.</li>
 </ul>
 
-__Mustache variables:__ `is-logged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
+__Mustache variables:__ `isLogged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
 
 __Use:__ To include the header into an HTML page, it should be injected using `{{>header}}` between a `<header></header>` block, located inside the `body` of the file. The styles used for the header are located at the `header-style.css`, be sure to link the file correctly.
 
@@ -309,6 +309,8 @@ __Mustache variables:__
   </tbody>
 </table>
 
+Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
+
 __Use:__ The search page HTML is a base file that need to have injected the files: `header`, `footer`, `display-artists` and `concert` in order to work correctly. The styles used for this page are contained in the general css `common-styles.css`, be sure to link the file correctly.
 
 ## Ticket Selling
@@ -358,3 +360,83 @@ All the styles of this page are specified in the `purchase-style.css` document.
 
 ## Footer (Injectable)
 The footer.html is a static injectable document that consists of a black div containing the name, phone number and email of the company that runs the webpage. It is shown at all the main pages as the footer of the page. For that, it should be injected at this main pages inside the block &lt;footer&gt; and its style is included at the `common-style.css`.
+
+## Display Tickets (Injectable)
+The ticket displayer contained in `display-tickets.html` is an injectable piece of code that, provided with a Ticket list, displays information about every ticket in a visual way so that the user can take a quick view to all of its tickets. It is thought to be injected inside any container, but it is recommended to inject it inside a `general-container` class container.
+
+Each ticket entry is structured in three parts:
+<ul>
+  <li>Concert image: promotional or brand photo used for the concert.</li>
+  <li>Concert name: title of the concert.</li>
+  <li>Specific information: zone of the ticket, hour and place where the concert takes place.</li>
+</ul>
+
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ticketList</td>
+      <td>List containing the tickets to be displayed</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>concert.name</td>
+      <td>Name of the concert assigned to the ticket</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>info</td>
+      <td>Ticket specific info (to be fully implemented)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+__Use:__ The `display-tickets.html` injectable file makes is thought to be used inside a personal user page. The styles used are contained in `personal-pages-style.css`, be sure to link the file correctly.
+
+## Profile page
+The search page contained in `my-profile.html` is a dynamic piece of code that allows the user to change and search its settings, navigate through its favourite artists and check its bought tickets information. For that, the space is divided in two parts: personal panel and projector zones.
+
+The personal panel is a simple an accesible place where the user's photo is shown, as well as a panel of buttons with links to navigate along its favourite artists, search for its tickets and know/modify its information saved at the database. In upcoming updates, this is the place where administrator buttons or settings should be located.
+
+The projector zone is the place where all the previously mentiones content will be displayed. It almost has the screen size and depending on the values that the locking-variables receive, will show or hide information. The type of information depends on the specific settings screen where the user is. To summarize:
+<ul>
+  <li>My Artists: A big title and artist list is displayed in the projector zone.</li>
+  <li>My Concerts: A big title and artist list is displayed in the projector zone.</li>
+  <li>My Profile: Username, email and access to profile photo updating services is displayed.</li>
+</ul>
+
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showPersonalInfo</td>
+      <td>When true, the display thought for "My Profile" is shown</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>showMyArtists</td>
+      <td>When true, the display thought for "My Artists" is shown</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>showMyConcerts</td>
+      <td>When true, the display thought for "My Concerts" is shown</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
+
+__Use:__ The search page HTML is a base file that needs to have injected the: `header`, `footer`, `display-tickets` and `display-artists` in order to work correctly. Only one of the three content-locker variables should be true at the same time, otherwise, unexpected content might be shown. The styles used for this page are contained in `personal-panel-style.css` and `personal-pages-style.css`, be sure to link the file correctly.
