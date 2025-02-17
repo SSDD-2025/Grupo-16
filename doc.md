@@ -309,6 +309,8 @@ __Mustache variables:__
   </tbody>
 </table>
 
+Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
+
 __Use:__ The search page HTML is a base file that need to have injected the files: `header`, `footer`, `display-artists` and `concert` in order to work correctly. The styles used for this page are contained in the general css `common-styles.css`, be sure to link the file correctly.
 
 ## Ticket Selling
@@ -396,3 +398,45 @@ __Mustache variables:__
 </table>
 
 __Use:__ The `display-tickets.html` injectable file makes is thought to be used inside a personal user page. The styles used are contained in `personal-pages-style.css`, be sure to link the file correctly.
+
+## Profile page
+The search page contained in `my-profile.html` is a dynamic piece of code that allows the user to change and search its settings, navigate through its favourite artists and check its bought tickets information. For that, the space is divided in two parts: personal panel and projector zones.
+
+The personal panel is a simple an accesible place where the user's photo is shown, as well as a panel of buttons with links to navigate along its favourite artists, search for its tickets and know/modify its information saved at the database. In upcoming updates, this is the place where administrator buttons or settings should be located.
+
+The projector zone is the place where all the previously mentiones content will be displayed. It almost has the screen size and depending on the values that the locking-variables receive, will show or hide information. The type of information depends on the specific settings screen where the user is. To summarize:
+<ul>
+  <li>My Artists: A big title and artist list is displayed in the projector zone.</li>
+  <li>My Concerts: A big title and artist list is displayed in the projector zone.</li>
+  <li>My Profile: Username, email and access to profile photo updating services is displayed.</li>
+</ul>
+
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showPersonalInfo</td>
+      <td>When true, the display thought for "My Profile" is shown</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>showMyArtists</td>
+      <td>When true, the display thought for "My Artists" is shown</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>showMyConcerts</td>
+      <td>When true, the display thought for "My Concerts" is shown</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
+
+__Use:__ The search page HTML is a base file that needs to have injected the: `header`, `footer`, `display-tickets` and `display-artists` in order to work correctly. Only one of the three content-locker variables should be true at the same time, otherwise, unexpected content might be shown. The styles used for this page are contained in `personal-panel-style.css` and `personal-pages-style.css`, be sure to link the file correctly.
