@@ -14,7 +14,7 @@
         </form>
     </div>
     <div class="right-container"> <!--Header container Divisor: Profile/Login zone -->
-        {{#is-logged}} <!--When the user is logged, the profile photo and configurations are shown-->
+        {{#isLogged}} <!--When the user is logged, the profile photo and configurations are shown-->
         <div class="profile-container">
             <div class="menu-container">
                 <div class="dropdown-button-container">
@@ -29,8 +29,8 @@
                 </div>
             </div>
         </div>
-        {{/is-logged}}
-        {{^is-logged}} <!--When the user is not logged, the login/register buttons are shown-->
+        {{/isLogged}}
+        {{^isLogged}} <!--When the user is not logged, the login/register buttons are shown-->
         <div class="log-reg-container">
             <div class="log-container">
                 <button class="login" onclick="window.location.href='link.to.login.page'">Login</button>
@@ -39,6 +39,6 @@
                 <button class="register" onclick="window.location.href='link.to.register.page'">Register</button>
             </div>
         </div>
-        {{/is-logged}}
+        {{/isLogged}}
     </div>
 </div>

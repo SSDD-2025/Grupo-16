@@ -200,7 +200,7 @@ Right zone: user based zone, that grants accessibility to the user.
   <li>If the user is logged, displays a button with it's profile photo and a dropdown menu with direct access to: My profile, My concerts and My artists.</li>
 </ul>
 
-__Mustache variables:__ `is-logged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
+__Mustache variables:__ `isLogged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
 
 __Use:__ To include the header into an HTML page, it should be injected using `{{>header}}` between a `<header></header>` block, located inside the `body` of the file. The styles used for the header are located at the `header-style.css`, be sure to link the file correctly.
 
