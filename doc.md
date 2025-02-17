@@ -358,3 +358,41 @@ All the styles of this page are specified in the `purchase-style.css` document.
 
 ## Footer (Injectable)
 The footer.html is a static injectable document that consists of a black div containing the name, phone number and email of the company that runs the webpage. It is shown at all the main pages as the footer of the page. For that, it should be injected at this main pages inside the block &lt;footer&gt; and its style is included at the `common-style.css`.
+
+## Display Tickets (Injectable)
+The ticket displayer contained in `display-tickets.html` is an injectable piece of code that, provided with a Ticket list, displays information about every ticket in a visual way so that the user can take a quick view to all of its tickets. It is thought to be injected inside any container, but it is recommended to inject it inside a `general-container` class container.
+
+Each ticket entry is structured in three parts:
+<ul>
+  <li>Concert image: promotional or brand photo used for the concert.</li>
+  <li>Concert name: title of the concert.</li>
+  <li>Specific information: zone of the ticket, hour and place where the concert takes place.</li>
+</ul>
+
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ticketList</td>
+      <td>List containing the tickets to be displayed</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>concert.name</td>
+      <td>Name of the concert assigned to the ticket</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>info</td>
+      <td>Ticket specific info (to be fully implemented)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+__Use:__ The `display-tickets.html` injectable file makes is thought to be used inside a personal user page. The styles used are contained in `personal-pages-style.css`, be sure to link the file correctly.

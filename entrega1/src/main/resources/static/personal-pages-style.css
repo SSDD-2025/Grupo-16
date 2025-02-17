@@ -1,0 +1,69 @@
+.display-container{ /*Stablishes the proportions and place of the information container*/
+    width: 80em;
+    float: right;
+}
+
+main { /*Lets the items be displayed in a row*/
+    display: flex;
+    flex-direction: row;
+}
+
+.attribute-container{ /*Container for each atribute of an user, like email or username*/
+    width: 70%; /*Width inside the general-purpose container*/
+    height: auto;
+    display: flex;
+    margin: 2vh auto 2vh auto; /*Horizontal centered, vertical spaced*/
+    padding: 0.3rem;
+    background-color: rgb(221, 221, 221);
+    border-radius: 5px; 
+}
+
+.attribute-container label{ /*Style of the atribute label, placed at the left*/
+    height: 100%;
+    width: auto;
+    left: 0%;
+    margin: auto auto auto 1vw;
+}
+
+.attribute-container input{ /*Style of the atribute input*/
+    height: 100%;
+    right: 0%; /*Placed at the right side*/
+    width: 50%;
+    margin: auto 1vw auto auto;
+    border: none;
+    font-size: 85%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    border-radius: 5px;
+}
+
+.ticket-container{ /*Stablish margins and padding to show asthetically the ticket information*/
+    display: inline-block;
+    margin: 5vh 2% 5vh 2%;
+    width: 20%;
+    aspect-ratio: 2/3;
+    background-color: grey;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 5%;
+    border-collapse: collapse;
+    padding: 0.3em;
+}
+
+.photo-container{ /*Stablishes a square of full width as the place of the photo*/
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: rgb(53, 174, 255);
+}
+
+.photo-container img{ /*Mantains photo format, but addapts it to the size of its container*/
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.concert-title{ /*Emphatizes the concert title*/
+    font-size: 100%;
+    font-weight: 600;
+}
+
