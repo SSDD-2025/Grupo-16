@@ -440,3 +440,109 @@ __Mustache variables:__
 Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
 
 __Use:__ The search page HTML is a base file that needs to have injected the: `header`, `footer`, `display-tickets` and `display-artists` in order to work correctly. Only one of the three content-locker variables should be true at the same time, otherwise, unexpected content might be shown. The styles used for this page are contained in `personal-panel-style.css` and `personal-pages-style.css`, be sure to link the file correctly.
+
+
+
+## Classes (Entities) documentation.
+
+As the following classes are thought to be `@Entity` using JPA, they are followed by their correspondent `JpaRepository` so that query methods are collected in the present document.
+
+### Concert
+The Concert class defines contains all the data characteristics expected for an singing event. There can be only one artist giving the concert, that means that the artist attribute is tagged with a `@ManyToOne` related with the artist.
+
+Also, it contains attributes to measure the quantity of tickets available if the different zones stablished, as well as specific information like date and place.
+
+The concert class has three constructors:
+<ul>
+  <li>Empty one: used internally by JPA.</li>
+  <li>Every attribute but image: used to create an image-less concert.</li>
+  <li>Every attribute: used to create a complete concert.</li>
+</ul>
+Every attribute specified below is accompained with its getter and setter methods.
+
+__Attributes:__
+<table>
+  <thead>
+    <th>Attribute</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>long</td>
+      <td>Automatically generated ID when a Concert is created</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>artist</td>
+      <td>Artist</td>
+      <td>Artist who gives the concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>Name that the concert cas, may be the same as the tour one</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>info</td>
+      <td>String</td>
+      <td>Brief description of the concert, including specific information of the artist and place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>date</td>
+      <td>Date</td>
+      <td>Specific date (day and hour) when the concert occurs</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>place</td>
+      <td>String</td>
+      <td>Name of the place where the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>price</td>
+      <td>long</td>
+      <td>General price of every ticket</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>westStandsNumber</td>
+      <td>int</td>
+      <td>Number of West Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>eastStandsNumber</td>
+      <td>int</td>
+      <td>Number of East Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>southStandsNumber</td>
+      <td>int</td>
+      <td>Number of South Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>generalAdmissionNumber</td>
+      <td>int</td>
+      <td>Number of General Admission tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>image</td>
+      <td>Blob</td>
+      <td>Image of the concert's poster</td>
+      <td>Yes</td>
+    </tr>
+
+  </tbody>
+</table>
+
+__Note:__ No comprovals are made over the attributes asigned, the Service should check whether the attributes are null or not, as well as assign default values (if it corresponds).
