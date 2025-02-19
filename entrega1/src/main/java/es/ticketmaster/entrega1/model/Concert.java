@@ -1,7 +1,7 @@
 package es.ticketmaster.entrega1.model;
 
 import java.sql.Blob;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ public class Concert {
 
     private String info; //Brief description of the concert, including specific information of the artist and place
 
-    private Date date; //Specific date (day and hour) when the concert occurs
+    private LocalDateTime date; //Specific date (day and hour) when the concert occurs
 
     private String place; //Name of the place where the concert takes place
 
@@ -66,7 +66,7 @@ public class Concert {
      * @param southStandsNumber Remaining South Stands tickets available to buy
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      */
-    public Concert(Artist artist, String name, Date date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
+    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
         super();
         this.artist = artist;
         this.name = name;
@@ -95,7 +95,7 @@ public class Concert {
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      * @param image Promotional poster of the concert
      */
-    public Concert(Artist artist, String name, Date date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
+    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
         this(artist, name, date, place, info, price, westStandsNumber, eastStandsNumber, southStandsNumber, generalAdmissionNumber);
         this.image = image;
     }
@@ -138,7 +138,7 @@ public class Concert {
      * Getter for the date attribute
      * @return Date when the concerts takes place
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -218,7 +218,7 @@ public class Concert {
      * Setter for the date attribute
      * @param date Date and hour when the concert takes time
      */
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

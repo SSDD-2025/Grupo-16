@@ -495,7 +495,7 @@ __Attributes:__
     </tr>
     <tr>
       <td>date</td>
-      <td>Date</td>
+      <td>LocalDateTime</td>
       <td>Specific date (day and hour) when the concert occurs</td>
       <td>No</td>
     </tr>
