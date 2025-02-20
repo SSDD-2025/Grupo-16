@@ -1,6 +1,8 @@
 package es.ticketmaster.entrega1.model;
 
 import java.sql.Blob;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @SessionScope
