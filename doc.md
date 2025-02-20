@@ -229,13 +229,18 @@ __Mustache variables:__
       <td>No</td>
     </tr>
     <tr>
-      <td>coverImage</td>
-      <td>Concert main image or promotional cover</td>
+      <td>link.to.image</td>
+      <td>Concert main image or promotional cover (TO BE IMPLEMENTED)</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>hour</td>
-      <td>Hour when the concert takes place</td>
+      <td>date</td>
+      <td>Exact date when the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>formattedTime</td>
+      <td>Hour (with format) when the concert will start</td>
       <td>No</td>
     </tr>
     <tr>
@@ -244,29 +249,36 @@ __Mustache variables:__
       <td>No</td>
     </tr>
     <tr>
-      <td>description</td>
-      <td>Concert brief general description (no more than one line)</td>
+      <td>info</td>
+      <td>Concert brief general description</td>
       <td>Yes</td>
-    </tr>
-    <tr>
-      <td>longDescription</td>
-      <td>Concert detailed description</td>
-      <td>No</td>
     </tr>
     <tr>
       <td>-index</td>
       <td>Used to implement the More Info button</td>
       <td>No</td>
     </tr>
+  </tbody>
+</table>
+
+__Buttons Available:__ For each concert, there are displayed three different buttons, with different functionalities.
+<table>
+  <thead>
+    <th>Button</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
     <tr>
-      <td>link.to.ticket.sale</td>
-      <td>To be implemented shortly</td>
-      <td>-</td>
+      <td>Get Tickets</td>
+      <td>Visit the Ticket purchase page of the specific concert</td>
     </tr>
     <tr>
-      <td>link.to.artist.page</td>
-      <td>To be implemented shortly</td>
-      <td>-</td>
+      <td>Artist Page</td>
+      <td>Visit the Artist's information page</td>
+    </tr>
+    <tr>
+      <td>More Info</td>
+      <td>Display a div container under the concert display, containing additional information about the concert</td>
     </tr>
   </tbody>
 </table>
@@ -440,3 +452,135 @@ __Mustache variables:__
 Bear in mind the fact that the pieces of code injected might have other variables, check it in its specific documentation place.
 
 __Use:__ The search page HTML is a base file that needs to have injected the: `header`, `footer`, `display-tickets` and `display-artists` in order to work correctly. Only one of the three content-locker variables should be true at the same time, otherwise, unexpected content might be shown. The styles used for this page are contained in `personal-panel-style.css` and `personal-pages-style.css`, be sure to link the file correctly.
+
+
+
+## Classes (Entities) documentation.
+
+As the following classes are thought to be `@Entity` using JPA, they are followed by their correspondent `JpaRepository` so that query methods are collected in the present document.
+
+### Concert
+The Concert class defines contains all the data characteristics expected for an singing event. There can be only one artist giving the concert, that means that the artist attribute is tagged with a `@ManyToOne` related with the artist.
+
+Also, it contains attributes to measure the quantity of tickets available if the different zones stablished, as well as specific information like date and place.
+
+The concert class has three constructors:
+<ul>
+  <li>Empty one: used internally by JPA.</li>
+  <li>Every attribute but image: used to create an image-less concert.</li>
+  <li>Every attribute: used to create a complete concert.</li>
+</ul>
+Every attribute specified below is accompained with its getter and setter methods.
+
+__Attributes:__
+<table>
+  <thead>
+    <th>Attribute</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>long</td>
+      <td>Automatically generated ID when a Concert is created</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>artist</td>
+      <td>Artist</td>
+      <td>Artist who gives the concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>Name that the concert cas, may be the same as the tour one</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>info</td>
+      <td>String</td>
+      <td>Brief description of the concert, including specific information of the artist and place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>date</td>
+      <td>LocalDateTime</td>
+      <td>Specific date (day and hour) when the concert occurs</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>place</td>
+      <td>String</td>
+      <td>Name of the place where the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>price</td>
+      <td>long</td>
+      <td>General price of every ticket</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>westStandsNumber</td>
+      <td>int</td>
+      <td>Number of West Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>eastStandsNumber</td>
+      <td>int</td>
+      <td>Number of East Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>southStandsNumber</td>
+      <td>int</td>
+      <td>Number of South Stands tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>generalAdmissionNumber</td>
+      <td>int</td>
+      <td>Number of General Admission tickets available</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>image</td>
+      <td>Blob</td>
+      <td>Image of the concert's poster</td>
+      <td>Yes</td>
+    </tr>
+
+  </tbody>
+</table>
+
+__Note:__ No comprovals are made over the attributes asigned, the Service should check whether the attributes are null or not, as well as assign default values (if it corresponds).
+
+## Services documentation.
+
+The following classes are `@Service` which main function is to provide service to the `@Controller` for querys and specific specific logic.
+
+### ConcertService
+The ConcertService `@Service` contains all the methods that could be used by the different `@Controller`s in order to make database querys and access in a simple an modularizated way to the concert specific data.
+
+The following, are the methods available in this `@Service`:
+
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getSearchBy</td>
+      <td>List of Concert</td>
+      <td>Searches a concert which name or artist name contains the parameter</td>
+      <td>String search</td>
+    </tr>
+  </tbody>
+</table>
