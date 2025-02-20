@@ -1,4 +1,4 @@
-package es.ticketmaster.entrega1.controllers;
+package es.ticketmaster.entrega1.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
