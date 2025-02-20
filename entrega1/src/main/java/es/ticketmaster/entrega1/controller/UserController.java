@@ -40,7 +40,7 @@ public class UserController {
     @return the sign-in-validation template (if everything goes well), 
     in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/sign-in/validation")
+    @PostMapping("/TBD") /* This URL will be specified soon */
     public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
         UserEntity receivedUser = this.userService.verifyUser(userName);
         /* Verify if the user exist on the database and his password matches */
@@ -62,7 +62,7 @@ public class UserController {
     @return the sign-in-validation template (if everything goes well), 
     in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/sign-up/validation")
+    @PostMapping("/TBD") /* This URL will be specified soon */
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
         if ((password.isBlank()) || (country.isBlank()) || (email.isBlank())) {
             model.addAttribute("missingInformation", true);

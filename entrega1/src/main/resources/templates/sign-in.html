@@ -15,7 +15,7 @@
     {{#existUser}} <!-- Log in template-->
         <div class="log-in-section">
             <h1>Sign In</h1>
-            <form action="/sign-in/validation" method="post">
+            <form action="/TBD" method="post"> <!-- This URL will be specified soon -->
                 <p>Enter your username</p>
                 <input type="text" name="userName" placeholder="User Name">
                 <p>Enter your password</p>
@@ -41,7 +41,7 @@
     {{^existUser}} <!-- Register template-->
         <div class="register-section">
             <h1>Sign Up</h1>
-            <form action="/sign-up/validation" method="post"> <!-- Falta la ruta para el controlador-->
+            <form action="/TBD" method="post"> <!-- This URL will be specified soon -->
                 <p>Enter your email</p>
                 <input type="email" name="email" placeholder="Email">
                 <p>Enter your username</p>
@@ -70,7 +70,7 @@
         {{/missingInformation}}
         {{#newUser}}
             <div class="new-user-error-container">
-                <p><strong>The user does not exist</strong></p>
+                <p><strong>The user already exist</strong></p>
                 <a href="/sign-in">You can try to log in here.</a>
             </div>
         {{/newUser}}

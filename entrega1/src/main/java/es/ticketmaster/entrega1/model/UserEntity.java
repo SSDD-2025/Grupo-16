@@ -100,6 +100,14 @@ public class UserEntity {
         this.country = newCountry;
     }
 
+    public void setArtistList(List<Artist> list) {
+        this.artistsList = list;
+    }
+
+    public void setTicketList(List<Artist> list) {
+        this.ticketList = list;
+    }
+
     public void setProfilePicture(Blob newPic) {
         this.profilePicture = newPic;
     }
