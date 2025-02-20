@@ -9,6 +9,7 @@
 
 .concert-container{ /*Ensures that each concert is centered within the container horizontally and leaves some space vertically*/
     margin: 2vw auto 2vw auto;
+    transition: transform 0.3s ease-in-out;
 }
 
 .main-container{ /*Container with visible elements*/
@@ -22,7 +23,11 @@
     align-items: center;
     padding: 0.5vh 1vw 0.5vh 1vw; /*So that interior elements leave space with the border*/
     min-height: 10vw;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.concert-container:hover{
+    transform: scale(1.01);
 }
 
 .concert-photo-container{ /*Stablishes the square where the photo should be*/
@@ -44,6 +49,7 @@
     font-weight: 700;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 .concert-info-container{ /*General information container*/
@@ -94,10 +100,12 @@
     color: white;
     font-size: 100%; /*Font occupies all space available*/
     cursor: pointer; /*Shows pointer cursor to tell the user the button can be used*/
+    transition: transform 0.3s ease-in-out;
 }
 
 .concert-button:hover { /*Button funcionality so that when the mouse passes, the colour changes*/
     background-color: rgb(68, 173, 249);
+    transform: scale(1.01);
 }
 
 .horizontal-separator{ /*Sthetic brand separator*/
@@ -124,4 +132,32 @@
 /*When the checkbox toogled by the label more-info-toogle is checked, extra information is shown*/
 .more-info-toggle:checked ~ .more-info-container {
     display: block;
+}
+
+/*DATE IMPLEMENTATION*/
+.date-day-container{
+    width: 70%;
+    height: 45%;
+    margin: 0 auto 0 auto;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-day-container p{
+    font-size: clamp(9px, 200%, 40px);
+    margin: auto;
+    color: blue;
+}
+
+.date-month-container p{
+    font-size: clamp(9px, 100%, 40px);
+    margin: auto;
+    color: blue;
+}
+
+.date-year-container p{
+    font-size: clamp(9px, 100%, 40px);
+    margin: auto;
+    color: blue;
 }

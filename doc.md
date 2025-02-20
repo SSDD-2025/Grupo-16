@@ -229,13 +229,18 @@ __Mustache variables:__
       <td>No</td>
     </tr>
     <tr>
-      <td>coverImage</td>
-      <td>Concert main image or promotional cover</td>
+      <td>link.to.image</td>
+      <td>Concert main image or promotional cover (TO BE IMPLEMENTED)</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>hour</td>
-      <td>Hour when the concert takes place</td>
+      <td>date</td>
+      <td>Exact date when the concert takes place</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>formattedTime</td>
+      <td>Hour (with format) when the concert will start</td>
       <td>No</td>
     </tr>
     <tr>
@@ -244,29 +249,36 @@ __Mustache variables:__
       <td>No</td>
     </tr>
     <tr>
-      <td>description</td>
-      <td>Concert brief general description (no more than one line)</td>
+      <td>info</td>
+      <td>Concert brief general description</td>
       <td>Yes</td>
-    </tr>
-    <tr>
-      <td>longDescription</td>
-      <td>Concert detailed description</td>
-      <td>No</td>
     </tr>
     <tr>
       <td>-index</td>
       <td>Used to implement the More Info button</td>
       <td>No</td>
     </tr>
+  </tbody>
+</table>
+
+__Buttons Available:__ For each concert, there are displayed three different buttons, with different functionalities.
+<table>
+  <thead>
+    <th>Button</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
     <tr>
-      <td>link.to.ticket.sale</td>
-      <td>To be implemented shortly</td>
-      <td>-</td>
+      <td>Get Tickets</td>
+      <td>Visit the Ticket purchase page of the specific concert</td>
     </tr>
     <tr>
-      <td>link.to.artist.page</td>
-      <td>To be implemented shortly</td>
-      <td>-</td>
+      <td>Artist Page</td>
+      <td>Visit the Artist's information page</td>
+    </tr>
+    <tr>
+      <td>More Info</td>
+      <td>Display a div container under the concert display, containing additional information about the concert</td>
     </tr>
   </tbody>
 </table>
