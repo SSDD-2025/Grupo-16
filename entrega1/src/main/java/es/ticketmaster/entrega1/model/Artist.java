@@ -19,7 +19,7 @@ public class Artist {
     private long id; //id of the artist
 
     private String name; //artistic name
-    private int popularityIndex;
+    private int popularityIndex; //Number of listeners
 
     @Lob
     private Blob photo; //photo of the artist
@@ -50,9 +50,44 @@ public class Artist {
     //Constructor for JPA
     protected Artist(){}
 
+    //Contructor
+    
+
     //Getters y Setters
     public long getId() {
         return id;
+    }
+
+    public Artist(String name, int popularityIndex, Blob photo, String mainInfo, String extendedInfo,
+            String bestAlbumSpotifyLink, String bestAlbumAppleLink, String latestAlbumSpotifyLink,
+            String latestAlbumAppleLink, Blob bestAlbumPhoto, Blob latestAlbumPhoto, String videoLink) {
+        this.name = name;
+        this.popularityIndex = popularityIndex;
+        this.photo = photo;
+        this.mainInfo = mainInfo;
+        this.extendedInfo = extendedInfo;
+        this.bestAlbumSpotifyLink = bestAlbumSpotifyLink;
+        this.bestAlbumAppleLink = bestAlbumAppleLink;
+        this.latestAlbumSpotifyLink = latestAlbumSpotifyLink;
+        this.latestAlbumAppleLink = latestAlbumAppleLink;
+        this.bestAlbumPhoto = bestAlbumPhoto;
+        this.latestAlbumPhoto = latestAlbumPhoto;
+        this.videoLink = videoLink;
+    }
+
+    public Artist(String name, int popularityIndex, Blob photo, String mainInfo, String extendedInfo,
+            String bestAlbumSpotifyLink, String bestAlbumAppleLink, String latestAlbumSpotifyLink,
+            String latestAlbumAppleLink, String videoLink) {
+        this.name = name;
+        this.popularityIndex = popularityIndex;
+        this.photo = photo;
+        this.mainInfo = mainInfo;
+        this.extendedInfo = extendedInfo;
+        this.bestAlbumSpotifyLink = bestAlbumSpotifyLink;
+        this.bestAlbumAppleLink = bestAlbumAppleLink;
+        this.latestAlbumSpotifyLink = latestAlbumSpotifyLink;
+        this.latestAlbumAppleLink = latestAlbumAppleLink;
+        this.videoLink = videoLink;
     }
 
     public String getName() {
