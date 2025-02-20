@@ -278,5 +278,13 @@ public class Concert {
         this.image = image;
     }
 
+    /**
+     * Getter for the date attribute
+     * @return date hour displayed with format
+     */
+    public String getFormattedTime() {
+        return String.format("%02d:%02d", date.getHour(), date.getMinute());
+    }
+
     
 }
