@@ -17,7 +17,7 @@
                     <!-- PENDING CODE: The profile picture will be loaded from the database.-->
                 {{/user.hasProfilePicture}}
                 {{^user.hasProfilePicture}} <!-- The user does not have a profile picture, so it will shown this default picture-->
-                    <img id="image" src="./media/profile.png">
+                    <img id="image" src="/media/profile.png">
                 {{/user.hasProfilePicture}}
             </a>
         </div>
@@ -25,7 +25,7 @@
         <h2 id="content"><strong>Choose the ticket of your preference</strong></h2>
         <div class="ticket-selection">
             <h3><strong>{{concert.place}}</strong></h3> <!-- concert.place is the name of the stadium where the concert will be held.-->
-            <img id="stadium" src="./media/stadium.png">
+            <img id="stadium" src="/media/stadium.png">
             <h3 id="zone"><strong>Choose the zone</strong></h4>
             <select id="zone-selector">
                 <option value="North">North Side</option>
