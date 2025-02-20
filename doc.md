@@ -546,3 +546,29 @@ __Attributes:__
 </table>
 
 __Note:__ No comprovals are made over the attributes asigned, the Service should check whether the attributes are null or not, as well as assign default values (if it corresponds).
+
+## Services documentation.
+
+The following classes are `@Service` which main function is to provide service to the `@Controller` for querys and specific specific logic.
+
+### ConcertService
+The ConcertService `@Service` contains all the methods that could be used by the different `@Controller`s in order to make database querys and access in a simple an modularizated way to the concert specific data.
+
+The following, are the methods available in this `@Service`:
+
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getSearchBy</td>
+      <td>List of Concert</td>
+      <td>Searches a concert which name or artist name contains the parameter</td>
+      <td>String search</td>
+    </tr>
+  </tbody>
+</table>
