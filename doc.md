@@ -1061,14 +1061,6 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
       <td>It will try to register the user in the database (if he does not exist) and establish him a session. If the user is already in 
       the database or an error occurs, the user will be norified</td>
     </tr>
-    <tr>
-      <td>showMain</td>
-      <td>main</td>
-      <td>@GetMapping</td>
-      <td>/</td>
-      <td>None</td>
-      <td>Once the confirmation page appear, the user will be redirect to the main page</td>
-    </tr>
   </tbody>
 </table>
 
