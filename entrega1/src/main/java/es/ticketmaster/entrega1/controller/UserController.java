@@ -16,8 +16,8 @@ public class UserController {
     private UserService userService;
     private UserEntity activeUser;
 
-    /* Will show the sign in display on the "sign-in.html" file.
-    @return the sign-in template.
+    /** Will show the sign in display on the "sign-in.html" file.
+    * @return the sign-in template.
     */
     @GetMapping("/sign-in")
     public String signInUser(Model model) {
@@ -25,8 +25,8 @@ public class UserController {
         return "sign-in";
     }
 
-    /* Will show the sign in display on the "sign-in.html" file.
-    @return the sign-in template.
+    /** Will show the sign in display on the "sign-in.html" file.
+    * @return the sign-in template.
     */
     @GetMapping("/sign-up")
     public String signUpUser(Model model) {
@@ -34,11 +34,11 @@ public class UserController {
         return "sign-in";
     }
 
-    /* It will verify if the userName introduced is valid (does exist). 
-    @param userName is the one introduced by the user.
-    @param password is the one introduced by the user.
-    @return the sign-in-validation template (if everything goes well), 
-    in other case, will shown the sign-in template, with a message of error.
+    /** It will verify if the userName introduced is valid (does exist). 
+    * @param userName is the one introduced by the user.
+    * @param password is the one introduced by the user.
+    * @return the sign-in-validation template (if everything goes well), 
+    * in other case, will shown the sign-in template, with a message of error.
     */
     @PostMapping("/TBD") /* This URL will be specified soon */
     public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
@@ -54,13 +54,13 @@ public class UserController {
                          if the userName or password (or both) do not match. */
     }
 
-    /* It will verify if the userName introduced is valid (does not exist). 
-    @param userName is the one introduced by the user.
-    @param password is the one introduced by the user.
-    @param country is the country from where the user is from.
-    @email is the email from the user.
-    @return the sign-in-validation template (if everything goes well), 
-    in other case, will shown the sign-in template, with a message of error.
+    /** It will verify if the userName introduced is valid (does not exist). 
+    * @param userName is the one introduced by the user.
+    * @param password is the one introduced by the user.
+    * @param country is the country from where the user is from.
+    * @param email is the email from the user.
+    * @return the sign-in-validation template (if everything goes well), 
+    * in other case, will shown the sign-in template, with a message of error.
     */
     @PostMapping("/TBD2") /* This URL will be specified soon */
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
