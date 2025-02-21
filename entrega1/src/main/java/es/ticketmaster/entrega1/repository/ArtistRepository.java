@@ -3,6 +3,7 @@ package es.ticketmaster.entrega1.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import es.ticketmaster.entrega1.model.Artist;
 
 public interface ArtistRepository extends JpaRepository<Artist,Long>{
@@ -12,4 +13,5 @@ public interface ArtistRepository extends JpaRepository<Artist,Long>{
     */
     public List<Artist> findTop10ByOrderByPopularityIndexDesc();
 
+    public List<Artist> findByNameContainingIgnoreCase(String search);
 }

@@ -20,4 +20,9 @@ public class ArtistService {
          */
         return artistRepository.findTop10ByOrderByPopularityIndexDesc();
     }
+
+    public List<Artist> getSearchBy(String search){
+        
+        return artistRepository.findByNameContainingIgnoreCase(search);
+    }
 }

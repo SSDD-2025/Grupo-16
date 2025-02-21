@@ -34,7 +34,9 @@ public class ConcertService {
         
         List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCase(search);
 
-        searchedConcerts.addAll(concertRepository.findByArtistNameContainingIgnoreCase(search));
+        if(search.length() > 2){ //To avoid repeated simple input answers
+            searchedConcerts.addAll(concertRepository.findByArtistNameContainingIgnoreCase(search));
+        }
         
         return searchedConcerts;
     }
