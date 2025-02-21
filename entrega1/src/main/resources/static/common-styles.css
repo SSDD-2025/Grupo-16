@@ -50,20 +50,6 @@
     object-fit: contain;
 }
 
-/*body { /*General settings for the big containers behaviour*/
-/*    display: flex;
-/*    flex-direction: column;
-/*    min-height: 100vh; /* Ocupa toda la altura de la ventana */
-/*}*/
-
-main{ /*Let's the main part grow as far as it can*/
-    flex: 1;
-}
-
-header { /*Ensures that the header does not overlap the main part of the program*/
-    margin-bottom: 9vh;
-}
-
 #footer{
     background-color:black;
     width:100%;
