@@ -1,11 +1,20 @@
 <!-- HTML doc injectable -->
 <!-- it shows a list of artist with the artist photo and a button to go to their info page -->
 {{#artist-list}}
-<div class="image-container">
-    <form method="post" action=""> <!-- Controller who takes u to the buying page for that artist -->
-        <img class="artist-photo" src="{{url}}"> <br>
-        <input class="info-artist" type="submit" value="Show Info"> <!-- name or id of artist-->
-    </form>
+<link rel="stylesheet" href="artist-style.css">
+<link rel="stylesheet" href="common-styles.css">
+<div class="artist-container">
+    <div class="artist-photo">
+        <img src="The_Eras_Tour_Poster.jpg" class="image-in-container">
+    </div>
+    <div class="name-container">
+        <p>{{name}}</p>
+    </div>
+    <div class="button-container">
+        <form action="">
+            <input type="submit" value="More Info">
+        </form>
+    </div>
 </div>
 {{/artist-list}}
 {{^artist-list}}

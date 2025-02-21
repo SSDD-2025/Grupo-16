@@ -66,7 +66,8 @@ public class Concert {
      * @param southStandsNumber Remaining South Stands tickets available to buy
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      */
-    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
+    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, 
+    long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
         super();
         this.artist = artist;
         this.name = name;
@@ -95,8 +96,10 @@ public class Concert {
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      * @param image Promotional poster of the concert
      */
-    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
-        this(artist, name, date, place, info, price, westStandsNumber, eastStandsNumber, southStandsNumber, generalAdmissionNumber);
+    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, 
+    int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
+        this(artist, name, date, place, info, price, westStandsNumber, eastStandsNumber, 
+        southStandsNumber, generalAdmissionNumber);
         this.image = image;
     }
 

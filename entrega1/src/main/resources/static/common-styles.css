@@ -3,15 +3,12 @@
 *{ /*General style settings to begin with*/
     margin: 0;
     padding: 0;
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .title-container{
     width: 90%;
-    height: auto; /*The height of the container relies on the content*/
+    height: 8vh; /*The height of the container relies on the content*/
     padding: 0.3rem 0.3rem 0.3rem 1rem;
     margin: 3vw auto 2vw auto; /*Horizontally centered but has styled vertical spacing*/
     background-color: rgb(218, 214, 214);
@@ -31,17 +28,33 @@
 .general-container{ /*Container with general purpose such as: showing artist list or concert list*/
     width: 90%;
     height: auto;
-    position: relative;
+    display: flex;
+    align-items: stretch;
     margin: 1vw auto 1vw auto; /*Horizontally centered but has one visual width margin vertically*/
-    padding: 0.3rem 0.3rem 0.3rem 0.3rem; /*Gives spacing*/
+    padding: 0.1vh 0.1vw 0.1vh 0.1vw; /*Gives spacing*/
     background-color: rgb(243, 243, 243);
+    flex-wrap: wrap;
 }
 
-body { /*General settings for the big containers behaviour*/
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+.row-container{
+    flex-direction: row;
 }
+
+.column-container{
+    flex-direction: column;
+}
+
+.image-in-container{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/*body { /*General settings for the big containers behaviour*/
+/*    display: flex;
+/*    flex-direction: column;
+/*    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+/*}*/
 
 main{ /*Let's the main part grow as far as it can*/
     flex: 1;

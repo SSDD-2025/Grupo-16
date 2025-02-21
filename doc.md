@@ -178,7 +178,35 @@ At the design level, both alternatives were designed on the same page, however, 
 </ul>
 
 ### Mustache Variable
-The only mustache variable used in this file was `user.existUser`. This is a boolean variable belonging to the `User` class, which indicates whether the user already exists in the database (has an account) or not, and depending on this, it will show one layout or another.
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>existUser</td>
+      <td>Will display the log in form if the user is in the database (true), in other case, will display the register one</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>error</td>
+      <td>Indicates if the userName or the password introduced by the user is incorrect</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>missingInformation</td>
+      <td>Indicates the user that all the fields must be filled (in case one of them is empty)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>newUser</td>
+      <td>If the user is already register in the database, it will be indicated and also, a link to go to the log in form</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
 
 This file can be found with the name `sign-in.html` and the styles that were used in the `sign-in-style.css` file.
 
@@ -488,6 +516,114 @@ __Use:__ The search page HTML is a base file that needs to have injected the: `h
 
 As the following classes are thought to be `@Entity` using JPA, they are followed by their correspondent `JpaRepository` so that query methods are collected in the present document.
 
+### Artist
+The Artist class contains al the information regarding an artist. An artist recognizes its concerts, which means that the List atribute keeping all the concerts of one artist is tagged with a `@OneToMany(mappedBy = "artist")`. It also keeps the main links to its albums and music video so it can be upload on the page.
+
+The artist class has three __constructors__:
+<ul>
+  <li>Empty one: used internally by JPA.</li>
+  <li>Every attribute but image: used to create an image-less concert.</li>
+  <li>Every attribute: used to create a complete concert.</li>
+</ul>
+
+On the next table are specified the __attributes__ of the class (all these attributes are specified with their getters and setter, except the id, which only has getter):
+<table>
+  <thead>
+    <th>Attribute</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>long</td>
+      <td>Automatically generated ID when an Artist is created</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>Artistic name of the artist</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>popularityIndex</td>
+      <td>int</td>
+      <td>Number of Spotify listeners that the artist has (it needs to be greater or equal than a static value and its used for filtering by popularity)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>sessionCreated</td>
+      <td>LocalDateTime</td>
+      <td>Date and time on which the artist registered its data for the first time</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>photo</td>
+      <td>Blob</td>
+      <td>Photo of the artist</td>
+      <td>No (Yes, but it will be a default photo)</td>
+    </tr>
+    <tr>
+      <td>mainInfo</td>
+      <td>String</td>
+      <td>Main information about the artist</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>extendedInfo</td>
+      <td>String</td>
+      <td>Additional information about the artist</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>bestAlbumSpotifyLink</td>
+      <td>String</td>
+      <td>Link to the "best album" on Spotify</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>bestAlbumAppleLink</td>
+      <td>String</td>
+      <td>Link to the "best album" on Apple Music</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>latestAlbumSpotifyLink</td>
+      <td>String</td>
+      <td>Link to the "latest album" on Spotify</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>latestAlbumAppleLink</td>
+      <td>String</td>
+      <td>Link to the "latest album" on Apple Music</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>bestAlbumPhoto</td>
+      <td>Blob</td>
+      <td>Image of the best album cover</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>latestAlbumPhoto</td>
+      <td>Blob</td>
+      <td>Image of the latest album cover</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>videoLink</td>
+      <td>String</td>
+      <td>URL to the music video on YouTube (should be a Blob that keeps the video itself)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+Whether the attributes are null or have the correct value, should be addressed by the service, the class only keeps the information, it does not operate with it.
+
 ### Concert
 The Concert class defines contains all the data characteristics expected for an singing event. There can be only one artist giving the concert, that means that the artist attribute is tagged with a `@ManyToOne` related with the artist.
 
@@ -525,7 +661,7 @@ __Attributes:__
     <tr>
       <td>name</td>
       <td>String</td>
-      <td>Name that the concert cas, may be the same as the tour one</td>
+      <td>Name that the concert has, may be the same as the tour one</td>
       <td>No</td>
     </tr>
     <tr>
@@ -588,9 +724,123 @@ __Attributes:__
 
 __Note:__ No comprovals are made over the attributes asigned, the Service should check whether the attributes are null or not, as well as assign default values (if it corresponds).
 
+### UserEntity
+This class will contains all the relevant information regarding a single user of the application. As a consequence of being an entity in a relational model, it has relation with the following entities:
+<table>
+  <thead>
+    <th> Entity</th>
+    <th> Cardinality</th>
+    <th> Annotion</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Artist</td>
+      <td>1..N</td>
+      <td>@OneToMany</td>
+    </tr>
+    <tr>
+      <td>Tickets</td>
+      <td>1..N</td>
+      <td>@OneToMany</td>
+    </tr>
+  </tbody>
+</table>
+Furthermore, the class consist of 3 constructors and a series of attributes that help us store the user information previously mentioned.
+
+**Constructors:**
+<ol>
+  <li>An empty constructor for exclusive use of JPA.</li>
+  <li>A constructor that will initialize the entity with all of its attributes (except the profile picture).</li>
+  <li>Will do the same function as the previous one, but this includes the profile picture.</li>
+</ol>
+
+**Note:** The non empty constructors, will verify that any of the attributes will not be empty.
+
+**Attributes:**
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Could be null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>long</td>
+      <td>Is the primary key of the entity. It will identify each user</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>userName</td>
+      <td>String</td>
+      <td>Name of the user account</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>Password of the user´s account</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td>String</td>
+      <td>Email of the user</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>country</td>
+      <td>String</td>
+      <td>Country where the user is located, in order to filtrate the search by the nearest concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>profilePicture</td>
+      <td>Blob</td>
+      <td>A picture that the user will upload as his profile picture</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>artistList</td>
+      <td>List<Artist></td>
+      <td>Collection of all the artist the user is following</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>ticketList</td>
+      <td>List<Tickets></td>
+      <td>Collection of all the tickets the user has purchased</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Services documentation.
 
 The following classes are `@Service` which main function is to provide service to the `@Controller` for querys and specific specific logic.
+
+### ArtistService
+The ArtistService `@Service` contains all the methods that could be used by the different `@Controller`s in order to make database querys and access in a simple an modularizated way to the artist specific data.
+
+The following, are the methods available in this `@Service`:
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getArtistDisplay</td>
+      <td>List of Artist</td>
+      <td>It returns a list to display on the main page with the top ten artist with the highest popularity rate</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### ConcertService
 The ConcertService `@Service` contains all the methods that could be used by the different `@Controller`s in order to make database querys and access in a simple an modularizated way to the concert specific data.
@@ -611,5 +861,215 @@ The following, are the methods available in this `@Service`:
       <td>Searches a concert which name or artist name contains the parameter</td>
       <td>String search</td>
     </tr>
+    <tr>
+      <td>getConcertDisplay</td>
+      <td>List of Concert</td>
+      <td>It returns the concert display list to put on the main page (it changes whether the user is registered or not)</td>
+      <td>boolean userLogged</td>
+    </tr>
   </tbody>
 </table>
+
+### UserService
+This `@Service` will serve as an intermediate between the `UserController` and the `UserRepository` in order to follow the `Hexagonal Arquitecture`. This service will have all the operations the `@Controller`s will need in order to access the data on the database, in other words, the querys.
+
+This are the methods that this `@Service` will have <strong><em>By the moment</em></strong>:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>verifyUser</td>
+      <td>UserEntity or null (in case the user does not exists)</td>
+      <td>It will verify if exists an user with the given userName in the database</td>
+      <td>String userName</td>
+    </tr>
+    <tr>
+      <td>verifyPassword</td>
+      <td>boolean</td>
+      <td>It will verify if the given password matches the one in the database. This method will always be called after the verifyUser     
+       one</td>
+      <td>String userName, password</td>
+    </tr>
+    <tr>
+      <td>registerUser</td>
+      <td>UserEntity</td>
+      <td>It will save a given user in the database. If there will be any error, and exception will be thrown</td>
+      <td>UserEntity newUser</td>
+    </tr>
+    <tr>
+      <td>recoverUser</td>
+      <td>UserEntity</td>
+      <td>It will recover the information of a given user, in order to establish his session</td>
+      <td>String userName, password</td>
+    </tr>
+    <tr>
+      <td>isLogged</td>
+      <td>boolean</td>
+      <td>Will determinate if the activeUser is logged or not</td>
+      <td>UserEntity activeUser</td>
+    </tr>
+  </tbody>
+</table>
+
+There will be an instance of the `UserRepository` from which all the querys will be made.
+
+## Repositories Documentation.
+
+The following section will be dedicated to document all the methods and purposes of all the `@Repository` the application will have. Every one of them, will extend the `JpaRepositoy` interface.
+
+### ArtistRepository
+The ArtistRepository is an interface that controlls queries on the artist database.
+
+It has the following methods:
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>findTop10ByOrderByPopularityIndexDesc</td>
+      <td>List of Artist</td>
+      <td>It returns the list of the top 10 artist with the highest popularity index</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+### ConcertRepository
+The ConcertRepository is an interface that controlls queries on the concert database.
+
+It has the following methods:
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getConcertByPlace</td>
+      <td>List of Concert</td>
+      <td>It searches the concerts that are taking place at a specific country/ city given as a parameter</td>
+      <td>String place</td>
+    </tr>
+  </tbody>
+</table>
+
+### UserRepository
+It will be in charge of save all the information regarding all the users the application could have.
+
+<strong><em>By the moment</em></strong>, this are all the methods that this repository will have:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Parameters
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>findByUserName</td>
+      <td>UserEntity</td>
+      <td>String userName</td>
+      <td>It will look for a user in the database by his userName</td>
+    </tr>
+    <tr>
+      <td>findByUserNameAndPassword</td>
+      <td>UserEntity</td>
+      <td>String userName, password</td>
+      <td>It will look for a user in the database by his userName and password</td>
+    </tr>
+  </tbody>
+</table>
+
+## Controllers Documentation.
+
+The following section will be dedicated to document all the methods and purposes of all the `@Controller` the application will have.
+
+### MainController
+This `@Controller` will be in charge of managing the main page and the main search.
+
+It contains the dependancies of the services of the main classes of the web and for the `@Component` activeUser. 
+
+It has a method called __getMain__ which gets the mapping __"/"__ and it has two atribbutes: the model and what is searched on the searched bar (it is optional).
+
+If the optional value of the searched bar is null, it will load up the main page. Before that it will stablished its attributes:
+<ul>
+  <li><strong>isLogged</strong>: using the UserService, will determine if the activeUser is logged or not</li>
+  <li><strong>concertList</strong>: using the ConcertService, will determine the list of concerts to display at the main page (according on what user is active: anon or registered)</li>
+  <li><strong>artistList</strong>: using the ArtistService, will determine the list of artist to display</li>
+</ul>
+
+### UserController
+
+This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
+
+<strong><em>By the moment</em></strong> this will be all the methods this `@Controller` will have:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>signInUser</td>
+      <td>sign-in</td>
+      <td>@GetMapping</td>
+      <td>/sign-in</td>
+      <td>Model model</td>
+      <td>It will show the log in display by setting the mustache variable (existUser) to true</td>
+    </tr>
+    <tr>
+      <td>signUpUser</td>
+      <td>sign-in</td>
+      <td>@GetMapping</td>
+      <td>/sign-up</td>
+      <td>Model model</td>
+      <td>It will show the register display by setting the mustache variable (existUser) to false</td>
+    </tr>
+    <tr>
+      <td>verifySignIn</td>
+      <td>sign-in-validation or sign-in (in case of error)</td>
+      <td>@PostMapping</td>
+      <td><strong><em>TBD</em></strong></td>
+      <td>Model model, @RequestParam String userName, password</td>
+      <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user. If       there any error, a message error will 
+       be shown</td>
+    </tr>
+    <tr>
+      <td>verifySignUp</td>
+      <td>sign-up-validation or sign-in (in case of error)</td>
+      <td>@PostMapping</td>
+      <td><strong><em>TBD</em></strong></td>
+      <td>Model model, @RequestParam String userName, password, country, email</td>
+      <td>It will try to register the user in the database (if he does not exist) and establish him a session. If the user is already in 
+      the database or an error occurs, the user will be norified</td>
+    </tr>
+    <tr>
+      <td>showMain</td>
+      <td>main</td>
+      <td>@GetMapping</td>
+      <td>/</td>
+      <td>None</td>
+      <td>Once the confirmation page appear, the user will be redirect to the main page</td>
+    </tr>
+  </tbody>
+</table>
+
+It will have an instance of the `UserService` class, which will be under the annotation `@AutoWired`.

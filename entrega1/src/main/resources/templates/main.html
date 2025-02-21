@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Ticketmaster</title>
+        <link type="text/css" rel="stylesheet" href="common-style.css" >
         <link type="text/css" rel="stylesheet" href="main-style.css" >
     </head>
     <body>
@@ -9,12 +10,12 @@
         </header>
         <!-- Next Concerts -->
         <div class="title-container">
-            {{#is-logged}}
+            {{#isLogged}}
                 <h1>Upcoming Concerts in your Area:</h1>
-            {{/is-logged}}
-            {{^is-logged}}
+            {{/isLogged}}
+            {{^isLogged}}
                 <h1>Upcoming Concerts:</h1>
-            {{/is-logged}}
+            {{/isLogged}}
         </div>
 
         <!-- Show Concerts -->
@@ -25,10 +26,9 @@
 
         <!-- Show New Artist -->
         {{>display-artists}}
-
+        
+        <footer>
+            {{>footer}}
+        </footer>
     </body>
-    <footer>
-        {{>footer}}
-    </footer>
 </html>
-<!-- {{>footer}} -->

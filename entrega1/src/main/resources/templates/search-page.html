@@ -5,6 +5,7 @@ is logged, concerts in his country matching the search and the country-->
     <meta charset="UTF-8">
     <title>Searches displayer page</title>
     <link rel="stylesheet" href="common-styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -20,7 +21,7 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="general-container"> <!--Artist container-->
+        <div class="general-container row-container"> <!--Artist container-->
             {{>display-artists}}
         </div>
 
@@ -32,7 +33,7 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="general-container"> <!--Concerts container-->
+        <div class="column-container general-container"> <!--Concerts container-->
             {{#personalConcertsList}}
             {{>concert}}
             {{/personalConcertsList}}
@@ -50,7 +51,7 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="general-container"> <!--Concerts container-->
+        <div class="column-container general-container"> <!--Concerts container-->
             {{#generalConcertsList}} <!--If there are concerts matching the search, show a list of them-->
             {{>concert}}
             {{/generalConcertsList}}
@@ -61,7 +62,7 @@ is logged, concerts in his country matching the search and the country-->
     </main>
 
     <footer>
-        {{>footer}}
+
     </footer>
 </body>
 
