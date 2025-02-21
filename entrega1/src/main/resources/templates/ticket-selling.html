@@ -1,48 +1,72 @@
-<!DOCTYPE html>
+<!--ticket-selling.html is a page that can be visited from different places of the system: from a search, from the main
+page and its function is to provide the user a simple way to select the tickets ubication and quantity-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Selling</title>
-    <link rel="stylesheet" href="main-style.css">
-    <link rel="stylesheet" href="ticket-selling-style.css">
+    <link rel="stylesheet" href="/css/ticket-selling-style.css">
+    <link rel="stylesheet" href="/css/common-styles.css">
 </head>
-<body class="title-container">
-    <main-body>
-        <div class="container">
-            <h1 id="title">Ticket Selling</h1>
-            <!-- When the user click on his picture, it will open the html file corresponding to the user´s information-->
-            <a href=""> <!-- PENDING CODE: Here will be the name of the html file corresponding to the profile-->
-                {{#user.hasProfilePicture}}
-                    <!-- PENDING CODE: The profile picture will be loaded from the database.-->
-                {{/user.hasProfilePicture}}
-                {{^user.hasProfilePicture}} <!-- The user does not have a profile picture, so it will shown this default picture-->
-                    <img id="image" src="/media/profile.png">
-                {{/user.hasProfilePicture}}
-            </a>
-        </div>
-        <h2 id="concert-title"><strong>{{concert.name}}</strong></h2> <!-- concert.name is the name of the sleected concert-->
-        <h2 id="content"><strong>Choose the ticket of your preference</strong></h2>
-        <div class="ticket-selection">
-            <h3><strong>{{concert.place}}</strong></h3> <!-- concert.place is the name of the stadium where the concert will be held.-->
-            <img id="stadium" src="/media/stadium.png">
-            <h3 id="zone"><strong>Choose the zone</strong></h4>
-            <select id="zone-selector">
-                <option value="North">North Side</option>
-                <option value="East">East Side</option>
-                <option value="West">West Side</option>
-                <option value="Floor">Floor</option>
-                <select disabled="disabled"></select>
-            </select>
-            <input type="number" min="1" step="1" placeholder="Number of Tickets">
-        </div>
-        <form action="" method="post"> <!-- It will be needed to specify the action of the button-->
-            <input id="continue-button" type="submit" value="Continue">
-        </form>
-    </main-body>
 
-    <footer>
-        {{>../static/footer}}
-    </footer> 
+<body>
+
+    <header> <!--Header injection-->
+        {{>header}}
+    </header>
+
+    <main>
+        <div class="selling-info-container row-container"> <!--Information purpose structure container-->
+            <div class="info-container column-container"> <!--Concert information structure container-->
+                <p id="concert-title"><strong>
+                    {{concert.name}} <!--Name of the concert object to be elected the tickets-->
+                </strong></p>
+                <p id="concert-place"><strong>{{concert.artist.name}} · {{concert.place}} ·
+                        {{concert.formattedTime}}</strong>
+                <p>
+            </div>
+
+            <div class="info-container"> <!--Title of the actual page container-->
+                <p id="ticket-explaining">Ticket Selection</p>
+            </div>
+        </div>
+
+        <div class="general-container row-container"> <!--Main container where the actual logic of the page is placed-->
+            <div class="map-container"> <!--Representative map of the concert stadium-->
+                <img id="stadium" src="/media/stadium.png" class="image-in-container">
+            </div>
+
+            <div class="map-container"> <!--Container of the form that collects the ticket data-->
+                <form action="/concert/{{concert.id}}/purchase" method="post">
+                    <div class="title-of-box-container">
+                        <p>Choose the zone</p>
+                    </div>
+
+                    <div class="ticket-selection"> <!--Ticket selection options, they deppend on the availability of the concert-->
+                        <select class="zone-selector">
+                            {{#concert.remainSouthStands}}
+                            <option value="South">South Side</option>
+                            {{/concert.remainSouthStands}}
+                            {{#concert.remainEastStands}}
+                            <option value="East">East Side</option>
+                            {{/concert.remainEastStands}}
+                            {{#concert.remainWestStands}}
+                            <option value="West">West Side</option>
+                            {{/concert.remainWestStands}}
+                            {{#concert.remainGeneralAdmissionStands}}
+                            <option value="General">General Admission</option>
+                            {{/concert.remainGeneralAdmissionStands}}
+                            <option disabled selected>Choose zone</select>
+                        </select>
+                        <p id="ticket-number-label">Ticket number:</p> <!--Number of tickets selector-->
+                        <input id="number-selector" type="number" min="1" step="1" placeholder="1">
+                    </div>
+                    <input id="submit-selection" type="submit" value="Continue"> <!--Submit button that transports the user to the purchase page-->
+                </form>
+            </div>
+        </div>
+
+    </main>
 </body>
+
 </html>

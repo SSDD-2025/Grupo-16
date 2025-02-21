@@ -170,11 +170,27 @@ public class Concert {
     }
 
     /**
+     * Method that specifies wether there are remaining West Stands entrances left or not
+     * @return a boolean representing the previous value
+     */
+    public boolean remainWestStands(){
+        return westStandsNumber>0;
+    }
+
+    /**
      * Getter for the easyStandsNumber attribute
      * @return Number of available entrances/tickets in the East Stands zone
      */
     public int getEastStandsNumber() {
         return eastStandsNumber;
+    }
+
+    /**
+     * Method that specifies wether there are remaining East Stands entrances left or not
+     * @return a boolean representing the previous value
+     */
+    public boolean remainEastStands(){
+        return eastStandsNumber>0;
     }
 
     /**
@@ -186,11 +202,27 @@ public class Concert {
     }
 
     /**
+     * Method that specifies wether there are remaining South Stands entrances left or not
+     * @return a boolean representing the previous value
+     */
+    public boolean remainSouthStands(){
+        return southStandsNumber>0;
+    }
+
+    /**
      * Getter for the generalAdmissionNumber attribute
      * @return Number of available entrances/tickets in the General Admission zone
      */
     public int getGeneralAdmissionNumber() {
         return generalAdmissionNumber;
+    }
+
+    /**
+     * Method that specifies wether there are remaining General Admission Stands entrances left or not
+     * @return a boolean representing the previous value
+     */
+    public boolean remainGeneralAdmissionStands(){
+        return generalAdmissionNumber>0;
     }
 
     /**

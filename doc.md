@@ -311,6 +311,11 @@ __Mustache variables:__
       <td>Yes</td>
     </tr>
     <tr>
+      <td>isLogged</td>
+      <td>Determines if the user is logged or not</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
       <td>-index</td>
       <td>Used to implement the More Info button</td>
       <td>No</td>
@@ -327,7 +332,7 @@ __Buttons Available:__ For each concert, there are displayed three different but
   <tbody>
     <tr>
       <td>Get Tickets</td>
-      <td>Visit the Ticket purchase page of the specific concert</td>
+      <td>Visit the Ticket purchase page of the specific concert (if the user is logged). Elsewise, it transports the user to the sign-in page</td>
     </tr>
     <tr>
       <td>Artist Page</td>
@@ -394,27 +399,54 @@ Great part of this information is managed through mustache variables, which are 
   </thead>
   <tbody>
     <tr>
-      <td>user.hasProfilePicture</td>
-      <td>Indicates if the user has a profile picture</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
       <td>concert.name</td>
-      <td>Is the name of the selected concert</td>
+      <td>It is the name of the selected concert</td>
       <td>No</td>
     </tr>
     <tr>
       <td>concert.place</td>
-      <td>Is the name of the stadium where the concert will be held</td>
+      <td>It is the name of the stadium where the concert will be held</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.id</td>
+      <td>Is the id of the selected concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.artist.name</td>
+      <td>It is the name of the artist giving the selected concert</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.formattedTime</td>
+      <td>It is the time when the selected concert occurs</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.remainSouthStands</td>
+      <td>Indicates if there are or not available entrances in the South zone</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.remainEastStands</td>
+      <td>Indicates if there are or not available entrances in the East zone</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.remainWestStands</td>
+      <td>Indicates if there are or not available entrances in the West zone</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>concert.remainGeneralAdmissionStands</td>
+      <td>Indicates if there are or not available entrances in the GeneralAdmission zone</td>
       <td>No</td>
     </tr>
   </tbody>
 </table>
 
-### Profile Photo Management
-In the `profile.html` file, it gives the user the option to upload the photo he wants as a profile picture. This photo will be saved in the database along with all the information related to a specific user, and this is the reason for the `user.hasProfilePicture`variable usage, if there is an image loaded in the database (`user.hasProfilePicture = true`) said image will be displayed, otherwise, a default image will be displayed.
-
-This file can be found with the name `ticket-selling.html` and the styles that were used in the `ticket-selling-style.css` file.
+__Note:__ Bear in mind that this piece of code is dependent on `header.html`, `ticket-selling-style.css` and `common-styles.css`. Be sure to link them correctly.
 
 ## Purchase Page
 The main purpose of this page is to confirm the selected tickets and enter the information of the user's credit card to complete the tickets purchase.

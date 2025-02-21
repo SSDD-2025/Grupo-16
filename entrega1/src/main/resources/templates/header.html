@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="header-style.css">
+<link rel="stylesheet" href="/css/header-style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <header class="header">
     <!--Hidden burger menu button (label of a checkbox), it will be displayed when width is little-->
@@ -39,12 +39,12 @@
     </div>
     {{#isLogged}} <!--Access to the profile when the user is logged-->
     <div class="profile-access-container" onclick="window.location.href='/profile'">
-        <img src="media/user-logo.png" class="user-logo">
+        <img src="/media/user-logo.png" class="user-logo">
     </div>
     {{/isLogged}}
     {{^isLogged}} <!--Access to the registration/sign up page when the user is not logged-->
     <div class="profile-access-container" onclick="window.location.href='/sign-in'">
-        <img src="media/unknown-logo.png" class="user-logo">
+        <img src="/media/unknown-logo.png" class="user-logo">
     </div>
     {{/isLogged}}
 </header>
