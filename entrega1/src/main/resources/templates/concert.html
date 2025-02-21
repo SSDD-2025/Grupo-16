@@ -1,6 +1,7 @@
 <!--Concert list that can be injected into a general container to show a search made by the user-->
 <link rel="stylesheet" href="concert-style.css">
-<div class="concert-container"> <!--Big general container ensuring space between different objects and also containing every hidden element-->
+<div class="concert-container">
+    <!--Big general container ensuring space between different objects and also containing every hidden element-->
     <div class="main-container"> <!--Container with every non-hidden element-->
         <div class="concert-photo-container"><!--Image of the concert's poster/promotional photo-->
             <img src="link.to.image">
@@ -37,8 +38,14 @@
         <div class="horizontal-separator"></div>
 
         <div class="buttons-container">
+            {{#isLogged}}
             <button class="concert-button" onclick="window.location.href='/concert/{{id}}/purchase'">Get
                 Tickets</button>
+            {{/isLogged}}
+            {{^isLogged}}
+            <button class="concert-button" onclick="window.location.href='/sign-in'">Get
+                Tickets</button>
+            {{/isLogged}}
             <button class="concert-button" onclick="window.location.href='/artist/{{artist.id}}'">Artist
                 Page</button>
             <label for="more-info-{{-index}}" class="concert-button">More info</label>

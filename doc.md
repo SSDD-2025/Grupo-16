@@ -311,6 +311,11 @@ __Mustache variables:__
       <td>Yes</td>
     </tr>
     <tr>
+      <td>isLogged</td>
+      <td>Determines if the user is logged or not</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
       <td>-index</td>
       <td>Used to implement the More Info button</td>
       <td>No</td>
@@ -327,7 +332,7 @@ __Buttons Available:__ For each concert, there are displayed three different but
   <tbody>
     <tr>
       <td>Get Tickets</td>
-      <td>Visit the Ticket purchase page of the specific concert</td>
+      <td>Visit the Ticket purchase page of the specific concert (if the user is logged). Elsewise, it transports the user to the sign-in page</td>
     </tr>
     <tr>
       <td>Artist Page</td>
