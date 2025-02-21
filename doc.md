@@ -188,19 +188,48 @@ This page will only display a message telling the user that the ticket purchase 
 This file can be found with the name `purchase-confirmation.html` and the styles that were used in the `purchase-confirmation-style.css` file.
 
 ## Header (Injectable)
-The header in file `header.html` will be present almost everywhere in the webpage. It's main function is to provide the user with a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is structured in three distinct parts, each one with a diferent function.
+The header in file `header.html` will be present almost everywhere in the webpage. It's main function is to provide the user a direct, simple an accesible way to search for artists, concerts or visit it's personal-based pages. It is constructed so that it can be used in any dispositive (responsive), generating a burger menu when less than 900px are reached. Also, it makes another transformation when less than 575px are reached so that things do not collapse. It is structured in four distinct parts, each one with a diferent function.
 
-Logo zone: presential and brand purposes place where the logo is displayed.
+Logo zone: presential and brand purposes place where the logo is displayed and, when clicked, it transports the user to the main page.
 
-Searching zone: contains the searching bar and search button. From here, searches can be made as far as artists and concerts are concerned.
+Menu: if the witdth of the screen is enough, it is displayed along the header. In another case, it is packed up into a burger menu that can be displayed with a click. Also, the different items displayed here deppends on the kind of user (Admin, Logged regular user or Anonymous, check the variable table for more information). Some of the items in the menu are the following:
+<ul>
+  <li>Register: when the user is not logged, it invites the user to register</li>
+  <li>Sign In: when the user is not logged, it invites the user to login</li>
+  <li>Add: admin purposes, page where entities can be added</li>
+  <li>Profile: when the user is logged, access to the profile page</li>
+  <li>My Concerts: when the user is logged, page where the user can search the tickets that he/she owns</li>
+  <li>My Artists: when the user is logged, page where the user can search its followed artists</li>
+</ul>
 
-Right zone: user based zone, that grants accessibility to the user.
+Searching zone: contains the searching bar and search button in form of a magnifying glass. From here, searches can be made as far as artists and concerts are concerned and the user is redirected to the search page.
+
+User logo: if the user is logged, a user logo is displayed and can be clicked to visit the profile page. If the user is not logged, a logo with an interrogation mark '?' is shown, inviting the user to register or login.
 <ul>
   <li>If the user is not registered or logged, shows the Login and Register buttons.</li>
   <li>If the user is logged, displays a button with it's profile photo and a dropdown menu with direct access to: My profile, My concerts and My artists.</li>
 </ul>
 
-__Mustache variables:__ `isLogged`: determines if the user is logged. In that case, shows the profile personal buttons. Otherwise, displays the Login and Register buttons.
+__Mustache variables:__ 
+<table>
+  <thead>
+    <th>Variable</th>
+    <th>Description</th>
+    <th>Could be false/null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>isLogged</td>
+      <td>Determines wether the user is logged or not, making personal options to appear</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>isAdmin</td>
+      <td>Determines wether the user is an admin or not, making admin options to appear</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 __Use:__ To include the header into an HTML page, it should be injected using `{{>header}}` between a `<header></header>` block, located inside the `body` of the file. The styles used for the header are located at the `header-style.css`, be sure to link the file correctly.
 

@@ -1,44 +1,50 @@
 <link rel="stylesheet" href="header-style.css">
-<div class="header-container">
-    <div class="logo-container"> <!--Header container Divisor: Logo zone-->
-        <h1>LOGO</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<header class="header">
+    <!--Hidden burger menu button (label of a checkbox), it will be displayed when width is little-->
+    <div class="burger-menu-container">
+        <label for="open-menu">
+            <img src="/media/burger-menu.png" class="burger-menu"> <!--Hidden burger menu logo-->
+        </label>
     </div>
-    <div class="searching-container"> <!--Header container Divisor: Searchbar zone-->
-        <form action="">
-            <div class="searchbar-container"> <!--Searchbar-->
-                <input class="searchbar" type="search" name="search" placeholder="Artist...">
-            </div>
-            <div class="searchbutton-container"> <!--Submit search button-->
-                <input type="submit" value="Search" class="searchbutton">
-            </div>
+
+    <input type="checkbox" id="open-menu" style="display: none;"> <!--Hidden checkbox that triggers the menu display-->
+
+    <div class="logo-container" onclick="window.location.href='/'"> <!--App logo, when clicked the user is redirected to the main page-->
+        <a href="/">LiveTicket</a>
+    </div>
+
+    <div class="menu-container"> <!--Menu displayed in the header and hidden when width is not enough-->
+        <ul>
+            {{#isLogged}} <!--Logged regular user menu items-->
+            <li class="menu-item"><a href="/profile&showPersonalInfo=true">Profile</a></li>
+            <li class="menu-item"><a href="/profile&showMyConcerts=true">My Concerts</a></li>
+            <li class="menu-item"><a href="/profile&showMyArtists=true">My Artists</a></li>
+            {{/isLogged}}
+            {{^isLogged}} <!--Not logged menu items-->
+            <li class="menu-item"><a href="/sign-in">Register</a></li>
+            <li class="menu-item"><a href="/sign-in">Sign In</a></li>
+            {{/isLogged}}
+            {{#isAdmin}} <!--Admin menu items-->
+            <li class="menu-item"><a href="/TO-BE-IMPLEMENTED">Add</a></li>
+            {{/isAdmin}}
+        </ul>
+    </div>
+
+    <div class="searchbar-container"> <!--Searchbar, made of a search input and a submit imported with magnifying glass style-->
+        <form action="/">
+            <input type="search" name="search" placeholder="Artist or Concert..." class="searchbar">
+            <button type="submit" class="search-lupe"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
     </div>
-    <div class="right-container"> <!--Header container Divisor: Profile/Login zone -->
-        {{#isLogged}} <!--When the user is logged, the profile photo and configurations are shown-->
-        <div class="profile-container">
-            <div class="menu-container">
-                <div class="dropdown-button-container">
-                    <button class="dropdown-button"> <!--Button that activates the dropdown menu with action=hover-->
-                        <img class="profile-image" src="link.to.image"> 
-                    </button>
-                </div>
-                <div class="dropdown-container"> <!--Dropdown menu content: Links to User's pages-->
-                    <a href="link.to.profile">My Profile</a>
-                    <a href="link.to.concerts">My Concerts</a>
-                    <a href="link.to.artists">My Artists</a>
-                </div>
-            </div>
-        </div>
-        {{/isLogged}}
-        {{^isLogged}} <!--When the user is not logged, the login/register buttons are shown-->
-        <div class="log-reg-container">
-            <div class="log-container">
-                <button class="login" onclick="window.location.href='link.to.login.page'">Login</button>
-            </div>
-            <div class="reg-container">
-                <button class="register" onclick="window.location.href='link.to.register.page'">Register</button>
-            </div>
-        </div>
-        {{/isLogged}}
+    {{#isLogged}} <!--Access to the profile when the user is logged-->
+    <div class="profile-access-container" onclick="window.location.href='/profile'">
+        <img src="media/user-logo.png" class="user-logo">
     </div>
-</div>
+    {{/isLogged}}
+    {{^isLogged}} <!--Access to the registration/sign up page when the user is not logged-->
+    <div class="profile-access-container" onclick="window.location.href='/sign-in'">
+        <img src="media/unknown-logo.png" class="user-logo">
+    </div>
+    {{/isLogged}}
+</header>
