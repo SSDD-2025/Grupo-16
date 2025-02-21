@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Purchase Tickets</title>
-        <link type="text/css" rel="stylesheet" href="/purchase-style.css" >
+        <link type="text/css" rel="stylesheet" href="purchase-style.css" >
     </head>
     <body>
         <!-- Tickets Information Block -->
@@ -31,7 +31,7 @@
                 <!-- Credit Card information to do the purchase -->
                 <div class="form-container">
                     <!-- Form block so the user can introduce the data (it will not be register at the database) -->
-                    <form action="" method="post"> <!-- PENDING CODE: Controller URL which processes the data-->
+                    <form action="/concert/{id}/purchase/confirmation" method="post">
                         <!-- Cardholder Name-->
                         <label for="cardholder">Cardholder Name:</label>
                         <input type="text" name="cardholder" id="cardholder" placeholder="Name"/>
@@ -40,7 +40,7 @@
 
                         <!-- Card Type -->
                         <label for="card-type">Card Type:</label>
-                        <select name="card-type" id="card-type">
+                        <select name="cardType" id="card-type">
                             <option value="1" selected>MasterCard</option>
                             <option value="2">Visa</option>
                             <option value="3">American Express</option>
@@ -49,13 +49,13 @@
                         <!-- Card Id -->
                         <label for="card-id">Card Id:</label>
                         <!-- Card Ids between 13-19 numbers -->
-                        <input type="text" name="card-id" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456">
+                        <input type="text" name="cardId" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456">
 
                         <br> <br>
 
                         <!-- Expiration Date -->
                         <label for="exp-date">Expiration Date:</label>
-                        <input type="month" name="exp-date" id="exp-date">
+                        <input type="month" name="expDate" id="exp-date">
 
                         <br> <br>
 

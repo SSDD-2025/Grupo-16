@@ -1,3 +1,32 @@
+.menu-button-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.menu-button-container img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-button-container a {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.menu-button-container a:hover img {
+    transform: scale(1.1);
+    border-color: black;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
 #title {
     text-align: center;
     margin-top: 10%;
