@@ -62,7 +62,7 @@ public class UserController {
     @return the sign-in-validation template (if everything goes well), 
     in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/TBD") /* This URL will be specified soon */
+    @PostMapping("/TBD2") /* This URL will be specified soon */
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
         if ((password.isBlank()) || (country.isBlank()) || (email.isBlank())) {
             model.addAttribute("missingInformation", true);
@@ -81,9 +81,4 @@ public class UserController {
         model.addAttribute("newUser", true);
         return "sign-in";
     }
-
-    @GetMapping("/")
-    public String showMain() {
-        return "main";
-    } 
 }

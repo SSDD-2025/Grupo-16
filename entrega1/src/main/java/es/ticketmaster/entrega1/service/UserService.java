@@ -54,4 +54,8 @@ public class UserService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    public boolean isLogged(UserEntity activeUser){
+        return (activeUser != null);
+    }
 }

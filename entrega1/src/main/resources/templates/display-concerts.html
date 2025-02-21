@@ -1,11 +1,11 @@
-{{#concert-list}}
+{{#concertList}}
     <div class="image-container">
         <form method="post" action=""> <!-- Controller who takes u to the buying page for that concert -->
             <img class="concert-photo" src="/media/{{.}}.jpg"> <br>
             <input class="buy" type="submit" value="Buy Tickets"> <!-- name or id of concert-->
          </form>
     </div>
-{{/concert-list}}
-{{^concert-list}}
+{{/concertList}}
+{{^concertList}}
     <p>There are no concerts soon</p>
-{{/concert-list}}
+{{/concertList}}

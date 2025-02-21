@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.ticketmaster.entrega1.model.Concert;
+import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 
 /**
@@ -17,6 +18,9 @@ public class ConcertService {
     
     @Autowired
     ConcertRepository concertRepository;
+
+    @Autowired
+    private UserEntity activeUser;
     
     /**
      * Method that searches for concerts which Concert.name or Concert.artist.name matches with
@@ -28,10 +32,25 @@ public class ConcertService {
      */
     public List<Concert> getSearchBy(String search){
         
-        List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCase(search);
+       List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCase(search);
 
         searchedConcerts.addAll(concertRepository.findByArtistNameContainingIgnoreCase(search));
         
         return searchedConcerts;
+    }
+    
+    /** Searches the concerts taken at a specific place
+         * @param place is the country/ city which the search is based
+         * @return the list of the concerts taking place at the country/ city specified
+         */
+    public List<Concert> getConcertDisplay(boolean userLogged){
+        if (userLogged){ //is logged, the display will be of concerts at the same country as the user
+            List<Concert> concertList = concertRepository.getConcertByPlace(activeUser.getCountry());
+            if (!(concertList.isEmpty())){
+                return concertList;
+            }
+        }
+        //whether the user is not logged or the concertListByCountry is empty, it will return a list of concerts order by artist's fame
+        return concertRepository.findAll(); //provisional until the query is fixed
     }
 }

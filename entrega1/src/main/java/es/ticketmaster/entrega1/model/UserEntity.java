@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@Component
 @SessionScope
 public class UserEntity {
     @Id
@@ -77,11 +79,11 @@ public class UserEntity {
     }
     
     public List<Artist> getArtistsList() {
-         return this.artistsList;
+        return this.artistsList;
     }
 
     public List<Tickets> getTicketsList() {
-         return this.ticketList;
+        return this.ticketList;
     }
 
     public void setUserName(String newName) {
