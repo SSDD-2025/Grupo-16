@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
@@ -20,7 +21,7 @@ public class ConcertService {
     ConcertRepository concertRepository;
 
     @Autowired
-    private UserEntity activeUser;
+    private ActiveUser activeUser;
     
     /**
      * Method that searches for concerts which Concert.name or Concert.artist.name matches with
@@ -47,7 +48,7 @@ public class ConcertService {
          */
     public List<Concert> getConcertDisplay(boolean userLogged){
         if (userLogged){ //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.getConcertByPlace(activeUser.getCountry());
+            List<Concert> concertList = concertRepository.getConcertByPlace(activeUser.getActiveUser().getCountry());
             if (!(concertList.isEmpty())){
                 return concertList;
             }

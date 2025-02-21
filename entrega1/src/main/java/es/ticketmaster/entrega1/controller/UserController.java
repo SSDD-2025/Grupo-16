@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.UserService;
 
@@ -14,7 +15,9 @@ import es.ticketmaster.entrega1.service.UserService;
 public class UserController {
     @Autowired
     private UserService userService;
-    private UserEntity activeUser;
+
+    @Autowired
+    private ActiveUser activeUser;
 
     /** Will show the sign in display on the "sign-in.html" file.
     * @return the sign-in template.
@@ -45,7 +48,7 @@ public class UserController {
         UserEntity receivedUser = this.userService.verifyUser(userName);
         /* Verify if the user exist on the database and his password matches */
         if ((receivedUser != null) && (this.userService.verifyPassword(userName, password))) {
-            this.activeUser = this.userService.recoverUser(userName, password); /* Session is established. */
+            this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); /* Session is established. */
             model.addAttribute("name", receivedUser.getUserName());
             return "sign-in-validation";
         }
@@ -62,22 +65,24 @@ public class UserController {
     * @return the sign-in-validation template (if everything goes well), 
     * in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/TBD2") /* This URL will be specified soon */
+
+    @PostMapping("/TBD2") // This URL will be specified soon
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
         if ((password.isBlank()) || (country.isBlank()) || (email.isBlank())) {
             model.addAttribute("missingInformation", true);
         }
         else {
             UserEntity newUser = this.userService.verifyUser(userName);
-            if (newUser == null) { /* The user does not exist on the database, therefore, can be register. */
+            if (newUser == null) { // The user does not exist on the database, therefore, can be register.
+                System.out.println("entro");
                 newUser = new UserEntity(userName, password, email, country);
                 this.userService.registerUser(newUser);
-                this.activeUser = this.userService.recoverUser(userName, password); /* A new session is established. */
+                this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); // A new session is established.
                 model.addAttribute("welcome", newUser.getUserName());
                 return "sign-up-validation";   
             }
         }
-        /* The user exist on the database, therefore, can not be register. */
+        // The user exist on the database, therefore, can not be register. 
         model.addAttribute("newUser", true);
         return "sign-in";
     }

@@ -56,24 +56,31 @@
 /*    min-height: 100vh; /* Ocupa toda la altura de la ventana */
 /*}*/
 
-main{ /*Let's the main part grow as far as it can*/
-    flex: 1;
-}
-
-header { /*Ensures that the header does not overlap the main part of the program*/
-    margin-bottom: 9vh;
-}
-
-#footer{
+footer{
     background-color:black;
     width:100%;
     height: 20%;
-    margin-top: 5%;
+    position: fixed;
+    display: flex;
+    flex-grow: 1;
+    bottom: 0;
+    left: 0;
 }
 
-#footer p{
+footer p{
     color: white;
     margin-left: 10%;
     position: absolute;
     margin-top: 5%;
+}
+
+.expand{
+    width: 100%;
+    height: auto;
+    flex-grow: 1; /* takes up the maximum space possible between the two elements where its located */
+}
+
+body{
+    display: flex;
+    flex-direction: column;
 }

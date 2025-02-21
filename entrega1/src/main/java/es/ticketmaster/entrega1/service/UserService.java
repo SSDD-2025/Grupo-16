@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.UserRepository;
 
@@ -11,6 +12,9 @@ import es.ticketmaster.entrega1.repository.UserRepository;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ActiveUser activeUser;
 
     /** This method will verify if the userName matches with one register on the database. 
     * @param userName introduced by the user at the time he try to log in.
@@ -39,6 +43,7 @@ public class UserService {
     */
     public UserEntity registerUser(UserEntity newUser) {
         try {
+            activeUser.setNewActiveUser(newUser);
             return this.userRepository.save(newUser);
         } 
         catch (DataIntegrityViolationException e) {
@@ -55,7 +60,7 @@ public class UserService {
         return this.userRepository.findByUserNameAndPassword(userName, password);
     }
 
-    public boolean isLogged(UserEntity activeUser){
-        return (activeUser != null);
+    public boolean isLogged(){
+        return (activeUser.isUserLogged());
     }
 }

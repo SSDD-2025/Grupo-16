@@ -1,32 +1,33 @@
 <html>
     <head>
         <title>Ticketmaster</title>
-        <link type="text/css" rel="stylesheet" href="common-style.css" >
+        <link type="text/css" rel="stylesheet" href="common-styles.css" >
         <link type="text/css" rel="stylesheet" href="main-style.css" >
     </head>
     <body>
         <header>
             {{>header}}
         </header>
-        <!-- Next Concerts -->
-        <div class="title-container">
-            {{#isLogged}}
-                <h1>Upcoming Concerts in your Area:</h1>
-            {{/isLogged}}
-            {{^isLogged}}
-                <h1>Upcoming Concerts:</h1>
-            {{/isLogged}}
+        <div>
+            <!-- Next Concerts -->
+            <div class="title-container">
+                {{#isLogged}}
+                    <h1>Upcoming Concerts in your Area:</h1>
+                {{/isLogged}}
+                {{^isLogged}}
+                    <h1>Upcoming Concerts:</h1>
+                {{/isLogged}}
+            </div>
+
+            <!-- Show Concerts -->
+            {{>display-concerts}}
+
+            <!-- Meet New Artist -->
+            <h1>Meet:</h1>
+
+            <!-- Show New Artist -->
+            {{>display-artists}}
         </div>
-
-        <!-- Show Concerts -->
-        {{>display-concerts}}
-
-        <!-- Meet New Artist -->
-        <h1>Meet:</h1>
-
-        <!-- Show New Artist -->
-        {{>display-artists}}
-        
         <footer>
             {{>footer}}
         </footer>

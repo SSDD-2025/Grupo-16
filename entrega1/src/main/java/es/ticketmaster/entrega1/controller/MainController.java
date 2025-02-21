@@ -6,16 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.ticketmaster.entrega1.model.UserEntity;
+import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
 
     @Autowired
-    private UserEntity activeUser;
+    private ActiveUser activeUser;
 
     @Autowired
     private ArtistService artistService;
@@ -34,11 +35,16 @@ public class MainController {
      * @return the main template
      */
     @GetMapping("/")
-    public String getMain(Model model, @RequestParam(required = false) String search) {
-        boolean userLogged = userService.isLogged(activeUser);
+    public String getMain(Model model, @RequestParam(required = false) String search, HttpSession session) {
+        boolean userLogged = userService.isLogged();
         if (search == null) {
+            if (session.isNew()){
+                activeUser.init();
+                model.addAttribute("isLogged", false);
+            } else {
+                model.addAttribute("isLogged", userLogged);
+            }
             
-            model.addAttribute("isLogged", userLogged);
             model.addAttribute("concertList", concertService.getConcertDisplay(userLogged));
             model.addAttribute("artistList", artistService.getArtistDisplay());
         } else {
