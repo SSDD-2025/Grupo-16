@@ -43,14 +43,14 @@ public class UserController {
     * @return the sign-in-validation template (if everything goes well), 
     * in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/TBD") /* This URL will be specified soon */
+    @PostMapping("/sign-in/validation") /* This URL will be specified soon */
     public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
         UserEntity receivedUser = this.userService.verifyUser(userName);
         /* Verify if the user exist on the database and his password matches */
         if ((receivedUser != null) && (this.userService.verifyPassword(userName, password))) {
             this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); /* Session is established. */
-            model.addAttribute("name", receivedUser.getUserName());
-            return "sign-in-validation";
+            model.addAttribute("welcome", receivedUser.getUserName());
+            return "validation";
         }
         model.addAttribute("error", true);
         return "sign-in"; /* It will shown the same template, but, with a message indicating the user
@@ -66,7 +66,7 @@ public class UserController {
     * in other case, will shown the sign-in template, with a message of error.
     */
 
-    @PostMapping("/TBD2") // This URL will be specified soon
+    @PostMapping("/sign-up/validation") // This URL will be specified soon
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
         if ((password.isBlank()) || (country.isBlank()) || (email.isBlank())) {
             model.addAttribute("missingInformation", true);
@@ -79,7 +79,7 @@ public class UserController {
                 this.userService.registerUser(newUser);
                 this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); // A new session is established.
                 model.addAttribute("welcome", newUser.getUserName());
-                return "sign-up-validation";   
+                return "validation";   
             }
         }
         // The user exist on the database, therefore, can not be register. 
