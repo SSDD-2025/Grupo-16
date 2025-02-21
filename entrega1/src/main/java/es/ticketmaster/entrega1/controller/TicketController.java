@@ -27,7 +27,7 @@ public class TicketController {
      * If not, the same "pruchase" template but with an error message.
      */
     @PostMapping("/concert/{id}/purchase/confirmation")
-    public String postMethodName(Model model,@RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
+    public String showPurchaseConfirmation(Model model,@RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
         if ((this.cardService.verifyCardHolder(cardHolder)) && (this.cardService.getType(cardType) != null) && 
             (this.cardService.verifyCreditCardNumber(cardId)) && (this.cardService.verifyExpirationDate(expDate)) && 
             (this.cardService.verifyCVV(cvv))) {
