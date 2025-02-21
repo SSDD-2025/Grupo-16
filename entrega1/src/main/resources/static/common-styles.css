@@ -50,6 +50,10 @@
     object-fit: contain;
 }
 
+.image-rounded{
+    border-radius: 50%;
+}
+
 /*body { /*General settings for the big containers behaviour*/
 /*    display: flex;
 /*    flex-direction: column;

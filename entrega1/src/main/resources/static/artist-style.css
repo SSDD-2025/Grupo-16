@@ -9,7 +9,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     height: 30vh;
-    aspect-ratio: 30/45;
+    aspect-ratio: 35/45;
     background-color: white;
     margin: 2vh auto 2vh auto;
     align-items: center;
@@ -30,6 +30,9 @@
 .name-container{
     width: 90%;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .name-container p{
