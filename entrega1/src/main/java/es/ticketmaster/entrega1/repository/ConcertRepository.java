@@ -34,4 +34,6 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
     public List<Concert> findByNameContainingIgnoreCase(String search);
 
     public List<Concert> findByArtistNameContainingIgnoreCase(String search);
+
+    public Concert findConcertById(long id);
 }
