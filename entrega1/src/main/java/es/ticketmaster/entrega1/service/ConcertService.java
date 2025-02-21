@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
-import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 
 /**

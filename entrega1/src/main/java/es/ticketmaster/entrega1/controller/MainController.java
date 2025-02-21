@@ -37,21 +37,28 @@ public class MainController {
      */
     @GetMapping("/")
     public String getMain(Model model, @RequestParam(required = false) String search, HttpSession session) {
+        
         boolean userLogged = userService.isLogged();
+        
+        if (session.isNew()){
+            activeUser.init();
+            model.addAttribute("isLogged", false);
+        } else {
+            model.addAttribute("isLogged", userLogged);
+        }
+
         if (search == null) {
-            if (session.isNew()){
-                activeUser.init();
-                model.addAttribute("isLogged", false);
-            } else {
-                model.addAttribute("isLogged", userLogged);
-            }
             
             model.addAttribute("concertList", concertService.getConcertDisplay(userLogged));
             model.addAttribute("artistList", artistService.getArtistDisplay());
+
         } else {
 
-            model.addAttribute("isLogged", userLogged);
-            model.addAttribute("artist-list", artistService.getSearchBy(search));
+            if(userLogged){
+                model.addAttribute("personalConcertsList", concertService.getConcertDisplay(userLogged));
+            }
+
+            model.addAttribute("artistList", artistService.getSearchBy(search));
             model.addAttribute("generalConcertsList", concertService.getSearchBy(search));
 
             return "search-page";
