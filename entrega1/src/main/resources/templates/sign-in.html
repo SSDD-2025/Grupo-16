@@ -15,7 +15,7 @@
     {{#existUser}} <!-- Log in template-->
         <div class="log-in-section">
             <h1>Sign In</h1>
-            <form action="/TBD" method="post"> <!-- This URL will be specified soon -->
+            <form action="/sign-in/validation" method="post"> <!-- This URL will be specified soon -->
                 <p>Enter your username</p>
                 <input type="text" name="userName" placeholder="User Name">
                 <p>Enter your password</p>
@@ -41,7 +41,7 @@
     {{^existUser}} <!-- Register template-->
         <div class="register-section">
             <h1>Sign Up</h1>
-            <form action="/TBD2" method="post"> <!-- This URL will be specified soon -->
+            <form action="/sign-up/validation" method="post"> <!-- This URL will be specified soon -->
                 <p>Enter your email</p>
                 <input type="email" name="email" placeholder="Email">
                 <p>Enter your username</p>
