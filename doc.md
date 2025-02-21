@@ -1047,7 +1047,7 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
       <td>verifySignIn</td>
       <td>sign-in-validation or sign-in (in case of error)</td>
       <td>@PostMapping</td>
-      <td><strong><em>TBD</em></strong></td>
+      <td>/sign-in/validation</td>
       <td>Model model, @RequestParam String userName, password</td>
       <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user. If       there any error, a message error will 
        be shown</td>
@@ -1056,7 +1056,7 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
       <td>verifySignUp</td>
       <td>sign-up-validation or sign-in (in case of error)</td>
       <td>@PostMapping</td>
-      <td><strong><em>TBD</em></strong></td>
+      <td>/sign-up/validation</td>
       <td>Model model, @RequestParam String userName, password, country, email</td>
       <td>It will try to register the user in the database (if he does not exist) and establish him a session. If the user is already in 
       the database or an error occurs, the user will be norified</td>
