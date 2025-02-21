@@ -951,6 +951,53 @@ This are the methods that this `@Service` will have <strong><em>By the moment</e
 
 There will be an instance of the `UserRepository` from which all the querys will be made.
 
+### CardVerifyingService
+
+The function of this `@Service` will be to verify that the information entered on the credit card is correct, that is, that it complies with the correct format. It will be used in the `TicketController` class.
+
+This are the methods implemented on this `@Service`:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>verifyCardHolder</td>
+      <td>boolean</td>
+      <td>It will check if the name of the card`s holder is in the correct format</td>
+      <td>String cardHolder</td>
+    </tr>
+    <tr>
+      <td>verifyCreditCardNumber</td>
+      <td>boolean</td>
+      <td>It will verify if the credit card number is correct, and complies the correct format based on the Luhn`s Algorithm</td>
+      <td>String number</td>
+    </tr>
+    <tr>
+      <td>getType</td>
+      <td>String</td>
+      <td>It will obtain the credit card type, based on the format of its number</td>
+      <td>String number</td>
+    </tr>
+    <tr>
+      <td>verifyExpirationDate</td>
+      <td>boolean</td>
+      <td>It will verify if the entered expiration date its not a date prior to when the form is filled</td>
+      <td>String date</td>
+    </tr>
+    <tr>
+      <td>verifyCVV</td>
+      <td>boolean</td>
+      <td>It will verify if the credit card security number cumplies the correct format</td>
+      <td>String cvv</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Repositories Documentation.
 
 The following section will be dedicated to document all the methods and purposes of all the `@Repository` the application will have. Every one of them, will extend the `JpaRepositoy` interface.
@@ -1081,8 +1128,9 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
       <td>@PostMapping</td>
       <td>/sign-in/validation</td>
       <td>Model model, @RequestParam String userName, password</td>
-      <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user. If       there any error, a message error will 
-       be shown</td>
+      <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user.   
+       If there any error, an error message will be shown
+      </td>
     </tr>
     <tr>
       <td>verifySignUp</td>
@@ -1097,3 +1145,33 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
 </table>
 
 It will have an instance of the `UserService` class, which will be under the annotation `@AutoWired`.
+
+### TicketController
+
+This `@Controller` will be in charge of managing everything related to the tickets for the different concerts that are registered in the application.
+
+<strong><em>By the moment</em></strong> this will be all the methods this `@Controller` will have:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showPurchaseConfirmation</td>
+      <td>purchase-confirmation or purchase (If something goes wrong)</td>
+      <td>@PostMapping</td>
+      <td>/concert/{id}/purchase/confirmation</td>
+      <td>Model model, @RequestParam String cardHolder, cardType, cardId, expDate, cvv</td>
+      <td>It will verify if the information of the credit card is valid, if it is, the purchase-confirmation template will be shown, 
+       otherwise, the purchase template will be shwon with an error message.</td>
+    </tr>
+  </tbody>
+</table>
+
+It will have an instance of the `CardVerifyingService `, `ConcertService` and `TicketService` classes, which will be under the annotation `@AutoWired`.
