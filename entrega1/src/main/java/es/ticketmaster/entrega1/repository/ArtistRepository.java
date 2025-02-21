@@ -13,5 +13,10 @@ public interface ArtistRepository extends JpaRepository<Artist,Long>{
     */
     public List<Artist> findTop10ByOrderByPopularityIndexDesc();
 
+    /** Makes a list of the artists whose name contains the string search
+     * 
+     * @param search substring to be searched inside the artists names
+     * @return the specified list
+     */
     public List<Artist> findByNameContainingIgnoreCase(String search);
 }

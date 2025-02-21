@@ -31,6 +31,7 @@ public class MainController {
      * the user is logged or not
      *
      * @param model is the model of the dinamic HTML document
+     * @param search (Optional) Search introduced by the user in the searchbar
      * @return the main template
      */
     @GetMapping("/")
