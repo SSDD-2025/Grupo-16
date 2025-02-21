@@ -21,6 +21,11 @@ public class ArtistService {
         return artistRepository.findTop10ByOrderByPopularityIndexDesc();
     }
 
+    /**
+     * Makes the artist search by artist name making use of the repository
+     * @param search string to be searched
+     * @return List of artists who match with search
+     */
     public List<Artist> getSearchBy(String search){
         
         return artistRepository.findByNameContainingIgnoreCase(search);
