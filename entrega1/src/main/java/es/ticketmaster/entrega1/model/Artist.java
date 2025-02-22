@@ -332,4 +332,23 @@ public class Artist {
     public void setConcertList(List<Concert> concertList) {
         this.concertList = concertList;
     }
+
+    /**
+     * 
+     * @return the date when the artist logged for the first time (created its information)
+     */
+    public LocalDateTime getSessionCreated() {
+        return sessionCreated;
+    }
+
+    /**
+     * 
+     * @param sessionCreated the new date when the artist logged for the first time (created its information)
+     * It will be no necessary to set a new sessionCreated when there is already one 
+     */
+    public void setSessionCreated(LocalDateTime sessionCreated) {
+        this.sessionCreated = sessionCreated;
+    }
+
+    
 }

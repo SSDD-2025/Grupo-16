@@ -924,9 +924,15 @@ The following, are the methods available in this `@Service`:
   </thead>
   <tbody>
     <tr>
-      <td>getArtistDisplay</td>
+      <td>getArtistDisplayByPopularity</td>
       <td>List of Artist</td>
       <td>It returns a list to display on the main page with the top ten artist with the highest popularity rate</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>getArtistDisplayBySession</td>
+      <td>List of Artist</td>
+      <td>It returns a list to display on the main page with the top ten artist recent added artist</td>
       <td>None</td>
     </tr>
   </tbody>
@@ -1079,6 +1085,12 @@ It has the following methods:
       <td>It returns the list of the top 10 artist with the highest popularity index</td>
       <td>None</td>
     </tr>
+    <tr>
+      <td>findTop10ByOrderBySessionCreatedDesc</td>
+      <td>List of Artist</td>
+      <td>It returns the list of the top 10 artist with most recent session created date</td>
+      <td>None</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1204,6 +1216,32 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
 </table>
 
 It will have an instance of the `UserService` class, which will be under the annotation `@AutoWired`.
+
+### ArtistController
+This `@Controller` will be in charge of managing everything related to the artist main page. It will add all the attributes of the artist on the artist.html depending if the artists exists in the database or not.
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getArtistPage</td>
+      <td>artist</td>
+      <td>@GetMapping</td>
+      <td>/artist/{id}?artistName=""</td>
+      <td>Model model, @PathVariable long id, @RequestParam String artistName</td>
+      <td>It will add all the attributes to complete the creation of the artist html</td>
+    </tr>
+  </tbody>
+</table>
+
+It will have an instance of the `ArtistService ` and `ConcertService` classes, which will be under the annotation `@AutoWired`.
 
 ### TicketController
 

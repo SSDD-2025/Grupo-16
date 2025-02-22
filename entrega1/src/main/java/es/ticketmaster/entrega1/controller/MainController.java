@@ -50,7 +50,7 @@ public class MainController {
         if (search == null) {
             
             model.addAttribute("concertList", concertService.getConcertDisplay(userLogged));
-            model.addAttribute("artistList", artistService.getArtistDisplay());
+            model.addAttribute("artistList", artistService.getArtistDisplayBySession());
 
         } else {
 
