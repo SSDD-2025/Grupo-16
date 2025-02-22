@@ -60,4 +60,8 @@ public class ConcertService {
 
         return concertRepository.findConcertById(id);
     }
+
+    public List<Concert> getArtistConcerts(String artistName){
+        return concertRepository.findByArtistNameContainingIgnoreCase(artistName);
+    }
 }

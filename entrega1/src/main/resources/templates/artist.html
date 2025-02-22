@@ -1,76 +1,71 @@
 <html>
     <head>
-        <title>{{name}}</title> <!-- The title is the name of the artist -->
+        <title>{{titleName}}</title> <!-- The title is the name of the artist -->
         <link type="text/css" rel="stylesheet" href="/css/artist-style.css" >
     </head>
     <body>
         <header>
             {{>header}}
         </header>
-        <!-- Show the artist name -->
-        <div class="center">
-            <h1 class="artist-name">Meet {{name}}</h1>
-        </div>
-
-        <!-- Main Block -->
-        <div>
-            <!-- Show artist's photo at the left of the page -->
-            <div class="photo-container">
-                <img class="artist-image" src="/media/{{name}}.jpg">
+        {{#artist}}
+            <!-- Show the artist name -->
+            <div class="center">
+                <h1 class="artist-name">Meet {{artist.name}}</h1>
             </div>
 
-            <!-- Show artist's main information at the right of the page -->
-            <div class="main-info">
-                <!-- The structure of the main information is the same in every artist, only the data changes -->
-                <!-- This data is kept at the database as attributes of the entity ARTIST -->
-                <p>
-                    {{name}} is a singer{{#other-jobs}}, {{.}}{{/other-jobs}} born in {{birth-place}} on {{birth-date}}. 
-                    {{#is-female}} She {{/is-female}}{{^is-female}} He {{/is-female}}became famous after releasing the song "{{fame-song}}" in {{month-release}} and kept on going 
-                    and releasing {{#is-female}} her {{/is-female}}{{^is-female}} his {{/is-female}} best songs, such as {{#songs}}"{{.}}", {{/songs}}. {{name}} has recently released
-                    the song called "{{new-song}}" and the last album publicated was "{{album-name}}" in {{album-date}}. <br> <br> {{#new-album}} {{name}} is set to released a brand new 
-                    album called {{.}} in {{album-release}}{{/new-album}}{{^new-album}} For now, {{name}} does not have a new album upcoming.{{/new-album}}.
-                </p>
-            </div>
-        </div>
+            <!-- Main Block -->
+            <div>
+                <!-- Show artist's photo at the left of the page -->
+                <div class="photo-container">
+                    <img class="artist-image" src="/media/{{artist.name}}.jpg">
+                </div>
 
-        <!-- Show aditional information kept in the database-->
-        {{#more-info}}
+                <!-- Show artist's main information at the right of the page -->
+                <div class="main-info">
+                    <!-- The structure of the main information is the same in every artist, only the data changes -->
+                    <!-- This data is kept at the database as attributes of the entity ARTIST -->
+                    <p>{{artist.mainInfo}}</p>
+                </div>
+            </div>
+
+            <!-- Show aditional information kept in the database-->
             <div class="more-info">
-                {{.}}
+                {{artist.extendedInfo}}
             </div>
-        {{/more-info}}
 
-        <!-- Show two albums and its links to listen in Spotify/ Apple Music (kept at the database) -->
-        <h2>Start listening to {{name}}...</h2>
-        <div>
-            <div class="album-container">
-                <h3>Best Album</h3>
-                <img class="album-photo" src="{{best-album}}.jpg"> <!-- Photo of the cover -->
-                <div class="music-apps">
-                    <a href="{{spotify-best-album}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                    <a href="{{apple-best-album}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
+            <!-- Show two albums and its links to listen in Spotify/ Apple Music (kept at the database) -->
+            <h2>Start listening to {{artist.name}}...</h2>
+            <div>
+                <div class="album-container">
+                    <h3>Best Album</h3>
+                    <img class="album-photo" src="{{best-album}}.jpg"> <!-- Photo of the cover -->
+                    <div class="music-apps">
+                        <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
+                        <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
+                    </div>
+                </div>
+                <div class="album-container">
+                    <h3>Latest Album</h3>
+                    <img class="album-photo" src="{{soon-album}}.jpg"> <!-- Photo of the cover -->
+                    <div class="music-apps">
+                        <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
+                        <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
+                    </div>
                 </div>
             </div>
-            <div class="album-container">
-                <h3>Latest Album</h3>
-                <img class="album-photo" src="{{soon-album}}.jpg"> <!-- Photo of the cover -->
-                <div class="music-apps">
-                    <a href="{{spotify-soon-album}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                    <a href="{{apple-soon-album}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
-                </div>
+            
+            <!-- Show the music video kept at the database -->
+            <h2>... or go watch some music videos</h2>
+            <div class="center">
+                <!-- mv-link is the music video kept in the database -->
+                <!-- it is program to be muted and only starts when the user clicks on it-->
+                <video src="{{artist.videoLink}}" controls muted></video>
             </div>
-        </div>
-        
-        <!-- Show the music video kept at the database -->
-        <h2>... or go watch some music videos</h2>
-        <div class="center">
-            <!-- mv-link is the music video kept in the database -->
-            <!-- it is program to be muted and only starts when the user clicks on it-->
-            <video src="{{mv-link}}" controls muted></video>
-        </div>
-
-        <br>
-
+            <br>
+        {{/artist}}
+        {{^artist}}
+            <p>There is no artist to show</p>
+        {{/artist}}
         <!-- Show upcoming concerts of the artist -->
         <h2>Upcoming Concerts:</h2>
         {{>display-concerts}}
