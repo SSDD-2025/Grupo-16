@@ -109,6 +109,10 @@ public class UserEntity {
         this.profilePicture = newPic;
     }
 
+    /**
+     * Makes a copy of a given UserEntity onto the object that does the method
+     * @param newUser user which information is going to be copied onto the UserEntity that does the method
+     */
     public void setAttributes(UserEntity newUser){
         this.id = newUser.id;
         this.userName = newUser.userName;

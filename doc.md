@@ -848,6 +848,65 @@ Furthermore, the class consist of 3 constructors and a series of attributes that
   </tbody>
 </table>
 
+__Methods__: all the attributes of the class are defined with its getters and setters, but there are other important methods implemented on this class
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>setAttributes</td>
+      <td>void</td>
+      <td>Makes (on the object that calls the method) a copy of the attributes of another UserEntity passed by parameter</td>
+      <td>UserEntity newUser</td>
+    </tr>
+  </tbody>
+</table>
+
+### ActiveUser
+The class ActiveUser is a `@Component` annotated with `@SessionScope`, which means that is an object related to the session thats being used by the webpage. It has all the information regarding the user registered (or not) on the webpage.
+
+__Attributes__: a boolean variable called logged which is true if there is a user logged on the page and a UserEntity variable called activeUser, which contains all the information regarding the user logged on the page. 
+
+When the user is anonymous, __logged__ will be false, but activeUser will be already created by Spring, so it should only be accessed if __logged__ has the value true (on the contrary, it will have a junk value).
+
+__Constructor__: the class has a constructor (which is actually not used) that reserves memory for the activeUser object and sets logged to false.
+
+__Methods__: the methods for this class are
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>init</td>
+      <td>void</td>
+      <td>It inicialize the session (logged=false)</td>
+      <td>void</td>
+    </tr>
+    <tr>
+      <td>setNewActiveUser</td>
+      <td>void</td>
+      <td>It copys the attributes of the new user (which is being logged) onto the attribute activeUser</td>
+      <td>UserEntity newUser</td>
+    </tr>
+    <tr>
+      <td>isUserLogged</td>
+      <td>boolean</td>
+      <td>Returns whether the user is logged or not</td>
+      <td>void</td>
+    </tr>
+  </tbody>
+</table>
+
+The attribute __activeUser__ also has its getter and setter defined.
+
 ## Services documentation.
 
 The following classes are `@Service` which main function is to provide service to the `@Controller` for querys and specific specific logic.
@@ -943,8 +1002,8 @@ This are the methods that this `@Service` will have <strong><em>By the moment</e
     <tr>
       <td>isLogged</td>
       <td>boolean</td>
-      <td>Will determinate if the activeUser is logged or not</td>
-      <td>UserEntity activeUser</td>
+      <td>Will determinate if the activeUser (@Autowired) is logged or not</td>
+      <td>void</td>
     </tr>
   </tbody>
 </table>
