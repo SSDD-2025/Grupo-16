@@ -59,4 +59,28 @@ public class ConcertService {
     public Concert getConcertById(long id){
         return concertRepository.findConcertById(id);
     }
+
+    /**
+     * This method will verify is there are available tickets for a specific type (section).
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets the user has purchased.
+     * @param type is the type (section) of the ticket.
+     * @return if the rows has been updated (1) true, otherwise, false.
+     */
+    public boolean verifyAvailability(long id, int number, String type) {
+        int result = 0;
+        if (type.equalsIgnoreCase("West Side")) {
+            result = this.concertRepository.availableWestStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("East Side")) {
+            result = this.concertRepository.availableEastStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("South Side")) {
+            result = this.concertRepository.availableSouthStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("General Admission")) {
+            result = this.concertRepository.availableSouthStandsTickets(id, number);
+        }
+        return result == 1;
+    }
 }
