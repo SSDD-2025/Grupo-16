@@ -39,11 +39,11 @@ page and its function is to provide the user a simple way to select the tickets 
             <div class="map-container"> <!--Container of the form that collects the ticket data-->
                 <form action="/concert/{{concert.id}}/purchase" method="post">
                     <div class="title-of-box-container">
-                        <p>Choose the zone</p>
+                        <p>Choose the zone</p> 
                     </div>
 
                     <div class="ticket-selection"> <!--Ticket selection options, they deppend on the availability of the concert-->
-                        <select class="zone-selector">
+                        <select class="zone-selector" name="ticketType">
                             {{#concert.remainSouthStands}}
                             <option value="South">South Side</option>
                             {{/concert.remainSouthStands}}
