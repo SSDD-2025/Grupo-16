@@ -61,6 +61,14 @@ public class ConcertService {
     }
 
     /**
+     * @param artistName the artist name whose concert list is being returned
+     * @return said list
+     */
+    public List<Concert> getArtistConcerts(String artistName){
+        return concertRepository.findByArtistNameIgnoreCase(artistName);
+    }
+
+    /**
      * This method will verify is there are available tickets for a specific type (section).
      * @param id is the identification number for the concert.
      * @param number is the ammount of tickets the user has purchased.
