@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,28 @@ public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
 
-    public List<Artist> getArtistDisplay(){
-        /** Searches the concerts taken at a specific place
-         * @param place is the country/ city which the search is based
-         * @return the list of the concerts taking place at the country/ city specified
-         */
+    /**
+     * 
+     * @param id the artist id that is searched
+     * @return the artist or null (if its not found)
+     */
+    public Optional<Artist> getArtist(long id){
+        return artistRepository.findById(id);
+    }
+
+    /** Searches the concerts taken at a specific place
+     * @return the list of the concerts of the top 10 most famous artist
+     */
+    public List<Artist> getArtistDisplayByPopularity(){
+        
         return artistRepository.findTop10ByOrderByPopularityIndexDesc();
+    }
+
+    /** Searches the concerts taken at a specific place
+     * @return the list of the concerts of the top 10 last created artist
+     */
+    public List<Artist> getArtistDisplayBySession(){
+        return artistRepository.findTop10ByOrderBySessionCreatedDesc();
     }
 
     /**

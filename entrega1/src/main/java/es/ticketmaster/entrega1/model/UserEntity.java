@@ -25,8 +25,8 @@ public class UserEntity {
     private Blob profilePicture;
     @OneToMany
     private List<Artist> artistsList = new LinkedList<>();
-    // @OneToMany
-    // private List<Ticket> ticketList = new LinkedList<>();
+    @OneToMany(mappedBy="ticketUser")
+    private List<Ticket> ticketList = new LinkedList<>();
 
     protected UserEntity () {
         /* Constructor used by the JPA interface. */
@@ -77,9 +77,9 @@ public class UserEntity {
         return this.artistsList;
     }
 
-    // public List<Ticket> getTicketsList() {
-    //     return this.ticketList;
-    // }
+    public List<Ticket> getTicketsList() {
+        return this.ticketList;
+    }
 
     public void setUserName(String newName) {
         this.userName = newName;
@@ -101,14 +101,18 @@ public class UserEntity {
         this.artistsList = list;
     }
 
-    // public void setTicketList(List<Ticket> list) {
-    //     this.ticketList = list;
-    // }
+    public void setTicketList(List<Ticket> list) {
+         this.ticketList = list;
+    }
 
     public void setProfilePicture(Blob newPic) {
         this.profilePicture = newPic;
     }
 
+    /**
+     * Makes a copy of a given UserEntity onto the object that does the method
+     * @param newUser user which information is going to be copied onto the UserEntity that does the method
+     */
     public void setAttributes(UserEntity newUser){
         this.id = newUser.id;
         this.userName = newUser.userName;
@@ -117,6 +121,6 @@ public class UserEntity {
         this.country = newUser.country;
         this.profilePicture = newUser.profilePicture;
         this.artistsList = newUser.artistsList;
-        //this.ticketList = newUser.ticketList;
+        this.ticketList = newUser.ticketList;
     }
 }

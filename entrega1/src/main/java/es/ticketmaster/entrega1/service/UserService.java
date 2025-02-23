@@ -60,6 +60,10 @@ public class UserService {
         return this.userRepository.findByUserNameAndPassword(userName, password);
     }
 
+    /**
+     *
+     * @return true if the active user at the session is logged or not
+     */
     public boolean isLogged(){
         return (activeUser.isUserLogged());
     }

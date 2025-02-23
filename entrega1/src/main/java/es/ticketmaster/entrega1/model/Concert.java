@@ -2,12 +2,15 @@ package es.ticketmaster.entrega1.model;
 
 import java.sql.Blob;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 
 /**
@@ -28,6 +31,9 @@ public class Concert {
     @ManyToOne
     private Artist artist; //Artist who gives the concert
 
+    @OneToMany(mappedBy="concert")
+    private List<Ticket> ticket = new LinkedList<>();
+
     private String name; //Name that the concert has, may be the same as the tour name
 
     private String info; //Brief description of the concert, including specific information of the artist and place
@@ -36,7 +42,7 @@ public class Concert {
 
     private String place; //Name of the place where the concert takes place
 
-    private long price; //General price of every ticket
+    private float price; //General price of every ticket
 
     private int westStandsNumber; //Number of West Stands tickets available 
     private int eastStandsNumber; //Number of East Stands tickets available 
@@ -67,7 +73,7 @@ public class Concert {
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      */
     public Concert(Artist artist, String name, LocalDateTime date, String place, String info, 
-    long price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
+    float price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
         super();
         this.artist = artist;
         this.name = name;
@@ -96,7 +102,7 @@ public class Concert {
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      * @param image Promotional poster of the concert
      */
-    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, long price, 
+    public Concert(Artist artist, String name, LocalDateTime date, String place, String info, float price, 
     int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
         this(artist, name, date, place, info, price, westStandsNumber, eastStandsNumber, 
         southStandsNumber, generalAdmissionNumber);
@@ -157,7 +163,7 @@ public class Concert {
      * Getter for the price attribute
      * @return General price for every ticket of the concert
      */
-    public long getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -234,6 +240,14 @@ public class Concert {
     }
 
     /**
+     * Getter for the ticket list.
+     * @return the list of all the tickets for a specific concert.
+     */
+    public List<Ticket> getTickets() {
+        return this.ticket;
+    }
+
+    /**
      * Setter for the name attribute
      * @param name Name of the concert
      */
@@ -269,7 +283,7 @@ public class Concert {
      * Setter for the price attribute
      * @param price General price for every ticket of the concert
      */
-    public void setPrice(long price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -314,12 +328,18 @@ public class Concert {
     }
 
     /**
+     * Setter fot the ticket list.
+     * @param list is the ticket list.
+     */
+    public void setTicketList(List<Ticket> list)  {
+        this.ticket = list;
+    }
+
+    /**
      * Getter for the date attribute
      * @return date hour displayed with format
      */
     public String getFormattedTime() {
         return String.format("%02d:%02d", date.getHour(), date.getMinute());
     }
-
-    
 }

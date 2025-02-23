@@ -11,7 +11,7 @@
                 <h2>Tickets Information:</h2>
                 <!-- Ticket Information -->
                 <p>Concert: {{name}} <br> Date: {{date}} <br> Number: {{number}} <br> Type of Ticket: {{type}} ({{price}})</p>
-                <form action="" method="post"> <!-- PENDING CODE: Controller URL which takes you back to the main page-->
+                <form action="/concert/{{concert.id}}" method="post">
                     <input type="submit" value="Cancel Purchase">
                 </form>
             </div>
@@ -31,10 +31,10 @@
                 <!-- Credit Card information to do the purchase -->
                 <div class="form-container">
                     <!-- Form block so the user can introduce the data (it will not be register at the database) -->
-                    <form action="/concert/{id}/purchase/confirmation" method="post">
+                    <form action="/concert/{{concert.id}}/purchase/confirmation" method="post">
                         <!-- Cardholder Name-->
                         <label for="cardholder">Cardholder Name:</label>
-                        <input type="text" name="cardholder" id="cardholder" placeholder="Name"/>
+                        <input type="text" name="cardHolder" id="cardholder" placeholder="Name"/>
 
                         <br> <br>
 
@@ -68,6 +68,10 @@
                         <!-- Submit Button -->
                         <input type="submit" value="Purchase">
                     </form>
+                    {{#error}}
+                        <p><strong>The card details entered are not correct.</strong></p>
+                        <p><strong>Please, check that what is filled out in each field complies with the appropriate format.</strong></p>
+                    {{/error}}
                 </div>          
         {{/ticket}}
     </body>

@@ -848,6 +848,65 @@ Furthermore, the class consist of 3 constructors and a series of attributes that
   </tbody>
 </table>
 
+__Methods__: all the attributes of the class are defined with its getters and setters, but there are other important methods implemented on this class
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>setAttributes</td>
+      <td>void</td>
+      <td>Makes (on the object that calls the method) a copy of the attributes of another UserEntity passed by parameter</td>
+      <td>UserEntity newUser</td>
+    </tr>
+  </tbody>
+</table>
+
+### ActiveUser
+The class ActiveUser is a `@Component` annotated with `@SessionScope`, which means that is an object related to the session thats being used by the webpage. It has all the information regarding the user registered (or not) on the webpage.
+
+__Attributes__: a boolean variable called logged which is true if there is a user logged on the page and a UserEntity variable called activeUser, which contains all the information regarding the user logged on the page. 
+
+When the user is anonymous, __logged__ will be false, but activeUser will be already created by Spring, so it should only be accessed if __logged__ has the value true (on the contrary, it will have a junk value).
+
+__Constructor__: the class has a constructor (which is actually not used) that reserves memory for the activeUser object and sets logged to false.
+
+__Methods__: the methods for this class are
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>init</td>
+      <td>void</td>
+      <td>It inicialize the session (logged=false)</td>
+      <td>void</td>
+    </tr>
+    <tr>
+      <td>setNewActiveUser</td>
+      <td>void</td>
+      <td>It copys the attributes of the new user (which is being logged) onto the attribute activeUser</td>
+      <td>UserEntity newUser</td>
+    </tr>
+    <tr>
+      <td>isUserLogged</td>
+      <td>boolean</td>
+      <td>Returns whether the user is logged or not</td>
+      <td>void</td>
+    </tr>
+  </tbody>
+</table>
+
+The attribute __activeUser__ also has its getter and setter defined.
+
 ## Services documentation.
 
 The following classes are `@Service` which main function is to provide service to the `@Controller` for querys and specific specific logic.
@@ -865,9 +924,15 @@ The following, are the methods available in this `@Service`:
   </thead>
   <tbody>
     <tr>
-      <td>getArtistDisplay</td>
+      <td>getArtistDisplayByPopularity</td>
       <td>List of Artist</td>
       <td>It returns a list to display on the main page with the top ten artist with the highest popularity rate</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>getArtistDisplayBySession</td>
+      <td>List of Artist</td>
+      <td>It returns a list to display on the main page with the top ten artist recent added artist</td>
       <td>None</td>
     </tr>
   </tbody>
@@ -943,13 +1008,60 @@ This are the methods that this `@Service` will have <strong><em>By the moment</e
     <tr>
       <td>isLogged</td>
       <td>boolean</td>
-      <td>Will determinate if the activeUser is logged or not</td>
-      <td>UserEntity activeUser</td>
+      <td>Will determinate if the activeUser (@Autowired) is logged or not</td>
+      <td>void</td>
     </tr>
   </tbody>
 </table>
 
 There will be an instance of the `UserRepository` from which all the querys will be made.
+
+### CardVerifyingService
+
+The function of this `@Service` will be to verify that the information entered on the credit card is correct, that is, that it complies with the correct format. It will be used in the `TicketController` class.
+
+This are the methods implemented on this `@Service`:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>verifyCardHolder</td>
+      <td>boolean</td>
+      <td>It will check if the name of the card`s holder is in the correct format</td>
+      <td>String cardHolder</td>
+    </tr>
+    <tr>
+      <td>verifyCreditCardNumber</td>
+      <td>boolean</td>
+      <td>It will verify if the credit card number is correct, and complies the correct format based on the Luhn`s Algorithm</td>
+      <td>String number</td>
+    </tr>
+    <tr>
+      <td>getType</td>
+      <td>String</td>
+      <td>It will obtain the credit card type, based on the format of its number</td>
+      <td>String number</td>
+    </tr>
+    <tr>
+      <td>verifyExpirationDate</td>
+      <td>boolean</td>
+      <td>It will verify if the entered expiration date its not a date prior to when the form is filled</td>
+      <td>String date</td>
+    </tr>
+    <tr>
+      <td>verifyCVV</td>
+      <td>boolean</td>
+      <td>It will verify if the credit card security number cumplies the correct format</td>
+      <td>String cvv</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Repositories Documentation.
 
@@ -971,6 +1083,12 @@ It has the following methods:
       <td>findTop10ByOrderByPopularityIndexDesc</td>
       <td>List of Artist</td>
       <td>It returns the list of the top 10 artist with the highest popularity index</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>findTop10ByOrderBySessionCreatedDesc</td>
+      <td>List of Artist</td>
+      <td>It returns the list of the top 10 artist with most recent session created date</td>
       <td>None</td>
     </tr>
   </tbody>
@@ -1081,8 +1199,9 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
       <td>@PostMapping</td>
       <td>/sign-in/validation</td>
       <td>Model model, @RequestParam String userName, password</td>
-      <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user. If       there any error, a message error will 
-       be shown</td>
+      <td>It will verify if the given userName and password matches with the one in the database, and establish a session to that user.   
+       If there any error, an error message will be shown
+      </td>
     </tr>
     <tr>
       <td>verifySignUp</td>
@@ -1097,3 +1216,59 @@ This `@Controller` will be in charge of managing <strong><em>TBD</em></strong>
 </table>
 
 It will have an instance of the `UserService` class, which will be under the annotation `@AutoWired`.
+
+### ArtistController
+This `@Controller` will be in charge of managing everything related to the artist main page. It will add all the attributes of the artist on the artist.html depending if the artists exists in the database or not.
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getArtistPage</td>
+      <td>artist</td>
+      <td>@GetMapping</td>
+      <td>/artist/{id}?artistName=""</td>
+      <td>Model model, @PathVariable long id, @RequestParam String artistName</td>
+      <td>It will add all the attributes to complete the creation of the artist html</td>
+    </tr>
+  </tbody>
+</table>
+
+It will have an instance of the `ArtistService ` and `ConcertService` classes, which will be under the annotation `@AutoWired`.
+
+### TicketController
+
+This `@Controller` will be in charge of managing everything related to the tickets for the different concerts that are registered in the application.
+
+<strong><em>By the moment</em></strong> this will be all the methods this `@Controller` will have:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showPurchaseConfirmation</td>
+      <td>purchase-confirmation or purchase (If something goes wrong)</td>
+      <td>@PostMapping</td>
+      <td>/concert/{id}/purchase/confirmation</td>
+      <td>Model model, @RequestParam String cardHolder, cardType, cardId, expDate, cvv</td>
+      <td>It will verify if the information of the credit card is valid, if it is, the purchase-confirmation template will be shown, 
+       otherwise, the purchase template will be shwon with an error message.</td>
+    </tr>
+  </tbody>
+</table>
+
+It will have an instance of the `CardVerifyingService `, `ConcertService` and `TicketService` classes, which will be under the annotation `@AutoWired`.

@@ -3,21 +3,57 @@ package es.ticketmaster.entrega1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.service.CardVerifyingService;
+import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.TicketService;
 
 
 @Controller
 public class TicketController {
     @Autowired
     private CardVerifyingService cardService;
+    @Autowired
+    private TicketService ticketService;
+    @Autowired
+    private ConcertService concertService;
+
+    /**
+     * This method will be in charge of showing all the ticket information that the user has pruchased.
+     * This will be showed in the "purchase.html" template.
+     * Apart for that, all the purchased tickets will be associated to the user and viceversa.
+     * This last operation is done by the associateUserWithTicket method, implemented in the ticketService class.
+     * @param model is the model of the dinamic HTML document.
+     * @param id is the concert identification number.
+     * @param number is the ammount of tickets the user has purchased.
+     * @param ticketType is the type of the ticket (the zone/section).
+     * @return the "purchase.html" template.
+     */
+    @PostMapping("/concert/{id}/purchase")
+    public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam String number, @RequestParam String ticketType) {
+        Concert concert = this.concertService.getConcertById(id);
+        int numberOfTickets = Integer.parseInt(number);
+        this.ticketService.associateUserWithTicket(ticketType, numberOfTickets);
+        model.addAttribute("ticket", this.concertService.verifyAvailability(id, numberOfTickets, ticketType));
+        model.addAttribute("name", concert.getName());
+        model.addAttribute("date", concert.getDate());
+        model.addAttribute("number", number);
+        model.addAttribute("price", concert.getPrice());
+        float totalPrice = concert.getPrice() * numberOfTickets;
+        model.addAttribute("total-price", totalPrice);
+        return "purchase";
+    }
+    
 
     /**
      * This method will be in charge of sending the user to the purchase confirmation page 
      * if the credit card`s information is valid. If something happen, an error message will appear informing the user.
-     * @param model
+     * @param model is the model of the dinamic HTML document.
      * @param cardHolder is the name of the credit card holder introduced by the user.
      * @param cardType is the type of the credit card (Visa, MasterCard or American Express) selected by the user.
      * @param cardId is the credit card identification number introduced by the user.
@@ -34,8 +70,16 @@ public class TicketController {
                 return "purchase-confirmation";
         }
         model.addAttribute("error", true);
-        return "purchase"; /* THIS IS NOT DEFINITIVE. It remains to add the variable mustache (error) to the template, 
-                           so that it displays the error message in case one occurs.
-                           */
+        return "purchase";
     }
+
+    /**
+     * This method will managed the action of cancelling a purchase, 
+     * sending the user to the previous page, which is the one where the user can choose the type of ticket he wants.
+     * @return the "ticket-selling.html" tenplate.
+     */
+    @GetMapping("/concert/{id}")
+    public String cancelPurchase() {
+        return "ticket-selling";
+    } 
 }
