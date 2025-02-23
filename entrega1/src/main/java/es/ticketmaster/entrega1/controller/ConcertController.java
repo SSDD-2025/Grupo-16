@@ -33,6 +33,7 @@ public class ConcertController {
 
         if(userLogged){
             model.addAttribute("concert", concertService.getConcertById(id));
+            model.addAttribute("isLogged", true);
             return "ticket-selling";
         } else {
             return "error"; /*TO BE IMPLEMENTED -> Error page when non-logged users try to access ticket selection */
