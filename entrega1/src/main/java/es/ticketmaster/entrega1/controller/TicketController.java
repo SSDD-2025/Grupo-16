@@ -3,7 +3,6 @@ package es.ticketmaster.entrega1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,14 +71,4 @@ public class TicketController {
         model.addAttribute("error", true);
         return "purchase";
     }
-
-    /**
-     * This method will managed the action of cancelling a purchase, 
-     * sending the user to the previous page, which is the one where the user can choose the type of ticket he wants.
-     * @return the "ticket-selling.html" tenplate.
-     */
-    @GetMapping("/concert/{id}")
-    public String cancelPurchase() {
-        return "ticket-selling";
-    } 
 }

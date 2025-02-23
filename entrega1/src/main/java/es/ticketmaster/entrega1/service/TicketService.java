@@ -25,7 +25,7 @@ public class TicketService {
      * @return the ticket.
      */
     public Ticket getTicket(long id) {
-        return this.ticketRepository.findTicketByID(id);
+        return this.ticketRepository.findTicketById(id);
     }
 
     /**
