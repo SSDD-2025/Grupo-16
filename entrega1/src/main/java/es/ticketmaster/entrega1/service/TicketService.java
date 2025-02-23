@@ -38,15 +38,15 @@ public class TicketService {
      * @param number is the ammount of tickets de user has purchased.
      */
     public void associateUserWithTicket(String type, int number) {
-        List<Ticket> userTickets = this.activeUser.getActiveUser().getTicketsList();
+        List<Ticket> userTickets = userRepository.findById(this.activeUser.getId()).getTicketsList();
         for (int i = 0; i < number; i++) {
             /* The user is null, because is an available ticket. */
             Ticket newTicket = this.ticketRepository.findTicketByZoneAndTicketUser(type, null);
             userTickets.add(newTicket); /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(activeUser.getActiveUser()); /* Associating the ticket to the user. */
+            newTicket.setUser(userRepository.findById(this.activeUser.getId())); /* Associating the ticket to the user. */
             this.ticketRepository.save(newTicket); /* Once it has been asssociated, the ticket is saved in its repository. */
         }
-        this.activeUser.getActiveUser().setTicketList(userTickets); /* Updating the ticket list of the user. */
-        this.userRepository.save(this.activeUser.getActiveUser()); /* Saving the user in its repository. */
+        userRepository.findById(this.activeUser.getId()).setTicketList(userTickets); /* Updating the ticket list of the user. */
+        this.userRepository.save(userRepository.findById(this.activeUser.getId())); /* Saving the user in its repository. */
     }
 }

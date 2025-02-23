@@ -10,4 +10,5 @@ import es.ticketmaster.entrega1.model.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long>  {
     public UserEntity findByUserName(String userName);
     public UserEntity findByUserNameAndPassword(String userName, String password);
+    public UserEntity findById(long id);
 }

@@ -53,6 +53,10 @@ public class UserEntity {
         this.profilePicture = picture;
     }
 
+    public long getId(){
+        return id;
+    }
+
     public String getUserName() {
         return this.userName;
     }
@@ -107,20 +111,5 @@ public class UserEntity {
 
     public void setProfilePicture(Blob newPic) {
         this.profilePicture = newPic;
-    }
-
-    /**
-     * Makes a copy of a given UserEntity onto the object that does the method
-     * @param newUser user which information is going to be copied onto the UserEntity that does the method
-     */
-    public void setAttributes(UserEntity newUser){
-        this.id = newUser.id;
-        this.userName = newUser.userName;
-        this.password = newUser.password;
-        this.email = newUser.email;
-        this.country = newUser.country;
-        this.profilePicture = newUser.profilePicture;
-        this.artistsList = newUser.artistsList;
-        this.ticketList = newUser.ticketList;
     }
 }

@@ -17,7 +17,7 @@
             <div>
                 <!-- Show artist's photo at the left of the page -->
                 <div class="photo-container">
-                    <img class="artist-image" src="/media/{{artist.name}}.jpg">
+                    <img class="artist-image" src="/artist/{{id}}/download-photo">
                 </div>
 
                 <!-- Show artist's main information at the right of the page -->
@@ -38,7 +38,7 @@
             <div>
                 <div class="album-container">
                     <h3>Best Album</h3>
-                    <img class="album-photo" src="{{best-album}}.jpg"> <!-- Photo of the cover -->
+                    <img class="album-photo" src="/artist/{{id}}/download-bestAlbum-photo"> <!-- Photo of the cover -->
                     <div class="music-apps">
                         <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
                         <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
@@ -46,7 +46,7 @@
                 </div>
                 <div class="album-container">
                     <h3>Latest Album</h3>
-                    <img class="album-photo" src="{{soon-album}}.jpg"> <!-- Photo of the cover -->
+                    <img class="album-photo" src="/artist/{{id}}/download-latestAlbum-photo"> <!-- Photo of the cover -->
                     <div class="music-apps">
                         <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
                         <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->

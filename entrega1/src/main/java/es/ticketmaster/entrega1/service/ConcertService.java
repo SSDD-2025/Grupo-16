@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
+import es.ticketmaster.entrega1.repository.UserRepository;
 
 /**
  * Concert service that gets access to the ConcertRepository to make specific and simple querys.
@@ -21,6 +22,9 @@ public class ConcertService {
 
     @Autowired
     private ActiveUser activeUser;
+
+    @Autowired
+    private UserRepository userRepository;
     
     /**
      * Method that searches for concerts which Concert.name or Concert.artist.name matches with
@@ -47,7 +51,7 @@ public class ConcertService {
          */
     public List<Concert> getConcertDisplay(boolean userLogged){
         if (userLogged){ //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.getConcertByPlace(activeUser.getActiveUser().getCountry());
+            List<Concert> concertList = concertRepository.getConcertByPlace(userRepository.findById(activeUser.getId()).getCountry());
             if (!(concertList.isEmpty())){
                 return concertList;
             }
@@ -56,6 +60,9 @@ public class ConcertService {
         return concertRepository.findAll(); //provisional until the query is fixed
     }
 
+    /**
+     * Armin's comment: shouldn't it be Optional<Concert> in case its not on the DDBB??
+     */
     public Concert getConcertById(long id){
         return concertRepository.findConcertById(id);
     }

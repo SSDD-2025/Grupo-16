@@ -10,15 +10,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class ActiveUser {
     private boolean logged;
-    private UserEntity activeUser;
-
-    /** 
-     * Constructor: initializes the object UserEntity and its not logged (new session)
-     */
-    public ActiveUser(){
-        activeUser = new UserEntity();
-        logged = false;
-    }
+    private long userId;
 
     /** 
      * Inicializes the ActiveUser to not logged
@@ -33,25 +25,8 @@ public class ActiveUser {
      * @param newUser the user thats being logged
      */
     public void setNewActiveUser(UserEntity newUser){
-        activeUser.setAttributes(newUser);
+        userId = newUser.getId();
         logged = true;
-    }
-
-    /**
-     * Active user getter
-     * @return the active user as an UserEntity
-     */
-    public UserEntity getActiveUser() {
-        return activeUser;
-    }
-
-    /**
-     * Active user setter
-     * @param activeUser the new active user
-     * this method should not be used to stablish the active user, it is better to do a copy of it with the method setNewActiveUser
-     */
-    public void setActiveUser(UserEntity activeUser) {
-        this.activeUser = activeUser;
     }
 
     /**
@@ -60,5 +35,12 @@ public class ActiveUser {
      */
     public boolean isUserLogged(){
         return logged;
+    }
+
+    /**
+     * @return active user's id
+     */
+    public long getId(){
+        return userId;
     }
 }
