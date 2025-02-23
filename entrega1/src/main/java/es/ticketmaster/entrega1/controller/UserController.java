@@ -20,6 +20,7 @@ public class UserController {
     private ActiveUser activeUser;
 
     /** Will show the sign in display on the "sign-in.html" file.
+    * @param model is the model of the dinamic HTML document.
     * @return the sign-in template.
     */
     @GetMapping("/sign-in")
@@ -29,6 +30,7 @@ public class UserController {
     }
 
     /** Will show the sign in display on the "sign-in.html" file.
+    * @param model is the model of the dinamic HTML document.
     * @return the sign-in template.
     */
     @GetMapping("/sign-up")
@@ -37,7 +39,8 @@ public class UserController {
         return "sign-in";
     }
 
-    /** It will verify if the userName introduced is valid (does exist). 
+    /** It will verify if the userName introduced is valid (does exist).
+    * @param model is the model of the dinamic HTML document. 
     * @param userName is the one introduced by the user.
     * @param password is the one introduced by the user.
     * @return the sign-in-validation template (if everything goes well), 
@@ -58,6 +61,7 @@ public class UserController {
     }
 
     /** It will verify if the userName introduced is valid (does not exist). 
+    * @param model is the model of the dinamic HTML document.
     * @param userName is the one introduced by the user.
     * @param password is the one introduced by the user.
     * @param country is the country from where the user is from.

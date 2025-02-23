@@ -27,7 +27,7 @@ public class Ticket {
     }
 
     /**
-     * Constructor to initialize the ticket with its zone and price
+     * Constructor to initialize the ticket with its zone and price.
      * @param zone of the ticket (section).
      * @param price is how much its cost.
      */

@@ -17,7 +17,7 @@ import es.ticketmaster.entrega1.repository.ConcertRepository;
 public class ConcertService {
     
     @Autowired
-    ConcertRepository concertRepository;
+    private ConcertRepository concertRepository;
 
     @Autowired
     private ActiveUser activeUser;

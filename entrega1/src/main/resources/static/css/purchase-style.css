@@ -63,3 +63,8 @@ span{
 input[type="submit"]:hover {
     background-color: #b3b3b3;
 }
+
+.form-container p {
+    color: red;
+    font-size:medium;
+}

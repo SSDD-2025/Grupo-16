@@ -33,12 +33,11 @@ public class TicketService {
      * Adding that new ticket to the user ticket list.
      * Once the ticket has being associated to a user, it will be saved in the ticket`s repository.
      * Finally, the same thing will be happening with the user,
-     * once all the tickets the user has purchased has beeing included to his list, 
-     * this user will be saved in the user`s repository.
+     * once all the purchased tickets has beeing included to his list, the user will be saved in its repository. 
      * @param type is the type of the ticket.
      * @param number is the ammount of tickets de user has purchased.
      */
-    public void associatedUserWithTicket(String type, int number) {
+    public void associateUserWithTicket(String type, int number) {
         List<Ticket> userTickets = this.activeUser.getActiveUser().getTicketsList();
         for (int i = 0; i < number; i++) {
             /* The user is null, because is an available ticket. */
