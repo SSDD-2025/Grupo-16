@@ -716,7 +716,7 @@ __Attributes:__
     </tr>
     <tr>
       <td>price</td>
-      <td>long</td>
+      <td>float</td>
       <td>General price of every ticket</td>
       <td>No</td>
     </tr>
@@ -757,7 +757,7 @@ __Attributes:__
 __Note:__ No comprovals are made over the attributes asigned, the Service should check whether the attributes are null or not, as well as assign default values (if it corresponds).
 
 ### UserEntity
-This class will contains all the relevant information regarding a single user of the application. As a consequence of being an entity in a relational model, it has relation with the following entities:
+This class will contain all the relevant information regarding a single user of the application. As a consequence of being an entity in a relational model, it has relation with the following entities:
 <table>
   <thead>
     <th> Entity</th>
@@ -866,6 +866,81 @@ __Methods__: all the attributes of the class are defined with its getters and se
   </tbody>
 </table>
 
+### Ticket
+This class will contain all the relevant information regarding the tickets for the different concerts. As a consequence of being an entity in a relational model, it has relation with the following entities:
+
+<table>
+  <thead>
+    <th>Entity</th>
+    <th>Cardinality</th>
+    <th>Annotation</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UserEntity</td>
+      <td>N..1</td>
+      <td>@ManyToOne</td>
+    </tr>
+    <tr>
+      <td>Concert</td>
+      <td>N..1</td>
+      <td>@ManyToOne</td>
+    </tr>
+  </tbody>
+</table>
+
+Furthermore, the class consist of 3 constructors and a series of attributes that help us store the ticket information previously mentioned.
+
+<strong>Constructors:</strong>
+<ol>
+  <li>An empty constructor for exclusive use of JPA.</li>
+  <li>A constructor that will initialize the entity with the place and the price of the ticket.</li>
+  <li>Will do the same function as the previous one, but this one will add its user and concert.</li>
+</ol>
+<strong>The non empty constructors, will verify that any of the attributes will not be empty.</strong>
+
+<strong>Attributes:</strong>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Could be null?</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>long</td>
+      <td>Is the identification number of the ticket. It is the primary key of this entity</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ticketUser</td>
+      <td>UserEntity</td>
+      <td>Is the owner of the ticket (the user associated with a ticket)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>concert</td>
+      <td>Concert</td>
+      <td>Is the concert where the tickets are available (the concert associated with a ticket)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>zone</td>
+      <td>String</td>
+      <td>It is the section/zone of the stadium</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>price</td>
+      <td>float</td>
+      <td>It is the cost of the ticket.</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
 ### ActiveUser
 The class ActiveUser is a `@Component` annotated with `@SessionScope`, which means that is an object related to the session thats being used by the webpage. It has all the information regarding the user registered (or not) on the webpage.
 
@@ -964,6 +1039,12 @@ The following, are the methods available in this `@Service`:
       <td>It returns the concert display list to put on the main page (it changes whether the user is registered or not)</td>
       <td>boolean userLogged</td>
     </tr>
+    <tr>
+      <td>verifyAvailability</td>
+      <td>boolean</td>
+      <td>It will check if there are tickets available of a certain type</td>
+      <td>long id, int number, String type</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1015,6 +1096,36 @@ This are the methods that this `@Service` will have <strong><em>By the moment</e
 </table>
 
 There will be an instance of the `UserRepository` from which all the querys will be made.
+
+### TicketService
+This `@Service` will serve as an intermediate between the `TicketController` and the `TicketRepository` in order to follow the `Hexagonal Arquitecture`. This service will have all the operations the `@Controller`s will need in order to access the data on the database, in other words, the querys.
+
+This are the methods that this `@Service` will have <strong><em>By the moment</em></strong>:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getTicket</td>
+      <td>Ticket</td>
+      <td>Obtain a ticket form the database</td>
+      <td>long id</td>
+    </tr>
+    <tr>
+      <td>associateUserWithTicket</td>
+      <td>void</td>
+      <td>It will obtain from the database the tickets that the user has purchased and associated with it (setting the ticket to that user). And vice versa, it will update the user's ticket list with the new ones. Finally, once both entities are updated, they will be saved in their respective repositories.</td>
+      <td>String type, int number</td>
+    </tr>
+  </tbody>
+</table>
+
+There will be an instance of `TicketRepository` and `UserRepository` from which all the querys will be made. Adittionally, an `ActiveUser` instance will also be present.
 
 ### CardVerifyingService
 
@@ -1112,6 +1223,30 @@ It has the following methods:
       <td>It searches the concerts that are taking place at a specific country/ city given as a parameter</td>
       <td>String place</td>
     </tr>
+    <tr>
+      <td>availableWestStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query obtaining the number of West Side Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>availableEastStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query obtaining the number of East Side Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>availableSouthStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query obtaining the number of South Side Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>availableGeneralAdmissionTickets</td>
+      <td>int</td>
+      <td>It will make a @Query obtaining the number of General Admission Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1139,6 +1274,34 @@ It will be in charge of save all the information regarding all the users the app
       <td>UserEntity</td>
       <td>String userName, password</td>
       <td>It will look for a user in the database by his userName and password</td>
+    </tr>
+  </tbody>
+</table>
+
+### TicketRepository
+It will be in charge of save all the information regarding all the tickets a concert could have.
+
+<strong><em>By the moment</em></strong>, this are all the methods that this repository will have:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Return Type</th>
+    <th>Parameters
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>findTicketById</td>
+      <td>Ticket</td>
+      <td>long id</td>
+      <td>It will obtain a ticket from the database</td>
+    </tr>
+    <tr>
+      <td>findTicketByZoneAndTicketUser</td>
+      <td>Ticket</td>
+      <td>String zone, UserEntity user</td>
+      <td>It will obtain a certain type of ticket based on the owner user</td>
     </tr>
   </tbody>
 </table>
@@ -1259,6 +1422,14 @@ This `@Controller` will be in charge of managing everything related to the ticke
     <th>Description</th>
   </thead>
   <tbody>
+    <tr>
+      <td>showPurchaseInformation</td>
+      <td>String</td>
+      <td>@PostMapping</td>
+      <td>/concert/{id}/purchase</td>
+      <td>Model model, @PathVariable long id, @RequestParam String number, ticketType</td>
+      <td>Once the ticket is chosen, it will show all the relevant information regarding the concert selected by the user, and the tickets to be purchased</td>
+    </tr>
     <tr>
       <td>showPurchaseConfirmation</td>
       <td>purchase-confirmation or purchase (If something goes wrong)</td>
