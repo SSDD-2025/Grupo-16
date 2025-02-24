@@ -6,11 +6,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Artist;
@@ -20,6 +21,7 @@ import es.ticketmaster.entrega1.repository.UserRepository;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 
+@Controller
 public class ImageController {
     @Autowired
     private ArtistService artistService;
@@ -40,7 +42,7 @@ public class ImageController {
      * @return the photo on the ResponseEntity<Object> if everything went well (otherwise returns a not found object)
      * @throws SQLException
      */
-    @GetMapping("/artist/{{id}}/download-photo")
+    @GetMapping("/artist/{id}/download-photo")
 	public ResponseEntity<Object> downloadArtistPhoto(@PathVariable long id) throws SQLException {
 
 		Optional<Artist> op = artistService.getArtist(id);
@@ -65,7 +67,7 @@ public class ImageController {
      * @return the photo on the ResponseEntity<Object> if everything went well (otherwise returns a not found object)
      * @throws SQLException
      */
-    @GetMapping("/artist/{{id}}/download-latestAlbum-photo")
+    @GetMapping("/artist/{id}/download-latestAlbum-photo")
 	public ResponseEntity<Object> downloadLatestAlbumPhoto(@PathVariable long id) throws SQLException {
 
 		Optional<Artist> op = artistService.getArtist(id);
@@ -90,7 +92,7 @@ public class ImageController {
      * @return the photo on the ResponseEntity<Object> if everything went well (otherwise returns a not found object)
      * @throws SQLException
      */
-    @GetMapping("/artist/{{id}}/download-bestAlbum-photo")
+    @GetMapping("/artist/{id}/download-bestAlbum-photo")
 	public ResponseEntity<Object> downloadBestAlbumPhoto(@PathVariable long id) throws SQLException {
 
 		Optional<Artist> op = artistService.getArtist(id);
@@ -132,7 +134,7 @@ public class ImageController {
 		}
 	}
 
-    @GetMapping("/concert/{{id}}/download-poster")
+    @GetMapping("/concert/{id}/download-poster")
 	public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException {
 
 		Concert concert = concertService.getConcertById(id);
