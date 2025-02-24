@@ -17,77 +17,76 @@ my profile and my concerts (where tickets are)-->
     <main>
         <!--Projector piece of code-->
         {{#showPersonalInfo}} <!--If the "My Profile" link is clicked-->
-        <div class="display-container"> <!--Personal Information Section container-->
-            <div class="title-container"> <!--Section title with style-->
+        <div class="title-container"> <!--Section title with style-->
+            <div class="title">
+                Personal information
+            </div>
+        </div>
+
+        <form action="/profile/changeSettings" enctype="multipart/form-data" method="post">
+            <input type="number" value="{{user.id}}" name="id" hidden>
+
+            <div class="general-container column-container">
+                <div class="attribute-container"> <!--Username-->
+                    <label for="username">Username</label>
+                    <input type="text" value="{{user.userName}}" name="userName" readonly>
+                </div>
+
+                <div class="attribute-container"> <!--Email-->
+                    <label for="email">E-mail</label>
+                    <input type="text" value="{{user.email}}" name="email" readonly>
+                </div>
+
+                <div class="attribute-container"> <!--Email-->
+                    <label for="country">Country</label>
+                    <select name="country" class="selects-containers" required> <!--Country can be changed-->
+                        <option value="{{user.country}}" selected>{{user.country}}</option>
+                        <!--Default option: previous one-->
+                        <hr> <!--The rest of options-->
+                        <option value="Europe">Europe</option>
+                        <option value="America">America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Oceania">Oceania</option>
+                        <option value="Africa">Africa</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="central-button">Apply Changes</button>
+                <!--More Personal information categories to be added-->
+            </div>
+
+            <div class="title-container">
                 <div class="title">
-                    Personal information
+                    Visual information
                 </div>
             </div>
 
-            <form action="/profile/changeSettings" enctype="multipart/form-data" method="post">
-                <input type="number" value="{{user.id}}" name="id" hidden>
+            <div class="general-container column-container">
+                <!--Place where the user can update its profile photo an see its actual profile photo-->
 
-                <div class="general-container column-container">
-                    <div class="attribute-container"> <!--Username-->
-                        <label for="username">Username</label>
-                        <input type="text" value="{{user.userName}}" name="userName" readonly>
-                    </div>
-
-                    <div class="attribute-container"> <!--Email-->
-                        <label for="email">E-mail</label>
-                        <input type="text" value="{{user.email}}" name="email" readonly>
-                    </div>
-
-                    <div class="attribute-container"> <!--Email-->
-                        <label for="country">Country</label>
-                        <select name="country" class="selects-containers" required> <!--Country can be changed-->
-                            <option value="{{user.country}}" selected>{{user.country}}</option> <!--Default option: previous one-->
-                            <hr>    <!--The rest of options-->
-                            <option value="Europe">Europe</option> 
-                            <option value="America">America</option>
-                            <option value="Asia">Asia</option>
-                            <option value="Oceania">Oceania</option>
-                            <option value="Africa">Africa</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="central-button">Apply Changes</button>
-                    <!--More Personal information categories to be added-->
-                </div>
-
-                <div class="title-container">
-                    <div class="title">
-                        Visual information
+                <div class="attribute-container"> <!--Actual profile photo displayer-->
+                    <label for="user-photo">Personal photo</label>
+                    <div class="photo-container">
+                        <img src="/profile/download-profile-picture">
                     </div>
                 </div>
 
-                <div class="general-container column-container"> <!--Place where the user can update its profile photo an see its actual profile photo-->
-
-                    <div class="attribute-container"> <!--Actual profile photo displayer-->
-                        <label for="user-photo">Personal photo</label>
-                        <div class="photo-container">
-                            <img src="/profile/download-profile-picture">
-                        </div>
-                    </div>
-
-                    <div class="attribute-container"> <!--Exact point where the profile photo can be updated-->
-                        <label for="user-change-photo">Upload/Change personal photo</label>
-                        <input type="file" id="user-change-photo" name="newPhoto" accept=".png, .jpeg, .jpg">
-                    </div>
-
-                    <button type="submit" class="central-button">Apply Changes</button>
-
-
-                    <!--More Personal information categories to be added-->
+                <div class="attribute-container"> <!--Exact point where the profile photo can be updated-->
+                    <label for="user-change-photo">Upload/Change personal photo</label>
+                    <input type="file" id="user-change-photo" name="newPhoto" accept=".png, .jpeg, .jpg">
                 </div>
-            </form>
 
-            <!--More categories of information to be added-->
-        </div>
+                <button type="submit" class="central-button">Apply Changes</button>
+
+
+                <!--More Personal information categories to be added-->
+            </div>
+        </form>
+
+        <!--More categories of information to be added-->
         {{/showPersonalInfo}}
 
         {{#showMyArtists}} <!--If the "My Artists" link is clicked-->
-        <div class="display-container"> <!--Followed artists Section container-->
             <div class="title-container"> <!--Section title with style-->
                 <div class="title">
                     Followed Artists
@@ -99,11 +98,9 @@ my profile and my concerts (where tickets are)-->
             </div>
 
             <!--More categories of information about artists to be added-->
-        </div>
         {{/showMyArtists}}
 
         {{#showMyConcerts}} <!--If the "My Concerts" link is clicked-->
-        <div class="display-container"> <!--Tickets Section container-->
             <div class="title-container"> <!--Section title with style-->
                 <div class="title">
                     My Concerts
@@ -113,7 +110,6 @@ my profile and my concerts (where tickets are)-->
             <div class="general-container">
                 {{>display-tickets}} <!--Display bought tickets-->
             </div>
-        </div>
         {{/showMyConcerts}}
 
     </main>

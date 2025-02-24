@@ -1,11 +1,6 @@
-.display-container{ /*Stablishes the proportions and place of the information container*/
-    width: 80em;
-    float: right;
-}
-
 main { /*Lets the items be displayed in a row*/
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .attribute-container{ /*Container for each atribute of an user, like email or username*/
