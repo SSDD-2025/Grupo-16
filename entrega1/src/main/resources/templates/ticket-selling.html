@@ -45,9 +45,9 @@ page and its function is to provide the user a simple way to select the tickets 
                     <div class="ticket-selection"> <!--Ticket selection options, they deppend on the availability of the concert-->
                         <select class="zone-selector" required>
                             <option value="" disabled selected>Choose zone</option>
-                            {{#concert.remainSouthStands}}
-                            <option value="South">South Side</option>
-                            {{/concert.remainSouthStands}}
+                            {{#concert.remainNorthStands}}
+                            <option value="North">North Side</option>
+                            {{/concert.remainNorthStands}}
                             {{#concert.remainEastStands}}
                             <option value="East">East Side</option>
                             {{/concert.remainEastStands}}

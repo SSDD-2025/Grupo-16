@@ -90,11 +90,11 @@ public class ConcertService {
         else if (type.equalsIgnoreCase("East Side")) {
             result = this.concertRepository.availableEastStandsTickets(id, number);
         }
-        else if (type.equalsIgnoreCase("South Side")) {
-            result = this.concertRepository.availableSouthStandsTickets(id, number);
+        else if (type.equalsIgnoreCase("North Side")) {
+            result = this.concertRepository.availableNorthStandsTickets(id, number);
         }
         else if (type.equalsIgnoreCase("General Admission")) {
-            result = this.concertRepository.availableSouthStandsTickets(id, number);
+            result = this.concertRepository.availableGeneralAdmissionTickets(id, number);
         }
         return result == 1;
     }

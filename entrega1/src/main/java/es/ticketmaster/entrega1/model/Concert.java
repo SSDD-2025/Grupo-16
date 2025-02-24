@@ -46,7 +46,7 @@ public class Concert {
 
     private int westStandsNumber; //Number of West Stands tickets available 
     private int eastStandsNumber; //Number of East Stands tickets available 
-    private int southStandsNumber; //Number of South Stands tickets available
+    private int northStandsNumber; //Number of North Stands tickets available
     private int generalAdmissionNumber; //Number of General Admission tickets available
 
     private Blob image; //Image of the concert's poster
@@ -69,11 +69,11 @@ public class Concert {
      * @param price Price per ticket, equal price for every zone
      * @param westStandsNumber Remaining West Stands tickets available to buy
      * @param eastStandsNumber Remaining East Stands tickets available to buy
-     * @param southStandsNumber Remaining South Stands tickets available to buy
+     * @param northStandsNumber Remaining South Stands tickets available to buy
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      */
     public Concert(Artist artist, String name, LocalDateTime date, String place, String info, 
-    float price, int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber){
+    float price, int westStandsNumber, int eastStandsNumber, int northStandsNumber, int generalAdmissionNumber){
         super();
         this.artist = artist;
         this.name = name;
@@ -83,7 +83,7 @@ public class Concert {
         this.price = price;
         this.westStandsNumber = westStandsNumber;
         this.eastStandsNumber = eastStandsNumber;
-        this.southStandsNumber = southStandsNumber;
+        this.northStandsNumber = northStandsNumber;
         this.generalAdmissionNumber = generalAdmissionNumber;
     }
 
@@ -98,14 +98,14 @@ public class Concert {
      * @param price Price per ticket, equal price for every zone
      * @param westStandsNumber Remaining West Stands tickets available to buy
      * @param eastStandsNumber Remaining East Stands tickets available to buy
-     * @param southStandsNumber Remaining South Stands tickets available to buy
+     * @param northStandsNumber Remaining South Stands tickets available to buy
      * @param generalAdmissionNumber Remaining General Admission Stands tickets available to buy
      * @param image Promotional poster of the concert
      */
     public Concert(Artist artist, String name, LocalDateTime date, String place, String info, float price, 
-    int westStandsNumber, int eastStandsNumber, int southStandsNumber, int generalAdmissionNumber, Blob image){
+    int westStandsNumber, int eastStandsNumber, int northStandsNumber, int generalAdmissionNumber, Blob image){
         this(artist, name, date, place, info, price, westStandsNumber, eastStandsNumber, 
-        southStandsNumber, generalAdmissionNumber);
+        northStandsNumber, generalAdmissionNumber);
         this.image = image;
     }
 
@@ -200,19 +200,19 @@ public class Concert {
     }
 
     /**
-     * Getter for the southStandsNumber attribute
+     * Getter for the northStandsNumber attribute
      * @return Number of available entrances/tickets in the South Stands zone
      */
-    public int getSouthStandsNumber() {
-        return southStandsNumber;
+    public int getNorthStandsNumber() {
+        return northStandsNumber;
     }
 
     /**
-     * Method that specifies wether there are remaining South Stands entrances left or not
+     * Method that specifies wether there are remaining North Stands entrances left or not
      * @return a boolean representing the previous value
      */
-    public boolean remainSouthStands(){
-        return southStandsNumber>0;
+    public boolean remainNorthStands(){
+        return northStandsNumber>0;
     }
 
     /**
@@ -304,11 +304,11 @@ public class Concert {
     }
 
     /**
-     * Setter fot the southStandsNumber attribute
-     * @param southStandsNumber Number of available entrances/tickets in the South Stands zone
+     * Setter fot the northStandsNumber attribute
+     * @param northStandsNumber Number of available entrances/tickets in the South Stands zone
      */
-    public void setSouthStandsNumber(int southStandsNumber) {
-        this.southStandsNumber = southStandsNumber;
+    public void setNorthStandsNumber(int northStandsNumber) {
+        this.northStandsNumber = northStandsNumber;
     }
 
     /**

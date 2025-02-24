@@ -73,7 +73,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
 
     /**
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
-     * In specific, this query is focus on controlling the number of available tickets for the southStands section.
+     * In specific, this query is focus on controlling the number of available tickets for the northStands section.
      * By doing this, the concurrent access to the the tickets that the different users can purchase is controlled.
      * Note: The main author of this method is Alfonso Rodríguez, and the co author is Arminda García. 
      * @param id is the identification number for the concert.
@@ -82,8 +82,8 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      */
     @Transactional
     @Modifying
-    @Query("UPDATE Concert c SET c.southStandsNumber=c.southStandsNumber-:number WHERE c.id = :id AND c.southStandsNumber-:number >= 0")
-    public int availableSouthStandsTickets(@Param ("id") long id, @Param("number") int number);
+    @Query("UPDATE Concert c SET c.northStandsNumber=c.northStandsNumber-:number WHERE c.id = :id AND c.northStandsNumber-:number >= 0")
+    public int availableNorthStandsTickets(@Param ("id") long id, @Param("number") int number);
 
     /**
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
