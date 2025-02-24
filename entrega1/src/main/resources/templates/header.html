@@ -17,9 +17,9 @@
     <div class="menu-container"> <!--Menu displayed in the header and hidden when width is not enough-->
         <ul>
             {{#isLogged}} <!--Logged regular user menu items-->
-            <li class="menu-item"><a href="/profile&showPersonalInfo=true">Profile</a></li>
-            <li class="menu-item"><a href="/profile&showMyConcerts=true">My Concerts</a></li>
-            <li class="menu-item"><a href="/profile&showMyArtists=true">My Artists</a></li>
+            <li class="menu-item"><a href="/profile?showPersonalInfo=true">Profile</a></li>
+            <li class="menu-item"><a href="/profile?showMyConcerts=true">My Concerts</a></li>
+            <li class="menu-item"><a href="/profile?showMyArtists=true">My Artists</a></li>
             {{/isLogged}}
             {{^isLogged}} <!--Not logged menu items-->
             <li class="menu-item"><a href="/sign-up">Register</a></li>
@@ -38,7 +38,7 @@
         </form>
     </div>
     {{#isLogged}} <!--Access to the profile when the user is logged-->
-    <div class="profile-access-container" onclick="window.location.href='/profile'">
+    <div class="profile-access-container" onclick="window.location.href='/profile?showPersonalInfo=true'">
         <img src="/media/user-logo.png" class="user-logo">
     </div>
     {{/isLogged}}

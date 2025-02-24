@@ -1,15 +1,19 @@
 package es.ticketmaster.entrega1.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.UserService;
+
 
 @Controller
 public class UserController {
@@ -90,4 +94,57 @@ public class UserController {
         model.addAttribute("newUser", true);
         return "sign-in";
     }
+
+    /**
+     * Profile page controller, that displays a series of information depending on the
+     * parameters it receives. Going from personal information of the user that can be 
+     * changed (country and photo for now), to favourite artists and purchased tickets.
+     * @param model actual model of the dynamic HTML document
+     * @param showPersonalInfo if true, personal information is displayed (with its form)
+     * @param showMyArtists if true, favourite artists list is diplayed
+     * @param showMyConcerts if true, actual purchased tickets are displayed
+     * @return
+     */
+    @GetMapping("/profile")
+    public String accessToProfile(Model model, @RequestParam(required=false) boolean showPersonalInfo, 
+    @RequestParam(required=false) boolean showMyArtists, @RequestParam(required=false) boolean showMyConcerts) {
+        
+        boolean isLogged = userService.isLogged();
+
+        if(isLogged){
+
+            model.addAttribute("user", userService.getActiveUser());
+            model.addAttribute("showMyArtists", showMyArtists);
+            model.addAttribute("showMyConcerts", showMyConcerts);
+            model.addAttribute("showPersonalInfo", showPersonalInfo);
+            model.addAttribute("isLogged", true);
+            model.addAttribute("isAdmin", true); //Temporal until Admin is implementated
+
+            return "my-profile";
+
+        } else {
+            return "redirect:/sign-in";
+        }
+    }
+
+    /**
+     * Controller which function is to stablish the changed made by the user in its personal
+     * page and redirect him/her back to his/her personal page to see the changes applied
+     * @param model actual model of the dynamic HTML document
+     * @param id if of the user whose changes will be made
+     * @param country (optional) new country to be set
+     * @param newPhoto new photo to be set
+     * @return redirection to personal profile page
+     * @throws IOException
+     */
+    @PostMapping("/profile/changeSettings")
+    public String changeUserSettings(Model model, @RequestParam long id, @RequestParam(required = false)  String country, 
+    @RequestParam(required = false) MultipartFile newPhoto) throws IOException{
+
+        userService.saveUserWithId(id, country, newPhoto);
+
+        return "redirect:/profile?showPersonalInfo=true";
+    }
+    
+    
 }

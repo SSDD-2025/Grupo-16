@@ -1,8 +1,12 @@
 package es.ticketmaster.entrega1.service;
 
+import java.io.IOException;
+
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
@@ -67,4 +71,35 @@ public class UserService {
     public boolean isLogged(){
         return (activeUser.isUserLogged());
     }
+
+    /**
+     * Gets the actual active user object from the DDBB using its id
+     * @return the actual active user
+     */
+    public UserEntity getActiveUser(){
+        return userRepository.findById(activeUser.getId());
+    }
+
+    /**
+     * Saves in the DDBB the user whose id is passed as a parameter and changing
+     * its country and photo in case they are not null
+     * @param id the user id
+     * @param country new country to be changed
+     * @param newPhoto new photo to be changed
+     * @throws IOException
+     */
+    public void saveUserWithId(long id, String country, MultipartFile newPhoto) throws IOException{
+
+        UserEntity user = userRepository.findById(id);
+
+        if(country != null){
+            user.setCountry(country);
+        }
+        if(!newPhoto.isEmpty()){
+            user.setProfilePicture(BlobProxy.generateProxy(newPhoto.getInputStream(), newPhoto.getSize()));
+        }
+
+        this.userRepository.save(user);
+    }
+
 }
