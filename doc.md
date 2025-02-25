@@ -196,11 +196,6 @@ At the design level, both alternatives were designed on the same page, however, 
       <td>No</td>
     </tr>
     <tr>
-      <td>missingInformation</td>
-      <td>Indicates the user that all the fields must be filled (in case one of them is empty)</td>
-      <td>No</td>
-    </tr>
-    <tr>
       <td>newUser</td>
       <td>If the user is already register in the database, it will be indicated and also, a link to go to the log in form</td>
       <td>No</td>
