@@ -848,23 +848,7 @@ Furthermore, the class consist of 3 constructors and a series of attributes that
   </tbody>
 </table>
 
-__Methods__: all the attributes of the class are defined with its getters and setters, but there are other important methods implemented on this class
-<table>
-  <thead>
-    <th>Method Name</th>
-    <th>Return Type</th>
-    <th>Description</th>
-    <th>Parameters</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>setAttributes</td>
-      <td>void</td>
-      <td>Makes (on the object that calls the method) a copy of the attributes of another UserEntity passed by parameter</td>
-      <td>UserEntity newUser</td>
-    </tr>
-  </tbody>
-</table>
+__Methods__: all the attributes of the class are defined with its getters and setters (except the setId because its authomatically generated and it is not going to change).
 
 ### Ticket
 This class will contain all the relevant information regarding the tickets for the different concerts. As a consequence of being an entity in a relational model, it has relation with the following entities:
@@ -942,13 +926,11 @@ Furthermore, the class consist of 3 constructors and a series of attributes that
 </table>
 
 ### ActiveUser
-The class ActiveUser is a `@Component` annotated with `@SessionScope`, which means that is an object related to the session thats being used by the webpage. It has all the information regarding the user registered (or not) on the webpage.
+The class ActiveUser is a `@Component` annotated with `@SessionScope`, which means that is an object related to the session thats being used by the webpage.
 
-__Attributes__: a boolean variable called logged which is true if there is a user logged on the page and a UserEntity variable called activeUser, which contains all the information regarding the user logged on the page. 
+__Attributes__: a boolean variable called logged which is true if there is a user logged on the page and a long variable called userId, which contains the id of the user that is logged. 
 
 When the user is anonymous, __logged__ will be false, but activeUser will be already created by Spring, so it should only be accessed if __logged__ has the value true (on the contrary, it will have a junk value).
-
-__Constructor__: the class has a constructor (which is actually not used) that reserves memory for the activeUser object and sets logged to false.
 
 __Methods__: the methods for this class are
 <table>
@@ -968,8 +950,7 @@ __Methods__: the methods for this class are
     <tr>
       <td>setNewActiveUser</td>
       <td>void</td>
-      <td>It copys the attributes of the new user (which is being logged) onto the attribute activeUser</td>
-      <td>UserEntity newUser</td>
+      <td>Sets the userId to the id of the user passed as a parameter</td>
     </tr>
     <tr>
       <td>isUserLogged</td>
@@ -1275,6 +1256,12 @@ It will be in charge of save all the information regarding all the users the app
       <td>String userName, password</td>
       <td>It will look for a user in the database by his userName and password</td>
     </tr>
+    <tr>
+      <td>findByid</td>
+      <td>UserEntity</td>
+      <td>long id</td>
+      <td>It will look for a user in the database by its id</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1443,3 +1430,54 @@ This `@Controller` will be in charge of managing everything related to the ticke
 </table>
 
 It will have an instance of the `CardVerifyingService `, `ConcertService` and `TicketService` classes, which will be under the annotation `@AutoWired`.
+
+### ImageController
+This `@Controller` will be in charge of all the images of the page. Essencially, it will download each respective image whenever is called.
+
+Every method on this controller will return a ResponseEntity&lt;Object&gt; with the photo or the object indicating it has not been found:
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>downloadArtistPhoto</td>
+      <td>@GetMapping</td>
+      <td>/artist/{id}/download-photo</td>
+      <td>@PathVariable long id</td>
+      <td>Downloads the artist's photo</td>
+    </tr>
+    <tr>
+      <td>downloadLatestAlbumPhoto</td>
+      <td>@GetMapping</td>
+      <td>/artist/{id}/download-latestAlbum-photo</td>
+      <td>@PathVariable long id</td>
+      <td>Downloads the latest's album cover from the artist (id)</td>
+    </tr>
+    <tr>
+      <td>downloadBestAlbumPhoto</td>
+      <td>@GetMapping</td>
+      <td>/artist/{id}/download-bestAlbum-photo</td>
+      <td>@PathVariable long id</td>
+      <td>Downloads the best's album cover from the artist (id)</td>
+    </tr>
+    <tr>
+      <td>downloadProfilePicture</td>
+      <td>@GetMapping</td>
+      <td>/profile/{id}/download-profile-picture</td>
+      <td>-</td>
+      <td>Downloads the user's profile picture</td>
+    </tr>
+    <tr>
+      <td>downloadConcertPoster</td>
+      <td>@GetMapping</td>
+      <td>/concert/{id}/download-poster</td>
+      <td>@PathVariable long id</td>
+      <td>Downloads the concert's poster</td>
+    </tr>
+  </tbody>
+</table>
