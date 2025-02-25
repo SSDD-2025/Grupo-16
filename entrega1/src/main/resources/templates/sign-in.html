@@ -5,75 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in user</title>
     <link rel="stylesheet" href="/css/sign-in-style.css">
+    <link rel="icon" type="image/png" href="/media/LogIn.png">
 </head>
-<body style="background-color: rgb(244, 244, 238);">
-    <div>
-        <img src="/media/logo.png" alt="" width="100"; height="100" style="position: relative;left: auto;">
-    </div>
+<body>
     <!-- Depending on whether the user is registered or not in the database, two html templates will be displayed,
          the login template or the registration template--> 
     {{#existUser}} <!-- Log in template-->
-        <div class="log-in-section">
-            <h1>Sign In</h1>
-            <form action="/sign-in/validation" method="post"> <!-- This URL will be specified soon -->
-                <p>Enter your username</p>
-                <input type="text" name="userName" placeholder="User Name">
-                <p>Enter your password</p>
-                <input type="password" name="password" placeholder="Password">
-                <br>
-                <br>
-                <input type="submit" value="Log In">
-            </form>
-        </div>
-        <br>
-        <div id="register-button">
-            <p>Don´t have an account yet?</p>
-            <a id="link" href="/sign-up">Sign Up</a> <!-- Falta colocar el enlace del link de registarme
-                                            Para que el controlador se encargue de ello-->
-        </div>
-        <div class="log-in-error-container">
-            {{#error}}
-                <p><strong>The username or the password introduced is incorrect</strong></p>
-            {{/error}}
+        <div class="container">
+            <div class="login-container">
+                <h2>Log In</h2>
+                <form action="/sign-in/validation" method="post">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="userName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit">Log In</button>
+                    <p class="register">Don’t have an account? <a href="/sign-up">Sign Up</a></p>
+                </form>
+            </div>
+            <div class="log-in-error-container">
+                {{#error}}
+                    <p><strong>The username or the password introduced is incorrect</strong></p>
+                {{/error}}
+            </div>
         </div>
     {{/existUser}}
 
     {{^existUser}} <!-- Register template-->
-        <div class="register-section">
-            <h1>Sign Up</h1>
-            <form action="/sign-up/validation" method="post"> <!-- This URL will be specified soon -->
-                <p>Enter your email</p>
-                <input type="email" name="email" placeholder="Email">
-                <p>Enter your username</p>
-                <input type="text" name="userName" placeholder="User Name">
-                <p>Enter your password</p>
-                <input type="password" name="password" placeholder="Password">
-                <p>Choose your country</p>
-                <select name="country" id="country-selector"> <!-- For the first version there will be continents name, 
-                                                    later on the design, they will be replaced by countries-->
-                    <option value="America">America</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Oceania">Oceania</option>
-                    <option value="Africa">Africa</option>
-                    <select disabled="disabled"></select>
-                </select>
-                <br>
-                <br>
-                <input type="submit" value="Sign Up">
-            </form>
-        </div>
-        {{#missingInformation}}
-            <div class="missing-information-error-container">
-                <p><strong>All the fields must be filled</strong></p>
+        <div class="container">
+            <div class="register-container">
+                <h2>Register</h2>
+                <form action="/sign-up/validation" method="post">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="userName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="country">Country</label> <!-- For this first version, continents are available to choose-->
+                        <select id="country" name="country" required>
+                            <option value="">Choose your country</option>
+                            <option value="Europe">Europe</option>
+                            <option value="America">America</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Oceania">Oceania</option>
+                            <option value="Asia">Asia</option>
+                        </select>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                    <p class="login">Already have an account? <a href="/sign-in">Log In</a></p>
+                </form>
             </div>
-        {{/missingInformation}}
-        {{#newUser}}
-            <div class="new-user-error-container">
-                <p><strong>The user already exist</strong></p>
-                <a href="/sign-in">You can try to log in here.</a>
-            </div>
-        {{/newUser}}
+            {{#newUser}}
+                <div class="new-user-error-container">
+                    <p><strong>The user already exists</strong></p>
+                    <a href="/sign-in">You can try to log in here.</a>
+                </div>
+            {{/newUser}}
+        </div>    
     {{/existUser}}
 </body>
 </html>

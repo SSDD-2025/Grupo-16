@@ -1,46 +1,91 @@
-.log-in-section {
-    text-align: center;
-    position: relative; margin-top: -4%;
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(156, 156, 156);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
 }
 
-#link:hover {
+.image-container {
+    margin-top: 10%;
+    margin-left: -90%;
+}
+
+.container {
+    background: rgb(201, 194, 194);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    margin-bottom: 20px;
+    box-sizing: border-box;  /* Esto asegura que el padding se incluya dentro del tamaño total */
+    border: 1px solid #555;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: rgb(21, 20, 20);
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;  /* Asegura que el padding no sume al tamaño del ancho */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
+    box-sizing: border-box;  /* Asegura que el padding no sume al tamaño del ancho */
 }
 
-.log-in-error-container p {
-    font-size: small;
-    position: relative; margin-top: -7%;
-    position: relative; margin-left: 40%;
+button:hover {
+    background: #218838;
+}
+
+.link-container {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.link-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link-container a:hover {
+    text-decoration: underline;
+}
+
+.error-container {
     color: red;
-}
-
-.register-section {
-    text-align: center;
-    position: relative; margin-top: -4%;
-}
-
-#register-button {
-    text-align: center;
-}
-
-#country-selector:hover {
-    cursor: pointer;
-}
-
-.missing-information-error-container p {
-    font-size: small;
-    position: relative; margin-top: 1%;
-    position: relative; margin-left: 44.7%;
-    color: red;
-}
-
-.new-user-error-container {
-    font-size: small;
-    position: relative; margin-top: -2%;
-    position: relative; margin-left: 45.7%;
-    color: red;
-}
-
-.new-user-error-container a {
-    position: relative; margin-left: 0.2%;
+    font-size: 14px;
+    margin-top: 10px;
 }

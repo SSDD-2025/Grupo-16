@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping("/sign-in")
     public String signInUser(Model model) {
         model.addAttribute("existUser", true);
-        return "boceto";
+        return "sign-in";
     }
 
     /** Will show the sign in display on the "sign-in.html" file.
@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/sign-up")
     public String signUpUser(Model model) {
         model.addAttribute("existUser", false);
-        return "boceto";
+        return "sign-in";
     }
 
     /** It will verify if the userName introduced is valid (does exist).
@@ -50,7 +50,7 @@ public class UserController {
     * @return the sign-in-validation template (if everything goes well), 
     * in other case, will shown the sign-in template, with a message of error.
     */
-    @PostMapping("/sign-in/validation") /* This URL will be specified soon */
+    @PostMapping("/sign-in/validation")
     public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
         UserEntity receivedUser = this.userService.verifyUser(userName);
         /* Verify if the user exist on the database and his password matches */
@@ -60,7 +60,7 @@ public class UserController {
             return "validation";
         }
         model.addAttribute("error", true);
-        return "boceto"; /* It will shown the same template, but, with a message indicating the user
+        return "sign-in"; /* It will shown the same template, but, with a message indicating the user
                          if the userName or password (or both) do not match. */
     }
 
@@ -74,25 +74,19 @@ public class UserController {
     * in other case, will shown the sign-in template, with a message of error.
     */
 
-    @PostMapping("/sign-up/validation") // This URL will be specified soon
+    @PostMapping("/sign-up/validation")
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
-        if ((password.isBlank()) || (country.isBlank()) || (email.isBlank())) {
-            model.addAttribute("missingInformation", true);
-        }
-        else {
-            UserEntity newUser = this.userService.verifyUser(userName);
-            if (newUser == null) { // The user does not exist on the database, therefore, can be register.
-                System.out.println("entro");
-                newUser = new UserEntity(userName, password, email, country);
-                this.userService.registerUser(newUser);
-                this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); // A new session is established.
-                model.addAttribute("welcome", newUser.getUserName());
-                return "validation";   
-            }
+        UserEntity newUser = this.userService.verifyUser(userName);
+        if (newUser == null) { // The user does not exist on the database, therefore, can be register.
+            newUser = new UserEntity(userName, password, email, country);
+            this.userService.registerUser(newUser);
+            this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); // A new session is established.
+            model.addAttribute("welcome", newUser.getUserName());
+            return "validation";   
         }
         // The user exist on the database, therefore, can not be register. 
         model.addAttribute("newUser", true);
-        return "boceto";
+        return "sign-in";
     }
 
     /**
