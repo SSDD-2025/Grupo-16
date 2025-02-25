@@ -22,7 +22,7 @@ body {
     text-align: center;
     width: 300px;
     margin-bottom: 20px;
-    box-sizing: border-box;  /* Esto asegura que el padding se incluya dentro del tamaño total */
+    box-sizing: border-box;
     border: 1px solid #555;
 }
 
@@ -50,7 +50,7 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    box-sizing: border-box;  /* Asegura que el padding no sume al tamaño del ancho */
+    box-sizing: border-box;
 }
 
 button {
@@ -63,7 +63,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
-    box-sizing: border-box;  /* Asegura que el padding no sume al tamaño del ancho */
+    box-sizing: border-box;
 }
 
 button:hover {
