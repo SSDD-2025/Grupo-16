@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping("/sign-in")
     public String signInUser(Model model) {
         model.addAttribute("existUser", true);
-        return "sign-in";
+        return "boceto";
     }
 
     /** Will show the sign in display on the "sign-in.html" file.
@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/sign-up")
     public String signUpUser(Model model) {
         model.addAttribute("existUser", false);
-        return "sign-in";
+        return "boceto";
     }
 
     /** It will verify if the userName introduced is valid (does exist).
@@ -60,7 +60,7 @@ public class UserController {
             return "validation";
         }
         model.addAttribute("error", true);
-        return "sign-in"; /* It will shown the same template, but, with a message indicating the user
+        return "boceto"; /* It will shown the same template, but, with a message indicating the user
                          if the userName or password (or both) do not match. */
     }
 
@@ -92,7 +92,7 @@ public class UserController {
         }
         // The user exist on the database, therefore, can not be register. 
         model.addAttribute("newUser", true);
-        return "sign-in";
+        return "boceto";
     }
 
     /**
@@ -145,6 +145,4 @@ public class UserController {
 
         return "redirect:/profile?showPersonalInfo=true";
     }
-    
-    
 }
