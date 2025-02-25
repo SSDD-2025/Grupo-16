@@ -26,7 +26,7 @@ public class UserController {
     private ActiveUser activeUser;
 
     @Autowired
-    ArtistService artistService;
+    private ArtistService artistService;
 
     /** Will show the sign in display on the "sign-in.html" file.
     * @param model is the model of the dinamic HTML document.
