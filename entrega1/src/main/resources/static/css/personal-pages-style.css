@@ -38,6 +38,19 @@ main { /*Lets the items be displayed in a row*/
     border-radius: 5px;
 }
 
+textarea{
+    width: 60%;
+    max-width: 60%;
+    height: 60px;
+    margin: auto 1vw auto 2vw;
+    font-size: 85%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    border-radius: 5px;
+    resize: vertical;
+    overflow-y: auto;
+}
+
 .ticket-container{ /*Stablish margins and padding to show asthetically the ticket information*/
     display: inline-block;
     margin: 5vh 2% 5vh 2%;
@@ -88,4 +101,73 @@ main { /*Lets the items be displayed in a row*/
 
 hr{ /*Colour of the separating bar*/
     color: rgb(42, 42, 253);
+}
+
+.video-container{
+    margin: 0 auto;
+    width: 60%;
+}
+
+.spotify-container {
+    margin: 0 auto;
+    width: 60%;
+    height: 380px;
+    position: relative;
+}
+
+.spotify-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.apple-music-container{
+    margin: 0 auto;
+    width: 60%;
+    height: 450px;
+    position: relative;
+}
+
+.apple-music-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.big-button{
+    margin: 1vh auto;
+    height: 70px;
+    display: flex;
+    aspect-ratio: 4;
+}
+
+.big-button button{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle;
+    border: 2px solid rgb(31, 182, 31);
+    border-radius: 5px;
+    background-color: rgb(203, 255, 203);
+    transition: transform 0.4s ease-in-out;
+}
+
+.big-button button:hover{
+    border: 2px solid rgb(51, 231, 51);
+    background-color: rgb(185, 246, 185);
+    transform: scale(1.01);
+}
+
+.symbol-container{
+    height: 80%;
+    aspect-ratio: 1;
+    margin: 0 0 0 10px;
+}
+
+.button-text{
+    flex-grow: 1;
+    font-weight: 600;
+    font-size: 180%;
 }

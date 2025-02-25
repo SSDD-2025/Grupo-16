@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
+import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.UserService;
+
 
 
 @Controller
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     private ActiveUser activeUser;
+
+    @Autowired
+    ArtistService artistService;
 
     /** Will show the sign in display on the "sign-in.html" file.
     * @param model is the model of the dinamic HTML document.
@@ -138,5 +143,5 @@ public class UserController {
         userService.saveUserWithId(id, country, newPhoto);
 
         return "redirect:/profile?showPersonalInfo=true";
-    }
+    }    
 }

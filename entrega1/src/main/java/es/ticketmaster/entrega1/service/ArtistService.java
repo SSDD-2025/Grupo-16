@@ -1,10 +1,13 @@
 package es.ticketmaster.entrega1.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.repository.ArtistRepository;
@@ -46,5 +49,16 @@ public class ArtistService {
     public List<Artist> getSearchBy(String search){
         
         return artistRepository.findByNameContainingIgnoreCase(search);
+    }
+
+
+    public void registerNewArtist(Artist artist, MultipartFile photo) throws IOException{
+        
+        if(!photo.isEmpty()){
+            artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
+        }
+
+        artistRepository.save(artist);
+
     }
 }

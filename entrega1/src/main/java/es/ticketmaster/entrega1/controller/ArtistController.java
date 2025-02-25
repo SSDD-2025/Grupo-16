@@ -1,18 +1,22 @@
 package es.ticketmaster.entrega1.controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -45,5 +49,28 @@ public class ArtistController {
         }
         return "artist";
     }
+
+    @GetMapping("/admin/artist")
+    public String artistsAdminPage(Model model) {
+        return "admin-artists";
+    }
+
+    @PostMapping("/register-new-artist")
+    public String postMethodName(Model model, @ModelAttribute Artist artist, @RequestParam MultipartFile mainPhoto) throws IOException {
+        
+        artistService.registerNewArtist(artist, mainPhoto);
+        
+        return "redirect:/admin/artist";
+    }
+
+    @PostMapping("/admin/artist/workbench")
+    public String postMethodName(Model model, @RequestParam(required = false) Artist artist) {
+        
+        model.addAttribute("artist", artist);
+        
+        return "artist-workbench";
+    }
+    
+    
     
 }
