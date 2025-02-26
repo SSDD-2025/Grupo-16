@@ -126,6 +126,14 @@ public class Artist {
     }
 
     /**
+     * Id setter needed for database operations
+     * @param id the id to be setted
+     */
+    public void setId(long id){
+        this.id = id;
+    }
+
+    /**
      * 
      * @return artist's name
      */

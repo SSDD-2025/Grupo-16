@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 150px;
+    height: 170px;
     aspect-ratio: 35/45;
     background-color: white;
     margin: 2vh auto 2vh auto;
@@ -25,6 +25,7 @@
 .artist-photo{
     height: 65%;
     aspect-ratio: 1;
+    margin: 3% auto;
 }
 
 .name-container{

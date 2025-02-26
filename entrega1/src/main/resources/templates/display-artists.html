@@ -11,9 +11,16 @@
         <p>{{name}}</p>
     </div>
     <div class="button-container">
-        <form action="/artist/{{id}}?artistName={{name}}">
+        {{^modifyArtist}} <!--If the artist is not going to be modified, its page is shown-->
+        <form action="/artist/{{id}}?artistName={{name}}" method="post" enctype="multipart/form-data">
             <input type="submit" value="More Info">
         </form>
+        {{/modifyArtist}}
+        {{#modifyArtist}} <!--If the artist is going to be modified, the modify button is displayed-->
+        <form action="/admin/artist/{{id}}/modify" method="post" enctype="multipart/form-data">
+            <input type="submit" value="Modify">
+        </form>
+        {{/modifyArtist}}
     </div>
 </div>
 {{/artistList}}
