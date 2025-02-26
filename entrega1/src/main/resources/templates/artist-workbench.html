@@ -50,13 +50,28 @@ can be instantly previsualized (image and artist name)-->
                 </div>
             </div>
 
+            {{#artist.id}}
+            <form action="/admin/artist/{{artist.id}}/delete" method="post" enctype="multipart/form-data"
+                class="big-button">
+                <button type="submit" class="red-style">
+                    <div class="symbol-container"> <!--Plus image, with decorative purpose-->
+                        <img src="/media/bin.png" class="image-in-container">
+                    </div>
+                    <p class="button-text">
+                        Delete Artist
+                    </p>
+                </button>
+            </form>
+            {{/artist.id}}
+
             <hr>
 
             <!--Actual form containing all the information of the artist that is compulsory to add-->
             <form action="/register-new-artist" method="post" enctype="multipart/form-data"
                 class="general-container column-container">
 
-                {{#artist.id}} <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
+                {{#artist.id}}
+                <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
                 <input type="hidden" name="id" value="{{artist.id}}">
                 {{/artist.id}}
 
@@ -118,7 +133,7 @@ can be instantly previsualized (image and artist name)-->
                         data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
                         plat="spotify" value="{{artist.bestAlbumSpotifyLink}}" required>
                     {{/artist.bestAlbumSpotifyLink}}
-                    {{^artist.bestAlbumSpotifyLink}} 
+                    {{^artist.bestAlbumSpotifyLink}}
                     <input type="url" id="bestAlbumSpotifyLink" name="bestAlbumSpotifyLink"
                         data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
                         plat="spotify" required>

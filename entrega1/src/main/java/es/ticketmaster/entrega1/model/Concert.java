@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +32,9 @@ public class Concert {
     @ManyToOne
     private Artist artist; //Artist who gives the concert
 
-    @OneToMany(mappedBy="concert")
+    /*For the first delivery, we assume that deleting an artist also means deleting the 
+    concerts associated with him or her*/
+    @OneToMany(mappedBy="concert", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Ticket> ticket = new LinkedList<>();
 
     private String name; //Name that the concert has, may be the same as the tour name

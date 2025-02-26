@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,8 +46,9 @@ public class Artist {
     //Music Video Link
     private String videoLink;
 
-    //Concert List
-    @OneToMany(mappedBy = "artist")
+    /*Concert List -> For the first delivery, we assume that deleting an artist
+    also deleting the concerts associated with him or her*/
+    @OneToMany(mappedBy = "artist", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Concert> concertList;
 
     /**

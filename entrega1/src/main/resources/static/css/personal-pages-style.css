@@ -141,15 +141,21 @@ hr{ /*Colour of the separating bar*/
     flex-direction: row;
     align-items: center;
     vertical-align: middle;
-    border: 2px solid rgb(31, 182, 31);
     border-radius: 5px;
-    background-color: rgb(203, 255, 203);
     transition: transform 0.4s ease-in-out;
 }
 
+.green-style{
+    border: 2px solid rgb(31, 182, 31);
+    background-color: rgb(203, 255, 203);
+}
+
+.red-style{
+    border: 2px solid rgb(182, 31, 31);
+    background-color: rgb(255, 203, 203);
+}
+
 .big-button button:hover{
-    border: 2px solid rgb(51, 231, 51);
-    background-color: rgb(185, 246, 185);
     transform: scale(1.01);
 }
 

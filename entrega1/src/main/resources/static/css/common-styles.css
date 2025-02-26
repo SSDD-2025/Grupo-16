@@ -82,3 +82,18 @@ body{
     display: flex;
     flex-direction: column;
 }
+
+.generally-container{ /*Container with general purpose such as: showing artist list or concert list*/
+    width: 90%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: 1vw auto 1vw auto; /*Horizontally centered but has one visual width margin vertically*/
+    padding: 0.1vh 0.1vw 0.1vh 0.1vw; /*Gives spacing*/
+    background-color: rgb(243, 243, 243);
+    flex-wrap: wrap;
+}
+
+.with-partners{
+    margin: 3vh auto;
+}

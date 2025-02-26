@@ -36,7 +36,7 @@ public class ConcertController {
             model.addAttribute("isLogged", true);
             return "ticket-selling";
         } else {
-            return "error"; /*TO BE IMPLEMENTED -> Error page when non-logged users try to access ticket selection */
+            return "redirect:/sign-in"; /*If the user isn't logged, it is redirected to the sign-in page*/
         }
     }
     
