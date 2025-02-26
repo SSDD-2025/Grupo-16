@@ -47,18 +47,12 @@
 .image-in-container{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .image-rounded{
     border-radius: 50%;
 }
-
-/*body { /*General settings for the big containers behaviour*/
-/*    display: flex;
-/*    flex-direction: column;
-/*    min-height: 100vh; /* Ocupa toda la altura de la ventana */
-/*}*/
 
 footer{
     background-color:black;

@@ -38,7 +38,7 @@ my profile and my concerts (where tickets are)-->
                     <input type="text" value="{{user.email}}" name="email" readonly>
                 </div>
 
-                <div class="attribute-container"> <!--Email-->
+                <div class="attribute-container"> <!--Country-->
                     <label for="country">Country</label>
                     <select name="country" class="selects-containers" required> <!--Country can be changed-->
                         <option value="{{user.country}}" selected>{{user.country}}</option>
@@ -68,7 +68,7 @@ my profile and my concerts (where tickets are)-->
                 <div class="attribute-container"> <!--Actual profile photo displayer-->
                     <label for="user-photo">Personal photo</label>
                     <div class="photo-container">
-                        <img src="/profile/download-profile-picture">
+                        <img src="/profile/download-profile-picture" class="image-in-container image-rounded">
                     </div>
                 </div>
 
