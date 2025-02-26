@@ -52,6 +52,12 @@ public class ArtistService {
     }
 
 
+    /**
+     * Service method that builds an artist in order to be registered (saved in the DDBB)
+     * @param artist artist to be saved
+     * @param photo (optional) MultipartFile photo to stablish the artist profile photo
+     * @throws IOException
+     */
     public void registerNewArtist(Artist artist, MultipartFile photo) throws IOException{
         
         if(!photo.isEmpty()){
@@ -60,5 +66,33 @@ public class ArtistService {
 
         artistRepository.save(artist);
 
+    }
+
+    /**
+     * Method that searches for each and every artist
+     * FUTURE IMPROVAL: Using pages just in case there are lots of artists
+     * @return
+     */
+    public List<Artist> getEveryArtist(){
+
+        return artistRepository.findAll();
+    }
+
+    /**
+     * Service method that modifies an existing artist with possible new photo
+     * @param artist artist containing the new attributes that have been modified
+     * @param id id of that artist
+     * @param photo (optional) new photo for the artist
+     * @throws IOException
+     */
+    public void modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException{
+
+        artist.setId(id);
+
+        if(!photo.isEmpty()){
+            artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
+        }
+
+        artistRepository.save(artist);
     }
 }
