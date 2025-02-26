@@ -242,6 +242,7 @@ can be instantly previsualized (image and artist name)-->
         if (videoId) { /*If it exists an embed link, it is displayed*/
             videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
             videoPreview.style.display = "block";
+            videoInput.value = videoPreview.src;
         } else { /*In other case, it is hidden and cleared*/
             videoPreview.src = "";
             videoPreview.style.display = "none";
@@ -287,6 +288,7 @@ can be instantly previsualized (image and artist name)-->
             if (embedUrl) { /*If there is an embed compatible URL, the video is displayed*/
                 songPreview.src = embedUrl;
                 songDisplay.style.display = "block";
+                input.value = embedUrl;
             } else { /*Otherwise, there is nothing changed*/
                 songPreview.src = "";
                 songDisplay.style.display = "none";
@@ -318,6 +320,7 @@ can be instantly previsualized (image and artist name)-->
             if (embedUrl) { /*If the embed URL exists, the media is displayed*/
                 songPreview.src = embedUrl;
                 songDisplay.style.display = "block";
+                input.value = embedUrl;
             } else { /*Otherwise, the media is cleared and hidden*/
                 songPreview.src = "";
                 songDisplay.style.display = "none";
