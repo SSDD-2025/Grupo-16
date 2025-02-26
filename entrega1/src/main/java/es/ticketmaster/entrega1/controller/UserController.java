@@ -112,10 +112,17 @@ public class UserController {
 
         if(isLogged){
 
-            model.addAttribute("user", userService.getActiveUser());
-            model.addAttribute("showMyArtists", showMyArtists);
-            model.addAttribute("showMyConcerts", showMyConcerts);
-            model.addAttribute("showPersonalInfo", showPersonalInfo);
+            if(showMyConcerts){
+                model.addAttribute("showMyConcerts", true);
+                model.addAttribute("ticketList", userService.getActiveUser().getTicketsList());
+            } else if(showMyArtists){
+                model.addAttribute("showMyArtists", true);
+                model.addAttribute("artistList", userService.getActiveUser().getArtistsList());
+            } else { //In case there is no display option, personal information is displayed
+                model.addAttribute("user", userService.getActiveUser());
+                model.addAttribute("showPersonalInfo", true);
+            }
+
             model.addAttribute("isLogged", true);
             model.addAttribute("isAdmin", true); //Temporal until Admin is implementated
 
