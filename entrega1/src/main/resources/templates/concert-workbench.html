@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <title>Add Concert</title>
+        <link type="text/css" rel="stylesheet" href="common-style.css">
+    </head>
+    <body>
+        <header>
+            {{>header}}
+        </header>
+        <main>
+            <div class="title-container"> <!-- title block -->
+                <div class="title">
+                    {{#concert.id}}Modify{{/concert.id}}{{^concert.id}}Add new{{/concert.id}} concert
+                </div>
+            </div>
+            <div class="general-container column-container"> <!-- information block -->
+                <!-- Preview Block -->
+                <div class="concert-container">
+                    <!-- Concert Poster-->
+                    <div class="poster-container">
+                        <img src="/concert/{id}/download-poster" class="poster-photo" title="{{name}} - {{artist.name}}"> <!-- Title is to show a tooltip when the mouse is at the photo-->
+                    </div>
+            
+                    <!-- Concert Information-->
+                    <div class="info-container">
+                        <p>{{place}} <br> {{date}} </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Form to add the concert information -->
+            <form action="/register-new-concert" method="post" enctype="multipart/form-data" class="general-container column-container">
+                {{#concert.id}} <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
+                    <input type="hidden" name="id" value="{{concert.id}}">
+                {{/concert.id}}
+
+                <!-- Concert Name -->
+                <div class="attribute-container">
+                    <label for="name">Concert name</label>
+                    {{#concert.name}} <!--Previous concert name is placed as the value of the text input-->
+                    <input type="text" placeholder="Name" id="name" name="name" value="{{concert.name}}" required>
+                    {{/concert.name}}
+                    {{^concert.name}}
+                    <input type="text" placeholder="Name" id="name" name="name" required>
+                    {{/concert.name}}
+                </div>
+
+                <!-- Artist Name -->
+                <div class="attribute-container">
+                    <label for="artist-name">Artist</label>
+                    <select name="artist-name" id="artist-name">
+                        {{#concert.artist.name}} <!--Previous artist is placed as the selected value -->
+                            <option value="{{concert.artist.id}}" selected>{{concert.artist.name}}</option>
+                        {{/concert.artist.name}}
+                        <hr>
+                        {{#artistList}}
+                            <option value="{{id}}">{{value}}</option>
+                        {{/artistList}}
+                        <option value="other">Other</option>
+                    </select>
+
+                </div>
+                <!-- when Other is selected, it will show a text input to put the new artist (JavaScript) -->
+                <div class="attribute-container">
+                    <label for="new-artist">New Artist Name</label>
+                    <input type="text" id="new-artist" name ="new-artist" placeholder="Artist Name">
+                </div>
+
+                <!-- Place where the concert is being held -->
+                <div class="attribute-container">
+                    <label for="place">Place</label>
+                    <select name="place" id="place" required>
+                        {{#concert.place}} <!--Previous place is placed as the selected value -->
+                            <option value="{{concert.artist.id}}" selected>{{concert.artist.name}}</option>
+                        {{/concert.place}}
+                        <hr> <!--The rest of options-->
+                        <option value="Europe">Europe</option>
+                        <option value="America">America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Oceania">Oceania</option>
+                        <option value="Africa">Africa</option>
+                    </select>
+                </div>
+
+                <!-- Date when the concert is taking place -->
+                <div class="attribute-container">
+                    <label for="date">Date</label>
+                    {{#concert.date}}
+                        <input type="date" id="date" name="date" value="{{concert.date}}">
+                    {{/concert.date}}
+                    {{#concert.date}}
+                        <input type="date" id="date" name="date" required>
+                    {{/concert.date}}
+                </div>
+
+                <!-- Poster Photo -->
+                <div class="attribute-container">
+                    <label for="photo">Poster</label>
+                    <input type="file" id="poster-photo" name="photo" accept=".jpg, .png, .jpeg">
+                </div>
+
+                <!-- Brief Information about the concert -->
+                <div class="attribute-container">       
+                    <label for="info">Brief Information</label>
+                    <textarea name="info" id="info" placeholder="Concert's basic information..." required>
+                        {{#concert.info}}{{concert.info}}{{/concert.info}}>
+                    </textarea>
+                </div>
+
+                <hr>
+
+                <!-- Ticket Information -->
+
+                <!-- If its a modified concert it will show the information according to the tickets the concert has left and it will
+                 let the administrator to add tickets (not to delete or modified its price) -->
+                {{#concert.id}}
+                    <p>
+                        Number of General Admision Tickets Available: {{concert.generalAdmissionNumber}}
+                        Number of West Stands Available: {{concert.westStandsNumber}}
+                        Number of East Stands Tickets Available: {{concert.eastStandsNumber}}
+                        Number of South Stands Tickets Available: {{concert.northStandsNumber}}
+                        Price: {{concert.price}}
+                    </p>
+                    <label for="general-admision">Add General Admision Tickets</label>
+                    <input type="number" id="general-admision" name="general-admision" value="0" min="0">
+
+                    <label for="west-stands">Add West Stands Tickets</label>
+                    <input type="number" id="west-stands" name="west-stands" value="0" min="0">
+
+                    <label for="east-stands">Add East Stands Tickets</label>
+                    <input type="number" id="east-stands" name="east-stands" value="0" min="0">
+
+                    <label for="north-stands">Add South Stands Tickets</label>
+                    <input type="number" id="north-stands" name="north-stands" value="0" min="0">
+                {{/concert.id}}
+
+                <!-- If it is a new concert it will show a form to enter the number of each ticket's type and the price -->
+                {{^concert.id}}
+                    <label for="general-admision">Number of General Admision Tickets</label>
+                    <input type="number" id="general-admision" name="general-admision" value="0" min="0">
+
+                    <label for="west-stands">Number of West Stands Tickets</label>
+                    <input type="number" id="west-stands" name="west-stands" value="0" min="0">
+
+                    <label for="east-stands">Number of East Stands Tickets</label>
+                    <input type="number" id="east-stands" name="east-stands" value="0" min="0">
+
+                    <label for="north-stands">Number of South Stands Tickets</label>
+                    <input type="number" id="north-stands" name="north-stands" value="0" min="0">
+
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" value="0" min="0" step="0.01">
+                {{/concert.id}}
+
+                <!-- Submit button -->
+                <input type="submit" value="Submit">
+            </form>
+        </main>
+        <footer>
+            {{>footer}}
+        </footer>
+    </body>
+</html>

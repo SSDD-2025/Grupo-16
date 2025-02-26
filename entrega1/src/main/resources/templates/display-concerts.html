@@ -1,11 +1,34 @@
+<!-- HTML doc injectable -->
+<!-- it shows a list of concerts with the poster photo and a button to access the ticket purchase or the page to modify the concert -->
+<link rel="stylesheet" href="/css/concert-style.css">
+<link rel="stylesheet" href="/css/common-styles.css">
 {{#concertList}}
-    <div class="image-container">
-        <form method="post" action=""> <!-- Controller who takes u to the buying page for that concert -->
-            <img class="concert-photo" src="/concert/{{id}}/download-poster"> <br>
-            <input class="buy" type="submit" value="Buy Tickets"> <!-- name or id of concert-->
-         </form>
+    <div class="concert-container">
+        <!-- Concert Poster-->
+        <div class="poster-container">
+            <img src="/concert/{id}/download-poster" class="poster-photo" title="{{name}} - {{artist.name}}"> <!-- Title is to show a tooltip when the mouse is at the photo-->
+        </div>
+
+        <!-- Concert Information-->
+        <div class="info-container">
+            <p>{{place}} <br> {{date}} </p>
+        </div>
+
+        <!-- Button to go buy tickets or modify the information about the concert -->
+        {{#modifyConcert}}
+            <form action="/concert/workbench" method="post">
+                <input type="disable" value="{{id}}">
+                <input type="submit" value="Modify Concert">
+            </form>
+        {{/modifyConcert}}
+        {{^modifyConcert}}
+            <form action="/concert/{{id}}/purchase" method="post">
+                <input type="submit" value="Buy Tickets">
+            </form>
+        {{/modifyConcert}}
     </div>
 {{/concertList}}
 {{^concertList}}
     <p>There are no concerts soon</p>
 {{/concertList}}
+ 
