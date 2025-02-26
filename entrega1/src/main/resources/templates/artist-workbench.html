@@ -31,13 +31,13 @@ can be instantly previsualized (image and artist name)-->
             <div class="artist-container">
                 <!--Preview of the artist that instanly changes. Also, if the artist is to be modified, the previous profile is displayed-->
                 <div class="artist-photo">
-                    {{#artist.id}}
+                    {{#artist.photo}}
                     <img src="/artist/{{artist.id}}/download-photo" id="image-preview"
                         class="image-in-container image-rounded">
-                    {{/artist.id}}
-                    {{^artist.id}}
-                    <img src="" id="image-preview" class="image-in-container image-rounded">
-                    {{/artist.id}}
+                    {{/artist.photo}}
+                    {{^artist.photo}}
+                    <img src="/media/no-photo-artist.png" id="image-preview" class="image-in-container image-rounded">
+                    {{/artist.photo}}
                 </div>
                 <div class="name-container"> <!--Name of the artist-->
                     <p id="artist-name-holder">
