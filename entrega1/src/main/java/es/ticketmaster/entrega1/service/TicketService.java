@@ -43,10 +43,10 @@ public class TicketService {
             /* The user is null, because is an available ticket. */
             Ticket newTicket = this.ticketRepository.findTicketByZoneAndTicketUser(type, null);
             userTickets.add(newTicket); /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(userRepository.findById(this.activeUser.getId())); /* Associating the ticket to the user. */
+            newTicket.setUser(this.userRepository.findById(this.activeUser.getId())); /* Associating the ticket to the user. */
             this.ticketRepository.save(newTicket); /* Once it has been asssociated, the ticket is saved in its repository. */
         }
-        userRepository.findById(this.activeUser.getId()).setTicketList(userTickets); /* Updating the ticket list of the user. */
-        this.userRepository.save(userRepository.findById(this.activeUser.getId())); /* Saving the user in its repository. */
+        this.userRepository.findById(this.activeUser.getId()).setTicketList(userTickets); /* Updating the ticket list of the user. */
+        this.userRepository.save(this.userRepository.findById(this.activeUser.getId())); /* Saving the user in its repository. */
     }
 }
