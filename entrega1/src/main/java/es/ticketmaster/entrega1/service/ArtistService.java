@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,7 @@ public class ArtistService {
 
     /**
      * Service method that builds an artist in order to be registered (saved in
-     * the DDBB)
+     * the DDBB). As well, the register date is saved.
      *
      * @param artist artist to be saved
      * @param photo (optional) MultipartFile photo to stablish the artist
@@ -80,6 +81,8 @@ public class ArtistService {
         if (!photo.isEmpty()) {
             artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
         }
+
+        artist.setSessionCreated(LocalDateTime.now());
 
         artistRepository.save(artist);
 
