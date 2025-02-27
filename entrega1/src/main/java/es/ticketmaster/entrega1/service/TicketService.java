@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
+import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
+import es.ticketmaster.entrega1.repository.ConcertRepository;
 import es.ticketmaster.entrega1.repository.TicketRepository;
 import es.ticketmaster.entrega1.repository.UserRepository;
 
@@ -16,6 +18,8 @@ public class TicketService {
     public TicketRepository ticketRepository;
     @Autowired
     public UserRepository userRepository;
+    @Autowired
+    public ConcertRepository concertRepository;
     @Autowired
     public ActiveUser activeUser;
 
@@ -29,6 +33,18 @@ public class TicketService {
     }
 
     /**
+     * This is a private method that creates a new ticket. It is used when the user has purchased a ticket, 
+     * in order to associate a ticket to a user.
+     * @param zone of the ticket that has been purchased.
+     * @param price of the ticket.
+     * @param concert that corresponds to a certain ticket
+     * @return the created ticket.
+     */
+    private Ticket createTicket(String zone, float price, Concert concert) {
+        return new Ticket(zone, price, null, concert);
+    }
+
+    /**
      * This method will obtain the tickets the user has purchased. Once obtained will do the following things:
      * Adding that new ticket to the user ticket list.
      * Once the ticket has being associated to a user, it will be saved in the ticket`s repository.
@@ -37,10 +53,12 @@ public class TicketService {
      * @param type is the type of the ticket.
      * @param number is the ammount of tickets de user has purchased.
      */
-    public void associateUserWithTicket(String type, int number) {
+    public void associateUserWithTicket(String type, int number, long concertId) {
         List<Ticket> userTickets = userRepository.findById(this.activeUser.getId()).getTicketsList();
+        Concert concert = this.concertRepository.findConcertById(concertId);
         for (int i = 0; i < number; i++) {
             /* The user is null, because is an available ticket. */
+            this.createTicket(type, concert.getPrice(), concert);
             Ticket newTicket = this.ticketRepository.findTicketByZoneAndTicketUser(type, null);
             userTickets.add(newTicket); /* Adding the ticket to the user ticket list. */
             newTicket.setUser(this.userRepository.findById(this.activeUser.getId())); /* Associating the ticket to the user. */

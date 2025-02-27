@@ -33,17 +33,15 @@ public class TicketController {
      * @param ticketType is the type of the ticket (the zone/section).
      * @return the "purchase.html" template.
      */
-    @PostMapping("/concert/{id}/purchase")
-    public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam String number, @RequestParam String ticketType) {
+    @PostMapping("/concert/{id}/purchase/{{number}}/{{ticketType}}")
+    public String showPurchaseInformation(Model model, @PathVariable long id, @PathVariable int number, @PathVariable String ticketType) {
         Concert concert = this.concertService.getConcertById(id);
-        int numberOfTickets = Integer.parseInt(number);
-        this.ticketService.associateUserWithTicket(ticketType, numberOfTickets);
-        model.addAttribute("ticket", this.concertService.verifyAvailability(id, numberOfTickets, ticketType));
+        model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
         model.addAttribute("name", concert.getName());
         model.addAttribute("date", concert.getDate());
         model.addAttribute("number", number);
         model.addAttribute("price", concert.getPrice());
-        float totalPrice = concert.getPrice() * numberOfTickets;
+        float totalPrice = concert.getPrice() * number;
         model.addAttribute("total-price", totalPrice);
         return "purchase";
     }
@@ -61,11 +59,12 @@ public class TicketController {
      * @return If there is no error on the card`s information, it will shown de "purchase-confirmation" template. 
      * If not, the same "pruchase" template but with an error message.
      */
-    @PostMapping("/concert/{id}/purchase/confirmation")
-    public String showPurchaseConfirmation(Model model,@RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
+    @PostMapping("/concert/{id}/purchase/{{number}}/{{ticketType}}/confirmation")
+    public String showPurchaseConfirmation(Model model, @PathVariable long id ,@PathVariable int number, @PathVariable String ticketType, @RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
         if ((this.cardService.verifyCardHolder(cardHolder)) && (this.cardService.getType(cardType) != null) && 
             (this.cardService.verifyCreditCardNumber(cardId)) && (this.cardService.verifyExpirationDate(expDate)) && 
             (this.cardService.verifyCVV(cvv))) {
+                this.ticketService.associateUserWithTicket(ticketType, number, id);
                 return "purchase-confirmation";
         }
         model.addAttribute("error", true);
