@@ -31,7 +31,7 @@
             <hr>
 
             <!-- Form to add the concert information -->
-            <form action="/register-new-concert" method="post" enctype="multipart/form-data" class="general-container column-container">
+            <form action="/admin/concert/register-concert" method="post" enctype="multipart/form-data" class="general-container column-container">
                 {{#concert.id}} <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
                     <input type="hidden" name="id" value="{{concert.id}}">
                 {{/concert.id}}
@@ -124,31 +124,31 @@
                         Price: {{concert.price}}
                     </p>
                     <label for="general-admision">Add General Admision Tickets</label>
-                    <input type="number" id="general-admision" name="general-admision" value="0" min="0">
+                    <input type="number" id="general-admision" name="generalAdmissionNumber" value="0" min="0">
 
                     <label for="west-stands">Add West Stands Tickets</label>
-                    <input type="number" id="west-stands" name="west-stands" value="0" min="0">
+                    <input type="number" id="west-stands" name="westStandsNumber" value="0" min="0">
 
                     <label for="east-stands">Add East Stands Tickets</label>
-                    <input type="number" id="east-stands" name="east-stands" value="0" min="0">
+                    <input type="number" id="east-stands" name="eastStandsNumber" value="0" min="0">
 
                     <label for="north-stands">Add South Stands Tickets</label>
-                    <input type="number" id="north-stands" name="north-stands" value="0" min="0">
+                    <input type="number" id="north-stands" name="northStandsNumber" value="0" min="0">
                 {{/concert.id}}
 
                 <!-- If it is a new concert it will show a form to enter the number of each ticket's type and the price -->
                 {{^concert.id}}
                     <label for="general-admision">Number of General Admision Tickets</label>
-                    <input type="number" id="general-admision" name="general-admision" value="0" min="0">
+                    <input type="number" id="general-admision" name="generalAdmissionNumber" value="0" min="0">
 
                     <label for="west-stands">Number of West Stands Tickets</label>
-                    <input type="number" id="west-stands" name="west-stands" value="0" min="0">
+                    <input type="number" id="west-stands" name="westStandsNumber" value="0" min="0">
 
                     <label for="east-stands">Number of East Stands Tickets</label>
-                    <input type="number" id="east-stands" name="east-stands" value="0" min="0">
+                    <input type="number" id="east-stands" name="eastStandsNumber" value="0" min="0">
 
                     <label for="north-stands">Number of South Stands Tickets</label>
-                    <input type="number" id="north-stands" name="north-stands" value="0" min="0">
+                    <input type="number" id="north-stands" name="northStandsNumber" value="0" min="0">
 
                     <label for="price">Price</label>
                     <input type="number" id="price" name="price" value="0" min="0" step="0.01">

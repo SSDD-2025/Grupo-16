@@ -1,9 +1,11 @@
 package es.ticketmaster.entrega1.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
@@ -25,6 +27,12 @@ public class ConcertService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private ArtistService artistService;
     
     /**
      * Method that searches for concerts which Concert.name or Concert.artist.name matches with
@@ -60,11 +68,19 @@ public class ConcertService {
         return concertRepository.findAll(); //provisional until the query is fixed
     }
 
+    public List<Concert> getAllConcerts(){
+        return concertRepository.findAll();
+    }
+
     /**
      * Armin's comment: shouldn't it be Optional<Concert> in case its not on the DDBB??
      */
     public Concert getConcertById(long id){
         return concertRepository.findConcertById(id);
+    }
+
+    public Optional<Concert> findById(long id){
+        return concertRepository.findById(id);
     }
 
     /**
@@ -98,4 +114,35 @@ public class ConcertService {
         }
         return result == 1;
     }
+
+    public void saveConcert(Concert concert, MultipartFile poster){
+        // if the artist name is not on the database, it should be created
+        if (artistService.getByName(concert.getArtist().getName()).isEmpty()){
+
+        }
+
+        if (poster != null){
+            concert.setImage(imageService.getBlobOf(poster));
+        }
+        concertRepository.save(concert);
+    }
+
+    public void modifyConcert(Concert concert, long id, MultipartFile poster){
+        // if the artist name is not on the database, it should be created
+
+        // concert has the number of added tickets
+        // so then modified concert is concert with the old concert available tickets added
+        Concert oldConcert = concertRepository.findConcertById(id);
+        concert.addTickets(oldConcert);
+        if (poster != null){
+            concert.setImage(imageService.getBlobOf(poster));
+        }
+
+        // set the old id to the modified concert
+        concert.setId(id);
+
+        //save the modified concert
+        concertRepository.save(concert);
+    }
+
 }

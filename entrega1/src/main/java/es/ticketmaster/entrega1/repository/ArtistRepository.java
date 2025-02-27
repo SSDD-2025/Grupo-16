@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,6 +16,8 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
      * @return the specified list
      */
     public List<Artist> findTop10ByOrderByPopularityIndexDesc();
+
+    public Optional<Artist> findFirstByName(String name);
 
     /**
      * Makes a list of the 10 last artist to log in
