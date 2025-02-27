@@ -32,7 +32,7 @@
                 <!-- Credit Card information to do the purchase -->
                 <div class="form-container">
                     <!-- Form block so the user can introduce the data (it will not be register at the database) -->
-                    <form action="/concert/{id}/purchase/{{number}}/{{ticketType}}/confirmation" method="post">
+                    <form action="/concert/{id}/purchase/confirmation" method="post">
                         <!-- Cardholder Name-->
                         <label for="cardholder">Cardholder Name:</label>
                         <input type="text" name="cardHolder" id="cardholder" placeholder="Name"/>
@@ -68,6 +68,10 @@
 
                         <!-- Submit Button -->
                         <input type="submit" value="Purchase">
+
+                        <!-- With these hidden inputs, the type of the ticket and ammount of tickets selected, will be pass.-->
+                        <input type="hidden" name="ticketType" value="{{ticketType}}">
+                        <input type="hidden" name="numberOfTickets" value="{{numberOfTickets}}">
                     </form>
                     {{#error}}
                         <p><strong>The card details entered are not correct.</strong></p>

@@ -33,14 +33,16 @@ public class TicketController {
      * @param ticketType is the type of the ticket (the zone/section).
      * @return the "purchase.html" template.
      */
-    @PostMapping("/concert/{id}/purchase/{{number}}/{{ticketType}}")
-    public String showPurchaseInformation(Model model, @PathVariable long id, @PathVariable int number, @PathVariable String ticketType) {
+    @PostMapping("/concert/{id}/purchase")
+    public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam int number, @RequestParam String ticketType) {
         Concert concert = this.concertService.getConcertById(id);
         model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
         model.addAttribute("name", concert.getName());
         model.addAttribute("date", concert.getDate());
         model.addAttribute("number", number);
         model.addAttribute("price", concert.getPrice());
+        model.addAttribute("ticketType",ticketType);
+        model.addAttribute("numberOfTickets",number);
         float totalPrice = concert.getPrice() * number;
         model.addAttribute("total-price", totalPrice);
         return "purchase";
@@ -51,6 +53,9 @@ public class TicketController {
      * This method will be in charge of sending the user to the purchase confirmation page 
      * if the credit card`s information is valid. If something happen, an error message will appear informing the user.
      * @param model is the model of the dinamic HTML document.
+     * @param id is the identification number for the concert.
+     * @param ticketType is the zone/section of the ticket.
+     * @param number of tickets that the user has chosen.
      * @param cardHolder is the name of the credit card holder introduced by the user.
      * @param cardType is the type of the credit card (Visa, MasterCard or American Express) selected by the user.
      * @param cardId is the credit card identification number introduced by the user.
@@ -59,8 +64,8 @@ public class TicketController {
      * @return If there is no error on the card`s information, it will shown de "purchase-confirmation" template. 
      * If not, the same "pruchase" template but with an error message.
      */
-    @PostMapping("/concert/{id}/purchase/{{number}}/{{ticketType}}/confirmation")
-    public String showPurchaseConfirmation(Model model, @PathVariable long id ,@PathVariable int number, @PathVariable String ticketType, @RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
+    @PostMapping("/concert/{id}/purchase/confirmation")
+    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number, @RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
         if ((this.cardService.verifyCardHolder(cardHolder)) && (this.cardService.getType(cardType) != null) && 
             (this.cardService.verifyCreditCardNumber(cardId)) && (this.cardService.verifyExpirationDate(expDate)) && 
             (this.cardService.verifyCVV(cvv))) {

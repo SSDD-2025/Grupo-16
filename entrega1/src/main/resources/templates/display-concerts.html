@@ -16,13 +16,12 @@
 
         <!-- Button to go buy tickets or modify the information about the concert -->
         {{#modifyConcert}}
-            <form action="/concert/workbench" method="post">
-                <input type="disable" value="{{id}}">
+            <form action="/admin/concert/{{id}}/modify" method="post">
                 <input type="submit" value="Modify Concert">
             </form>
         {{/modifyConcert}}
         {{^modifyConcert}}
-            <form action="/concert/{{id}}/purchase" method="post">
+            <form action="/concert/{{id}}" method="post">
                 <input type="submit" value="Buy Tickets">
             </form>
         {{/modifyConcert}}

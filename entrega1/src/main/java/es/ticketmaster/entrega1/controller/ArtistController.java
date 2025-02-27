@@ -47,6 +47,7 @@ public class ArtistController {
             model.addAttribute("titleName", "Not Found");
             model.addAttribute("concertList", concertService.getArtistConcerts(artistName));
         }
+        model.addAttribute("modifyConcert", false);
         return "artist";
     }
 

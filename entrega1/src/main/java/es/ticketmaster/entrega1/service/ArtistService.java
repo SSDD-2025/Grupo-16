@@ -99,6 +99,10 @@ public class ArtistService {
         return artistRepository.findAll();
     }
 
+    public Optional<Artist> getByName(String name){
+        return artistRepository.findFirstByName(name);
+    }
+
     /**
      * Service method that modifies an existing artist with possible new photo
      *
