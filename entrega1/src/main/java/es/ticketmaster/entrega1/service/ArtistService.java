@@ -112,15 +112,26 @@ public class ArtistService {
      * @param photo (optional) new photo for the artist
      * @throws IOException
      */
-    public void modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException {
+    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException {
 
         artist.setId(id);
 
-        if (!photo.isEmpty()) {
-            artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
-        }
+        Optional<Artist> oldArtist = artistRepository.findById(id);
 
-        artistRepository.save(artist);
+        if(!oldArtist.isEmpty()){
+            artist.setConcertList(oldArtist.get().getConcertList());
+            if(!photo.isEmpty()){
+                //TO BE CHANGED
+                artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
+            } else {
+                //TO BE CHANGED
+                artist.setPhoto(oldArtist.get().getPhoto());
+            }
+            artistRepository.save(artist);
+            return true;
+        } else {
+            return false; /*There was not an artist with such ID*/
+        }
     }
 
     /**

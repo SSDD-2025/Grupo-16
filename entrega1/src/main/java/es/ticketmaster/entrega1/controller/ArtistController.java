@@ -97,7 +97,9 @@ public class ArtistController {
         if (id == null) { //Add new artist
             artistService.registerNewArtist(artist, mainPhoto);
         } else {
-            artistService.modifyArtistWithId(artist, id, mainPhoto);
+            if(!artistService.modifyArtistWithId(artist, id, mainPhoto)){
+                return "redirect:/error";
+            }
         }
 
         return "redirect:/admin/artist";
