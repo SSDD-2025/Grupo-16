@@ -47,17 +47,43 @@ Next, all the entities that are part of the application will be shown, as well a
 ### Artist
 <table>
   <thead>
-    <th>Entity</th>
-    <th></th>
+    <th>Related Entity</th>
+    <th>Cardinality</th>
+    <th>Annotation</th>
   </thead>
+  <tbody>
+    <tr>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
 </table>
 
 ### Concert
 <table>
   <thead>
-    <th>Entity</th>
-    <th></th>
+    <th>Related Entity</th>
+    <th>Cardinality</th>
+    <th>Annotation</th>
   </thead>
+  <tbody>
+    <tr>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>TBD</td>
+      <td>TBD</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
 </table>
 
 ### Ticket
