@@ -139,4 +139,10 @@ public class ArtistService {
             return !artistRepository.existsById(id); //We return true if the artist has been correctly deleted
         }
     }
+
+    public long createNewArtist(String name){
+        Artist newArtist = new Artist(name);
+        artistRepository.save(newArtist);
+        return newArtist.getId();
+    }
 }

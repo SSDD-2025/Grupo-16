@@ -258,6 +258,14 @@ public class Concert {
         this.id = id;
     }
 
+   /**
+    * Setter for the artist
+    * @param artist new artist for the concert
+    */ 
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     /**
      * Setter for the name attribute
      * @param name Name of the concert
