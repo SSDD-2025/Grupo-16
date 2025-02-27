@@ -44,7 +44,7 @@ page and its function is to provide the user a simple way to select the tickets 
                     </div>
 
                     <div class="ticket-selection"> <!--Ticket selection options, they deppend on the availability of the concert-->
-                        <select class="zone-selector" required>
+                        <select class="zone-selector" name="ticketType" required>
                             <option value="" disabled selected>Choose zone</option>
                             {{#concert.remainNorthStands}}
                             <option value="North">North Side</option>
@@ -60,7 +60,7 @@ page and its function is to provide the user a simple way to select the tickets 
                             {{/concert.remainGeneralAdmissionStands}}
                         </select>
                         <p id="ticket-number-label">Ticket number:</p> <!--Number of tickets selector-->
-                        <input id="number-selector" type="number" min="1" step="1" value="1" required>
+                        <input id="number-selector" name="number" type="number" min="1" step="1" value="1" required>
                     </div>
                     <input id="submit-selection" type="submit" value="Continue"> <!--Submit button that transports the user to the purchase page-->
                 </form>
