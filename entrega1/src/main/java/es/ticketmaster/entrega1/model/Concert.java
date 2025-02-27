@@ -251,6 +251,14 @@ public class Concert {
     }
 
     /**
+     * Setter for the id attribute
+     * @param id new id of the concert
+     */
+    public void setId(long id){
+        this.id = id;
+    }
+
+    /**
      * Setter for the name attribute
      * @param name Name of the concert
      */
@@ -344,5 +352,14 @@ public class Concert {
      */
     public String getFormattedTime() {
         return String.format("%02d:%02d", date.getHour(), date.getMinute());
+    }
+
+    /* Other methods */
+    public void addTickets(Concert otherConcert){
+        //Adds otherConcert tickets to this concert
+        this.generalAdmissionNumber += otherConcert.getGeneralAdmissionNumber();
+        this.westStandsNumber += otherConcert.getWestStandsNumber();
+        this.eastStandsNumber += otherConcert.getEastStandsNumber();
+        this.northStandsNumber += otherConcert.getNorthStandsNumber();
     }
 }
