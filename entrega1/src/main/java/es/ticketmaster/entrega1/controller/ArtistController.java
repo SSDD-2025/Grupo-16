@@ -41,10 +41,12 @@ public class ArtistController {
         if (artist != null) {
             model.addAttribute("artist", artist);
             model.addAttribute("titleName", artist.getName());
+            model.addAttribute("hasPage",artist.isHasPage());
             model.addAttribute("concertList", concertService.getArtistConcerts(artist.getName()));
         } else {
             model.addAttribute("artist", null);
             model.addAttribute("titleName", "Not Found");
+            model.addAttribute("hasPage",false);
             model.addAttribute("concertList", concertService.getArtistConcerts(artistName));
         }
         model.addAttribute("modifyConcert", false);

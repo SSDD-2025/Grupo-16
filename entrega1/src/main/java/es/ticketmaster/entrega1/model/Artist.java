@@ -27,6 +27,8 @@ public class Artist {
     @Lob
     private Blob photo; //photo of the artist
 
+    private boolean hasPage;
+
     private String mainInfo; //main info about the artist (NOT NULL)
     private String extendedInfo; //extended info about the artist (COULD BE NULL)
 
@@ -85,6 +87,7 @@ public class Artist {
         this.bestAlbumPhoto = bestAlbumPhoto;
         this.latestAlbumPhoto = latestAlbumPhoto;
         this.videoLink = videoLink;
+        this.hasPage = true;
     }
 
     /**
@@ -115,6 +118,12 @@ public class Artist {
         this.bestAlbumPhoto = null;
         this.latestAlbumPhoto = null;
         this.videoLink = videoLink;
+        this.hasPage = true;
+    }
+
+    public Artist(String name){
+        this.name = name;
+        this.hasPage = false;
     }
 
     //Getters y Setters
@@ -181,6 +190,22 @@ public class Artist {
      */
     public void setPhoto(Blob photo) {
         this.photo = photo;
+    }
+
+    /**
+     * 
+     * @return if the artist has information loaded at the HTML
+     */
+    public boolean isHasPage() {
+        return hasPage;
+    }
+
+    /**
+     * 
+     * @param hasPage indicated wheter the artist information is loaded in the database or not
+     */
+    public void setHasPage(boolean hasPage) {
+        this.hasPage = hasPage;
     }
 
     /**
@@ -358,7 +383,5 @@ public class Artist {
      */
     public void setSessionCreated(LocalDateTime sessionCreated) {
         this.sessionCreated = sessionCreated;
-    }
-
-    
+    }    
 }

@@ -1,5 +1,6 @@
 package es.ticketmaster.entrega1.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,21 +116,18 @@ public class ConcertService {
         return result == 1;
     }
 
-    public void saveConcert(Concert concert, MultipartFile poster){
-        // if the artist name is not on the database, it should be created
-        if (artistService.getByName(concert.getArtist().getName()).isEmpty()){
-
-        }
-
+    public void saveConcert(Concert concert, MultipartFile poster, long artistId) throws IOException{
         if (poster != null){
             concert.setImage(imageService.getBlobOf(poster));
         }
         concertRepository.save(concert);
+
+        //set the artist
+        concert.setArtist(artistService.getArtist(artistId));
+        concertRepository.save(concert);
     }
 
-    public void modifyConcert(Concert concert, long id, MultipartFile poster){
-        // if the artist name is not on the database, it should be created
-
+    public void modifyConcert(Concert concert, long id, MultipartFile poster, long artistId) throws IOException{
         // concert has the number of added tickets
         // so then modified concert is concert with the old concert available tickets added
         Concert oldConcert = concertRepository.findConcertById(id);
@@ -143,6 +141,9 @@ public class ConcertService {
 
         //save the modified concert
         concertRepository.save(concert);
-    }
 
+        //set the artist
+        concert.setArtist(artistService.getArtist(artistId));
+        concertRepository.save(concert);
+    }
 }
