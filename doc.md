@@ -1093,15 +1093,20 @@ This are the methods that this `@Service` will have <strong><em>By the moment</e
       <td>long id</td>
     </tr>
     <tr>
+      <td>createTicket</td>
+      <td>Ticket</td>
+      <td>Creates a new Ticket and save it in the database</td>
+      <td>String zone, float price, Concert concert</td>
+    <tr>
       <td>associateUserWithTicket</td>
       <td>void</td>
-      <td>It will obtain from the database the tickets that the user has purchased and associated with it (setting the ticket to that user). And vice versa, it will update the user's ticket list with the new ones. Finally, once both entities are updated, they will be saved in their respective repositories.</td>
-      <td>String type, int number</td>
+      <td>This method will create a ticket (by calling the createTicket method); and associate it with its owner (setting the ticket to that user). And vice versa, it will update the user's ticket list with the new ones. Finally, once both entities are updated, they will be saved in their respective repositories.</td>
+      <td>String type, int number, long idConcert</td>
     </tr>
   </tbody>
 </table>
 
-There will be an instance of `TicketRepository` and `UserRepository` from which all the querys will be made. Adittionally, an `ActiveUser` instance will also be present.
+There will be an instance of `TicketRepository` , `UserRepository` and `ConcertRepository` from which all the querys will be made. Adittionally, an `ActiveUser` instance will also be present.
 
 ### CardVerifyingService
 
@@ -1279,12 +1284,6 @@ It will be in charge of save all the information regarding all the tickets a con
       <td>long id</td>
       <td>It will obtain a ticket from the database</td>
     </tr>
-    <tr>
-      <td>findTicketByZoneAndTicketUser</td>
-      <td>Ticket</td>
-      <td>String zone, UserEntity user</td>
-      <td>It will obtain a certain type of ticket based on the owner user</td>
-    </tr>
   </tbody>
 </table>
 
@@ -1417,7 +1416,7 @@ This `@Controller` will be in charge of managing everything related to the ticke
       <td>purchase-confirmation or purchase (If something goes wrong)</td>
       <td>@PostMapping</td>
       <td>/concert/{id}/purchase/confirmation</td>
-      <td>Model model, @RequestParam String cardHolder, cardType, cardId, expDate, cvv</td>
+      <td>Model model, @PathVariable long id, @RequestParam String ticketType, int number, String cardHolder, cardType, cardId, expDate, cvv</td>
       <td>It will verify if the information of the credit card is valid, if it is, the purchase-confirmation template will be shown, 
        otherwise, the purchase template will be shwon with an error message.</td>
     </tr>
