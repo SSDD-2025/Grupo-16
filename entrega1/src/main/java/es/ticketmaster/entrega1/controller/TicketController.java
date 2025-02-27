@@ -34,16 +34,15 @@ public class TicketController {
      * @return the "purchase.html" template.
      */
     @PostMapping("/concert/{id}/purchase")
-    public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam String number, @RequestParam String ticketType) {
+    public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam int number, @RequestParam String ticketType) {
         Concert concert = this.concertService.getConcertById(id);
-        int numberOfTickets = Integer.parseInt(number);
-        this.ticketService.associateUserWithTicket(ticketType, numberOfTickets);
-        model.addAttribute("ticket", this.concertService.verifyAvailability(id, numberOfTickets, ticketType));
+        this.ticketService.associateUserWithTicket(ticketType, number);
+        model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
         model.addAttribute("name", concert.getName());
         model.addAttribute("date", concert.getDate());
         model.addAttribute("number", number);
         model.addAttribute("price", concert.getPrice());
-        float totalPrice = concert.getPrice() * numberOfTickets;
+        float totalPrice = concert.getPrice() * number;
         model.addAttribute("total-price", totalPrice);
         return "purchase";
     }
