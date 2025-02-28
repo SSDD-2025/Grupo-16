@@ -9,12 +9,20 @@
     <th>University Email</th>
     <th>Github Account</th>
   </thead>
-  <tr>
-    <td>Alfonso Rodríguez Gutt</td>
-    <td>GII</td>
-    <td>a.rodriguezgu.2022@alumnos.urjc.es</td>
-    <td>AlfonsoRodr</td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>Arminda García Moreno</td>
+      <td>GII + MAT</td>
+      <td>a.garciamore.2022@alumnos.urjc.es</td>
+      <td>Armiin13</td>
+    </tr>
+    <tr>
+      <td>Alfonso Rodríguez Gutt</td>
+      <td>GII</td>
+      <td>a.rodriguezgu.2022@alumnos.urjc.es</td>
+      <td>AlfonsoRodr</td>
+    </tr>
+  </tbody>
 </table>
 
 ## Execution Instructions
