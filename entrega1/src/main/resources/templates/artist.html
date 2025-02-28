@@ -8,8 +8,8 @@
         <header>
             {{>header}}
         </header>
-        {{#hasPage}}
-            {{#artist}}
+        {{#artist}}
+            {{#artist.hasPage}}
                 <!-- Show the artist name -->
                 <div class="center">
                     <h1 class="artist-name">Meet {{artist.name}}</h1>
@@ -64,14 +64,14 @@
                     <video src="{{artist.videoLink}}" controls muted></video>
                 </div>
                 <br>
-            {{/artist}}
-            {{^artist}}
-                <p>There is no artist to show</p>
-            {{/artist}}
-        {{/hasPage}}
-        {{^hasPage}}
-            <p>There is no information of {{titleName}} to show</p>
-        {{/hasPage}}
+            {{/artist.hasPage}}
+            {{^artist.hasPage}}
+                <p>There is no information of {{titleName}} to show</p>
+            {{/artist.hasPage}}
+        {{/artist}}
+        {{^artist}}
+            <p>There is no artist to show</p>
+        {{/artist}}
         <!-- Show upcoming concerts of the artist -->
         <h2>Upcoming Concerts:</h2>
         {{>display-concerts}}
