@@ -20,6 +20,8 @@
 ## Execution Instructions
 <strong><em>AQUÍ HABRÍA QUE INDICAR LOS PASOS QUE HAY QUE SEGUIR PARA DESCARGARSE EL REPOSITORIO DESDE GITHUB, COMO EJECUTAR LA APLICACIÓN Y LAS VERSIONES NECEESARIAS. </em></strong>
 
+<strong><em>INDICAR TAMBIÉN EL USUARIO Y CONTRASEÑA DEL USUARIO ADMINISTRADOR. </em></strong>
+
 ## Entities Information
 Next, all the entities that are part of the application will be shown, as well as the relationships between them.
 
@@ -123,6 +125,8 @@ To provide better clarity when viewing these relationships, the relational diagr
 
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
+
+<strong><em>EN ESTA SECCIÓN SE INSERTARÍA EL LINK PARA EL TRELLO. SE IRÁ VIENDO SI AL INICIO (JUSTO AQUÍ) O AL FINAL, ES DECIR, DESPUÉS DE QUE CADA UNO HAYA TERMINADO DE EXPLICAR SU PARTE. </em></strong>
 
 ## Alfonso Rodríguez Gutt
 
