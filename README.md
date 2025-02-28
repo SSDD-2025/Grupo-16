@@ -14,7 +14,7 @@
       <td>Arminda García Moreno</td>
       <td>GII + MAT</td>
       <td>a.garciamore.2022@alumnos.urjc.es</td>
-      <td>Armiin13</td>
+      <td>armiiin-13</td>
     </tr>
     <tr>
       <td>Alfonso Rodríguez Gutt</td>
