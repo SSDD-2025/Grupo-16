@@ -47,7 +47,7 @@ public class TicketController {
             to pass this information to the showPurchaseConfirmation method. 
             This method can be found right after the current method. */
             model.addAttribute("ticketType",ticketType);
-            model.addAttribute("numberOfTickets",number);
+            model.addAttribute("number",number);
             float totalPrice = concert.getPrice() * number;
             model.addAttribute("total-price", totalPrice);
             return "purchase";
