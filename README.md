@@ -106,7 +106,8 @@ Next, all the entities that are part of the application will be shown, as well a
 <table>
   <thead>
     <th>Entity</th>
-    <th></th>
+    <th>Cardinality</th>
+    <th>Annotation</th>
   </thead>
   <tbody>
     <tr>
