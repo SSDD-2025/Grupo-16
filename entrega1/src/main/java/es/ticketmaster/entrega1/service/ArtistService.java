@@ -172,6 +172,17 @@ public class ArtistService {
         }
     }
 
+    /**
+     * Method that checks if an specific artist name is already added to the database
+     * so that unique names are mantained
+     * @param name name to search
+     * @return if the name is used or not
+     */
+    public boolean checkIfExistsByName(String name){
+
+        return artistRepository.findFirstByName(name).isPresent();
+    }
+
     public long createNewArtist(String name){
         Artist newArtist = new Artist(name);
         artistRepository.save(newArtist);

@@ -170,3 +170,8 @@ hr{ /*Colour of the separating bar*/
     font-weight: 600;
     font-size: 180%;
 }
+
+.text-error{
+    color: red;
+    margin: 0 auto;
+}

@@ -50,7 +50,7 @@ can be instantly previsualized (image and artist name)-->
                 </div>
             </div>
 
-            {{#artist.id}}
+            {{#modificate}}
             <form action="/admin/artist/{{artist.id}}/delete" method="post" enctype="multipart/form-data"
                 class="big-button">
                 <button type="submit" class="red-style">
@@ -62,7 +62,7 @@ can be instantly previsualized (image and artist name)-->
                     </p>
                 </button>
             </form>
-            {{/artist.id}}
+            {{/modificate}}
 
             <hr>
 
@@ -70,21 +70,25 @@ can be instantly previsualized (image and artist name)-->
             <form action="/register-new-artist" method="post" enctype="multipart/form-data"
                 class="general-container column-container">
 
-                {{#artist.id}}
+                {{#modificate}}
                 <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
                 <input type="hidden" name="id" value="{{artist.id}}">
-                {{/artist.id}}
+                {{/modificate}}
 
                 <!--Artist name-->
                 <div class="attribute-container">
                     <label for="name">Artist name</label>
                     {{#artist.name}} <!--Previous artist name is placed as the value of the text input-->
-                    <input type="text" placeholder="Name" id="name" name="name" value="{{artist.name}}" required>
+                    <input type="text" placeholder="Name" id="name" name="name" value="{{artist.name}}" readonly>
                     {{/artist.name}}
                     {{^artist.name}}
                     <input type="text" placeholder="Name" id="name" name="name" required>
                     {{/artist.name}}
                 </div>
+                <!--Notification of errors-->
+                {{#error}}
+                <div class="text-error">{{error}}</div>
+                {{/error}}
 
                 <!--Popularity Index-->
                 <div class="attribute-container">
@@ -101,14 +105,14 @@ can be instantly previsualized (image and artist name)-->
 
                 <!--Artist main photo-->
                 <div class="attribute-container">
-                    {{#artist.id}} <!--Artist photo optative because it already has one-->
+                    {{#modificate}} <!--Artist photo optative because it already has one-->
                     <label for="main-photo">Change photo</label>
                     <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg">
-                    {{/artist.id}}
-                    {{^artist.id}} <!--Artist photo compulsory if the artist was nor previously added-->
+                    {{/modificate}}
+                    {{^modificate}} <!--Artist photo compulsory if the artist was nor previously added-->
                     <label for="main-photo">Main photo</label>
                     <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/artist.id}}
+                    {{/modificate}}
                 </div>
 
                 <!--Artist main info-->
@@ -212,27 +216,27 @@ can be instantly previsualized (image and artist name)-->
                 <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
                 <!--Best Album Image input-->
                 <div class="attribute-container">
-                    {{#artist.id}} <!--Artist Best Album photo optative because it already has one-->
+                    {{#modificate}} <!--Artist Best Album photo optative because it already has one-->
                     <label for="best-photo">Change Best Album Photo</label>
                     <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg">
-                    {{/artist.id}}
-                    {{^artist.id}} <!--Artist Best Album photo compulsory if the artist was nor previously added-->
+                    {{/modificate}}
+                    {{^modificate}} <!--Artist Best Album photo compulsory if the artist was nor previously added-->
                     <label for="best-photo">Best Album Photo</label>
                     <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/artist.id}}
+                    {{/modificate}}
                 </div>
 
                 <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
                 <!--Latest Album Image input-->
                 <div class="attribute-container">
-                    {{#artist.id}} <!--Artist Latest Album photo optative because it already has one-->
+                    {{#modificate}} <!--Artist Latest Album photo optative because it already has one-->
                     <label for="latest-photo">Change Latest Album Photo</label>
                     <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg">
-                    {{/artist.id}}
-                    {{^artist.id}} <!--Artist Latest Album photo compulsory if the artist was nor previously added-->
+                    {{/modificate}}
+                    {{^modificate}} <!--Artist Latest Album photo compulsory if the artist was nor previously added-->
                     <label for="latest-photo">Latest Album Photo</label>
                     <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/artist.id}}
+                    {{/modificate}}
                 </div>
 
 
@@ -250,12 +254,12 @@ can be instantly previsualized (image and artist name)-->
                 <!--Initially hidden display of the media, controlled with JavaScript-->
                 <div class="video-container">
                     <iframe id="video-display" width="560" height="315" src="" title="YouTube video player"
-                        frameborder="0" allowfullscreen style="display: none;"></iframe>
+                        frameborder="0" allowfullscreen style="display: none;" required></iframe>
                 </div>
 
                 <!--Submit of the form, which text depends on the function of the workbench-->
                 <button tpye="submit" class="central-button">
-                    {{^artist.id}}Register Artist{{/artist.id}}{{#artist.id}}Modify Artist{{/artist.id}}
+                    {{^modificate}}Register Artist{{/modificate}}{{#modificate}}Modify Artist{{/modificate}}
                 </button>
 
             </form>

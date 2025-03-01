@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
@@ -79,7 +80,7 @@ public class ArtistController {
     }
 
     /**
-     * Method that controlls the registration of a new artist/modification of an
+     * * Method that controlls the registration of a new artist/modification of an
      * existing one. For that, the ArtistService is used, being this Service the
      * one encharged of the DDBB handling. Afterwards, the user is redirected to
      * the artist admin page
@@ -87,16 +88,25 @@ public class ArtistController {
      * @param model the actual dynamic HTML
      * @param artist artist collected from the form
      * @param mainPhoto (optional) artist photo in MultipartFile format
+     * @param bestPhoto (optional) best album photo in MultipartFile format
+     * @param latestPhoto (optional) best album photo in MultipartFile format
      * @param id (optional) artist's id
+     * @param redirectAttributes attributes for the redirection solicitude
      * @return HTML to be loaded
      * @throws IOException
      */
     @PostMapping("/register-new-artist")
     public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, 
     @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto, 
-    @RequestParam(required = false) Long id) throws IOException {
+    @RequestParam(required = false) Long id, RedirectAttributes redirectAttributes) throws IOException {
 
         if (id == null) { //Add new artist
+            if(artistService.checkIfExistsByName(artist.getName())){
+                artist.setName(null);
+                redirectAttributes.addFlashAttribute("error", "Artist name already exists");
+                redirectAttributes.addFlashAttribute("artist", artist);
+                return "redirect:/admin/artist/workbench";
+            }
             artistService.registerNewArtist(artist, mainPhoto, bestPhoto, latestPhoto);
         } else {
             if(!artistService.modifyArtistWithId(artist, id, mainPhoto, bestPhoto, latestPhoto)){
@@ -113,7 +123,7 @@ public class ArtistController {
      * @param model the actual dynamic HTML
      * @return the HTML to load
      */
-    @PostMapping("/admin/artist/workbench")
+    @GetMapping("/admin/artist/workbench")
     public String prepareArtistWorkbench(Model model) {
 
         return "artist-workbench";
@@ -133,6 +143,7 @@ public class ArtistController {
 
         if (artist != null) {
             model.addAttribute("artist", artist);
+            model.addAttribute("modificate", true);
             return "artist-workbench";
         } else {
             return "error";
