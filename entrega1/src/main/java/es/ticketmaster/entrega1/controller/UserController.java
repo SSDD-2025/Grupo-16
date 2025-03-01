@@ -16,6 +16,7 @@ import es.ticketmaster.entrega1.service.UserService;
 
 
 
+
 @Controller
 public class UserController {
     @Autowired
@@ -147,4 +148,25 @@ public class UserController {
 
         return "redirect:/profile?showPersonalInfo=true";
     }    
+
+    /**
+     * Method that handles the situation of trying to delete a user. Cases
+     * when the ID does not correspond to any user are also handled,
+     * redirecting the user to an error page. As well, if the deletion has been
+     * achieved, the user is redirected to the main page.
+     *
+     * @param model model of the actual dynamic HTML
+     * @param id id of the future deleted user
+     * @return HTML to be loaded
+     */
+    @PostMapping("/profile/delete-profile")
+    public String deleteUserProfile(@RequestParam long id) {
+        
+        if(userService.removeExistingUserWithId(id)){
+            return "redirect:/";
+        } else {
+            return "redirect:/error";
+        }
+    }
+    
 }
