@@ -35,17 +35,22 @@ public class TicketController {
      */
     @PostMapping("/concert/{id}/purchase")
     public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam int number, @RequestParam String ticketType) {
-        Concert concert = this.concertService.getConcertById(id);
-        model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
-        model.addAttribute("name", concert.getName());
-        model.addAttribute("date", concert.getDate());
-        model.addAttribute("number", number);
-        model.addAttribute("price", concert.getPrice());
-        model.addAttribute("ticketType",ticketType);
-        model.addAttribute("numberOfTickets",number);
-        float totalPrice = concert.getPrice() * number;
-        model.addAttribute("total-price", totalPrice);
-        return "purchase";
+        Concert concert = this.concertService.findConcertById(id);
+        
+        if(concert != null){ /*If a concert with such id exists*/
+            model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
+            model.addAttribute("name", concert.getName());
+            model.addAttribute("date", concert.getDate());
+            model.addAttribute("number", number);
+            model.addAttribute("price", concert.getPrice());
+            model.addAttribute("ticketType",ticketType);
+            model.addAttribute("numberOfTickets",number);
+            float totalPrice = concert.getPrice() * number;
+            model.addAttribute("total-price", totalPrice);
+            return "purchase";
+        } else { /*No concert with such id exists*/
+            return "redirect:/error";
+        }
     }
     
 

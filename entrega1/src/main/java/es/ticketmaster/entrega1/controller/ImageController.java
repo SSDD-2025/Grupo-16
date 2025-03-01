@@ -147,9 +147,9 @@ public class ImageController {
     @GetMapping("/concert/{id}/download-poster")
     public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException {
 
-        Concert concert = concertService.getConcertById(id);
+        Concert concert = concertService.findConcertById(id);
 
-        if (concert.getImage() != null) {
+        if ((concert != null) && (concert.getImage() != null)) {
 
             Blob image = concert.getImage();
             Resource file = new InputStreamResource(image.getBinaryStream());

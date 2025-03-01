@@ -69,19 +69,28 @@ public class ConcertService {
         return concertRepository.findAll(); //provisional until the query is fixed
     }
 
+    /**
+     * Gets the all the concerts existing in the DDBB
+     * @return List with all the concerts registered
+     */
     public List<Concert> getAllConcerts(){
         return concertRepository.findAll();
     }
 
     /**
-     * Armin's comment: shouldn't it be Optional<Concert> in case its not on the DDBB??
+     * Finds an specific concert by its ID, searching it in the DDBB
+     * @param id id of the concert to be searched
+     * @return The concert (if it exists), null if there is no match
      */
-    public Concert getConcertById(long id){
-        return concertRepository.findConcertById(id);
-    }
-
-    public Optional<Concert> findById(long id){
-        return concertRepository.findById(id);
+    public Concert findConcertById(long id){
+        
+        Optional<Concert> concert = concertRepository.findById(id);
+        
+        if(!concert.isEmpty()){ /*If a concert has been found*/
+            return concert.get();
+        } else { /*If there is no concert match*/
+            return null;
+        }
     }
 
     /**

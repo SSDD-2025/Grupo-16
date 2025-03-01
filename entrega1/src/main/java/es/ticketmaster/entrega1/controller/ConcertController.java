@@ -43,7 +43,7 @@ public class ConcertController {
         boolean userLogged = userService.isLogged();
 
         if(userLogged){
-            model.addAttribute("concert", concertService.getConcertById(id));
+            model.addAttribute("concert", concertService.findConcertById(id));
             model.addAttribute("isLogged", true);
             return "ticket-selling";
         } else {
@@ -66,8 +66,8 @@ public class ConcertController {
 
     @PostMapping("/admin/concert/{id}/modify")
     public String formAddConcert(Model model, @PathVariable long id) {
-        model.addAttribute("concert", concertService.getConcertById(id));
-        System.out.println(concertService.getConcertById(id) == null);
+        model.addAttribute("concert", concertService.findConcertById(id));
+        System.out.println(concertService.findConcertById(id) == null);
         model.addAttribute("artistList",artistService.getEveryArtist());
         return "concert-workbench";
     }
