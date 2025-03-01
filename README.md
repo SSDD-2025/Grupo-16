@@ -22,6 +22,12 @@
       <td>a.rodriguezgu.2022@alumnos.urjc.es</td>
       <td>AlfonsoRodr</td>
     </tr>
+    <tr>
+      <td>David Rísquez Gómez</td>
+      <td>GII + GMAT</td>
+      <td>d.risquez.2022@alumnos.urjc.es</td>
+      <td>davidrisqgom</td>
+    </tr>
   </tbody>
 </table>
 
