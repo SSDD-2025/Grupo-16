@@ -10,7 +10,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class ActiveUser {
     private boolean logged;
-    private long userId;
+    private Long userId;
 
     /** 
      * Inicializes the ActiveUser to not logged
@@ -42,5 +42,13 @@ public class ActiveUser {
      */
     public long getId(){
         return userId;
+    }
+
+    /**
+     * When an user deletes its profile, its session is cleaned
+     */
+    public void setUserAsNotActive(){
+        this.userId = null;
+        this.logged = false;
     }
 }

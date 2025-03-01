@@ -91,6 +91,17 @@ my profile and my concerts (where tickets are)-->
             </div>
         </form>
 
+        <!--Profile deletion form-->
+        <form action="/profile/delete-profile" enctype="multipart/form-data" method="post">
+            <input type="number" value="{{user.id}}" name="id" hidden>
+
+            <div class="general-container column-container">
+                
+                <button type="submit" class="central-button red-style">Delete profile</button>
+                
+            </div>
+        </form>
+
         <!--More categories of information to be added-->
         {{/showPersonalInfo}}
 
