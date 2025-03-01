@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
+import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
-import es.ticketmaster.entrega1.repository.UserRepository;
 
 /**
  * Concert service that gets access to the ConcertRepository to make specific and simple querys.
@@ -27,7 +27,7 @@ public class ConcertService {
     private ActiveUser activeUser;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private ImageService imageService;
@@ -60,7 +60,7 @@ public class ConcertService {
          */
     public List<Concert> getConcertDisplay(boolean userLogged){
         if (userLogged){ //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.getConcertByPlace(userRepository.findById(activeUser.getId()).getCountry());
+            List<Concert> concertList = concertRepository.getConcertByPlace(userService.getActiveUser().getCountry());
             if (!(concertList.isEmpty())){
                 return concertList;
             }
@@ -154,5 +154,22 @@ public class ConcertService {
         //set the artist
         concert.setArtist(artistService.getArtist(artistId));
         concertRepository.save(concert);
+    }
+
+    /**
+     * Method that searched by country and depending on the user login state
+     * @param userLogged if the user is logged or not
+     * @return list (empty or with elements) of concerts near the activeUser
+     */
+    public List<Concert> getConcertsNearUser(boolean userLogged){
+        if (userLogged){ //is logged, the display will be of concerts at the same country as the user
+            UserEntity actualUser = userService.getActiveUser();
+            if(actualUser != null){
+                String country = actualUser.getCountry();
+                return concertRepository.getConcertByPlace(country);
+            }
+        }
+        //whether the user is not logged or does not exist
+        return null; //No list returned
     }
 }

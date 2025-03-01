@@ -55,10 +55,7 @@ public class MainController {
 
         } else {
 
-            if(userLogged){
-                model.addAttribute("personalConcertsList", concertService.getConcertDisplay(userLogged));
-            }
-
+            model.addAttribute("personalConcertsList", concertService.getConcertsNearUser(userLogged));
             model.addAttribute("artistList", artistService.getSearchBy(search));
             model.addAttribute("generalConcertsList", concertService.getSearchBy(search));
 
