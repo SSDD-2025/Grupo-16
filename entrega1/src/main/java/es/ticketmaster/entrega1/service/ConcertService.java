@@ -90,6 +90,15 @@ public class ConcertService {
     }
 
     /**
+     * Check the existence of a concert.
+     * @param concert the concert in question.
+     * @return true if it exist, false otherwise.
+     */
+    public boolean existConcert(Concert concert) {
+        return (concert != null);
+    }
+
+    /**
      * @param artistName the artist name whose concert list is being returned
      * @return said list
      */
