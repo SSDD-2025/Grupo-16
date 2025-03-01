@@ -33,7 +33,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
       * @param place is the country/ city which the search is based
       * @return the list of the concerts taking place at the country/ city specified
       */
-    public List<Concert> getConcertByPlace(String place);
+    public List<Concert> findByPlace(String place);
 
     public List<Concert> findByNameContainingIgnoreCase(String search);
 

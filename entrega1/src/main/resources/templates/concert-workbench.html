@@ -17,7 +17,7 @@
 
             <!-- Form to add the concert information -->
             <form action="/admin/concert/register" method="post" enctype="multipart/form-data" class="general-container column-container">
-                {{#concert.id}} <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
+                {{#concert.id}} <!--If the concert is going to be modified, the id is passed to the form in a hidden way-->
                     <input type="hidden" name="id" value="{{concert.id}}">
                 {{/concert.id}}
 
@@ -58,7 +58,7 @@
                     <label for="place">Place</label>
                     <select name="place" id="place" required>
                         {{#concert.place}} <!--Previous place is placed as the selected value -->
-                            <option value="{{concert.artist.id}}" selected>{{concert.place}}</option>
+                            <option value="{{concert.place}}" selected>{{concert.place}}</option>
                         {{/concert.place}}
                         <hr> <!--The rest of options-->
                         <option value="Europe">Europe</option>
@@ -82,8 +82,8 @@
 
                 <!-- Poster Photo -->
                 <div class="attribute-container">
-                    <label for="photo">Poster</label>
-                    <input type="file" id="poster-photo" name="photo" accept=".jpg, .png, .jpeg">
+                    <label for="poster">Poster</label>
+                    <input type="file" id="poster" name="poster" accept=".jpg, .png, .jpeg">
                 </div>
 
                 <!-- Brief Information about the concert -->
@@ -102,12 +102,13 @@
                  let the administrator to add tickets (not to delete or modified its price) -->
                 {{#concert.id}}
                     <p>
-                        Number of General Admision Tickets Available: {{concert.generalAdmissionNumber}}
-                        Number of West Stands Available: {{concert.westStandsNumber}}
-                        Number of East Stands Tickets Available: {{concert.eastStandsNumber}}
-                        Number of South Stands Tickets Available: {{concert.northStandsNumber}}
+                        Number of General Admision Tickets Available: {{concert.generalAdmissionNumber}} <br> <br>
+                        Number of West Stands Available: {{concert.westStandsNumber}} <br> <br> 
+                        Number of East Stands Tickets Available: {{concert.eastStandsNumber}} <br> <br>
+                        Number of South Stands Tickets Available: {{concert.northStandsNumber}} <br> <br>
                         Price: {{concert.price}}
                     </p>
+                    <input type="hidden" name="price" value="{{concert.price}}">
                     <label for="general-admision">Add General Admision Tickets</label>
                     <input type="number" id="general-admision" name="generalAdmissionNumber" value="0" min="0">
 
@@ -141,6 +142,14 @@
 
                 <!-- Submit button -->
                 <input type="submit" value="Submit">
+            </form>
+
+            <hr>
+            <form action="/admin/concert/delete">
+                {{#concert.id}} <!--If the concert is going to be deleted, the id is passed to the form in a hidden way-->
+                    <input type="hidden" name="id" value="{{concert.id}}">
+                    <input type="submit" value="Delete Concert">
+                {{/concert.id}}
             </form>
         </main>
         <footer>

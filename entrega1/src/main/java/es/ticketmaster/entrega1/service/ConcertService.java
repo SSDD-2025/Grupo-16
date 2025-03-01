@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,7 @@ public class ConcertService {
          */
     public List<Concert> getConcertDisplay(boolean userLogged){
         if (userLogged){ //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.getConcertByPlace(userService.getActiveUser().getCountry());
+            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser().getCountry());
             if (!(concertList.isEmpty())){
                 return concertList;
             }
@@ -130,17 +131,33 @@ public class ConcertService {
         return result == 1;
     }
 
+    /**
+     * This method will save a new concert on the database
+     * @param concert the concert that is being uploaded to the database
+     * @param poster the image associated with the concert
+     * @param artistId the id whose concert is being uploaded to the DDBB
+     * @throws IOException if an error occurs during file handling
+     */
     public void saveConcert(Concert concert, MultipartFile poster, long artistId) throws IOException{
-        if (poster != null){
+        if ((poster != null)&&(! poster.isEmpty())){
             concert.setImage(imageService.getBlobOf(poster));
         }
-        concertRepository.save(concert);
 
         //set the artist
         concert.setArtist(artistService.getArtist(artistId));
+        
         concertRepository.save(concert);
     }
 
+    /**
+     * This method will modify a concert, setting its attributes the correct way and
+     *  saving this changes onto the database
+     * @param concert it is the new concert that has to be uploaded (after certain modifications are done)
+     * @param id id of the concert that is being modificated
+     * @param poster the image associated with the concert (can be a new image)
+     * @param artistId the artist whose concert is being modified (it can be a new artist)
+     * @throws IOException if an error occurs during file handling
+     */
     public void modifyConcert(Concert concert, long id, MultipartFile poster, long artistId) throws IOException{
         // concert has the number of added tickets
         // so then modified concert is concert with the old concert available tickets added
@@ -148,17 +165,25 @@ public class ConcertService {
         concert.addTickets(oldConcert);
         if (poster != null){
             concert.setImage(imageService.getBlobOf(poster));
+        } else {
+            concert.setImage(oldConcert.getImage());
         }
 
         // set the old id to the modified concert
         concert.setId(id);
 
-        //save the modified concert
-        concertRepository.save(concert);
-
         //set the artist
         concert.setArtist(artistService.getArtist(artistId));
+        
         concertRepository.save(concert);
+    }
+
+    /**
+     * This method will delete a concert from the datatbase
+     * @param id id of the concert that is being deleted
+     */
+    public void deleteConcert(long id){
+        concertRepository.deleteById(id);
     }
 
     /**
@@ -171,7 +196,7 @@ public class ConcertService {
             UserEntity actualUser = userService.getActiveUser();
             if(actualUser != null){
                 String country = actualUser.getCountry();
-                return concertRepository.getConcertByPlace(country);
+                return concertRepository.findByPlace(country);
             }
         }
         //whether the user is not logged or does not exist
