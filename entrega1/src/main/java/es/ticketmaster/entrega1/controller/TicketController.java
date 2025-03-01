@@ -12,21 +12,20 @@ import es.ticketmaster.entrega1.service.CardVerifyingService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
 
-
 @Controller
 public class TicketController {
     @Autowired
     private CardVerifyingService cardService;
+
     @Autowired
     private TicketService ticketService;
+
     @Autowired
     private ConcertService concertService;
 
     /**
-     * This method will be in charge of showing all the ticket information that the user has pruchased.
+     * This method will be in charge of showing all the ticket information that the user has purchased.
      * This will be showed in the "purchase.html" template.
-     * Apart for that, all the purchased tickets will be associated to the user and viceversa.
-     * This last operation is done by the associateUserWithTicket method, implemented in the ticketService class.
      * @param model is the model of the dinamic HTML document.
      * @param id is the concert identification number.
      * @param number is the ammount of tickets the user has purchased.
@@ -36,27 +35,33 @@ public class TicketController {
     @PostMapping("/concert/{id}/purchase")
     public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam int number, @RequestParam String ticketType) {
         Concert concert = this.concertService.findConcertById(id);
-        
-        if(concert != null){ /*If a concert with such id exists*/
-            model.addAttribute("ticket", this.concertService.verifyAvailability(id, number, ticketType));
+        if(this.concertService.existConcert(concert)){ /* Verify if the concert with such id exist. */
+            /* It will check if there are tickets available for the type of ticket that has been chosen. */
+            boolean available = this.concertService.verifyAvailability(id, number, ticketType);
+            model.addAttribute("ticket", available);
             model.addAttribute("name", concert.getName());
             model.addAttribute("date", concert.getDate());
             model.addAttribute("number", number);
             model.addAttribute("price", concert.getPrice());
+            /* The next two are for the hidden "inputs" in the "purchase.html" file, 
+            to pass this information to the showPurchaseConfirmation method. 
+            This method can be found right after the current method. */
             model.addAttribute("ticketType",ticketType);
             model.addAttribute("numberOfTickets",number);
             float totalPrice = concert.getPrice() * number;
             model.addAttribute("total-price", totalPrice);
             return "purchase";
-        } else { /*No concert with such id exists*/
+        } 
+        else { /* If the concert does not exists, then an error page will be shown.*/
             return "redirect:/error";
         }
     }
     
-
     /**
      * This method will be in charge of sending the user to the purchase confirmation page 
      * if the credit card`s information is valid. If something happen, an error message will appear informing the user.
+     * Apart for that, all the purchased tickets will be associated to the user and viceversa.
+     * This last operation is done by the associateUserWithTicket method, implemented in the ticketService class.
      * @param model is the model of the dinamic HTML document.
      * @param id is the identification number for the concert.
      * @param ticketType is the zone/section of the ticket.
