@@ -12,7 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class ImageService {
     public Blob getBlobOf(MultipartFile photo) throws IOException{
-        return BlobProxy.generateProxy(photo.getInputStream(),photo.getSize());
+        if(!photo.isEmpty()){
+            return BlobProxy.generateProxy(photo.getInputStream(),photo.getSize());
+        } else {
+            return null;
+        }
     }
 
     public Blob getBlobOf(String url) throws IOException{

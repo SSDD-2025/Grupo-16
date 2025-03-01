@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +17,9 @@ public class ArtistService {
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    @Autowired
+    private ImageService imageService;
 
     /**
      * Searches for the artist that has an specific ID. In case the artist is
@@ -78,11 +80,11 @@ public class ArtistService {
      */
     public void registerNewArtist(Artist artist, MultipartFile photo) throws IOException {
 
-        if (!photo.isEmpty()) {
-            artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
-        }
+        /*The photo is setted (if there is any error, it is set to null) */
+        artist.setPhoto(imageService.getBlobOf(photo));
 
         artist.setSessionCreated(LocalDateTime.now());
+        artist.setHasPage(true);
 
         artistRepository.save(artist);
 
@@ -120,11 +122,10 @@ public class ArtistService {
 
         if(!oldArtist.isEmpty()){
             artist.setConcertList(oldArtist.get().getConcertList());
-            if(!photo.isEmpty()){
-                //TO BE CHANGED
-                artist.setPhoto(BlobProxy.generateProxy(photo.getInputStream(), photo.getSize()));
-            } else {
-                //TO BE CHANGED
+            artist.setHasPage(oldArtist.get().isHasPage());
+            if(!photo.isEmpty()){ /*If a new photo has been uploaded*/
+                artist.setPhoto(imageService.getBlobOf(photo));
+            } else { /*If no new photo has been uploaded, it takes the older one*/
                 artist.setPhoto(oldArtist.get().getPhoto());
             }
             artistRepository.save(artist);
