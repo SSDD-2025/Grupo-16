@@ -143,7 +143,8 @@ In this section, each of the participants in the development of the application 
 <strong><em>EN ESTA SECCIÓN SE INSERTARÍA EL LINK PARA EL TRELLO. SE IRÁ VIENDO SI AL INICIO (JUSTO AQUÍ) O AL FINAL, ES DECIR, DESPUÉS DE QUE CADA UNO HAYA TERMINADO DE EXPLICAR SU PARTE. </em></strong>
 
 ## Alfonso Rodríguez Gutt
-<strong> Commit List </strong>
+
+### Commit List
 1. [Adding all User files (Entity, Service and Repository)](https://github.com/SSDD-2025/Grupo-16/commit/04e8fe9fb732fa6bf1aa67009ebd2a9d1cfafaee).
 2. [Adding all Ticket files (Entity, Service and Repository)](https://github.com/SSDD-2025/Grupo-16/commit/db40a969aab6353c5729374c2beefb25568a1102).
 3. [Addition to the TicketController of the ticket purchase method.](https://github.com/SSDD-2025/Grupo-16/commit/bcf4139c1fcbdff3650e72fffc5418e7b155c4b6).
@@ -154,7 +155,7 @@ In this section, each of the participants in the development of the application 
 
 <strong>Note: Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.</strong>
 
-<strong>Files with the most participation</strong>
+### Files with the most participation
 1. UserController.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
 2. UserService.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
 3. TicketController.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
