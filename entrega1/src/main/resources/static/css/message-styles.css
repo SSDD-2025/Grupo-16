@@ -8,12 +8,33 @@ body {
     margin: 0;
 }
 
-.error-container {
+.message-container {
     text-align: center;
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.added-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #54a133;
+    text-align: center;
+}
+
+.mody-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #be6729;
+    text-align: center;
+}
+
+.delete-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #de1b1b;
+    text-align: center;
 }
 
 .error-code {
@@ -23,7 +44,14 @@ body {
     text-align: center;
 }
 
-.error-container p {
+.error-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+}
+
+.message-container p {
     font-size: 18px;
     color: #7f8c8d;
     margin: 20px 0;
@@ -42,4 +70,11 @@ body {
 .back-home:hover {
     cursor: pointer;
     background: #0056b3;
+}
+
+.error-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
 }

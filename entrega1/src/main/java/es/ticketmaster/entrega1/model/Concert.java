@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -30,6 +31,7 @@ public class Concert {
     private long id; //DDBB automatically generated ID of the concert
 
     @ManyToOne
+    @JoinColumn(name="artist_id")
     private Artist artist; //Artist who gives the concert
 
     /*For the first delivery, we assume that deleting an artist also means deleting the 

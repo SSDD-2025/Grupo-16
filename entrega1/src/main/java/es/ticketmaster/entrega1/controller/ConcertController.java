@@ -64,9 +64,10 @@ public class ConcertController {
         return "admin-concerts";
     }
 
-    @GetMapping("/admin/concert/{id}/modify")
-    public String formAddConcert(Model model, @PathVariable Long id) {
+    @PostMapping("/admin/concert/{id}/modify")
+    public String formAddConcert(Model model, @PathVariable long id) {
         model.addAttribute("concert", concertService.getConcertById(id));
+        System.out.println(concertService.getConcertById(id) == null);
         model.addAttribute("artistList",artistService.getEveryArtist());
         return "concert-workbench";
     }

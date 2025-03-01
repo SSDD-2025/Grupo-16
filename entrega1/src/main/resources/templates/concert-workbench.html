@@ -14,22 +14,6 @@
                     {{#concert.id}}Modify{{/concert.id}}{{^concert.id}}Add new{{/concert.id}} concert
                 </div>
             </div>
-            <div class="general-container column-container"> <!-- information block -->
-                <!-- Preview Block -->
-                <div class="concert-container">
-                    <!-- Concert Poster-->
-                    <div class="poster-container">
-                        <img src="/concert/{id}/download-poster" class="poster-photo">
-                    </div>
-            
-                    <!-- Concert Information-->
-                    <div class="info-container">
-                        <p>TBD</p>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
 
             <!-- Form to add the concert information -->
             <form action="/admin/concert/register" method="post" enctype="multipart/form-data" class="general-container column-container">
@@ -57,7 +41,7 @@
                         {{/concert.artist.name}}
                         <hr>
                         {{#artistList}}
-                            <option value="{{artist.id}}">{{value}}</option>
+                            <option value="{{id}}">{{name}}</option>
                         {{/artistList}}
                         <option value="-1">Other</option>
                     </select>
@@ -74,7 +58,7 @@
                     <label for="place">Place</label>
                     <select name="place" id="place" required>
                         {{#concert.place}} <!--Previous place is placed as the selected value -->
-                            <option value="{{concert.artist.id}}" selected>{{concert.artist.name}}</option>
+                            <option value="{{concert.artist.id}}" selected>{{concert.place}}</option>
                         {{/concert.place}}
                         <hr> <!--The rest of options-->
                         <option value="Europe">Europe</option>

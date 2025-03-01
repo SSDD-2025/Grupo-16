@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>
+            {{#added}}Added{{/added}}
+            {{#modified}}Modified{{/modified}}
+            {{#deleted}}Deleted{{/deleted}}
+        </title>
+        <link type="text/css" rel="stylesheet" href="common-styles.css">
+        <link type="text/css" rel="stylesheet" href="message-styles.css">
+    </head>
+    <body>
+        <div class="message-styles">
+            {{#added}}
+                <form action="/admin/concert">
+                    <h1 class="added-code">Added</h1>
+                    <p>Concert added succesfully</p>
+                    <br>
+                    <a href="/admin/concert" class="back-home">Go back to home page</a>
+                </form>
+            {{/added}}
+            {{#modified}}
+                <form action="/admin/concerts">
+                    <h1 class="mody-code">Added</h1>
+                    <p>Concert modified succesfully</p>
+                    <br>
+                    <a href="/admin/concert" class="back-home">Go back to home page</a>
+                </form>
+            {{/modified}}
+            {{#deleted}}
+                <form action="/admin/concerts">
+                    <h1 class="delete-code">Added</h1>
+                    <p>Concert deleted succesfully</p>
+                    <br>
+                    <a href="/admin/concert" class="back-home">Go back to home page</a>
+                </form>
+            {{/deleted}}
+            
+        </div>
+    </body>
+</html>
