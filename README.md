@@ -32,9 +32,34 @@
 </table>
 
 ## Execution Instructions
-<strong><em>AQUÍ HABRÍA QUE INDICAR LOS PASOS QUE HAY QUE SEGUIR PARA DESCARGARSE EL REPOSITORIO DESDE GITHUB, COMO EJECUTAR LA APLICACIÓN Y LAS VERSIONES NECEESARIAS. </em></strong>
+1. Download the repository and unzip it.
+2. Run the application in your preferred IDE. We recommend that you use `Visual Studio Code`.
+3. Once the application is running, open your prefferred browser and go to: `http:\\localhost:8080/`.
+4. You can access the application as an administrator by using one of the following accounts:
+   * Username: armiiin13; Password: eras1325.
+   * Username: Fonssi29; Password: pollitoPio.
 
-<strong><em>INDICAR TAMBIÉN EL USUARIO Y CONTRASEÑA DEL USUARIO ADMINISTRADOR. </em></strong>
+In addition to the steps above, you will need to meet the following requirements:
+
+### Java 21 (JDK 21)
+In case you do not have JDK installed in your computer, this is how you can get it:
+* If you are a Windows user [Click Here](https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.zip).
+* If you use Linux as your operative system, you will need to put the following command in the terminal:
+```sh
+sudo apt install openjdk-21
+````
+
+### Maven v0.44.0
+If you are using `Visual Studio Code` as your IDE, you can get it by searching the `Maven for Java` extension.
+
+In other case, you can get it [Here](https://maven.apache.org/download.cgi).
+
+### Spring Boot 3.4.2
+The reason we strongly recommend using `Visual Studio Code` as the IDE to launch the application, is because of the Spring Boot version. In this IDE, it is possible to use version `3.4.2`, however, in other IDEs such as `SpringToolSuite` the higher version available is `3.4.1`, so it may not work as it should.
+
+At this time, version `3.4.3` is available, however we do not recommend using it for this project.
+
+If you use `Visual Studio Code`, you will need to have the `Spring Boot Extension Pack` extension.
 
 ## Entities Information
 Next, all the entities that are part of the application will be shown, as well as the relationships between them.
