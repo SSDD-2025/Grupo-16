@@ -209,6 +209,33 @@ can be instantly previsualized (image and artist name)-->
                         width="100%" height="150"></iframe>
                 </div>
 
+                <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
+                <!--Best Album Image input-->
+                <div class="attribute-container">
+                    {{#artist.id}} <!--Artist Best Album photo optative because it already has one-->
+                    <label for="best-photo">Change Best Album Photo</label>
+                    <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg">
+                    {{/artist.id}}
+                    {{^artist.id}} <!--Artist Best Album photo compulsory if the artist was nor previously added-->
+                    <label for="best-photo">Best Album Photo</label>
+                    <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg" required>
+                    {{/artist.id}}
+                </div>
+
+                <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
+                <!--Latest Album Image input-->
+                <div class="attribute-container">
+                    {{#artist.id}} <!--Artist Latest Album photo optative because it already has one-->
+                    <label for="latest-photo">Change Latest Album Photo</label>
+                    <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg">
+                    {{/artist.id}}
+                    {{^artist.id}} <!--Artist Latest Album photo compulsory if the artist was nor previously added-->
+                    <label for="latest-photo">Latest Album Photo</label>
+                    <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg" required>
+                    {{/artist.id}}
+                </div>
+
+
                 <!--Video input and confirmation display-->
                 <div class="attribute-container">
                     <label for="videoLink">Music Video Link</label>

@@ -74,14 +74,17 @@ public class ArtistService {
      * the DDBB). As well, the register date is saved.
      *
      * @param artist artist to be saved
-     * @param photo (optional) MultipartFile photo to stablish the artist
-     * profile photo
+     * @param mainPhoto MultipartFile photo to stablish the artist photo
+     * @param bestPhoto (PROV) MultipartFile photo to stablish the artist best album photo
+     * @param latestPhoto (PROV) MultipartFile photo to stablish the artist latest album photo
      * @throws IOException
      */
-    public void registerNewArtist(Artist artist, MultipartFile photo) throws IOException {
+    public void registerNewArtist(Artist artist, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
 
         /*The photo is setted (if there is any error, it is set to null) */
-        artist.setPhoto(imageService.getBlobOf(photo));
+        artist.setPhoto(imageService.getBlobOf(mainPhoto));
+        artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto)); /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
+        artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto)); /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
 
         artist.setSessionCreated(LocalDateTime.now());
         artist.setHasPage(true);
@@ -106,15 +109,17 @@ public class ArtistService {
     }
 
     /**
-     * Service method that modifies an existing artist with possible new photo
+     * * Service method that modifies an existing artist with new attributes
      *
-     * @param artist artist containing the new attributes that have been
-     * modified
+     * @param artist artist containing the new attributes that have been modified
      * @param id id of that artist
-     * @param photo (optional) new photo for the artist
+     * @param mainPhoto (optional) new photo for the artist
+     * @param bestPhoto (PROV - optional) new photo for the best album
+     * @param latestPhoto ( PROV - optional) new photo for the latest album
+     * @return
      * @throws IOException
      */
-    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException {
+    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
 
         artist.setId(id);
 
@@ -123,10 +128,22 @@ public class ArtistService {
         if(!oldArtist.isEmpty()){
             artist.setConcertList(oldArtist.get().getConcertList());
             artist.setHasPage(oldArtist.get().isHasPage());
-            if(!photo.isEmpty()){ /*If a new photo has been uploaded*/
-                artist.setPhoto(imageService.getBlobOf(photo));
+            if(!mainPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+                artist.setPhoto(imageService.getBlobOf(mainPhoto));
             } else { /*If no new photo has been uploaded, it takes the older one*/
                 artist.setPhoto(oldArtist.get().getPhoto());
+            }
+            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
+            if(!bestPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+                artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
+            } else { /*If no new photo has been uploaded, it takes the older one*/
+                artist.setBestAlbumPhoto(oldArtist.get().getBestAlbumPhoto());
+            }
+            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
+            if(!latestPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+                artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
+            } else { /*If no new photo has been uploaded, it takes the older one*/
+                artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
             }
             artistRepository.save(artist);
             return true;

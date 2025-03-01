@@ -92,12 +92,14 @@ public class ArtistController {
      * @throws IOException
      */
     @PostMapping("/register-new-artist")
-    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, @RequestParam(required = false) Long id) throws IOException {
+    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, 
+    @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto, 
+    @RequestParam(required = false) Long id) throws IOException {
 
         if (id == null) { //Add new artist
-            artistService.registerNewArtist(artist, mainPhoto);
+            artistService.registerNewArtist(artist, mainPhoto, bestPhoto, latestPhoto);
         } else {
-            if(!artistService.modifyArtistWithId(artist, id, mainPhoto)){
+            if(!artistService.modifyArtistWithId(artist, id, mainPhoto, bestPhoto, latestPhoto)){
                 return "redirect:/error";
             }
         }

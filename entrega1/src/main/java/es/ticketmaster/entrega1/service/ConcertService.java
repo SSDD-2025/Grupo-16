@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
@@ -22,9 +21,6 @@ public class ConcertService {
     
     @Autowired
     private ConcertRepository concertRepository;
-
-    @Autowired
-    private ActiveUser activeUser;
 
     @Autowired
     private UserService userService;
