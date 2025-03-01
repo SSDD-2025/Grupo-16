@@ -67,9 +67,16 @@ my profile and my concerts (where tickets are)-->
 
                 <div class="attribute-container"> <!--Actual profile photo displayer-->
                     <label for="user-photo">Personal photo</label>
+                    {{#user.profilePicture}} <!--If the user has uploaded any profile picture-->
                     <div class="photo-container">
                         <img src="/profile/download-profile-picture" class="image-in-container image-rounded">
                     </div>
+                    {{/user.profilePicture}}
+                    {{^user.profilePicture}} <!--If the user has not uploaded any profile picture-->
+                    <div class="photo-container">
+                        <img src="/media/profile.png" class="image-in-container image-rounded">
+                    </div>
+                    {{/user.profilePicture}}
                 </div>
 
                 <div class="attribute-container"> <!--Exact point where the profile photo can be updated-->
