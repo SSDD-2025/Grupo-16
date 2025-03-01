@@ -38,6 +38,7 @@
 4. You can access the application as an administrator by using one of the following accounts:
    * Username: armiiin13; Password: eras1325.
    * Username: Fonssi29; Password: pollitoPio.
+   * Username: TBD; Password: TBD.
 
 In addition to the steps above, you will need to meet the following requirements:
 
