@@ -12,7 +12,7 @@
                 <h2>Tickets Information:</h2>
                 <!-- Ticket Information -->
                 <p>Concert: {{concert.name}} <br> Date: {{concert.date}} <br> Number: {{number}} <br> Type of Ticket: {{ticketType}} ({{concert.price}})</p>
-                <form action="/concert/{{concert.id}}" method="post">
+                <form action="/concert/{{concert.id}}/cancel-purchase?type={{ticketType}}&number={{number}}" method="post">
                     <input type="submit" value="Cancel Purchase"> 
                 </form>
             </div>

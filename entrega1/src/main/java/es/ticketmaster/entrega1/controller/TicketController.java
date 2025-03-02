@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ticketmaster.entrega1.model.Concert;
-import es.ticketmaster.entrega1.service.CardVerifyingService;
+//import es.ticketmaster.entrega1.service.CardVerifyingService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class TicketController {
-    @Autowired
-    private CardVerifyingService cardService;
+    //@Autowired
+    //private CardVerifyingService cardService;
 
     @Autowired
     private TicketService ticketService;
@@ -77,4 +79,18 @@ public class TicketController {
         this.ticketService.associateUserWithTicket(ticketType, number, id);
         return "purchase-confirmation";
     }
+
+    /**
+     * 
+     * @param model
+     * @param id
+     * @param type
+     * @param number
+     * @return
+     */
+    @GetMapping("/concert/{id}/cancel-purchase")
+    public String cancelPurchase(Model model, @PathVariable long id, @RequestParam String type, @RequestParam int number) {
+        return "redirect:/concert/{{id}}";
+    }
+    
 }
