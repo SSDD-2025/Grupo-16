@@ -24,7 +24,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
      *
      * @return the specified list
      */
-    public List<Artist> findTop10ByOrderBySessionCreatedDesc();
+    public List<Artist> findTop10ByHasPageByOrderBySessionCreatedDesc(boolean hasPage);
 
     /**
      * Makes a list of the artists whose name contains the string search

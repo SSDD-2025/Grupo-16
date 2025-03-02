@@ -40,8 +40,8 @@ public class ArtistService {
     }
 
     /**
-     * Searches the concerts taken at a specific place
-     *
+     * Returns a list of the 10 most famous artists
+     * 
      * @return the list of the concerts of the top 10 most famous artist
      */
     public List<Artist> getArtistDisplayByPopularity() {
@@ -50,12 +50,12 @@ public class ArtistService {
     }
 
     /**
-     * Searches the concerts taken at a specific place
+     * Returns a list of the 10 newer artists added with a page to show
      *
      * @return the list of the concerts of the top 10 last created artist
      */
     public List<Artist> getArtistDisplayBySession() {
-        return artistRepository.findTop10ByOrderBySessionCreatedDesc();
+        return artistRepository.findTop10ByHasPageByOrderBySessionCreatedDesc(true);
     }
 
     /**
@@ -104,6 +104,11 @@ public class ArtistService {
         return artistRepository.findAll();
     }
 
+    /**
+     * Returns the artist (if found) with an specific name
+     * @param name name of the artist to be found
+     * @return said artist on a Optional object (None if its not found)
+     */
     public Optional<Artist> getByName(String name){
         return artistRepository.findFirstByName(name);
     }
@@ -183,6 +188,11 @@ public class ArtistService {
         return artistRepository.findFirstByName(name).isPresent();
     }
 
+    /**
+     * This method will create a new artist with only its name (it will not have an artist's page)
+     * @param name the artist name
+     * @return the new artist id
+     */
     public long createNewArtist(String name){
         Artist newArtist = new Artist(name);
         artistRepository.save(newArtist);
