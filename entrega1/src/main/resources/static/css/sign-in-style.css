@@ -26,6 +26,14 @@ body {
     border: 1px solid #555;
 }
 
+.log-in-error-container p {
+    color: red;
+}
+
+.new-user-error-container p {
+    color: red;
+}
+
 h2 {
     margin-bottom: 20px;
     color: #333;

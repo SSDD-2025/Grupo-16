@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/sign-in-style.css">
     <link rel="icon" type="image/png" href="/media/LogIn.png">
 </head>
-<body>
+<body> 
     <!-- Depending on whether the user is registered or not in the database, two html templates will be displayed,
          the login template or the registration template--> 
     {{#existUser}} <!-- Log in template-->
@@ -29,7 +29,7 @@
             </div>
             <div class="log-in-error-container">
                 {{#error}}
-                    <p><strong>The username or the password introduced is incorrect</strong></p>
+                    <p><strong>The username or password entered is incorrect</strong></p>
                 {{/error}}
             </div>
         </div>

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cancel Purchase</title>
     <link rel="icon" type="image/png" href="/media/check.png">
+    <link rel="stylesheet" href="/css/message-styles.css">
 </head>
 <body>
-    <form action="/concert/{{id}}">
-        <h1>Your Purchase has been canceled</h1>
-        <input type="submit" value="Back">
-    </form>
+    <div class="message-container">
+        <h1 class="cancel-message">Your Purchase has been Canceled</h1>
+        <p>We're sorry to see you go! If you change your mind, feel free to book again.</p>
+        <form action="/concert/{{id}}">
+            <input type="submit" value="Back to Event" class="button">
+        </form>
+    </div>
 </body>
 </html>

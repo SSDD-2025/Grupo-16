@@ -51,6 +51,7 @@ public class UserController {
     */
     @PostMapping("/sign-in/validation")
     public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
+        model.addAttribute("existUser", true);
         UserEntity receivedUser = this.userService.verifyUser(userName);
         /* Verify if the user exist on the database and his password matches */
         if ((receivedUser != null) && (this.userService.verifyPassword(userName, password))) {
@@ -76,6 +77,7 @@ public class UserController {
     @PostMapping("/sign-up/validation")
     public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
         UserEntity newUser = this.userService.verifyUser(userName);
+        model.addAttribute("existUser", false);
         if (newUser == null) { // The user does not exist on the database, therefore, can be register.
             newUser = new UserEntity(userName, password, email, country);
             this.userService.registerUser(newUser);
