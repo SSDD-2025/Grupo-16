@@ -158,7 +158,7 @@ To provide better clarity when viewing these relationships, the relational diagr
 ## Application Functionality Overview
 <strong><em>AQUÍ SE EXPLICARÁ A GROSSO MODO LA FUNCIONALIDAD DE LA APLICACIÓN </em> </strong>
 
-<strong><em> AQUÍ SE INSERTARÍA EL DIAGRAMA DE NAVEGACIÓN Y EL DIAGRAMA DE CLASES/TEMPLATES </em></strong>
+<strong><em> AQUÍ SE INSERTARÍA EL DIAGRAMA DE NAVEGACIÓN, EL DIAGRAMA DE CLASES/TEMPLATES Y LOS DIAGRAMAS DE COMUNICACIÓN. </em></strong>
 
 ### ScreenShots
 - Main Page
