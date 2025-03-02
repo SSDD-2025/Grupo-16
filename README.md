@@ -81,7 +81,7 @@ Next, all the entities that are part of the application will be shown, as well a
     <tr>
       <td>Ticket</td>
       <td>1..N</td>
-      <td>@OneToMany</td>
+      <td>@OneToMany(mappedBy="ticketUser")</td>
     </tr>
   </tbody>
 </table>
@@ -220,19 +220,17 @@ The following link leads to our team dashboard:
 1. [Adding all User files (Entity, Service and Repository)](https://github.com/SSDD-2025/Grupo-16/commit/04e8fe9fb732fa6bf1aa67009ebd2a9d1cfafaee).
 2. [Adding all Ticket files (Entity, Service and Repository)](https://github.com/SSDD-2025/Grupo-16/commit/db40a969aab6353c5729374c2beefb25568a1102).
 3. [Addition to the TicketController of the ticket purchase method.](https://github.com/SSDD-2025/Grupo-16/commit/bcf4139c1fcbdff3650e72fffc5418e7b155c4b6).
-4. [Fixed some aspects for the TicketController](https://github.com/SSDD-2025/Grupo-16/commit/524a4c0d2374c04c513546deedbb755d088dea5d).
+4. [Finished the implementation of Cancel Purchase](https://github.com/SSDD-2025/Grupo-16/commit/f4b9c00c2eb97dd5ad5c5ab38b6a5081dad9e6b7).
 5. [Re-design of the sign-in/sign-up page](https://github.com/SSDD-2025/Grupo-16/commit/5383e7c5c7b46133c9e9a3a6c26a8f4f0283cddc).
-
-<strong>Note: The third commit has a continuation and is the following:</strong> [Third Commit Continuation](https://github.com/SSDD-2025/Grupo-16/commit/afae2f872d3f723196328732de9148975db88888).
 
 <strong>Note: Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.</strong>
 
 ### Files with the most participation
-1. UserController.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
-2. UserService.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
-3. TicketController.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
-4. TicketService.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
-6. ConcertRepository.java <strong><em>(SE METERÁ UN ENLACE AL ARCHIVO)</em></strong>
+1. UserController.java
+2. UserService.java
+3. TicketController.java
+4. TicketService.java
+6. ConcertRepository.java
 
 In addition to these files, I worked on other files with a lower workload, or that did not have the same level of importance as the previous ones mentioned. These are:
 1. UserEntity.java
@@ -246,6 +244,7 @@ In addition to these files, I worked on other files with a lower workload, or th
 9. sign-in-validation.html and its correspondant css (validation-styles.css).
 10. sign-up-validation.html and its correspondant css (validation-styles.css).
 11. purchase-confirmation.html and its correspondant css (purchase-confirmation-styles.css).
+12. cancel-verification.html.
 
 Once the files in which I was a participant have been mentioned, I will explain in detail what was done in the most notable files:
 
@@ -378,17 +377,24 @@ This will be all the methods this `@Controller` will have:
     </tr>
     <tr>
       <td>showPurchaseConfirmation</td>
-      <td>purchase-confirmation or purchase (If something goes wrong)</td>
+      <td>purchase-confirmation</td>
       <td>@PostMapping</td>
       <td>/concert/{id}/purchase/confirmation</td>
-      <td>Model model, @PathVariable long id, @RequestParam String ticketType, int number, String cardHolder, cardType, cardId, expDate, cvv</td>
-      <td>It will verify if the information of the credit card is valid, if it is, the purchase-confirmation template will be shown, 
-       otherwise, the purchase template will be shown with an error message.</td>
+      <td>Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number</td>
+      <td>It will show the "purchase-confirmation.html" template</td>
+    </tr>
+    <tr>
+      <td>cancelPurchase</td>
+      <td>cancel-verification</td>
+      <td>@PostMapping</td>
+      <td>/concert/{id}/cancel-purchase</td>
+      <td>Model model, @PathVariable long id, @RequestParam String type, @RequestParam int number</td>
+      <td>It will cancel the purchase.</td>
     </tr>
   </tbody>
 </table>
 
-It will have an instance of the `CardVerifyingService `, `ConcertService` and `TicketService` classes, which will be under the `@AutoWired` annotation.
+It will have an instance of the `ConcertService` and `TicketService` classes, which will be under the `@AutoWired` annotation.
 
 ### TicketService
 This `@Service` will serve as an intermediate between the `TicketController` and the `TicketRepository` in order to follow the `Hexagonal Arquitecture`. This service will have all the operations the `@Controller`s will need in order to access the data on the database, in other words, the querys.
@@ -439,12 +445,6 @@ This is not a class created by me, it is one in which I collaborated by adding t
   </thead>
   <tbody>
     <tr>
-      <td>existConcert</td>
-      <td>boolean</td>
-      <td>It will verify if the concert exist or not.</td>
-      <td>Concert concert</td>
-    </tr>
-    <tr>
       <td>availableWestStandsTickets</td>
       <td>int</td>
       <td>It will make a @Query obtaining the number of West Side Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
@@ -468,6 +468,30 @@ This is not a class created by me, it is one in which I collaborated by adding t
       <td>It will make a @Query obtaining the number of General Admission Tickets required. It will control the concurrent access to the repository, thus preventing a user from trying to obtain a number of tickets greater than the one available.</td>
       <td>@Param ("id") long id, @Param ("number") int number</td>
     </tr>
+    <tr>
+      <td>restoreWestStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query restoring the number of westStand tickets that the user has selected, when he cancel the purchase</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>restoreEastStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query restoring the number of eastStand tickets that the user has selected, when he cancel the purchase</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>restoreNorthStandsTickets</td>
+      <td>int</td>
+      <td>It will make a @Query restoring the number of northStand tickets that the user has selected, when he cancel the purchase</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
+    <tr>
+      <td>restoreGeneralAdmissionTickets</td>
+      <td>int</td>
+      <td>It will make a @Query restoring the number of generalAdmission tickets that the user has selected, when he cancel the purchase</td>
+      <td>@Param ("id") long id, @Param ("number") int number</td>
+    </tr>
   </tbody>
 </table>
 
@@ -483,9 +507,21 @@ Although this file is not included in the 5 files in which I participated the mo
   </thead>
   <tbody>
     <tr>
+      <td>existConcert</td>
+      <td>boolean</td>
+      <td>It will verify if the concert exist or not.</td>
+      <td>Concert concert</td>
+    </tr>
+    <tr>
       <td>verifyAvailability</td>
       <td>boolean</td>
       <td>It will check if there are tickets available of a certain type</td>
+      <td>long id, int number, String type</td>
+    </tr>
+    <tr>
+      <td>restauringTickets</td>
+      <td>void</td>
+      <td>This method will restore the selected tickets when the user cancel de purchase</td>
       <td>long id, int number, String type</td>
     </tr>
   </tbody>
