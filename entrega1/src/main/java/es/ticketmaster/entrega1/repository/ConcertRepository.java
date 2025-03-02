@@ -47,7 +47,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
      * In specific, this query is focus on controlling the number of available tickets for the westStands section.
      * By doing this, the concurrent access to the the tickets that the different users can purchase is controlled.
-     * Note: The main author of this method is Alfonso Rodríguez, and the co author is Arminda García. 
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno. 
      * @param id is the identification number for the concert.
      * @param number is the ammount of tickets that the user will be purchasing.
      * @return the number of rows that will be updated. In this case, should be 1 or 0 as I mentioned previosly.
@@ -61,7 +61,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
      * In specific, this query is focus on controlling the number of available tickets for the eastStands section.
      * By doing this, the concurrent access to the the tickets that the different users can purchase is controlled.
-     * Note: The main author of this method is Alfonso Rodríguez, and the co author is Arminda García. 
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
      * @param id is the identification number for the concert.
      * @param number is the ammount of tickets that the user will be purchasing.
      * @return the number of rows that will be updated. In this case, should be 1 or 0 as I mentioned previosly.
@@ -75,7 +75,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
      * In specific, this query is focus on controlling the number of available tickets for the northStands section.
      * By doing this, the concurrent access to the the tickets that the different users can purchase is controlled.
-     * Note: The main author of this method is Alfonso Rodríguez, and the co author is Arminda García. 
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
      * @param id is the identification number for the concert.
      * @param number is the ammount of tickets that the user will be purchasing.
      * @return the number of rows that will be updated. In this case, should be 1 or 0 as I mentioned previosly.
@@ -89,7 +89,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
      * In specific, this query is focus on controlling the number of available tickets for the generalAdmission section.
      * By doing this, the concurrent access to the the tickets that the different users can purchase is controlled.
-     * Note: The main author of this method is Alfonso Rodríguez, and the co author is Arminda García. 
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno. 
      * @param id is the identification number for the concert.
      * @param number is the ammount of tickets that the user will be purchasing.
      * @return the number of rows that will be updated. In this case, should be 1 or 0 as I mentioned previosly.
@@ -98,4 +98,64 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
     @Modifying
     @Query("UPDATE Concert c SET c.generalAdmissionNumber=c.generalAdmissionNumber-:number WHERE c.id = :id AND c.generalAdmissionNumber-:number >= 0")
     public int availableGeneralAdmissionTickets(@Param ("id") long id, @Param("number") int number);
+
+    /**
+     * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
+     * In specific, this query is focus on updating the number of the westStands tickets available if the user cancel de purchase.
+     * In other words, this query will be in charge of restoring the number of westStands tickets selected by the user,
+     * when the purchase has been canceled.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets that the user has selected.
+     * @return the number of rows that will be updated. In this case, should be 1 or 0 ass I mentioned previously.
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE Concert c SET c.westStandsNumber=c.westStandsNumber+:number WHERE c.id = :id")
+    public int restoreWestStandsTickets(@Param ("id") long id, @Param("number") int number);
+
+    /**
+     * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
+     * In specific, this query is focus on updating the number of the eastStands tickets available if the user cancel de purchase.
+     * In other words, this query will be in charge of restoring the number of eastStands tickets selected by the user,
+     * when the purchase has been canceled.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets that the user has selected.
+     * @return the number of rows that will be updated. In this case, should be 1 or 0 ass I mentioned previously.
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE Concert c SET c.eastStandsNumber=c.eastStandsNumber+:number WHERE c.id = :id")
+    public int restoreEastStandsTickets(@Param ("id") long id, @Param("number") int number);
+
+    /**
+     * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
+     * In specific, this query is focus on updating the number of the northStands tickets available if the user cancel de purchase.
+     * In other words, this query will be in charge of restoring the number of northStands tickets selected by the user,
+     * when the purchase has been canceled.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets that the user has selected.
+     * @return the number of rows that will be updated. In this case, should be 1 or 0 ass I mentioned previously.
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE Concert c SET c.northStandsNumber=c.northStandsNumber+:number WHERE c.id = :id")
+    public int restoreNorthStandsTickets(@Param ("id") long id, @Param("number") int number);
+
+    /**
+     * This query will return the number of rows udpated. In this case, the possible values will be 1 or 0, since only 1 row can be updated.
+     * In specific, this query is focus on updating the number of the generalAdmission tickets available if the user cancel de purchase.
+     * In other words, this query will be in charge of restoring the number of generalAdmission tickets selected by the user,
+     * when the purchase has been canceled.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets that the user has selected.
+     * @return the number of rows that will be updated. In this case, should be 1 or 0 ass I mentioned previously.
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE Concert c SET c.generalAdmissionNumber=c.generalAdmissionNumber+:number WHERE c.id = :id")
+    public int restoreGeneralAdmissionTickets(@Param ("id") long id, @Param("number") int number);
 }

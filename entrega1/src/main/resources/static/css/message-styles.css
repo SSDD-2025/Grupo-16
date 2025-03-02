@@ -8,12 +8,26 @@ body {
     margin: 0;
 }
 
+.welcome-message {
+    font-size: 50px;
+    font-weight: bold;
+    color: #28a745;
+    text-align: center;
+}
+
 .message-container {
     text-align: center;
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-message {
+    font-size: 50px;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
 }
 
 .added-code {
@@ -63,4 +77,18 @@ body {
 .back-home:hover {
     cursor: pointer;
     background: #0056b3;
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #0056b3;
 }
