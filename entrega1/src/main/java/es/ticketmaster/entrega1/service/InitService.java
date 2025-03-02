@@ -26,7 +26,7 @@ public class InitService {
     private UserRepository userRepository;
 
     @Autowired
-        private ImageService imageService;
+    private ImageService imageService;
 
     /**
      * Initializes the database with default data.
@@ -102,5 +102,7 @@ public class InitService {
         //Create Users
         user = new UserEntity("armiiin13", "eras1325", "armiingrc@yahoo.com", "Europe");
         userRepository.save(user);
+        user = new UserEntity("Fonssi29", "pollitoPio", "fonssi@gmail.com", "America");
+        this.userRepository.save(user);
     }
 }

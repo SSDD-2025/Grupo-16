@@ -37,7 +37,7 @@ public class ConcertController {
      * @param id concert identification to load its ticket choosing page
      * @return name of the html to be responded to the server petition
      */
-    @GetMapping("/concert/{id}")
+    @PostMapping("/concert/{id}")
     public String postMethodName(Model model, @PathVariable Long id) {
         
         boolean userLogged = userService.isLogged();

@@ -115,19 +115,19 @@ public class ConcertService {
      */
     public boolean verifyAvailability(long id, int number, String type) {
         int result = 0;
-        if (type.equalsIgnoreCase("West Side")) {
+        if (type.equalsIgnoreCase("West")) {
             result = this.concertRepository.availableWestStandsTickets(id, number);
         }
-        else if (type.equalsIgnoreCase("East Side")) {
+        else if (type.equalsIgnoreCase("East")) {
             result = this.concertRepository.availableEastStandsTickets(id, number);
         }
-        else if (type.equalsIgnoreCase("North Side")) {
+        else if (type.equalsIgnoreCase("North")) {
             result = this.concertRepository.availableNorthStandsTickets(id, number);
         }
-        else if (type.equalsIgnoreCase("General Admission")) {
+        else if (type.equalsIgnoreCase("General")) {
             result = this.concertRepository.availableGeneralAdmissionTickets(id, number);
         }
-        return result == 1;
+        return result == 1; 
     }
 
     /**

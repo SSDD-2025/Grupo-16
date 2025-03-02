@@ -38,6 +38,7 @@ public class TicketController {
         if(this.concertService.existConcert(concert)){ /* Verify if the concert with such id exist. */
             /* It will check if there are tickets available for the type of ticket that has been chosen. */
             boolean available = this.concertService.verifyAvailability(id, number, ticketType);
+            model.addAttribute("concert", concert);
             model.addAttribute("ticket", available);
             model.addAttribute("name", concert.getName());
             model.addAttribute("date", concert.getDate());
@@ -46,8 +47,8 @@ public class TicketController {
             /* The next two are for the hidden "inputs" in the "purchase.html" file, 
             to pass this information to the showPurchaseConfirmation method. 
             This method can be found right after the current method. */
-            model.addAttribute("ticketType",ticketType);
-            model.addAttribute("number",number);
+            model.addAttribute("ticketType", ticketType);
+            model.addAttribute("number", number);
             float totalPrice = concert.getPrice() * number;
             model.addAttribute("total-price", totalPrice);
             return "purchase";
