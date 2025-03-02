@@ -95,14 +95,9 @@ Next, all the entities that are part of the application will be shown, as well a
   </thead>
   <tbody>
     <tr>
-      <td>TBD</td>
-      <td>TBD</td>
-      <td>TBD</td>
-    </tr>
-    <tr>
-      <td>TBD</td>
-      <td>TBD</td>
-      <td>TBD</td>
+      <td>Concert</td>
+      <td>1..N</td>
+      <td>@OneToMany(mappedBy = "artist", cascade=CascadeType.ALL, orphanRemoval=true)</td>
     </tr>
   </tbody>
 </table>
@@ -214,7 +209,10 @@ Description: these pages are destined to show a message telling the user some in
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
 
-<strong><em>EN ESTA SECCIÓN SE INSERTARÍA EL LINK PARA EL TRELLO. SE IRÁ VIENDO SI AL INICIO (JUSTO AQUÍ) O AL FINAL, ES DECIR, DESPUÉS DE QUE CADA UNO HAYA TERMINADO DE EXPLICAR SU PARTE. </em></strong>
+To coordinate the team, we have used the Trello application, which lets you to create Kandan panels virtually.
+
+The following link leads to our team dashboard:
+[Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
 
 ## Alfonso Rodríguez Gutt
 
@@ -734,6 +732,7 @@ __Methods__: the methods for this class are
       <td>setNewActiveUser</td>
       <td>void</td>
       <td>Sets the userId to the id of the user passed as a parameter</td>
+      <td>void</td>
     </tr>
     <tr>
       <td>isUserLogged</td>
