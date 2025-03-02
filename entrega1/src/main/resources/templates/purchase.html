@@ -35,13 +35,13 @@
                     <form action="/concert/{{id}}/purchase/confirmation" method="post">
                         <!-- Cardholder Name-->
                         <label for="cardholder">Cardholder Name:</label>
-                        <input type="text" name="cardHolder" id="cardholder" placeholder="Name"/>
+                        <input type="text" name="cardHolder" id="cardholder" placeholder="Name" required/>
 
                         <br> <br>
 
                         <!-- Card Type -->
                         <label for="card-type">Card Type:</label>
-                        <select name="cardType" id="card-type">
+                        <select name="cardType" id="card-type" required>
                             <option value="1" selected>MasterCard</option>
                             <option value="2">Visa</option>
                             <option value="3">American Express</option>
@@ -50,19 +50,19 @@
                         <!-- Card Id -->
                         <label for="card-id">Card Id:</label>
                         <!-- Card Ids between 13-19 numbers -->
-                        <input type="text" name="cardId" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456">
+                        <input type="text" name="cardId" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456" required>
 
                         <br> <br>
 
                         <!-- Expiration Date -->
                         <label for="exp-date">Expiration Date:</label>
-                        <input type="month" name="expDate" id="exp-date">
+                        <input type="month" name="expDate" id="exp-date" required>
 
                         <br> <br>
 
                         <!-- CVV -->
                         <label for="cvv">CVV:</label>
-                        <input type="text" name="cvv" id="cvv" pattern="[0-9\s]{3,4}" maxlength="4" placeholder="123">
+                        <input type="text" name="cvv" id="cvv" pattern="[0-9\s]{3,4}" maxlength="4" placeholder="123" required>
 
                         <br> <br>
 
