@@ -14,9 +14,6 @@ import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.UserService;
 
-
-
-
 @Controller
 public class UserController {
     @Autowired
@@ -167,6 +164,5 @@ public class UserController {
         } else {
             return "redirect:/error";
         }
-    }
-    
+    } 
 }
