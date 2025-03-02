@@ -1,9 +1,4 @@
-/* Display */
-*{
-    margin: 0;
-    padding: 0;
-}
-
+/* Display */   
 .artist-container {
     display: flex;
     flex-direction: column;
@@ -69,19 +64,34 @@
 
 /* Page */
 .center{
-    text-align:center;
-    margin-top: 3%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    margin-top: 3%; 
+    width: 100%; 
 }
 
-.artist-name{
+.main-block{
+    margin-top: 2%;
+    display: flex;
+    height: 60%;
+}
+
+.section-title{
+    margin-top: 5%;
+}
+
+.artist-name-page{
+    height: auto;
+    width: auto;
     font-weight: bold;
     font-size: 400%;
+    text-align: center;
 }
 
 .photo-container{
-    width: 40%;
-    height: 50%;
-    margin-left: 2%;
+    margin-left: 8%;
     display: inline-block;
 }
 
@@ -96,24 +106,30 @@
     height: 40%;
     display: inline-block;
     margin-top: 2%;
-    position: absolute;
+    margin-left: 3%;
+    text-align: left;
+    font-size: 130%;
 }
 
 .more-info{
     margin-top: 2%;
     margin-left: 4%;
     margin-right: 4%;
-    position: absolute;
 }
 
 .main-info p{
     font-size: 130%;
 }
 
+.album-display{
+    margin-top: 2%;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+}
+
 .album-container{
     display: inline-block;
-    width: 40%;
-    height: 40%;
     margin-left: 8%;
     text-align: center;
 }
@@ -125,11 +141,11 @@
 }
 
 .music-apps{
-    width: 100;
+    width: 100%;
     height: 30%;
     display: flex;
     gap: 20%;
-    margin-left: 38%;
+    margin-left: 20%;
     margin-top: 3%;
 }
 
@@ -146,10 +162,15 @@
 }
 
 video{
-    width: 30%;
-    height: 40%;
+    width: 50%;
+    height: auto;
 }
 
 h2{
-    margin-left: 2%;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+.spaced{
+    margin-top: 13%;
 }

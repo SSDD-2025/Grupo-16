@@ -12,11 +12,11 @@
             {{#artist.hasPage}}
                 <!-- Show the artist name -->
                 <div class="center">
-                    <h1 class="artist-name">Meet {{artist.name}}</h1>
+                    <h1 class="artist-name-page">Meet {{artist.name}}</h1>
                 </div>
 
                 <!-- Main Block -->
-                <div>
+                <div class="main-block">
                     <!-- Show artist's photo at the left of the page -->
                     <div class="photo-container">
                         <img class="artist-image" src="/artist/{{id}}/download-photo">
@@ -36,28 +36,30 @@
                 </div>
 
                 <!-- Show two albums and its links to listen in Spotify/ Apple Music (kept at the database) -->
-                <h2>Start listening to {{artist.name}}...</h2>
                 <div>
+                    <h2>Start listening to {{artist.name}}...</h2>
+                </div>
+                <div class="album-display">
                     <div class="album-container">
                         <h3>Best Album</h3>
                         <img class="album-photo" src="/artist/{{id}}/download-bestAlbum-photo"> <!-- Photo of the cover -->
                         <div class="music-apps">
-                            <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                            <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
+                            <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
+                            <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
                         </div>
                     </div>
                     <div class="album-container">
                         <h3>Latest Album</h3>
                         <img class="album-photo" src="/artist/{{id}}/download-latestAlbum-photo"> <!-- Photo of the cover -->
                         <div class="music-apps">
-                            <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                            <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
+                            <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
+                            <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
                         </div>
                     </div>
                 </div>
                 
                 <!-- Show the music video kept at the database -->
-                <h2>... or go watch some music videos</h2>
+                <h2 class="spaced">... or go watch some music videos</h2>
                 <div class="center">
                     <!-- mv-link is the music video kept in the database -->
                     <!-- it is program to be muted and only starts when the user clicks on it-->
@@ -74,7 +76,9 @@
         {{/artist}}
         <!-- Show upcoming concerts of the artist -->
         <h2>Upcoming Concerts:</h2>
-        {{>display-concerts}}
+        <div>
+            {{>display-concerts}}
+        </div>
         <footer>
             {{>footer}}
         </footer>

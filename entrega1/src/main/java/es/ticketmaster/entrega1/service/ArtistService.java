@@ -55,7 +55,7 @@ public class ArtistService {
      * @return the list of the concerts of the top 10 last created artist
      */
     public List<Artist> getArtistDisplayBySession() {
-        return artistRepository.findTop10ByHasPageByOrderBySessionCreatedDesc(true);
+        return artistRepository.findTop10ByOrderBySessionCreatedDesc();
     }
 
     /**

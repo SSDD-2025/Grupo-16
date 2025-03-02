@@ -41,7 +41,5 @@ public class ImageService {
         } catch (IOException e) {
             return null; //in case of error
         }
-        
-        
     }
 }
