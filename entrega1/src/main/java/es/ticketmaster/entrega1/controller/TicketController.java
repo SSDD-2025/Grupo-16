@@ -40,10 +40,7 @@ public class TicketController {
             boolean available = this.concertService.verifyAvailability(id, number, ticketType);
             model.addAttribute("concert", concert);
             model.addAttribute("ticket", available);
-            model.addAttribute("name", concert.getName());
-            model.addAttribute("date", concert.getDate());
             model.addAttribute("number", number);
-            model.addAttribute("price", concert.getPrice());
             /* The next two are for the hidden "inputs" in the "purchase.html" file, 
             to pass this information to the showPurchaseConfirmation method. 
             This method can be found right after the current method. */
@@ -77,13 +74,7 @@ public class TicketController {
      */
     @PostMapping("/concert/{id}/purchase/confirmation")
     public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number, @RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
-        if ((this.cardService.verifyCardHolder(cardHolder)) && (this.cardService.getType(cardType) != null) && 
-            (this.cardService.verifyCreditCardNumber(cardId)) && (this.cardService.verifyExpirationDate(expDate)) && 
-            (this.cardService.verifyCVV(cvv))) {
-                this.ticketService.associateUserWithTicket(ticketType, number, id);
-                return "purchase-confirmation";
-        }
-        model.addAttribute("error", true);
-        return "purchase";
+        this.ticketService.associateUserWithTicket(ticketType, number, id);
+        return "purchase-confirmation";
     }
 }
