@@ -8,17 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ticketmaster.entrega1.model.Concert;
-//import es.ticketmaster.entrega1.service.CardVerifyingService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
 public class TicketController {
-    //@Autowired
-    //private CardVerifyingService cardService;
-
     @Autowired
     private TicketService ticketService;
 
@@ -58,39 +53,32 @@ public class TicketController {
     }
     
     /**
-     * This method will be in charge of sending the user to the purchase confirmation page 
-     * if the credit card`s information is valid. If something happen, an error message will appear informing the user.
-     * Apart for that, all the purchased tickets will be associated to the user and viceversa.
-     * This last operation is done by the associateUserWithTicket method, implemented in the ticketService class.
+     * This method will be in charge of sending the user to the purchase confirmation page.
      * @param model is the model of the dinamic HTML document.
      * @param id is the identification number for the concert.
      * @param ticketType is the zone/section of the ticket.
      * @param number of tickets that the user has chosen.
-     * @param cardHolder is the name of the credit card holder introduced by the user.
-     * @param cardType is the type of the credit card (Visa, MasterCard or American Express) selected by the user.
-     * @param cardId is the credit card identification number introduced by the user.
-     * @param expDate is the credit card expiration date introduced by the user.
-     * @param cvv is the credit card security number introduced my the user.
      * @return If there is no error on the card`s information, it will shown de "purchase-confirmation" template. 
-     * If not, the same "pruchase" template but with an error message.
+     * If not, the same "purchase" template but with an error message.
      */
     @PostMapping("/concert/{id}/purchase/confirmation")
-    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number, @RequestParam String cardHolder, @RequestParam String cardType, @RequestParam String cardId, @RequestParam String expDate, @RequestParam String cvv) {
+    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number) {
         this.ticketService.associateUserWithTicket(ticketType, number, id);
         return "purchase-confirmation";
     }
 
     /**
-     * 
-     * @param model
-     * @param id
-     * @param type
-     * @param number
-     * @return
+     * This method will redirect to the ticket sellection page when the user cancel the purchase.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param model is the model of the dinamic HTML document.
+     * @param id is the identification number for the concert.
+     * @param type is the zone/section of the ticket.
+     * @param number of tickets that the user has selected.
+     * @return the page where the user can select the zone and the ammount of tickets he wants.
      */
-    @GetMapping("/concert/{id}/cancel-purchase")
+    @PostMapping("/concert/{id}/cancel-purchase")
     public String cancelPurchase(Model model, @PathVariable long id, @RequestParam String type, @RequestParam int number) {
-        return "redirect:/concert/{{id}}";
-    }
-    
+        this.concertService.restauringTickets(id, number, type);
+        return "cancel-verification";
+    }  
 }

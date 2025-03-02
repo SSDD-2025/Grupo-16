@@ -131,6 +131,28 @@ public class ConcertService {
     }
 
     /**
+     * This method will restore the selected tickets when the user cancel de purchase.
+     * @author Alfonso Rodríguez Gutt and Arminda García Moreno.
+     * @param id is the identification number for the concert.
+     * @param number is the ammount of tickets the user has purchased.
+     * @param type is the type (section) of the ticket.
+     */
+    public void restauringTickets(long id, int number, String type) {
+        if (type.equalsIgnoreCase("West")) {
+            this.concertRepository.restoreWestStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("East")) {
+            this.concertRepository.restoreEastStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("North")) {
+            this.concertRepository.restoreNorthStandsTickets(id, number);
+        }
+        else if (type.equalsIgnoreCase("General")) {
+            this.concertRepository.restoreGeneralAdmissionTickets(id, number);
+        }
+    }
+
+    /**
      * This method will save a new concert on the database
      * @param concert the concert that is being uploaded to the database
      * @param poster the image associated with the concert
