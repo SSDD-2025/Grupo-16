@@ -209,7 +209,7 @@ Description: these pages are destined to show a message telling the user some in
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
 
-To coordinate the team, we have used the Trello application, which lets you to create Kandan panels virtually.
+To coordinate the team, we have used the Trello application, which allows us to create Kanban panels virtually.
 
 The following link leads to our team dashboard:
 [Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
