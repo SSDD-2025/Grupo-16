@@ -98,12 +98,11 @@ public class TicketController {
      */
     @PostMapping("/ticket/delete")
     public String ticketDeletion(Model model, @RequestParam long id) {
-        
         if(ticketService.deleteTicketWithId(id)){
             return "redirect:/profile?showMyConcerts=true";
-        } else {
+        } 
+        else {
             return "redirect:/error";
         }
     }
-    
 }
