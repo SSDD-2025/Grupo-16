@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
@@ -23,8 +22,6 @@ public class TicketService {
     private UserService userService;
     @Autowired
     private ConcertRepository concertRepository;
-    @Autowired
-    private ActiveUser activeUser;
     @Autowired
     private ConcertService concertService;
 
@@ -61,7 +58,7 @@ public class TicketService {
      * @param concertId is the identification number for a concert.
      */
     public void associateUserWithTicket(String type, int number, long concertId) {
-        List<Ticket> userTickets = userService.getActiveUser().getTicketsList();
+        List<Ticket> userTickets = this.userService.getActiveUser().getTicketsList();
         Concert concert = this.concertRepository.findConcertById(concertId);
         for (int i = 0; i < number; i++) {
             Ticket newTicket = this.createTicket(type, concert.getPrice(), concert); /* Creation of ticket. */
