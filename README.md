@@ -38,7 +38,7 @@
 4. You can access the application as an administrator by using one of the following accounts:
    * Username: armiiin13; Password: eras1325.
    * Username: Fonssi29; Password: pollitoPio.
-   * Username: TBD; Password: TBD.
+   * Username: davih; Password: davilico.
 
 In addition to the steps above, you will need to meet the following requirements:
 
@@ -111,14 +111,14 @@ Next, all the entities that are part of the application will be shown, as well a
   </thead>
   <tbody>
     <tr>
-      <td>TBD</td>
-      <td>TBD</td>
-      <td>TBD</td>
+      <td>Artist</td>
+      <td>N..1</td>
+      <td>@ManyToOne</td>
     </tr>
     <tr>
-      <td>TBD</td>
-      <td>TBD</td>
-      <td>TBD</td>
+      <td>Ticket</td>
+      <td>1..n</td>
+      <td>@OneToMany(mappedBy="concert", cascade=CascadeType.ALL, orphanRemoval=true)</td>
     </tr>
   </tbody>
 </table>
@@ -147,7 +147,7 @@ Next, all the entities that are part of the application will be shown, as well a
 
 To provide better clarity when viewing these relationships, the relational diagram of the application is shown below.
 
-<strong><em>INSERTAR FOTO DEL DIAGRAMA RELACIONAL AQUÍ </em></strong>
+![Relational Diagram](Diagrams/DB_Relational_Diagram.png)
 
 ## User Privileges
 Anonymous users will be able to search for artists and concerts and visit the artist's page for information, but they will not be able to purchase tickets to a concert. They can also register or log in on the page to become registered users.
