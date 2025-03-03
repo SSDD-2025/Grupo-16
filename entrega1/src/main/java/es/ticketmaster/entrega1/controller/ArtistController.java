@@ -36,8 +36,8 @@ public class ArtistController {
      * only used if the artist searched does not have a main page but has
      * concerts available
      */
-    @PostMapping("/artist/{id}")
-    public String getArtistPage(Model model, @PathVariable long id, @RequestParam String artistName) {
+    @GetMapping("/artist/{id}")
+    public String getArtistPage(Model model, @PathVariable long id) {
         Artist artist = artistService.getArtist(id);
         if (artist != null) {
             model.addAttribute("artist", artist);
@@ -48,7 +48,6 @@ public class ArtistController {
             model.addAttribute("artist", null);
             model.addAttribute("titleName", "Not Found");
             model.addAttribute("hasPage",false);
-            model.addAttribute("concertList", concertService.getArtistConcerts(artistName));
         }
         model.addAttribute("modifyConcert", false);
         return "artist";

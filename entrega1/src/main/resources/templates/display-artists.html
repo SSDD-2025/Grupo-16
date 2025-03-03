@@ -19,7 +19,7 @@
     </div>
     <div class="button-container">
         {{^modifyArtist}} <!--If the artist is not going to be modified, its page is shown-->
-        <form action="/artist/{{id}}?artistName={{name}}" method="post" enctype="multipart/form-data">
+        <form action="/artist/{{id}}">
             <input type="submit" value="More Info">
         </form>
         {{/modifyArtist}}

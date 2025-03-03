@@ -99,10 +99,63 @@ public class InitService {
         concert = new Concert(artist, "The Secret Of Us Tour", LocalDateTime.of(2025, Month.MAY,17,21,0), "Oceania", "Oceania leg of the The Secret Of Us Tour", 80, 40, 40, 40, 50, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\TSOU Tour Oceania.jpg"));
         concertRepository.save(concert);
 
+        /*Create and Save Artist: Katy Perry*/
+        mainText = "Katy Perry is an American singer, songwriter and actress, best known for her catchy pop songs and colorful style. She rose to fame with her hit \"I Kissed a Girl\", followed by chart-topping singles like \"Firework,\" \"Teenage Dream,\" \"Roar,\" or \"Dark Horse.\"";
+        extText = "Katy Perry is renowned for her vibrant persona, elaborate stage productions, and empowering anthems. Over her career, she has received numerous awards, including American Music Awards and Billboard Music Awards.";
+        artist = new Artist("Katy Perry", 60637611, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Katy Perry.jpeg"), mainText, extText, "https://open.spotify.com/intl-es/album/06SY6Ke6mXzZHhURLVU57R", "https://music.apple.com/es/album/teenage-dream/716340563", "https://open.spotify.com/intl-es/album/3jxt1S4JtW4uFalBwlfehS", "https://music.apple.com/es/album/143/1756201803", imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Teenage Dream.jpeg"),imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\143.jpeg"),"https://www.youtube.com/watch?v=EVIJUH29pjU");
+
+        artistRepository.save(artist);
+
+        /*Create and Save Katy Perry's concerts*/
+        concert = new Concert(artist, "The Lifetimes Tour", LocalDateTime.of(2025, Month.NOVEMBER,11,21,0), "Europe", "The Lifetimes Tour is the upcoming fifth concert tour by American singer Katy Perry, following her seventh studio album, 143 (2024).", 60, 100, 100, 100, 200, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Lifetimes Tour.jpg"));
+        concertRepository.save(concert);
+
+        concert = new Concert(artist, "The Lifetimes Tour", LocalDateTime.of(2025, Month.AUGUST,11,19,0), "America", "The Lifetimes Tour is the upcoming fifth concert tour by American singer Katy Perry, following her seventh studio album, 143 (2024).", 90, 150, 150, 150, 300, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Lifetimes Tour.jpg"));
+        concertRepository.save(concert);
+
+        concert = new Concert(artist, "The Lifetimes Tour", LocalDateTime.of(2025, Month.JUNE,9,20,0), "Oceania", "The Lifetimes Tour is the upcoming fifth concert tour by American singer Katy Perry, following her seventh studio album, 143 (2024).", 60, 100, 100, 100, 200, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Lifetimes Tour.jpg"));
+        concertRepository.save(concert);
+
+        /*Create and Save Artist: Beyonce*/
+        mainText = "Beyonce is a globally renowned singer, songwriter, actress, and businesswoman. Known for her powerful vocals, electrifying performances, and hits like Halo and Single Ladies, she has won numerous awards, including Grammys.";
+        extText = "A trailblazer in music and fashion, Beyoncé blends R&B, pop, and hip-hop with unmatched artistry. Beyond music, she champions social justice, female empowerment, and Black excellence worldwide.";
+        artist = new Artist("Beyonce", 60143515, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Beyonce.jpeg"), mainText, extText, "https://open.spotify.com/intl-es/album/6FJxoadUE4JNVwWHghBwnb", "https://music.apple.com/es/album/renaissance/1630005298", "https://open.spotify.com/intl-es/album/6BzxX6zkDsYKFJ04ziU5xQ", "https://music.apple.com/es/album/cowboy-carter/1738363766", imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Renaissance.jpeg"),imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Cowboy Carter.jpeg"),"https://www.youtube.com/watch?v=UL_JXt4FI6E");
+
+        artistRepository.save(artist);
+
+        /*Create and Save Beyonce's concerts*/
+        concert = new Concert(artist, "Cowboy Carter Tour", LocalDateTime.of(2025, Month.MAY,15,19,0), "America", "Beyoncé's Cowboy Carter Tour blends country, R&B, and pop in a groundbreaking celebration of Western culture, Black artistry, and musical evolution.", 120, 80, 80, 80, 150, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Cowboy Carter Tour.jpg"));
+        concertRepository.save(concert);
+
+        concert = new Concert(artist, "Cowboy Carter Tour", LocalDateTime.of(2025, Month.JUNE,14,17,0), "Europe", "Beyoncé's Cowboy Carter Tour blends country, R&B, and pop in a groundbreaking celebration of Western culture, Black artistry, and musical evolution.", 100, 90, 90, 90, 200, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Cowboy Carter Tour.jpg"));
+        concertRepository.save(concert);
+
+        concert = new Concert(artist, "Cowboy Carter Tour", LocalDateTime.of(2025, Month.MAY,4,19,0), "America", "Beyoncé's Cowboy Carter Tour blends country, R&B, and pop in a groundbreaking celebration of Western culture, Black artistry, and musical evolution.", 120, 80, 80, 80, 150, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Cowboy Carter Tour.jpg"));
+        concertRepository.save(concert);
+
+        /*Create and Save Artist: Taylor Swift*/
+        mainText = "Taylor Swift is a record-breaking singer-songwriter known for her storytelling, genre versatility, and hits like Love Story and Anti-Hero. From country roots to pop, she dominates music charts, wins countless awards, and influences culture worldwide.";
+        extText = "A master of reinvention, Taylor Swift crafts deeply personal lyrics that resonate globally. With The Eras Tour, she celebrates her evolution. Beyond music, she’s a business mogul, advocate for artists’ rights, and a voice for social change.";
+        artist = new Artist("Taylor Swift", 86426795, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Taylor Swift.jpeg"), mainText, extText, "https://open.spotify.com/intl-es/album/64LU4c1nfjz1t4VnGhagcg", "https://music.apple.com/es/album/1989-taylors-version/1708308989", "https://open.spotify.com/intl-es/album/1Mo4aZ8pdj6L1jx8zSwJnt", "https://music.apple.com/es/album/the-tortured-poets-department/1736268193", imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\1989.jpeg"),imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\TTPD.jpeg"),"https://www.youtube.com/watch?v=q3zqJs7JUCQ");
+
+        artistRepository.save(artist);
+
+        /*Create and Save Taylor's concerts*/
+        concert = new Concert(artist, "The Eras Tour", LocalDateTime.of(2024, Month.MAY,30,20,0), "Europe", "Taylor Swift’s Eras Tour is a career-spanning spectacle, celebrating her musical journey with dazzling visuals, emotional storytelling, and record-breaking performances.", 220, 0, 0, 0, 0, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Eras Tour.jpg"));
+        concertRepository.save(concert);
+        
+        concert = new Concert(artist, "The Eras Tour", LocalDateTime.of(2024, Month.OCTOBER,18,17,0), "America", "Taylor Swift’s Eras Tour is a career-spanning spectacle, celebrating her musical journey with dazzling visuals, emotional storytelling, and record-breaking performances.", 320, 0, 0, 0, 0, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Eras Tour.jpg"));
+        concertRepository.save(concert);
+
+        concert = new Concert(artist, "The Eras Tour", LocalDateTime.of(2024, Month.FEBRUARY,7,18,0), "Asia", "Taylor Swift’s Eras Tour is a career-spanning spectacle, celebrating her musical journey with dazzling visuals, emotional storytelling, and record-breaking performances.", 100, 0, 0, 0, 0, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Eras Tour.jpg"));
+        concertRepository.save(concert);
+
         //Create Users
         user = new UserEntity("armiiin13", "eras1325", "armiingrc@yahoo.com", "Europe");
         userRepository.save(user);
         user = new UserEntity("Fonssi29", "pollitoPio", "fonssi@gmail.com", "America");
         this.userRepository.save(user);
+        user = new UserEntity("davih", "davilico", "drg@gmail.com", "Europe");
+        userRepository.save(user);
     }
 }
