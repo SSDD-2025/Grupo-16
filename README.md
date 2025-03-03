@@ -219,7 +219,7 @@ Description: these pages are destined to show a message telling the user some in
 ![Navigation Diagram](/Diagrams/Navigation_Diagram.jpeg)
 
 ### Classes and Templates Diagram
-![Classes/Templates Diagram](/Diagrams/TemplateDiagramSD.jpg)
+![Template Diagram](/Diagrams/TemplateDiagram.jpg)
 
 Additionally, to provide more information and better clarity of how the application works, it was decided to make some additional diagrams about the main functionalities of the application. These are the following:
 
