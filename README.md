@@ -150,10 +150,20 @@ To provide better clarity when viewing these relationships, the relational diagr
 <strong><em>INSERTAR FOTO DEL DIAGRAMA RELACIONAL AQUÍ </em></strong>
 
 ## User Privileges
-<strong><em>EN ESTA SECCIÓN HAY QUE EXPLICAR BREVEMENTE LOS PERMISOS DE CADA TIPO DE USUARIO. TAMBIÉN HAY QUE INDICAR DE QUÉ ENTIDADES ES DUEÑO CADA USUARIO </em></strong>
+Anonymous users will be able to search for artists and concerts and visit the artist's page for information, but they will not be able to purchase tickets to a concert. They can also register or log in on the page to become registered users.
+
+In addition to the actions that an anonymous user can take, registered users can purchase tickets and modify their profile page (and add a profile photo that the page did not request when they registered). They will be able to see their purchased tickets and, in the future, they will be able to create a list with their favorite artists.
+
+Admin users can do all this and also create, modify and delete concerts and artists. In their profile photo they have two options: "Concert Manager" and "Artist Manager", where each link takes them to the corresponding page.
+
+Regarding the entities that the user owns, anonymous users have nothing to own, but each registered user and administrator will own a list of tickets, which is the list of tickets that the user has purchased. In the future, these types of users will also have an artist list, which contains the user's favorite artists.
 
 ## Image Management
-<strong><em>EN ESTA SECCIÓN HAY QUE INDICAR QUÉ ENTIDADES TIENEN ASOCIADAS UNA O VARIAS IMÁGENES POR CADA OBJETO/REGISTRO </em></strong>
+The user entity has only one image associated with it, this being its profile picture.
+
+The artist entity has three images associated with it, these being its photo and two album covers (of the albums that the administrator fill out information for in the corresponding form). This entity also has a MP4 video associated as a Blob, which contains the music video that is displayed at the artist page.
+
+The concert entity has only one image associated with it, this being its promotional poster.
 
 ## Application Functionality Overview
 <strong><em>AQUÍ SE EXPLICARÁ A GROSSO MODO LA FUNCIONALIDAD DE LA APLICACIÓN </em> </strong>
@@ -162,49 +172,55 @@ To provide better clarity when viewing these relationships, the relational diagr
 
 ### ScreenShots
 - Main Page
-<strong><em>INSERTAR FOTO</em> </strong>
+![Main Page](Diagrams/Screenshots/main_page.png)
 Description: this is the main page of the web. If the user is logged it will show the concerts on his continent so he can access to them more easily. On the other case, it will show all the concerts kept in the database (this will change in later versions of the web). In these two cases, then its showed a display of the new artist added (only if it has a page to show). It also has the header which lets you to log in or register (if its an anonymous user) or to visit your profile, see your list of favourite artist and see the tickets that you have purchase. This header also has a search bar that lets you to search whatever concert or artist you want. It also contains the footee with the main information of the page (as a company).
 
 - Search Page
-<strong><em>INSERTAR FOTO</em> </strong>
+![Search Page](Diagrams/Screenshots/search_page.png)
 Description: this is the page that shows the results of the search done in the header searchbar. First, it will show the artists whose names contains the string searched. Then, it will display the concerts that are by said artists and the concerts whose names contains that string. If the user is logged, prior to this display it will show the same (concerts by the artists and concerts with the string) that take place at the user's continent. This page also has the header and the footer as the main page.
 
 - Artist Page
-<strong><em>INSERTAR FOTO</em> </strong>
+![Search Page](Diagrams/Screenshots/artist_page.png)
 Description: this page will show the artist information saved at the database. If there is no artist or the artist does not have a page, it will show a message telling so. This page shows the artist's photo next to the main information paragraph. Below this, it will show the extended information paragraph with additional information of the artist. Then, it will show the artist's two albums saved on the database as a photo with their respective Spotify and Apple Music's links inside to photos of the logos of said apps. At last, it will show a display of the concerts that this artist will be playing in every continent, with the possibility to go to the select tickets page for that concert. This page also has the header and the footer as the main page.
 
 - Select Tickets Page
-<strong><em>INSERTAR FOTO</em> </strong>
+![Select Tickets Page](Diagrams/Screenshots/ticket_selection.png)
 Description: this page will only be accessible if the user is logged. It will show a predetermined map of the arena where the concert is going to take place (is the same for every concert) and next to it will be a form so the user can choose the type of ticket he wants and the number of them. It also shows the price of the tickets.
 
 - Purchase Page
-<strong><em>INSERTAR FOTO</em> </strong>
-Description: on this page the user will have to enter his back data so he can purchase the tickets. First, the page shows the information of the tickets that the user is going to buy, giving him the option to cancel the purchase (which takes him back to the select tickets page). Below that is the form I named earlier, where the user has to enter its bank account data to purchase the tickets.
+![Purchase Page](Diagrams/Screenshots/purchase_page.png)
+Description: on this page the user will have to enter his back data so he can purchase the tickets. First, the page shows the information of the tickets that the user is going to buy, giving him the option to cancel the purchase (which takes him back to a page thats shows a message telling the cancelation was succesfull). Below that is the form I named earlier, where the user has to enter its bank account data to purchase the tickets.
 
 - Profile Page
-<strong><em>INSERTAR FOTO</em> </strong>
+![Profile Page](Diagrams/Screenshots/profile_page.png)
 Description: this page will show the main information of the user, giving him the option to change it. It will also let him to add/ change a profile picture. This page also has the header and the footer as the main page.
 
 - Administrator Pages
-<strong><em>INSERTAR FOTO</em> </strong>
+![Administrator Pages](Diagrams/Screenshots/admin_pages.png)
 Description: these pages will show a button to add a concert or artist and all the artists/ concerts saved at the database (so the administrator can select them in order to modify them). It also includes a searchbar that lets the administrator to shorten this list to find the concert/ artist he wants to modify in an easier way.
 
 - Add/ Modify Concerts (Administrator)
-<strong><em>INSERTAR FOTO</em> </strong>
+![Concert Workbench](Diagrams/Screenshots/concert_modify.png)
 Description: this page will display a form that the administrator will fill out with the information of a brand new concert or will display a form with an existing concert data so the administrator can change it. There are some differences with each display: on the brand new concert form, the administrator should enter the number of tickets available for each type and its general price; on the modify concert form, it will show the information of how many tickets are left of each type and its type, letting the administrator only to indicate how many tickets of each type he wants to add. Also, in the modify concert form is a button to delete the concert.
 
 - Add/ Modify Artists (Administrator)
-<strong><em>INSERTAR FOTO</em> </strong>
+![Artist Workbench](Diagrams/Screenshots/artist_modify.png)
 Description: this page is similar to the concert one, with the peculiarity that there is a preview of the artist miniature that autocompletes at the same time that the administrator is entering the data.
 
 - Log In/ Register Pages
-<strong><em>INSERTAR FOTO</em> </strong>
+![Log In and Register](Diagrams/Screenshots/login_register.png)
 Description: these pages display a form so the user can log in or register. Each page lets the user to go to the other page if he wants to do the other activity. In the register form, the user has to enter his username, email, password and country but to log in, he only has to enter its username and his password.
 
 - Message Pages
-<strong><em>INSERTAR FOTO</em> </strong>
+![Message Pages](Diagrams/Screenshots/message_collection.png)
 Description: these pages are destined to show a message telling the user some information. These pages include the error page (static) that appears when an error has ocurred, the pages telling the administrator that the concert has been added/ modified/ deleted succesfully and the welcome pages when the user logs in or registers.
 
+### Navigation Diagram
+* Blue: all users
+* Green: registered users and administrators
+* Purple: only administrators
+* Note: from any page you can reach the error page
+![Navigation Diagram](/Diagrams/Navigation_Diagram.jpeg)
 
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
