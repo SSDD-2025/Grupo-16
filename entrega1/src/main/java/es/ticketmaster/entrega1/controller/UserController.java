@@ -143,9 +143,11 @@ public class UserController {
     public String changeUserSettings(Model model, @RequestParam long id, @RequestParam(required = false)  String country, 
     @RequestParam(required = false) MultipartFile newPhoto) throws IOException{
 
-        userService.saveUserWithId(id, country, newPhoto);
-
-        return "redirect:/profile?showPersonalInfo=true";
+        if(userService.saveUserWithId(id, country, newPhoto)){
+            return "redirect:/profile?showPersonalInfo=true";
+        } else {
+            return "redirect:/error";
+        }
     }    
 
     /**

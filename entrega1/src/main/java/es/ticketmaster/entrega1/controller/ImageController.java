@@ -12,13 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.UserEntity;
-import es.ticketmaster.entrega1.repository.UserRepository;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.UserService;
 
 @Controller
 public class ImageController {
@@ -30,10 +29,7 @@ public class ImageController {
     private ConcertService concertService;
 
     @Autowired
-    private ActiveUser activeUser;
-
-    @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     /**
      * It shows the artist photo on the page where the mapping is called Acts
@@ -129,7 +125,7 @@ public class ImageController {
     @GetMapping("/profile/download-profile-picture")
     public ResponseEntity<Object> downloadProfilePicture() throws SQLException {
 
-        UserEntity user = userRepository.findById(activeUser.getId());
+        UserEntity user = userService.getActiveUser();
 
         if (user.getProfilePicture() != null) {
 

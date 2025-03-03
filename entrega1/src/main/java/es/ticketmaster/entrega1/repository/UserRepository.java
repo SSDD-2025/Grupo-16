@@ -1,5 +1,7 @@
 package es.ticketmaster.entrega1.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,5 @@ import es.ticketmaster.entrega1.model.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long>  {
     public UserEntity findByUserName(String userName);
     public UserEntity findByUserNameAndPassword(String userName, String password);
-    public UserEntity findById(long id);
+    public Optional<UserEntity> findById(long id);
 }

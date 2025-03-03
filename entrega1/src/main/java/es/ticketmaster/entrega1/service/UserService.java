@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,14 @@ public class UserService {
      * @return the actual active user
      */
     public UserEntity getActiveUser(){
-        return userRepository.findById(activeUser.getId());
+
+        Optional<UserEntity> user = userRepository.findById(activeUser.getId());
+
+        if(user.isEmpty()){
+            return null;
+        } else {
+            return user.get();
+        }
     }
 
     /**
@@ -88,18 +96,22 @@ public class UserService {
      * @param newPhoto new photo to be changed
      * @throws IOException
      */
-    public void saveUserWithId(long id, String country, MultipartFile newPhoto) throws IOException{
+    public boolean saveUserWithId(long id, String country, MultipartFile newPhoto) throws IOException{
 
-        UserEntity user = userRepository.findById(id);
+        Optional<UserEntity> user = userRepository.findById(id);
 
-        if(country != null){
-            user.setCountry(country);
+        if(user.isEmpty()){
+            return false;
+        } else {
+            if(country != null){
+                user.get().setCountry(country);
+            }
+            if(!newPhoto.isEmpty()){
+                user.get().setProfilePicture(BlobProxy.generateProxy(newPhoto.getInputStream(), newPhoto.getSize()));
+            }
+            this.userRepository.save(user.get()); 
+            return true;
         }
-        if(!newPhoto.isEmpty()){
-            user.setProfilePicture(BlobProxy.generateProxy(newPhoto.getInputStream(), newPhoto.getSize()));
-        }
-
-        this.userRepository.save(user);
     }
 
     /**
