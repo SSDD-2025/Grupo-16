@@ -166,10 +166,6 @@ The artist entity has three images associated with it, these being its photo and
 The concert entity has only one image associated with it, this being its promotional poster.
 
 ## Application Functionality Overview
-<strong><em>AQUÍ SE EXPLICARÁ A GROSSO MODO LA FUNCIONALIDAD DE LA APLICACIÓN </em> </strong>
-
-<strong><em> AQUÍ SE INSERTARÍA EL DIAGRAMA DE NAVEGACIÓN, EL DIAGRAMA DE CLASES/TEMPLATES Y LOS DIAGRAMAS DE COMUNICACIÓN. </em></strong>
-
 ### ScreenShots
 - Main Page
 ![Main Page](Diagrams/Screenshots/main_page.png)
@@ -221,6 +217,21 @@ Description: these pages are destined to show a message telling the user some in
 * Purple: only administrators
 * Note: from any page you can reach the error page
 ![Navigation Diagram](/Diagrams/Navigation_Diagram.jpeg)
+
+### Classes and Templates Diagram
+![Classes/Templates Diagram](/Diagrams/TemplateDiagramSD.jpg)
+
+Additionally, to provide more information and better clarity of how the application works, it was decided to make some additional diagrams about the main functionalities of the application. These are the following:
+
+### Sign In Comunication Diagram
+![Sign In Comunication Diagram](/Diagrams/Sign+In.jpg)
+<strong>Note: Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database, or the password does not match the one registered. If any of this happens, an error message will appear on the form itself.</strong>
+### Sign Up Comunication Diagram
+![Sign Up Comunication Diagram](/Diagrams/Sign+Up.jpg)
+<strong>Note: Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database. If this happens, an error message will appear on the form itself.</strong>
+
+### Ticket Purchase Activity Diagram
+<strong><em>TBD</em></strong>
 
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
