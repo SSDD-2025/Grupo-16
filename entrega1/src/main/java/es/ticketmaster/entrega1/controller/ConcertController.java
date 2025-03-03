@@ -79,6 +79,8 @@ public class ConcertController {
      */
     @PostMapping("/admin/concert/{id}/modify")
     public String formModifyConcert(Model model, @PathVariable long id) {
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
         model.addAttribute("concert", concertService.findConcertById(id));
         model.addAttribute("artistList",artistService.getEveryArtist());
         return "concert-workbench";
@@ -91,6 +93,8 @@ public class ConcertController {
      */
     @PostMapping("/admin/concert/workbench")
     public String formAddConcert(Model model) {
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
         model.addAttribute("concert",null);
         model.addAttribute("artistList",artistService.getEveryArtist());
         return "concert-workbench";

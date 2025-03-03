@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.UserService;
 
 @Controller
 public class ArtistController {
@@ -25,6 +26,9 @@ public class ArtistController {
 
     @Autowired
     private ConcertService concertService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      *
@@ -38,6 +42,10 @@ public class ArtistController {
      */
     @GetMapping("/artist/{id}")
     public String getArtistPage(Model model, @PathVariable long id) {
+        
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
+
         Artist artist = artistService.getArtist(id);
         if (artist != null) {
             model.addAttribute("artist", artist);
@@ -65,6 +73,9 @@ public class ArtistController {
      */
     @GetMapping("/admin/artist")
     public String artistsAdminPage(Model model, @RequestParam(required = false) String search) {
+
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
 
         if (search != null) {
             model.addAttribute("artistList", artistService.getSearchBy(search));
@@ -125,6 +136,9 @@ public class ArtistController {
     @GetMapping("/admin/artist/workbench")
     public String prepareArtistWorkbench(Model model) {
 
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
+
         return "artist-workbench";
     }
 
@@ -137,6 +151,9 @@ public class ArtistController {
      */
     @PostMapping("/admin/artist/{id}/modify")
     public String modifyExistingArtist(Model model, @PathVariable long id) {
+
+        boolean userLogged = userService.isLogged();
+        model.addAttribute("isLogged", userLogged);
 
         Artist artist = artistService.getArtist(id);
 
