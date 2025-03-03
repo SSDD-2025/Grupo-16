@@ -795,6 +795,6 @@ __Methods__: the methods for this class are
   </tbody>
 </table>
 
-The attribute __activeUser__ also has its getter and setter defined.
+The attribute __userId__ also has its getter and setter defined.
 
 ## David Rísquez Gómez
