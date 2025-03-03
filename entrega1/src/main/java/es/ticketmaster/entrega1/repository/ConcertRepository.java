@@ -35,12 +35,32 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
       */
     public List<Concert> findByPlace(String place);
 
+    /**
+     * Searches the concerts which name matches (contains) the introduced parameter
+     * @param search searching parameter
+     * @return List of Concerts that match
+     */
     public List<Concert> findByNameContainingIgnoreCase(String search);
 
+    /**
+     * Searches the concerts which artist name exactly matches the introduced parameter
+     * @param artistName searching parameter
+     * @return List of Concerts that match
+     */
     public List<Concert> findByArtistNameIgnoreCase(String artistName);
 
+    /**
+     * Searches the concerts which artist name matches (contains) the introduced parameter
+     * @param search searching parameter
+     * @return List of Concerts that match
+     */
     public List<Concert> findByArtistNameContainingIgnoreCase(String search);
 
+    /**
+     * Tries to find a concert which id matches with the parameter introduced
+     * @param id searching parameter id
+     * @return Concert which id matches
+     */
     public Concert findConcertById(long id);
 
     /**

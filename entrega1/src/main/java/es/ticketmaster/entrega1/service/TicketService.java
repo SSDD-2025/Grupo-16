@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class TicketService {
     private ConcertRepository concertRepository;
     @Autowired
     private ActiveUser activeUser;
+    @Autowired
+    private ConcertService concertService;
 
     /**
      * Obtain the ticket form the database.
@@ -66,5 +69,27 @@ public class TicketService {
         }
         this.userRepository.findById(this.activeUser.getId()).setTicketList(userTickets); /* Updating the ticket list of the user. */
         this.userRepository.save(this.userRepository.findById(this.activeUser.getId())); /* Saving the user in its repository. */
+    }
+
+    /**
+     * Handles the ticket deletion from a user: the Ticket object is destroyed and the number
+     * of tickets available in the concert is restored back so that another user can buy
+     * the ticket
+     * @param id ticket id
+     * @return true if the transaction occured correctly, false in other case
+     */
+    public boolean deleteTicketWithId(long id){
+
+        Optional<Ticket> ticket = ticketRepository.findById(id); /*We take the ticket*/
+
+        if (!ticket.isPresent()) { //If an ticket with such ID does not exist
+            return false;
+        } else {
+            if(!concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())){ /*We try to restore the ticket*/
+                return false; /*The change was not possible*/
+            } /*In the case the change is made, we make the deletion*/
+            ticketRepository.deleteById(id); //We delete the ticket with that ID
+            return !ticketRepository.existsById(id); //We return true if the ticket has been correctly deleted
+        }
     }
 }

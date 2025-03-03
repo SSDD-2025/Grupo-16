@@ -223,4 +223,20 @@ public class ConcertService {
         //whether the user is not logged or does not exist
         return null; //No list returned
     }
+
+    /**
+     * Method that restores one ticket availability in a given zone of an specific concert
+     * @param concert the concert to restore which ticket is about to be restored
+     * @param zone zone where the ticket is restored
+     * @return true if the restoration happened correctly, false in other case
+     */
+    public boolean returnTicket(Concert concert, String zone){
+        return switch (zone) { /*Depending on the zone, a different repository method for restoration is used*/
+            case "North" -> concertRepository.restoreNorthStandsTickets(concert.getId(), 1) > 0;
+            case "East" -> concertRepository.restoreEastStandsTickets(concert.getId(), 1) > 0;
+            case "West" -> concertRepository.restoreWestStandsTickets(concert.getId(), 1) > 0;
+            case "General" -> concertRepository.restoreGeneralAdmissionTickets(concert.getId(), 1) > 0;
+            default -> false;
+        };
+    }
 }

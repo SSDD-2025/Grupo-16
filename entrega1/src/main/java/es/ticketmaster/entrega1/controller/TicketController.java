@@ -12,6 +12,7 @@ import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
 
 
+
 @Controller
 public class TicketController {
     @Autowired
@@ -81,4 +82,28 @@ public class TicketController {
         this.concertService.restauringTickets(id, number, type);
         return "cancel-verification";
     }  
+
+    /**
+     * Method that controls and handles the ticket deletion. After the deletion (or the attempt) of,
+     * the user is redirected depending on the success of the operation. If everything went OK,
+     * the user page is reloaded (redirected to /profile?showMyConcerts=true). In other case, the
+     * error page is returned
+     * 
+     * IMPORTANT NOTE: Security should be added in this method in the future because if the user changes
+     * the ID in the HTML, other concert's tickets could be returned, causing inconsistence.
+     * 
+     * @param model actual dynamic HTTP model
+     * @param id id of the ticket
+     * @return the page where the user is redirected
+     */
+    @PostMapping("/ticket/delete")
+    public String ticketDeletion(Model model, @RequestParam long id) {
+        
+        if(ticketService.deleteTicketWithId(id)){
+            return "redirect:/profile?showMyConcerts=true";
+        } else {
+            return "redirect:/error";
+        }
+    }
+    
 }
