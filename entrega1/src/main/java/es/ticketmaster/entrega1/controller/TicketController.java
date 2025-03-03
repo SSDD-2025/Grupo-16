@@ -11,8 +11,6 @@ import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
 
-
-
 @Controller
 public class TicketController {
     @Autowired
@@ -98,7 +96,7 @@ public class TicketController {
      */
     @PostMapping("/ticket/delete")
     public String ticketDeletion(Model model, @RequestParam long id) {
-        if(ticketService.deleteTicketWithId(id)){
+        if(this.ticketService.deleteTicketWithId(id)){
             return "redirect:/profile?showMyConcerts=true";
         } 
         else {

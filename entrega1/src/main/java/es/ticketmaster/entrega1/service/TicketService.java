@@ -79,16 +79,16 @@ public class TicketService {
      * @return true if the transaction occured correctly, false in other case
      */
     public boolean deleteTicketWithId(long id){
-        Optional<Ticket> ticket = ticketRepository.findById(id); /*We take the ticket*/
-        if (!ticket.isPresent()) { //If an ticket with such ID does not exist
+        Optional<Ticket> ticket = this.ticketRepository.findById(id); /* We take the ticket */
+        if (!ticket.isPresent()) { /* If an ticket with such ID does not exist */
             return false;
         } 
         else {
-            if(!concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())){ /*We try to restore the ticket*/
+            if(!this.concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())){ /* We try to restore the ticket */
                 return false; /*The change was not possible*/
-            } /*In the case the change is made, we make the deletion*/
-            ticketRepository.deleteById(id); //We delete the ticket with that ID
-            return !ticketRepository.existsById(id); //We return true if the ticket has been correctly deleted
+            } /* In the case the change is made, we make the deletion */
+            this.ticketRepository.deleteById(id); /* We delete the ticket with that ID */
+            return !this.ticketRepository.existsById(id); /* We return true if the ticket has been correctly deleted */
         }
     }
 }
