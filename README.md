@@ -231,7 +231,19 @@ Additionally, to provide more information and better clarity of how the applicat
 <strong>Note: Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database. If this happens, an error message will appear on the form itself.</strong>
 
 ### Ticket Purchase Activity Diagram
-<strong><em>TBD</em></strong>
+![Ticket Purchase Activity Diagram](/Diagrams/TicketActivityDiag.jpg)
+
+### Add Artist Comunication Diagram
+![Add Artist Comunication Diagram](/Diagrams/AddArtistCom.jpg)
+
+### Modify Artist Comunication Diagram
+![Add Concert Comunication Diagram](/Diagrams/AddConcertCom.jpg)
+
+### Add Concert Comunication Diagram
+![Modify Artist Comunication Diagram](/Diagrams/ModifyArtistCom.jpg)
+
+### Modify Concert Comunication Diagram
+![Modify Concert Comunication Diagram](/Diagrams/ModifyConcertCom.jpg)
 
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
