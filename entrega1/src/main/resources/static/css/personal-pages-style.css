@@ -124,8 +124,8 @@ textarea {
 .ticket-poster {
     width: 95%;
     aspect-ratio: 1/1.2;
-    border-radius: 50%;
-    margin: 2vh auto;
+    margin: 1.5vh auto;
+    overflow: hidden;
 }
 
 .concert-title {
