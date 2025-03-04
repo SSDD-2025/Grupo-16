@@ -157,7 +157,7 @@ Admin users can do all this and also create, modify and delete concerts and arti
 
 Regarding the entities that the user owns, anonymous users have nothing to own, but each registered user and administrator will own a list of tickets, which is the list of tickets that the user has purchased. 
 
-> ![NOTE]
+> [!NOTE]
 > In the future, these types of users will also have an artist list, which contains the user's favorite artists.
 
 ## Image Management
@@ -614,7 +614,7 @@ In addition to these files, I worked on other files with a lower workload, or th
 10. concert-workbench.html
 
 Once the files in which I was a participant have been mentioned, I will explain in detail what was done in the most notable files:
-> ![NOTE]
+> [!NOTE]
 > The following methods are the ones I created on each file, not every method that is on the class. Also, they are not all the methods I created, only the ones more important to the operation of the web page.
 
 ### ConcertController
