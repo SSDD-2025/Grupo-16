@@ -58,7 +58,8 @@ In other case, you can get it [Here](https://maven.apache.org/download.cgi).
 ### Spring Boot 3.4.2
 The reason we strongly recommend using `Visual Studio Code` as the IDE to launch the application, is because of the Spring Boot version. In this IDE, it is possible to use version `3.4.2`, however, in other IDEs such as `SpringToolSuite` the higher version available is `3.4.1`, so it may not work as it should.
 
-At this time, version `3.4.3` is available, however we do not recommend using it for this project.
+> [!WARNING]
+> At this time, version `3.4.3` is available, however we do not recommend using it for this project.
 
 If you use `Visual Studio Code`, you will need to have the `Spring Boot Extension Pack` extension.
 
