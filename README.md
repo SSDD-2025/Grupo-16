@@ -265,6 +265,9 @@ The following link leads to our team dashboard:
 >[!IMPORTANT]
 > Merge commits are not being considered to calculate the participation of each member on a file. This is because merge commits are commits that GitHub does when there has been an new upload while someone was working on the repository. So, looking on the merge commit it will appear that a member has touched a file, when that is not the case (also the commit will show the same code the other member uploaded on a earlier commit).
 
+>[!NOTE]
+> Each method will be explained by the corresponding author. However, the code was documented using `Javadoc` documentation for each method, providing greater clarity in understanding its purpose and operation.
+
 ## Alfonso Rodríguez Gutt
 
 ### Commit List
