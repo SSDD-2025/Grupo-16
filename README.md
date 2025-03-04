@@ -173,7 +173,7 @@ Description: this is the main page of the web. If the user is logged it will sho
 
 - Search Page
 ![Search Page](Diagrams/Screenshots/search_page.png)
-Description: this is the page that shows the results of the search done in the header searchbar. First, it will show the artists whose names contains the string searched. Then, it will display the concerts that are by said artists and the concerts whose names contains that string. If the user is logged, prior to this display it will show the same (concerts by the artists and concerts with the string) that take place at the user's continent. This page also has the header and the footer as the main page.
+Description: this is the page that shows the results of the search done in the header searchbar. First, it will show the artists whose names contains the string searched. Then, it will display the concerts that are by said artists and the concerts whose names contains that string. If the user is logged, prior to this display it will show the same (concerts by the artists and concerts with the string) that take place at the user's continent. This page also has the header as the main page.
 
 - Artist Page
 ![Search Page](Diagrams/Screenshots/artist_page.png)
@@ -181,7 +181,7 @@ Description: this page will show the artist information saved at the database. I
 
 - Select Tickets Page
 ![Select Tickets Page](Diagrams/Screenshots/ticket_selection.png)
-Description: this page will only be accessible if the user is logged. It will show a predetermined map of the arena where the concert is going to take place (is the same for every concert) and next to it will be a form so the user can choose the type of ticket he wants and the number of them. It also shows the price of the tickets.
+Description: this page will only be accessible if the user is logged. It will show a predetermined map of the arena where the concert is going to take place (is the same for every concert) and next to it will be a form so the user can choose the type of ticket he wants and the number of them. It also shows the price of the tickets. This page also has the header as the main page.
 
 - Purchase Page
 ![Purchase Page](Diagrams/Screenshots/purchase_page.png)
@@ -189,7 +189,11 @@ Description: on this page the user will have to enter his back data so he can pu
 
 - Profile Page
 ![Profile Page](Diagrams/Screenshots/profile_page.png)
-Description: this page will show the main information of the user, giving him the option to change it. It will also let him to add/ change a profile picture. This page also has the header and the footer as the main page.
+Description: this page will show the main information of the user, giving him the option to change it. It will also let him to add/ change a profile picture. This page also has the header as the main page.
+
+- My Concerts' Page
+![My Concerts Page](/Diagrams/Screenshots/my_concerts.png)
+Description: this page will show the tickets the user has purchased. By hovering over each one, the ticket turns over and shows the ticket details as well as the name of the user who purchased it. This page also has the header as the main page.
 
 - Administrator Pages
 ![Administrator Pages](Diagrams/Screenshots/admin_pages.png)
