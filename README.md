@@ -883,6 +883,9 @@ The attribute __userId__ also has its getter and setter defined.
 4. [Restoration of the header to make it responsive, structurally better and more aesthetically pleasing.](https://github.com/SSDD-2025/Grupo-16/commit/ef0c41f3e6c78ee2b2ef1c36ca683605073f19a7)
 5. [Added HTML structure, style and linked controllers for the concert ticket-selling page.](https://github.com/SSDD-2025/Grupo-16/commit/45c84af1aaf779c2f814fbccf9476996cba5efff)
 
+> [!IMPORTANT]
+> The commits accessed through the links provided may not reflect the current version of the file, as there have been subsequent smaller commits that address minor errors, add comments, and make other adjustments.
+
 ### Files with the most participation:
 1. ArtistController.java
 2. ArtistService.java
@@ -910,6 +913,9 @@ Furthermore, the implementation, style and structure within the administrator br
 Additionally, the search structures (search bars) on the pages within the header and the admin search sections have been developed by me.
 
 After mentioning the files in which I contributed, I will provide a detailed explanation of the work done in the most notable files:
+
+> [!NOTE]
+> The methods listed below are the ones I developed in each file, focusing on those crucial for the functionality of the webpage, rather than including every method in the class.
 
 ### ArtistController
 Even though the creation of this class was not authored by me, my work and contributions were considerable significance. I have developed nearly the entire class, as I was responsible for the Artist's administrator branch of work. Actions such as `Artist` modifying, adding or deleting artists are the primary functions carried out in this controller. Specifically, the URL mappings for the aforementioned actions are managed by methods contained within this class, which were created by me.
@@ -1252,6 +1258,8 @@ Below are described the most significant methods in this regard:
 
 >[!IMPORTANT]
 >We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
+
+To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
 
 ## License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).

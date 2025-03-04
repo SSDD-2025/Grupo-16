@@ -253,9 +253,8 @@ can be instantly previsualized (image and artist name)-->
                 </div>
 
                 <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="video-container">
-                    <iframe id="video-display" width="560" height="315" src="" title="YouTube video player"
-                        frameborder="0" allowfullscreen style="display: none;" required></iframe>
+                <div class="video-container" id="video-display-container">
+                    <iframe id="video-display" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%;" required></iframe>
                 </div>
 
                 <!--Submit of the form, which text depends on the function of the workbench-->
@@ -281,6 +280,7 @@ can be instantly previsualized (image and artist name)-->
 <script> /*Script that projects the introduced video in the preview*/
     let videoPreview = document.getElementById("video-display"); //We get the display
     let videoInput = document.getElementById("videoLink"); //We get the link input
+    let videoPreviewContainer = document.getElementById("video-display-container")
 
     videoInput.addEventListener("input", function () { /*When an input is heard*/
         let videoId = extractYouTubeID(videoInput.value); /*Using lambda expressions and pattern matching
@@ -288,11 +288,11 @@ can be instantly previsualized (image and artist name)-->
 
         if (videoId) { /*If it exists an embed link, it is displayed*/
             videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
-            videoPreview.style.display = "block";
+            videoPreviewContainer.style.display = "block";
             videoInput.value = videoPreview.src;
         } else { /*In other case, it is hidden and cleared*/
             videoPreview.src = "";
-            videoPreview.style.display = "none";
+            videoPreviewContainer.style.display = "none";
         }
     });
 

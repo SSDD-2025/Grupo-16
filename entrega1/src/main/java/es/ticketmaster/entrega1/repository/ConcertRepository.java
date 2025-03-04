@@ -46,7 +46,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
      * @param search searching parameter
      * @return List of Concerts that match
      */
-    public List<Concert> findByNameContainingIgnoreCase(String search);
+    public List<Concert> findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(String search);
 
     /**
      * Searches the concerts which artist name exactly matches the introduced parameter

@@ -158,7 +158,9 @@ hr {
 
 .video-container {
     margin: 0 auto;
-    width: 60%;
+    width: 70%;
+    aspect-ratio: 560/315;
+    display: none;
 }
 
 .spotify-container {

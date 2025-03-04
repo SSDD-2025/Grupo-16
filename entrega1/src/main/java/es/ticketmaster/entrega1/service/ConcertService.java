@@ -41,7 +41,7 @@ public class ConcertService {
      */
     public List<Concert> getSearchBy(String search){
         
-        List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCase(search);
+        List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(search);
 
         if(search.length() > 2){ //To avoid repeated simple input answers
             searchedConcerts.addAll(concertRepository.findByArtistNameContainingIgnoreCase(search));
