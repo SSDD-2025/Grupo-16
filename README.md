@@ -169,7 +169,7 @@ The artist entity has three images associated with it, these being its photo and
 The concert entity has only one image associated with it, this being its promotional poster.
 
 ## Application Functionality Overview
-The objective of this webpage is to purchase concert tickets, like some real websites like Ticketmaster. As an extra to these kind of websites, out proyect also lets the user visit the artist’s page, which contains information about him/ her and shows a selection of albums (and their links to Spotify or Apple Music) and displays a music video so you can get to know the artist and purchase tickets to their upcoming concerts.
+The objective of this webpage is to purchase concert tickets, like some real websites like Ticketmaster. As an extra to these kind of websites, our proyect also lets the user visit the artist’s page, which contains information about him/ her and shows a selection of albums (and their links to Spotify and Apple Music) and displays a music video so you can get to know the artist and purchase tickets to their upcoming concerts.
 
 > [!IMPORTANT] 
 > If the user changes the URL for the artist’s page (changing the ID) it will work and show another page, but if he does it when modifying  concerts or artist, ir will show the error page.
