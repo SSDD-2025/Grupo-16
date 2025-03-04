@@ -31,13 +31,14 @@
   </tbody>
 </table>
 
-## Table Of Contents
+## Table of Contents
 - [Execution Instructions](#execution-instructions)
 - [Entities Information](#entities-information)
 - [User Privileges](#user-privileges)
 - [Image Management](#image-management)
 - [Application Functionality Overview](#application-functionality-overview)
 - [Team Members Participation](#team-members-participation)
+- [License](#license)
 
 ## Execution Instructions
 1. Download the repository and unzip it.
@@ -1251,3 +1252,6 @@ Below are described the most significant methods in this regard:
 
 >[!IMPORTANT]
 >We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
+
+## License
+This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENCE).
