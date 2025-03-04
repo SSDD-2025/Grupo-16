@@ -31,7 +31,7 @@
   </tbody>
 </table>
 
-## Table Of Content
+## Table Of Contents
 - [Execution Instructions](#execution-instructions)
 - [Entities Information](#entities-information)
 - [User Privileges](#user-privileges)
