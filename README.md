@@ -144,7 +144,6 @@ Next, all the entities that are part of the application will be shown, as well a
   </tbody>
 </table>
 
-
 To provide better clarity when viewing these relationships, the relational diagram of the application is shown below.
 
 ![Relational Diagram](Diagrams/DB_Relational_Diagram.png)
@@ -229,10 +228,12 @@ Additionally, to provide more information and better clarity of how the applicat
 
 ### Sign In Comunication Diagram
 ![Sign In Comunication Diagram](/Diagrams/Sign+In.jpg)
-<strong>Note: Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database, or the password does not match the one registered. If any of this happens, an error message will appear on the form itself.</strong>
+> [!NOTE]
+> Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database, or the password does not match the one registered. If any of this happens, an error message will appear on the form itself.
 ### Sign Up Comunication Diagram
 ![Sign Up Comunication Diagram](/Diagrams/Sign+Up.jpg)
-<strong>Note: Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database. If this happens, an error message will appear on the form itself.</strong>
+> [!NOTE]
+> Any errors that may occur during this action are not reflected in this diagram. The only error that could occur is that the username does not exist in the database. If this happens, an error message will appear on the form itself.
 
 ### Ticket Purchase Activity Diagram
 ![Ticket Purchase Activity Diagram](/Diagrams/TicketActivityDiag.jpg)
@@ -266,7 +267,8 @@ The following link leads to our team dashboard:
 4. [Finished the implementation of Cancel Purchase](https://github.com/SSDD-2025/Grupo-16/commit/f4b9c00c2eb97dd5ad5c5ab38b6a5081dad9e6b7).
 5. [Re-design of the sign-in/sign-up page](https://github.com/SSDD-2025/Grupo-16/commit/5383e7c5c7b46133c9e9a3a6c26a8f4f0283cddc).
 
-<strong>Note: Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.</strong>
+> [!IMPORTANT]
+> Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.
 
 ### Files with the most participation
 1. UserController.java
@@ -296,7 +298,8 @@ This `@Controller` will be in charge of managing everything related to user acti
 
 This will be all the methods this `@Controller` will have:
 
-<strong>Note: The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author. </strong>
+> [!IMPORTANT]
+> The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author.
 
 <table>
   <thead>
@@ -353,7 +356,8 @@ This `@Service` will serve as an intermediate between the `UserController` and t
 
 This are the methods that this `@Service` will have:
 
-<strong>Note: The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author. </strong>
+> [!IMPORTANT]
+> The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author.
 
 <table>
   <thead>
@@ -398,7 +402,8 @@ This `@Controller` will be in charge of managing everything related to the ticke
 
 This will be all the methods this `@Controller` will have:
 
-<strong>Note: The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author. </strong>
+> [!IMPORTANT]
+> The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author.
 
 <table>
   <thead>
@@ -444,7 +449,8 @@ This `@Service` will serve as an intermediate between the `TicketController` and
 
 This are the methods that this `@Service` will have:
 
-<strong>Note: The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author. </strong>
+> [!IMPORTANT]
+> The methods that I will explain below will be those carried out by me, the rest of the methods will be explained by the corresponding author.
 
 <table>
   <thead>
