@@ -159,6 +159,7 @@ public class ArtistService {
             } else { /*If no new photo has been uploaded, it takes the older one*/
                 artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
             }
+            artist.setHasPage(true);
             artistRepository.save(artist);
             return true;
         } else {
