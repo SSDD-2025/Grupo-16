@@ -841,7 +841,7 @@ __Methods__: the methods for this class are
 
 The attribute __userId__ also has its getter and setter defined.
 
-> ![NOTE]
+> [!NOTE]
 > Other methods or classes less important that I have been a part of are the implementation of the querys that update the database adding/ substracting available tickets (coauthor with my colleague Alfonso Rodríguez) and the creation and implementation of the InitService, where I added 3 initial artists and 10 initial concerts to the database.
 
 ## David Rísquez Gómez
