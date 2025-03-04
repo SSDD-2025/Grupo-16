@@ -1,8 +1,9 @@
-:root{
+:root {
     --main-color: rgb(42, 42, 236);
     --main-color-darker: rgb(42, 42, 189);
     --menu-background-color: rgb(25, 25, 189);
 }
+
 /*General settings for every component, so that they are easy to handle and responsive*/
 * {
     margin: 0;
@@ -27,7 +28,8 @@ header {
     text-align: center;
     margin: auto 5vh;
     display: flex;
-    cursor: pointer; /*Shows a different cursor*/
+    cursor: pointer;
+    /*Shows a different cursor*/
 }
 
 /*Logo element, an href that moves you to the main page*/
@@ -71,26 +73,32 @@ header {
     background-color: var(--menu-background-color);
 }
 
-.menu-item a { /*Text size and weight stablished so that it looks proportioned*/
+.menu-item a {
+    /*Text size and weight stablished so that it looks proportioned*/
     color: white;
     font-weight: 500;
     font-size: 100%;
 }
 
-.burger-menu-container { /*The display menu button is hidden at the begginig*/
+.burger-menu-container {
+    /*The display menu button is hidden at the begginig*/
     display: none;
 }
 
-.burger-menu { /*Burger menu icon, with its animation*/
+.burger-menu {
+    /*Burger menu icon, with its animation*/
     height: 45%;
     transition: 0.3s ease-in-out;
 }
 
-.burger-menu:hover { /*Mouse passes through the icon, the logo inflates*/
+.burger-menu:hover {
+    /*Mouse passes through the icon, the logo inflates*/
     transform: scale(1.08);
 }
 
-@media (max-width: 900px) { /*When the width is less than 900px, the header disposal changes*/
+@media (max-width: 900px) {
+
+    /*When the width is less than 900px, the header disposal changes*/
     /*The menu items that were displayed in the header now will be available in the burger-menu*/
     .menu-container {
         display: none;
@@ -130,7 +138,7 @@ header {
     }
 
     /*New style for the text contained in every menu item*/
-    .menu-item a{
+    .menu-item a {
         color: white;
         font-weight: 500;
         font-size: 100%;
@@ -147,6 +155,7 @@ header {
 
 /*When the width is even fewer, we readapt the components to make it responsive*/
 @media (max-width: 575px) {
+
     /*Logo is redimensioned*/
     .logo-container {
         transform: scale(0.55);
@@ -155,7 +164,7 @@ header {
     }
 
     /*Searchbar grows so that its easier to click*/
-    .searchbar-container form{
+    .searchbar-container form {
         width: 85%;
     }
 

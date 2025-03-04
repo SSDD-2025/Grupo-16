@@ -4,33 +4,32 @@
 <link rel="stylesheet" href="/css/common-styles.css">
 <div class="main-container">
     {{#concertList}}
-        <div class="concert-container">
-            <!-- Concert Poster-->
-            <div class="poster-container">
-                <img src="/concert/{{id}}/download-poster" class="poster-photo" title="{{name}} - {{artist.name}}"> <!-- Title is to show a tooltip when the mouse is at the photo-->
-            </div>
-
-            <!-- Concert Information-->
-            <div class="date-container">
-                <p>{{place}} <br> {{date}} </p>
-            </div>
-
-            <!-- Button to go buy tickets or modify the information about the concert -->
-            {{#modifyConcert}}
-                <form action="/admin/concert/{{id}}/modify" method="post">
-                    <input type="submit" value="Modify Concert">
-                </form>
-            {{/modifyConcert}}
-            {{^modifyConcert}}
-                <form action="/concert/{{id}}" method="get">
-                    <input type="submit" value="Buy Tickets">
-                </form>
-            {{/modifyConcert}}
+    <div class="concert-container">
+        <!-- Concert Poster-->
+        <div class="poster-container">
+            <img src="/concert/{{id}}/download-poster" class="poster-photo" title="{{name}} - {{artist.name}}">
+            <!-- Title is to show a tooltip when the mouse is at the photo-->
         </div>
+
+        <!-- Concert Information-->
+        <div class="date-container">
+            <p>{{place}} <br> {{date}} </p>
+        </div>
+
+        <!-- Button to go buy tickets or modify the information about the concert -->
+        {{#modifyConcert}}
+        <form action="/admin/concert/{{id}}/modify" method="post">
+            <input type="submit" value="Modify Concert">
+        </form>
+        {{/modifyConcert}}
+        {{^modifyConcert}}
+        <form action="/concert/{{id}}" method="get">
+            <input type="submit" value="Buy Tickets">
+        </form>
+        {{/modifyConcert}}
+    </div>
     {{/concertList}}
     {{^concertList}}
-        <p>There are no concerts soon</p>
+    <p>There are no concerts soon</p>
     {{/concertList}}
 </div>
-
- 

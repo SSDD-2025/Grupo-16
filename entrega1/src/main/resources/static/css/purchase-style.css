@@ -1,30 +1,30 @@
-.tickets-info-container{
+.tickets-info-container {
     background-color: rgb(200, 200, 200);
     border-radius: 12px;
     width: 50%;
     height: 30%;
-    margin:auto;
+    margin: auto;
     margin-top: 4%;
     padding: 2%;
     margin-bottom: 2%;
 }
 
-.price-container{
+.price-container {
     background-color: rgb(169, 169, 169);
     border-radius: 12px;
     width: 40%;
     height: 4%;
-    margin:auto;
-    text-align:center;
+    margin: auto;
+    text-align: center;
 }
 
-span{
+span {
     font-weight: bold;
     font-size: 160%;
     margin-top: 3%;
 }
 
-.info-container{
+.info-container {
     display: inline-block;
     width: 40%;
     height: 80%;
@@ -32,26 +32,26 @@ span{
     position: absolute;
 }
 
-.image-container{
+.image-container {
     display: inline-block;
     width: 20%;
     height: 90%;
     margin-top: 2%;
     margin-left: 70%;
 }
-    
-.poster{
+
+.poster {
     object-fit: contain;
     width: 100%;
     height: 100%;
 }
 
-.form-container{
+.form-container {
     background-color: rgb(200, 200, 200);
     border-radius: 12px;
     width: 60%;
     height: auto;
-    margin:auto;
+    margin: auto;
     padding: 2%;
     margin-top: 2%;
 
@@ -66,5 +66,5 @@ input[type="submit"]:hover {
 
 .form-container p {
     color: red;
-    font-size:medium;
+    font-size: medium;
 }

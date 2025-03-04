@@ -1,6 +1,7 @@
 <!--ticket-selling.html is a page that can be visited from different places of the system: from a search, from the main
 page and its function is to provide the user a simple way to select the tickets ubication and quantity-->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +21,8 @@ page and its function is to provide the user a simple way to select the tickets 
         <div class="selling-info-container row-container"> <!--Information purpose structure container-->
             <div class="info-container column-container"> <!--Concert information structure container-->
                 <p id="concert-title"><strong>
-                    {{concert.name}} <!--Name of the concert object to be elected the tickets-->
-                </strong></p>
+                        {{concert.name}} <!--Name of the concert object to be elected the tickets-->
+                    </strong></p>
                 <p id="concert-place"><strong>{{concert.artist.name}} · {{concert.place}} ·
                         {{concert.formattedTime}}</strong>
                 <p>
@@ -40,10 +41,11 @@ page and its function is to provide the user a simple way to select the tickets 
             <div class="map-container"> <!--Container of the form that collects the ticket data-->
                 <form action="/concert/{{id}}/purchase" method="post">
                     <div class="title-of-box-container">
-                        <p>Choose the zone</p> 
+                        <p>Choose the zone</p>
                     </div>
 
-                    <div class="ticket-selection"> <!--Ticket selection options, they deppend on the availability of the concert-->
+                    <div class="ticket-selection">
+                        <!--Ticket selection options, they deppend on the availability of the concert-->
                         <select class="zone-selector" name="ticketType" required>
                             <option value="" disabled selected>Choose zone</option>
                             {{#concert.remainNorthStands}}
@@ -62,7 +64,8 @@ page and its function is to provide the user a simple way to select the tickets 
                         <p id="ticket-number-label">Ticket number:</p> <!--Number of tickets selector-->
                         <input id="number-selector" name="number" type="number" min="1" step="1" value="1" required>
                     </div>
-                    <input id="submit-selection" type="submit" value="Continue"> <!--Submit button that transports the user to the purchase page-->
+                    <input id="submit-selection" type="submit" value="Continue">
+                    <!--Submit button that transports the user to the purchase page-->
                 </form>
             </div>
         </div>

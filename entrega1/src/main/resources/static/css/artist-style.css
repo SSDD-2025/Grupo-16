@@ -1,4 +1,4 @@
-/* Display */   
+/* Display */
 .artist-container {
     display: flex;
     flex-direction: column;
@@ -13,17 +13,17 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.artist-container:hover{
+.artist-container:hover {
     transform: scale(1.01);
 }
 
-.artist-photo{
+.artist-photo {
     height: 65%;
     aspect-ratio: 1;
     margin: 3% auto;
 }
 
-.name-container{
+.name-container {
     width: 90%;
     text-align: center;
     white-space: nowrap;
@@ -31,23 +31,23 @@
     text-overflow: ellipsis;
 }
 
-.name-container p{
+.name-container p {
     font-weight: 600;
     font-size: 90%;
 }
 
-.button-container{
+.button-container {
     width: 70%;
     height: auto;
     margin: 4%;
 }
 
-.button-container form{
+.button-container form {
     width: 100%;
     height: 100%;
 }
 
-.button-container form input{
+.button-container form input {
     width: 100%;
     height: 100%;
     border: none;
@@ -57,32 +57,32 @@
     color: white;
 }
 
-.button-container form input:hover{
+.button-container form input:hover {
     background-color: rgb(72, 72, 249);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Page */
-.center{
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
-    margin-top: 3%; 
-    width: 100%; 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 3%;
+    width: 100%;
 }
 
-.main-block{
+.main-block {
     margin-top: 2%;
     display: flex;
     height: 60%;
 }
 
-.section-title{
+.section-title {
     margin-top: 5%;
 }
 
-.artist-name-page{
+.artist-name-page {
     height: auto;
     width: auto;
     font-weight: bold;
@@ -90,18 +90,20 @@
     text-align: center;
 }
 
-.photo-container{
+.photo-container {
     margin-left: 8%;
     display: inline-block;
 }
 
-.artist-image{ /*inside the photo-container*/
+.artist-image {
+    /*inside the photo-container*/
     width: 100%;
     height: 100%;
-    object-fit: contain; /* it prevents the image from deforming */
+    object-fit: contain;
+    /* it prevents the image from deforming */
 }
 
-.main-info{
+.main-info {
     width: 50%;
     height: 40%;
     display: inline-block;
@@ -111,36 +113,36 @@
     font-size: 130%;
 }
 
-.more-info{
+.more-info {
     margin-top: 2%;
     margin-left: 4%;
     margin-right: 4%;
 }
 
-.main-info p{
+.main-info p {
     font-size: 130%;
 }
 
-.album-display{
+.album-display {
     margin-top: 2%;
     width: 100%;
     height: 50%;
     text-align: center;
 }
 
-.album-container{
+.album-container {
     display: inline-block;
     margin-left: 8%;
     text-align: center;
 }
 
-.album-photo{
+.album-photo {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.music-apps{
+.music-apps {
     width: 100%;
     height: 30%;
     display: flex;
@@ -149,28 +151,28 @@
     margin-top: 3%;
 }
 
-.spotify{
+.spotify {
     height: 50%;
     width: 200%;
     object-fit: contain;
 }
 
-.apple{
+.apple {
     width: 180%;
     height: 50%;
     object-fit: contain;
 }
 
-video{
+video {
     width: 50%;
     height: auto;
 }
 
-h2{
+h2 {
     margin-left: 3%;
     margin-top: 2%;
 }
 
-.spaced{
+.spaced {
     margin-top: 13%;
 }

@@ -41,7 +41,7 @@ public class ArtistService {
 
     /**
      * Returns a list of the 10 most famous artists
-     * 
+     *
      * @return the list of the concerts of the top 10 most famous artist
      */
     public List<Artist> getArtistDisplayByPopularity() {
@@ -75,16 +75,20 @@ public class ArtistService {
      *
      * @param artist artist to be saved
      * @param mainPhoto MultipartFile photo to stablish the artist photo
-     * @param bestPhoto (PROV) MultipartFile photo to stablish the artist best album photo
-     * @param latestPhoto (PROV) MultipartFile photo to stablish the artist latest album photo
+     * @param bestPhoto (PROV) MultipartFile photo to stablish the artist best
+     * album photo
+     * @param latestPhoto (PROV) MultipartFile photo to stablish the artist
+     * latest album photo
      * @throws IOException
      */
     public void registerNewArtist(Artist artist, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
 
         /*The photo is setted (if there is any error, it is set to null) */
         artist.setPhoto(imageService.getBlobOf(mainPhoto));
-        artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto)); /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
-        artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto)); /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
+        artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
+        /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
+        artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
+        /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
 
         artist.setSessionCreated(LocalDateTime.now());
         artist.setHasPage(true);
@@ -106,26 +110,29 @@ public class ArtistService {
 
     /**
      * Returns the artist (if found) with an specific name
+     *
      * @param name name of the artist to be found
      * @return said artist on a Optional object (None if its not found)
      */
-    public Optional<Artist> getByName(String name){
+    public Optional<Artist> getByName(String name) {
         return artistRepository.findFirstByName(name);
     }
 
     /**
      * Returns the artist (if found) with an specific name
+     *
      * @param name name of the artist to be found
      * @return said artist on a Optional object (None if its not found)
      */
-    public Optional<Artist> getByNameIgnoreCase(String name){
+    public Optional<Artist> getByNameIgnoreCase(String name) {
         return artistRepository.findFirstByNameIgnoreCase(name);
     }
 
     /**
      * * Service method that modifies an existing artist with new attributes
      *
-     * @param artist artist containing the new attributes that have been modified
+     * @param artist artist containing the new attributes that have been
+     * modified
      * @param id id of that artist
      * @param mainPhoto (optional) new photo for the artist
      * @param bestPhoto (PROV - optional) new photo for the best album
@@ -139,31 +146,38 @@ public class ArtistService {
 
         Optional<Artist> oldArtist = artistRepository.findById(id);
 
-        if(!oldArtist.isEmpty()){
+        if (!oldArtist.isEmpty()) {
             artist.setConcertList(oldArtist.get().getConcertList());
             artist.setHasPage(oldArtist.get().isHasPage());
-            if(!mainPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+            if (!mainPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
                 artist.setPhoto(imageService.getBlobOf(mainPhoto));
-            } else { /*If no new photo has been uploaded, it takes the older one*/
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
                 artist.setPhoto(oldArtist.get().getPhoto());
             }
             /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if(!bestPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+            if (!bestPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
                 artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
-            } else { /*If no new photo has been uploaded, it takes the older one*/
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
                 artist.setBestAlbumPhoto(oldArtist.get().getBestAlbumPhoto());
             }
             /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if(!latestPhoto.isEmpty()){ /*If a new photo has been uploaded*/
+            if (!latestPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
                 artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
-            } else { /*If no new photo has been uploaded, it takes the older one*/
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
                 artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
             }
             artist.setHasPage(true);
             artistRepository.save(artist);
             return true;
         } else {
-            return false; /*There was not an artist with such ID*/
+            return false;
+            /*There was not an artist with such ID*/
         }
     }
 
@@ -188,31 +202,36 @@ public class ArtistService {
     }
 
     /**
-     * Method that checks if an specific artist name is already added to the database
-     * so that unique names are mantained
+     * Method that checks if an specific artist name is already added to the
+     * database so that unique names are mantained
+     *
      * @param name name to search
      * @return if the name is used or not
      */
-    public boolean checkIfExistsByName(String name){
+    public boolean checkIfExistsByName(String name) {
 
         return artistRepository.findFirstByName(name).isPresent();
     }
 
     /**
-     * Method that checks if there is an artist on the database with a name (ignoring cases)
+     * Method that checks if there is an artist on the database with a name
+     * (ignoring cases)
+     *
      * @param name the name to search
      * @return wheter it exists or not
      */
-    public boolean artistExists(String name){
+    public boolean artistExists(String name) {
         return artistRepository.findFirstByNameIgnoreCase(name).isPresent();
     }
 
     /**
-     * This method will create a new artist with only its name (it will not have an artist's page)
+     * This method will create a new artist with only its name (it will not have
+     * an artist's page)
+     *
      * @param name the artist name
      * @return the new artist id
      */
-    public long createNewArtist(String name){
+    public long createNewArtist(String name) {
         Artist newArtist = new Artist(name);
         artistRepository.save(newArtist);
         return newArtist.getId();

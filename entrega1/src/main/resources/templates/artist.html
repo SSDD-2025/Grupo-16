@@ -1,84 +1,92 @@
 <html>
-    <head>
-        <title>{{titleName}}</title> <!-- The title is the name of the artist -->
-        <link type="text/css" rel="stylesheet" href="/css/artist-style.css" >
-        <link rel="icon" type="image/png" href="/media/microphone.png">
-    </head>
-    <body>
-        <header>
-            {{>header}}
-        </header>
-        {{#artist}}
-            {{#artist.hasPage}}
-                <!-- Show the artist name -->
-                <div class="center">
-                    <h1 class="artist-name-page">Meet {{artist.name}}</h1>
-                </div>
 
-                <!-- Main Block -->
-                <div class="main-block">
-                    <!-- Show artist's photo at the left of the page -->
-                    <div class="photo-container">
-                        <img class="artist-image" src="/artist/{{id}}/download-photo">
-                    </div>
+<head>
+    <title>{{titleName}}</title> <!-- The title is the name of the artist -->
+    <link type="text/css" rel="stylesheet" href="/css/artist-style.css">
+    <link rel="icon" type="image/png" href="/media/microphone.png">
+</head>
 
-                    <!-- Show artist's main information at the right of the page -->
-                    <div class="main-info">
-                        <!-- The structure of the main information is the same in every artist, only the data changes -->
-                        <!-- This data is kept at the database as attributes of the entity ARTIST -->
-                        <p>{{artist.mainInfo}}</p>
-                    </div>
-                </div>
+<body>
+    <header>
+        {{>header}}
+    </header>
+    {{#artist}}
+    {{#artist.hasPage}}
+    <!-- Show the artist name -->
+    <div class="center">
+        <h1 class="artist-name-page">Meet {{artist.name}}</h1>
+    </div>
 
-                <!-- Show aditional information kept in the database-->
-                <div class="more-info">
-                    {{artist.extendedInfo}}
-                </div>
-
-                <!-- Show two albums and its links to listen in Spotify/ Apple Music (kept at the database) -->
-                <div>
-                    <h2>Start listening to {{artist.name}}...</h2>
-                </div>
-                <div class="album-display">
-                    <div class="album-container">
-                        <h3>Best Album</h3>
-                        <img class="album-photo" src="/artist/{{id}}/download-bestAlbum-photo"> <!-- Photo of the cover -->
-                        <div class="music-apps">
-                            <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                            <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
-                        </div>
-                    </div>
-                    <div class="album-container">
-                        <h3>Latest Album</h3>
-                        <img class="album-photo" src="/artist/{{id}}/download-latestAlbum-photo"> <!-- Photo of the cover -->
-                        <div class="music-apps">
-                            <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a> <!-- URL linking to the album in Spotify (kept in database)-->
-                            <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a> <!-- URL linking to the album in Apple Music (kept in database)-->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Show the music video kept at the database -->
-                <h2 class="spaced">... or go watch some music videos</h2>
-                <div class="center">
-                    <iframe id="video-display" width="560" height="315" src="{{artist.videoLink}}?mute=1&autoplay=0" title="Music Video" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <br>
-            {{/artist.hasPage}}
-            {{^artist.hasPage}}
-                <p>There is no information of {{titleName}} to show</p>
-            {{/artist.hasPage}}
-        {{/artist}}
-        {{^artist}}
-            <p>There is no artist to show</p>
-        {{/artist}}
-        <!-- Show upcoming concerts of the artist -->
-        <h2>Upcoming Concerts:</h2>
-        <div>
-            {{>display-concerts}}
+    <!-- Main Block -->
+    <div class="main-block">
+        <!-- Show artist's photo at the left of the page -->
+        <div class="photo-container">
+            <img class="artist-image" src="/artist/{{id}}/download-photo">
         </div>
-        <footer>
-            {{>footer}}
-        </footer>
-    </body>
+
+        <!-- Show artist's main information at the right of the page -->
+        <div class="main-info">
+            <!-- The structure of the main information is the same in every artist, only the data changes -->
+            <!-- This data is kept at the database as attributes of the entity ARTIST -->
+            <p>{{artist.mainInfo}}</p>
+        </div>
+    </div>
+
+    <!-- Show aditional information kept in the database-->
+    <div class="more-info">
+        {{artist.extendedInfo}}
+    </div>
+
+    <!-- Show two albums and its links to listen in Spotify/ Apple Music (kept at the database) -->
+    <div>
+        <h2>Start listening to {{artist.name}}...</h2>
+    </div>
+    <div class="album-display">
+        <div class="album-container">
+            <h3>Best Album</h3>
+            <img class="album-photo" src="/artist/{{id}}/download-bestAlbum-photo"> <!-- Photo of the cover -->
+            <div class="music-apps">
+                <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a>
+                <!-- URL linking to the album in Spotify (kept in database)-->
+                <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a>
+                <!-- URL linking to the album in Apple Music (kept in database)-->
+            </div>
+        </div>
+        <div class="album-container">
+            <h3>Latest Album</h3>
+            <img class="album-photo" src="/artist/{{id}}/download-latestAlbum-photo"> <!-- Photo of the cover -->
+            <div class="music-apps">
+                <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a>
+                <!-- URL linking to the album in Spotify (kept in database)-->
+                <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a>
+                <!-- URL linking to the album in Apple Music (kept in database)-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Show the music video kept at the database -->
+    <h2 class="spaced">... or go watch some music videos</h2>
+    <div class="center">
+        <iframe id="video-display" width="560" height="315" src="{{artist.videoLink}}?mute=1&autoplay=0"
+            title="Music Video" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <br>
+    {{/artist.hasPage}}
+    {{^artist.hasPage}}
+    <p>There is no information of {{titleName}} to show</p>
+    {{/artist.hasPage}}
+    {{/artist}}
+    {{^artist}}
+    <p>There is no artist to show</p>
+    {{/artist}}
+    <!-- Show upcoming concerts of the artist -->
+    <h2>Upcoming Concerts:</h2>
+    <div>
+        {{>display-concerts}}
+    </div>
+    <footer>
+        {{>footer}}
+    </footer>
+</body>
+
 </html>

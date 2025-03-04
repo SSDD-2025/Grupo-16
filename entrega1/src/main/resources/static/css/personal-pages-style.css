@@ -69,7 +69,8 @@ textarea {
     position: relative;
 }
 
-.ticket-front, .ticket-back{
+.ticket-front,
+.ticket-back {
     width: 98%;
     height: 98%;
     box-shadow: 0 4px 20px rgba(#000, 0.2);
@@ -99,7 +100,7 @@ textarea {
     flex-direction: column;
 }
 
-.ticket-back p{
+.ticket-back p {
     font-weight: 500;
     margin: 2vh auto;
 }

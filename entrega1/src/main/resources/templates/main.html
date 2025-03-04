@@ -1,40 +1,43 @@
 <html>
-    <head>
-        <title>Ticketmaster</title>
-        <link type="text/css" rel="stylesheet" href="/css/common-styles.css" >
-        <link type="text/css" rel="stylesheet" href="/css/main-style.css" >
-        <link rel="icon" type="image/png" href="/media/microphone.png">
-    </head>
-    <body>
-        <header>
-            {{>header}}
-        </header>
-        <div>
-            <!-- Next Concerts -->
-            <div class="title-container">
-                {{#isLogged}}
-                    <h1>Upcoming Concerts in your Area:</h1>
-                {{/isLogged}}
-                {{^isLogged}}
-                    <h1>Upcoming Concerts:</h1>
-                {{/isLogged}}
-            </div>
 
-            <!-- Show Concerts -->
-            {{>display-concerts}}
+<head>
+    <title>Ticketmaster</title>
+    <link type="text/css" rel="stylesheet" href="/css/common-styles.css">
+    <link type="text/css" rel="stylesheet" href="/css/main-style.css">
+    <link rel="icon" type="image/png" href="/media/microphone.png">
+</head>
 
-            <!-- Meet New Artist -->
-            <div class="title-container">
-                <h1>Meet:</h1>
-            </div>
-            
-            <!-- Show New Artist -->
-            <div class="general-container row-container">
-            {{>display-artists}}
-            </div>
+<body>
+    <header>
+        {{>header}}
+    </header>
+    <div>
+        <!-- Next Concerts -->
+        <div class="title-container">
+            {{#isLogged}}
+            <h1>Upcoming Concerts in your Area:</h1>
+            {{/isLogged}}
+            {{^isLogged}}
+            <h1>Upcoming Concerts:</h1>
+            {{/isLogged}}
         </div>
-        <footer>
-            {{>footer}}
-        </footer>
-    </body>
+
+        <!-- Show Concerts -->
+        {{>display-concerts}}
+
+        <!-- Meet New Artist -->
+        <div class="title-container">
+            <h1>Meet:</h1>
+        </div>
+
+        <!-- Show New Artist -->
+        <div class="general-container row-container">
+            {{>display-artists}}
+        </div>
+    </div>
+    <footer>
+        {{>footer}}
+    </footer>
+</body>
+
 </html>

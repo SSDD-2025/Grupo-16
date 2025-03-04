@@ -37,10 +37,10 @@ public class MainController {
      */
     @GetMapping("/")
     public String getMain(Model model, @RequestParam(required = false) String search, HttpSession session) {
-        
+
         boolean userLogged = userService.isLogged();
-        
-        if (session.isNew()){
+
+        if (session.isNew()) {
             activeUser.init();
             model.addAttribute("isLogged", false);
         } else {
@@ -48,9 +48,9 @@ public class MainController {
         }
 
         if (search == null) {
-            
+
             model.addAttribute("concertList", concertService.getConcertDisplay(userLogged));
-            model.addAttribute("modifyConcert",false);
+            model.addAttribute("modifyConcert", false);
             model.addAttribute("artistList", artistService.getArtistDisplayBySession());
 
         } else {

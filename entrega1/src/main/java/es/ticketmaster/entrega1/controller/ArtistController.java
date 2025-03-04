@@ -42,7 +42,7 @@ public class ArtistController {
      */
     @GetMapping("/artist/{id}")
     public String getArtistPage(Model model, @PathVariable long id) {
-        
+
         boolean userLogged = userService.isLogged();
         model.addAttribute("isLogged", userLogged);
 
@@ -50,12 +50,12 @@ public class ArtistController {
         if (artist != null) {
             model.addAttribute("artist", artist);
             model.addAttribute("titleName", artist.getName());
-            model.addAttribute("hasPage",artist.isHasPage());
+            model.addAttribute("hasPage", artist.isHasPage());
             model.addAttribute("concertList", concertService.getArtistConcerts(artist.getName()));
         } else {
             model.addAttribute("artist", null);
             model.addAttribute("titleName", "Not Found");
-            model.addAttribute("hasPage",false);
+            model.addAttribute("hasPage", false);
         }
         model.addAttribute("modifyConcert", false);
         return "artist";
@@ -90,10 +90,10 @@ public class ArtistController {
     }
 
     /**
-     * * Method that controlls the registration of a new artist/modification of an
-     * existing one. For that, the ArtistService is used, being this Service the
-     * one encharged of the DDBB handling. Afterwards, the user is redirected to
-     * the artist admin page
+     * * Method that controlls the registration of a new artist/modification of
+     * an existing one. For that, the ArtistService is used, being this Service
+     * the one encharged of the DDBB handling. Afterwards, the user is
+     * redirected to the artist admin page
      *
      * @param model the actual dynamic HTML
      * @param artist artist collected from the form
@@ -106,12 +106,12 @@ public class ArtistController {
      * @throws IOException
      */
     @PostMapping("/register-new-artist")
-    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, 
-    @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto, 
-    @RequestParam(required = false) Long id, RedirectAttributes redirectAttributes) throws IOException {
+    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto,
+            @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto,
+            @RequestParam(required = false) Long id, RedirectAttributes redirectAttributes) throws IOException {
 
         if (id == null) { //Add new artist
-            if(artistService.checkIfExistsByName(artist.getName())){
+            if (artistService.checkIfExistsByName(artist.getName())) {
                 artist.setName(null);
                 redirectAttributes.addFlashAttribute("error", "Artist name already exists");
                 redirectAttributes.addFlashAttribute("artist", artist);
@@ -119,7 +119,7 @@ public class ArtistController {
             }
             artistService.registerNewArtist(artist, mainPhoto, bestPhoto, latestPhoto);
         } else {
-            if(!artistService.modifyArtistWithId(artist, id, mainPhoto, bestPhoto, latestPhoto)){
+            if (!artistService.modifyArtistWithId(artist, id, mainPhoto, bestPhoto, latestPhoto)) {
                 return "redirect:/error";
             }
         }

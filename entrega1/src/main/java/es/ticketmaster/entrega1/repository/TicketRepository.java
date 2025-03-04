@@ -7,5 +7,6 @@ import es.ticketmaster.entrega1.model.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
+
     public Ticket findTicketById(long id);
 }

@@ -1,62 +1,72 @@
 /*common-styles.css is conceived as a style-unifying document so that every part of the webpage has the same esthetics as far as colour, shape and behaviour is concerned*/
 
-*{ /*General style settings to begin with*/
+* {
+    /*General style settings to begin with*/
     margin: 0;
     padding: 0;
-    font-family:Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.title-container{
+.title-container {
     width: 90%;
-    height: 8vh; /*The height of the container relies on the content*/
+    height: 8vh;
+    /*The height of the container relies on the content*/
     padding: 0.3rem 0.3rem 0.3rem 1rem;
-    margin: 3vw auto 2vw auto; /*Horizontally centered but has styled vertical spacing*/
+    margin: 3vw auto 2vw auto;
+    /*Horizontally centered but has styled vertical spacing*/
     background-color: rgb(218, 214, 214);
     display: flex;
-    align-items: center; /*Center text vertically*/
-    justify-content: left; /*Center text horizontally*/
+    align-items: center;
+    /*Center text vertically*/
+    justify-content: left;
+    /*Center text horizontally*/
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.title{ /*Title style, conceived to be used inside a title-container*/
+.title {
+    /*Title style, conceived to be used inside a title-container*/
     font-weight: 600;
     text-align: left;
-    font-size: clamp(1rem, 2vw, 2.5rem); /*Adjust text size dynamically*/
+    font-size: clamp(1rem, 2vw, 2.5rem);
+    /*Adjust text size dynamically*/
 }
 
-.general-container{ /*Container with general purpose such as: showing artist list or concert list*/
+.general-container {
+    /*Container with general purpose such as: showing artist list or concert list*/
     width: 90%;
     height: auto;
     display: flex;
     align-items: stretch;
-    margin: 1vw auto 1vw auto; /*Horizontally centered but has one visual width margin vertically*/
-    padding: 0.1vh 0.1vw 0.1vh 0.1vw; /*Gives spacing*/
+    margin: 1vw auto 1vw auto;
+    /*Horizontally centered but has one visual width margin vertically*/
+    padding: 0.1vh 0.1vw 0.1vh 0.1vw;
+    /*Gives spacing*/
     background-color: rgb(243, 243, 243);
     flex-wrap: wrap;
 }
 
-.row-container{
+.row-container {
     flex-direction: row;
 }
 
-.column-container{
+.column-container {
     flex-direction: column;
 }
 
-.image-in-container{
+.image-in-container {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.image-rounded{
+.image-rounded {
     border-radius: 50%;
 }
 
-footer{
-    background-color:black;
-    width:100%;
+footer {
+    background-color: black;
+    width: 100%;
     height: 150px;
     display: flex;
     flex-grow: 1;
@@ -64,20 +74,21 @@ footer{
     left: 0;
 }
 
-footer p{
+footer p {
     color: white;
     margin-left: 10%;
     position: absolute;
     margin-top: 5%;
 }
 
-.expand{
+.expand {
     width: 100%;
     height: auto;
-    flex-grow: 1; /* takes up the maximum space possible between the two elements where its located */
+    flex-grow: 1;
+    /* takes up the maximum space possible between the two elements where its located */
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
 }

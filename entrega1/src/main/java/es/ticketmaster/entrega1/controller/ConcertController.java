@@ -17,7 +17,6 @@ import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.UserService;
 
-
 @Controller
 public class ConcertController {
 
@@ -31,30 +30,35 @@ public class ConcertController {
     private ArtistService artistService;
 
     /**
-     * When the user is logged, the ticket selection page of the concert defined by the id parameter is displayed.
-     * In other case, an error page is shown. It is compulsory for the user to be logged in order to buy tickets.
+     * When the user is logged, the ticket selection page of the concert defined
+     * by the id parameter is displayed. In other case, an error page is shown.
+     * It is compulsory for the user to be logged in order to buy tickets.
+     *
      * @param model model of the dinamic HTML document
      * @param id concert identification to load its ticket choosing page
      * @return name of the html to be responded to the server petition
      */
     @GetMapping("/concert/{id}")
     public String postMethodName(Model model, @PathVariable Long id) {
-        
+
         boolean userLogged = userService.isLogged();
 
-        if(userLogged){
+        if (userLogged) {
             model.addAttribute("concert", concertService.findConcertById(id));
             model.addAttribute("isLogged", true);
             return "ticket-selling";
         } else {
-            return "redirect:/sign-in"; /*If the user isn't logged, it is redirected to the sign-in page*/
+            return "redirect:/sign-in";
+            /*If the user isn't logged, it is redirected to the sign-in page*/
         }
     }
-    
+
     /**
      * It loads the administrator page to add or modify concerts
+     *
      * @param model the model of the HTML
-     * @param search an optional parameter that includes the search done to look for concerts containing that search on their name
+     * @param search an optional parameter that includes the search done to look
+     * for concerts containing that search on their name
      * @return the admin-concerts.html with its attributes added
      */
     @GetMapping("/admin/concert")
@@ -72,7 +76,9 @@ public class ConcertController {
     }
 
     /**
-     * This controller sets the attributes on the concert-workbench when a concert is selected for modification
+     * This controller sets the attributes on the concert-workbench when a
+     * concert is selected for modification
+     *
      * @param model the HTML model thats is going to be shown
      * @param id the id of the concert that is being modified
      * @return the concert-workbench.html with the appropriate attributes set
@@ -82,12 +88,14 @@ public class ConcertController {
         boolean userLogged = userService.isLogged();
         model.addAttribute("isLogged", userLogged);
         model.addAttribute("concert", concertService.findConcertById(id));
-        model.addAttribute("artistList",artistService.getEveryArtist());
+        model.addAttribute("artistList", artistService.getEveryArtist());
         return "concert-workbench";
     }
-    
+
     /**
-     * This controller sets the attributes on the concert-workbench when the administrator selects to add a new concert
+     * This controller sets the attributes on the concert-workbench when the
+     * administrator selects to add a new concert
+     *
      * @param model the HTML model thats is going to be shown
      * @return the concert-workbench.html with the appropriate attributes set
      */
@@ -95,54 +103,63 @@ public class ConcertController {
     public String formAddConcert(Model model) {
         boolean userLogged = userService.isLogged();
         model.addAttribute("isLogged", userLogged);
-        model.addAttribute("concert",null);
-        model.addAttribute("artistList",artistService.getEveryArtist());
+        model.addAttribute("concert", null);
+        model.addAttribute("artistList", artistService.getEveryArtist());
         return "concert-workbench";
     }
-    
+
     /**
-     * This controller will call the concertService to either add a new concert to the database or to modify an existing one
-     *  based on the data obtained from the form that the admin filled out (concert-workbench.html)
+     * This controller will call the concertService to either add a new concert
+     * to the database or to modify an existing one based on the data obtained
+     * from the form that the admin filled out (concert-workbench.html)
+     *
      * @param model the HTML model that will be displayed
-     * @param newConcert JPA concert created with all the data obtained from the form
-     * @param poster MultipartFile containing the image uploaded by the admin in the form
-     * @param id if the concert is being modified, it's its id (to be set on the newConcert so it can be modified on the DDBB)
-     * @param newArtistName name of a new artist (if the artist is not in the database)
-     * @param artistId the artist id whose concert is being added/ modified (-1 if its a new artist)
+     * @param newConcert JPA concert created with all the data obtained from the
+     * form
+     * @param poster MultipartFile containing the image uploaded by the admin in
+     * the form
+     * @param id if the concert is being modified, it's its id (to be set on the
+     * newConcert so it can be modified on the DDBB)
+     * @param newArtistName name of a new artist (if the artist is not in the
+     * database)
+     * @param artistId the artist id whose concert is being added/ modified (-1
+     * if its a new artist)
      * @return the concert-validation.html with the appropriate attributes set
      * @throws IOException if an error occurs during file handling
-     */ 
+     */
     @PostMapping("/admin/concert/register")
-    public String postAddConcert(Model model, @ModelAttribute Concert newConcert, 
-        @RequestParam(required = false) MultipartFile poster, @RequestParam(required = false) Long id, 
-        @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws IOException {
-        if (artistId == -1){ //the concert is from a new artist not registered yet
+    public String postAddConcert(Model model, @ModelAttribute Concert newConcert,
+            @RequestParam(required = false) MultipartFile poster, @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws IOException {
+        if (artistId == -1) { //the concert is from a new artist not registered yet
             // Check if the name the admin entered already exists
-            if (artistService.artistExists(newArtistName)){
+            if (artistService.artistExists(newArtistName)) {
                 artistId = artistService.getByNameIgnoreCase(newArtistName).get().getId();
             } else {
                 artistId = artistService.createNewArtist(newArtistName);
             }
         } //else {} the concert is from someone already on the datatbase
 
-        if (id != null){ //modify concert
-            concertService.modifyConcert(newConcert,id,poster,artistId);
+        if (id != null) { //modify concert
+            concertService.modifyConcert(newConcert, id, poster, artistId);
             model.addAttribute("modified", true);
         } else { //add concert
-            concertService.saveConcert(newConcert,poster,artistId);
+            concertService.saveConcert(newConcert, poster, artistId);
             model.addAttribute("added", true);
         }
         return "concert-validation";
     }
 
     /**
-     * This method of the controller will be executed when the admin wants to delete a concert
+     * This method of the controller will be executed when the admin wants to
+     * delete a concert
+     *
      * @param model the HTML model that will be displayed
      * @param id id of the concert that is being deleted
      * @return the concert-validation.html with the appropriate attributes set
      */
     @GetMapping("/admin/concert/delete")
-    public String postDeleteConcert(Model model, @RequestParam long id){
+    public String postDeleteConcert(Model model, @RequestParam long id) {
         concertService.deleteConcert(id);
         model.addAttribute("deleted", true);
         return "concert-validation";

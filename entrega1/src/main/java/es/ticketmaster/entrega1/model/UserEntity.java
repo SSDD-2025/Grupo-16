@@ -13,8 +13,9 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class UserEntity {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String userName;
@@ -25,15 +26,15 @@ public class UserEntity {
     private Blob profilePicture;
     @OneToMany
     private List<Artist> artistsList = new LinkedList<>();
-    @OneToMany(mappedBy="ticketUser")
+    @OneToMany(mappedBy = "ticketUser")
     private List<Ticket> ticketList = new LinkedList<>();
 
-    protected UserEntity () {
+    protected UserEntity() {
         /* Constructor used by the JPA interface. */
     }
 
     /* Constructor without the profile picture of the user. */
-    public UserEntity (String userName, String password, String email, String country) {
+    public UserEntity(String userName, String password, String email, String country) {
         if ((!userName.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
             this.userName = userName;
             this.password = password;
@@ -43,7 +44,7 @@ public class UserEntity {
     }
 
     /* Constructor with the profile picture of the user. */
-    public UserEntity (String userName, String password, String email, String country, Blob picture) {
+    public UserEntity(String userName, String password, String email, String country, Blob picture) {
         if ((!userName.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
             this.userName = userName;
             this.password = password;
@@ -53,7 +54,7 @@ public class UserEntity {
         this.profilePicture = picture;
     }
 
-    public long getId(){
+    public long getId() {
         return id;
     }
 
@@ -76,7 +77,7 @@ public class UserEntity {
     public Blob getProfilePicture() {
         return this.profilePicture;
     }
-    
+
     public List<Artist> getArtistsList() {
         return this.artistsList;
     }
@@ -85,7 +86,7 @@ public class UserEntity {
         return this.ticketList;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -110,7 +111,7 @@ public class UserEntity {
     }
 
     public void setTicketList(List<Ticket> list) {
-         this.ticketList = list;
+        this.ticketList = list;
     }
 
     public void setProfilePicture(Blob newPic) {

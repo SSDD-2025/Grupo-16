@@ -5,57 +5,59 @@ deleting concerts, including a searchbar to find every concerts-->
 <!-- The following logic is adapted from the "admin-artists" page created by David Rísquez and it
  has been modified to work with concert-related variables and data -->
 <html>
-    <head>
-        <title>Admin Concerts</title>
-        <link rel="stylesheet" href="/css/common-styles.css">
-        <link rel="stylesheet" href="/css/concert-style.css">
-        <link rel="stylesheet" href="/css/personal-pages-style.css">
-        <link rel="stylesheet" href="/css/header-style.css">
-        <link rel="icon" type="image/png" href="/media/admin.png">
-    </head>
 
-    <body>
-        <header> <!--Header injection, common for every page in the web-->
-            {{>header}}
-        </header>
+<head>
+    <title>Admin Concerts</title>
+    <link rel="stylesheet" href="/css/common-styles.css">
+    <link rel="stylesheet" href="/css/concert-style.css">
+    <link rel="stylesheet" href="/css/personal-pages-style.css">
+    <link rel="stylesheet" href="/css/header-style.css">
+    <link rel="icon" type="image/png" href="/media/admin.png">
+</head>
 
-        <main> <!--Common title container to inform of the function of the page-->
-            <div class="title-container">
-                <div class="title">
-                    Add new concert
-                </div>
+<body>
+    <header> <!--Header injection, common for every page in the web-->
+        {{>header}}
+    </header>
+
+    <main> <!--Common title container to inform of the function of the page-->
+        <div class="title-container">
+            <div class="title">
+                Add new concert
             </div>
+        </div>
 
-            <!--Big button that redirects the admin to the Concert Workbench, where an concert can be added-->
-            <form action="/admin/concert/workbench" method="post" enctype="multipart/form-data" class="big-button">
-                <button type="submit">
-                    <div class="symbol-container"> <!--Plus image, with decorative purpose-->
-                        <img src="/media/plus.png" class="image-in-container">
-                    </div>
-                    <p class="button-text">
-                        Add new Concert
-                    </p>
-                </button>
+        <!--Big button that redirects the admin to the Concert Workbench, where an concert can be added-->
+        <form action="/admin/concert/workbench" method="post" enctype="multipart/form-data" class="big-button">
+            <button type="submit">
+                <div class="symbol-container"> <!--Plus image, with decorative purpose-->
+                    <img src="/media/plus.png" class="image-in-container">
+                </div>
+                <p class="button-text">
+                    Add new Concert
+                </p>
+            </button>
+        </form>
+
+        <!--Part where artists can be searched and modified-->
+        <!--Common title container informing of the section where artists can be modified-->
+        <div class="title-container">
+            <div class="title">
+                Modify existing concert
+            </div>
+        </div>
+
+        <div class="searchbar-container"> <!--Searchbar for artist search, recycled from the header (sthetics)-->
+            <!--Searchbar, made of a search input and a submit imported with magnifying glass style-->
+            <form action="/admin/concert">
+                <input type="search" name="search" placeholder="Find existing Concert..." class="searchbar">
+                <button type="submit" class="search-lupe"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
+        </div>
 
-            <!--Part where artists can be searched and modified-->
-            <!--Common title container informing of the section where artists can be modified-->
-            <div class="title-container">
-                <div class="title">
-                    Modify existing concert
-                </div>
-            </div>
+        <!-- Concert display-->
+        {{>display-concerts}}
+    </main>
+</body>
 
-            <div class="searchbar-container"> <!--Searchbar for artist search, recycled from the header (sthetics)-->
-                <!--Searchbar, made of a search input and a submit imported with magnifying glass style-->
-                <form action="/admin/concert">
-                    <input type="search" name="search" placeholder="Find existing Concert..." class="searchbar">
-                    <button type="submit" class="search-lupe"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
-            </div>
-
-            <!-- Concert display-->
-            {{>display-concerts}}
-        </main>
-    </body>
 </html>

@@ -38,6 +38,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     /**
      * Deletes from the repository the Artist with the given ID
+     *
      * @param id Artist's id
      */
     public void deleteById(long id);

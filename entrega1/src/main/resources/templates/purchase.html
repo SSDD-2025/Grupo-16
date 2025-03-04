@@ -1,83 +1,89 @@
 <html>
-    <head>
-        <title>Purchase Tickets</title>
-        <link type="text/css" rel="stylesheet" href="/css/purchase-style.css" >
-        <link rel="icon" type="image/png" href="/media/tarjeta.png">
-    </head>
-    <body>
-        <!-- Tickets Information Block -->
-        <div class="tickets-info-container">
+
+<head>
+    <title>Purchase Tickets</title>
+    <link type="text/css" rel="stylesheet" href="/css/purchase-style.css">
+    <link rel="icon" type="image/png" href="/media/tarjeta.png">
+</head>
+
+<body>
+    <!-- Tickets Information Block -->
+    <div class="tickets-info-container">
         {{#ticket}} <!-- Control to confirm there are tickets to display -->
-            <div class="info-container">
-                <h2>Tickets Information:</h2>
-                <!-- Ticket Information -->
-                <p>Concert: {{concert.name}} <br> Date: {{concert.date}} <br> Number: {{number}} <br> Type of Ticket: {{ticketType}} ({{concert.price}})</p>
-                <form action="/concert/{{concert.id}}/cancel-purchase?type={{ticketType}}&number={{number}}" method="post">
-                    <input type="submit" value="Cancel Purchase"> 
-                </form>
-            </div>
-            <div class="image-container">
-                <img class="poster" src="/concert/{{concert.id}}/download-poster"> <!-- Concert poster photo -->
-            </div>         
+        <div class="info-container">
+            <h2>Tickets Information:</h2>
+            <!-- Ticket Information -->
+            <p>Concert: {{concert.name}} <br> Date: {{concert.date}} <br> Number: {{number}} <br> Type of Ticket:
+                {{ticketType}} ({{concert.price}})</p>
+            <form action="/concert/{{concert.id}}/cancel-purchase?type={{ticketType}}&number={{number}}" method="post">
+                <input type="submit" value="Cancel Purchase">
+            </form>
+        </div>
+        <div class="image-container">
+            <img class="poster" src="/concert/{{concert.id}}/download-poster"> <!-- Concert poster photo -->
+        </div>
         {{/ticket}}
         {{^ticket}}
-            <p>There are no tickets to purchase</p> <!-- Error uploading the tickets -->
-            <a href="/concert/{{concert.id}}">Back</a>
+        <p>There are no tickets to purchase</p> <!-- Error uploading the tickets -->
+        <a href="/concert/{{concert.id}}">Back</a>
         {{/ticket}}
-        </div>
-        {{#ticket}}
-                <div class="price-container">
-                    <span>Total Price: {{total-price}}</span> <!-- Total Pricing -->
-                </div>
-                <!-- Credit Card information to do the purchase -->
-                <div class="form-container">
-                    <!-- Form block so the user can introduce the data (it will not be register at the database) -->
-                    <form action="/concert/{{id}}/purchase/confirmation" method="post">
-                        <!-- Cardholder Name-->
-                        <label for="cardholder">Cardholder Name:</label>
-                        <input type="text" name="cardHolder" id="cardholder" placeholder="Name" required/>
+    </div>
+    {{#ticket}}
+    <div class="price-container">
+        <span>Total Price: {{total-price}}</span> <!-- Total Pricing -->
+    </div>
+    <!-- Credit Card information to do the purchase -->
+    <div class="form-container">
+        <!-- Form block so the user can introduce the data (it will not be register at the database) -->
+        <form action="/concert/{{id}}/purchase/confirmation" method="post">
+            <!-- Cardholder Name-->
+            <label for="cardholder">Cardholder Name:</label>
+            <input type="text" name="cardHolder" id="cardholder" placeholder="Name" required />
 
-                        <br> <br>
+            <br> <br>
 
-                        <!-- Card Type -->
-                        <label for="card-type">Card Type:</label>
-                        <select name="cardType" id="card-type" required>
-                            <option value="1" selected>MasterCard</option>
-                            <option value="2">Visa</option>
-                            <option value="3">American Express</option>
-                        </select>
+            <!-- Card Type -->
+            <label for="card-type">Card Type:</label>
+            <select name="cardType" id="card-type" required>
+                <option value="1" selected>MasterCard</option>
+                <option value="2">Visa</option>
+                <option value="3">American Express</option>
+            </select>
 
-                        <!-- Card Id -->
-                        <label for="card-id">Card Id:</label>
-                        <!-- Card Ids between 13-19 numbers -->
-                        <input type="text" name="cardId" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456" required>
+            <!-- Card Id -->
+            <label for="card-id">Card Id:</label>
+            <!-- Card Ids between 13-19 numbers -->
+            <input type="text" name="cardId" id="card-id" pattern="[0-9\s]{13,19}" placeholder="1234 5678 9012 3456"
+                required>
 
-                        <br> <br>
+            <br> <br>
 
-                        <!-- Expiration Date -->
-                        <label for="exp-date">Expiration Date:</label>
-                        <input type="month" name="expDate" id="exp-date" required>
+            <!-- Expiration Date -->
+            <label for="exp-date">Expiration Date:</label>
+            <input type="month" name="expDate" id="exp-date" required>
 
-                        <br> <br>
+            <br> <br>
 
-                        <!-- CVV -->
-                        <label for="cvv">CVV:</label>
-                        <input type="text" name="cvv" id="cvv" pattern="[0-9\s]{3,4}" maxlength="4" placeholder="123" required>
+            <!-- CVV -->
+            <label for="cvv">CVV:</label>
+            <input type="text" name="cvv" id="cvv" pattern="[0-9\s]{3,4}" maxlength="4" placeholder="123" required>
 
-                        <br> <br>
+            <br> <br>
 
-                        <!-- Submit Button -->
-                        <input type="submit" value="Purchase">
+            <!-- Submit Button -->
+            <input type="submit" value="Purchase">
 
-                        <!-- With these hidden inputs, the type of the ticket and ammount of tickets selected, will be pass.-->
-                        <input type="hidden" name="ticketType" value="{{ticketType}}">
-                        <input type="hidden" name="number" value="{{number}}">
-                    </form>
-                    {{#error}}
-                        <p><strong>The card details entered are not correct.</strong></p>
-                        <p><strong>Please, check that what is filled out in each field complies with the appropriate format.</strong></p>
-                    {{/error}}
-                </div>          
-        {{/ticket}}
-    </body>
+            <!-- With these hidden inputs, the type of the ticket and ammount of tickets selected, will be pass.-->
+            <input type="hidden" name="ticketType" value="{{ticketType}}">
+            <input type="hidden" name="number" value="{{number}}">
+        </form>
+        {{#error}}
+        <p><strong>The card details entered are not correct.</strong></p>
+        <p><strong>Please, check that what is filled out in each field complies with the appropriate format.</strong>
+        </p>
+        {{/error}}
+    </div>
+    {{/ticket}}
+</body>
+
 </html>

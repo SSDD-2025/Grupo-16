@@ -50,15 +50,18 @@ public class Artist {
 
     /*Concert List -> For the first delivery, we assume that deleting an artist
     also deleting the concerts associated with him or her*/
-    @OneToMany(mappedBy = "artist", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Concert> concertList;
 
     /**
      * Contructor for the JPA
      */
-    protected Artist(){}
+    protected Artist() {
+    }
 
-    /** Main Constructor
+    /**
+     * Main Constructor
+     *
      * @param name name of the artist
      * @param popularityIndex number of Spotify listeners
      * @param photo photo of the artist
@@ -92,6 +95,7 @@ public class Artist {
 
     /**
      * Same as the main constructor but inicialition to null the album photos
+     *
      * @param name
      * @param popularityIndex
      * @param photo
@@ -121,15 +125,14 @@ public class Artist {
         this.hasPage = true;
     }
 
-    public Artist(String name){
+    public Artist(String name) {
         this.name = name;
         this.hasPage = false;
     }
 
     //Getters y Setters
-
     /**
-     * 
+     *
      * @return artist id
      */
     public long getId() {
@@ -138,14 +141,15 @@ public class Artist {
 
     /**
      * Id setter needed for database operations
+     *
      * @param id the id to be setted
      */
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
     /**
-     * 
+     *
      * @return artist's name
      */
     public String getName() {
@@ -153,7 +157,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param name new name of the artist
      */
     public void setName(String name) {
@@ -161,7 +165,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the popularityIndex
      */
     public int getPopularityIndex() {
@@ -169,7 +173,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param popularityIndex new listeners number
      */
     public void setPopularityIndex(int popularityIndex) {
@@ -177,7 +181,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return artist's photo
      */
     public Blob getPhoto() {
@@ -185,7 +189,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param photo set new photo for the artist
      */
     public void setPhoto(Blob photo) {
@@ -193,7 +197,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return if the artist has information loaded at the HTML
      */
     public boolean isHasPage() {
@@ -201,15 +205,16 @@ public class Artist {
     }
 
     /**
-     * 
-     * @param hasPage indicated wheter the artist information is loaded in the database or not
+     *
+     * @param hasPage indicated wheter the artist information is loaded in the
+     * database or not
      */
     public void setHasPage(boolean hasPage) {
         this.hasPage = hasPage;
     }
 
     /**
-     * 
+     *
      * @return the main information about the artist
      */
     public String getMainInfo() {
@@ -217,7 +222,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param mainInfo set the new main info paragraph
      */
     public void setMainInfo(String mainInfo) {
@@ -225,7 +230,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the extended information about the artist
      */
     public String getExtendedInfo() {
@@ -233,7 +238,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param extendedInfo set the new extended info paragraph
      */
     public void setExtendedInfo(String extendedInfo) {
@@ -241,7 +246,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the link to the best album on Spotify
      */
     public String getBestAlbumSpotifyLink() {
@@ -249,7 +254,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param bestAlbumSpotifyLink the new link to the best album on Spotify
      */
     public void setBestAlbumSpotifyLink(String bestAlbumSpotifyLink) {
@@ -257,7 +262,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the link to the best album on Apple Music
      */
     public String getBestAlbumAppleLink() {
@@ -265,7 +270,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param bestAlbumAppleLink the new link to the best album on Apple Music
      */
     public void setBestAlbumAppleLink(String bestAlbumAppleLink) {
@@ -273,7 +278,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the link to the latest album on Spotify
      */
     public String getLatestAlbumSpotifyLink() {
@@ -281,7 +286,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param latestAlbumSpotifyLink new link to the latest album on Spotify
      */
     public void setLatestAlbumSpotifyLink(String latestAlbumSpotifyLink) {
@@ -289,7 +294,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return the link to the latest album on Apple Music
      */
     public String getLatestAlbumAppleLink() {
@@ -297,7 +302,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param latestAlbumAppleLink new link to the latest album on Apple Music
      */
     public void setLatestAlbumAppleLink(String latestAlbumAppleLink) {
@@ -305,7 +310,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return photo cover of the best album
      */
     public Blob getBestAlbumPhoto() {
@@ -313,7 +318,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param bestAlbumPhoto set new cover to the best album
      */
     public void setBestAlbumPhoto(Blob bestAlbumPhoto) {
@@ -321,7 +326,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return photo cover of the latest album
      */
     public Blob getLatestAlbumPhoto() {
@@ -329,7 +334,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param latestAlbumPhoto set new cover to the latets album
      */
     public void setLatestAlbumPhoto(Blob latestAlbumPhoto) {
@@ -337,7 +342,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return music video link
      */
     public String getVideoLink() {
@@ -345,7 +350,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param videoLink set a new video music link
      */
     public void setVideoLink(String videoLink) {
@@ -353,7 +358,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @return list of the artist's concerts
      */
     public List<Concert> getConcertList() {
@@ -361,7 +366,7 @@ public class Artist {
     }
 
     /**
-     * 
+     *
      * @param concertList gives the artist a new list of concerts
      */
     public void setConcertList(List<Concert> concertList) {
@@ -369,19 +374,21 @@ public class Artist {
     }
 
     /**
-     * 
-     * @return the date when the artist logged for the first time (created its information)
+     *
+     * @return the date when the artist logged for the first time (created its
+     * information)
      */
     public LocalDateTime getSessionCreated() {
         return sessionCreated;
     }
 
     /**
-     * 
-     * @param sessionCreated the new date when the artist logged for the first time (created its information)
-     * It will be no necessary to set a new sessionCreated when there is already one 
+     *
+     * @param sessionCreated the new date when the artist logged for the first
+     * time (created its information) It will be no necessary to set a new
+     * sessionCreated when there is already one
      */
     public void setSessionCreated(LocalDateTime sessionCreated) {
         this.sessionCreated = sessionCreated;
-    }    
+    }
 }

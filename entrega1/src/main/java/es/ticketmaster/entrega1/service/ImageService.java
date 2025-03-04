@@ -10,18 +10,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 /* This service controlls all the modifications and creations of photos to the correct format */
-
 @Component
 public class ImageService {
+
     /**
      * This method will create the Blob from a MultipartFile parameter
+     *
      * @param photo the MultipartFile that is going to generate the Blob
      * @return the Blob object (or null if there is an error)
      * @throws IOException if an error occurs during file handling
      */
-    public Blob getBlobOf(MultipartFile photo) throws IOException{
-        if(!photo.isEmpty()){
-            return BlobProxy.generateProxy(photo.getInputStream(),photo.getSize());
+    public Blob getBlobOf(MultipartFile photo) throws IOException {
+        if (!photo.isEmpty()) {
+            return BlobProxy.generateProxy(photo.getInputStream(), photo.getSize());
         } else {
             return null;
         }
@@ -29,10 +30,11 @@ public class ImageService {
 
     /**
      * This method will create the Blob from a URL (String type)
+     *
      * @param url the string containing the route of the image
      * @return the Blob object (or null if there is an error handling the link)
      */
-    public Blob getBlobOf(String url){
+    public Blob getBlobOf(String url) {
         try {
             // create a file with the url
             File imageFile = new File(url);

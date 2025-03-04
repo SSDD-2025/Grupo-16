@@ -96,9 +96,9 @@ my profile and my concerts (where tickets are)-->
             <input type="number" value="{{user.id}}" name="id" hidden>
 
             <div class="general-container column-container">
-                
+
                 <button type="submit" class="central-button red-style">Delete profile</button>
-                
+
             </div>
         </form>
 
@@ -106,29 +106,29 @@ my profile and my concerts (where tickets are)-->
         {{/showPersonalInfo}}
 
         {{#showMyArtists}} <!--If the "My Artists" link is clicked-->
-            <div class="title-container"> <!--Section title with style-->
-                <div class="title">
-                    Followed Artists
-                </div>
+        <div class="title-container"> <!--Section title with style-->
+            <div class="title">
+                Followed Artists
             </div>
+        </div>
 
-            <div class="general-container">
-                {{>display-artists}} <!--Display followed artists-->
-            </div>
+        <div class="general-container">
+            {{>display-artists}} <!--Display followed artists-->
+        </div>
 
-            <!--More categories of information about artists to be added-->
+        <!--More categories of information about artists to be added-->
         {{/showMyArtists}}
 
         {{#showMyConcerts}} <!--If the "My Concerts" link is clicked-->
-            <div class="title-container"> <!--Section title with style-->
-                <div class="title">
-                    My Concerts
-                </div>
+        <div class="title-container"> <!--Section title with style-->
+            <div class="title">
+                My Concerts
             </div>
+        </div>
 
-            <div class="general-container">
-                {{>display-tickets}} <!--Display bought tickets-->
-            </div>
+        <div class="general-container">
+            {{>display-tickets}} <!--Display bought tickets-->
+        </div>
         {{/showMyConcerts}}
 
     </main>

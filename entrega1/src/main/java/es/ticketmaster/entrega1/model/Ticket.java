@@ -9,25 +9,29 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ticket {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="userId")  /* In the database, the column that will save the user, will be called userId */
+    @JoinColumn(name = "userId")
+    /* In the database, the column that will save the user, will be called userId */
     private UserEntity ticketUser;
     @ManyToOne
-    @JoinColumn(name= "concertId") /* In the database, the column that will save the concert, will be called concertId */
+    @JoinColumn(name = "concertId")
+    /* In the database, the column that will save the concert, will be called concertId */
     private Concert concert;
     private String zone;
     private float price;
 
-    protected Ticket () {
+    protected Ticket() {
         /* Constructor used by the JPA interface */
     }
 
     /**
      * Constructor to initialize the ticket with its zone and price.
+     *
      * @param zone of the ticket (section).
      * @param price is how much its cost.
      */
@@ -40,6 +44,7 @@ public class Ticket {
 
     /**
      * Constructor that will initialize the ticket with all of its attributes.
+     *
      * @param zone of the ticket (section).
      * @param price is how much its cost.
      * @param user associated to the ticket.

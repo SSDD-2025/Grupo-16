@@ -14,6 +14,7 @@ import es.ticketmaster.entrega1.repository.UserRepository;
 
 @Service
 public class TicketService {
+
     @Autowired
     private TicketRepository ticketRepository;
     @Autowired
@@ -27,6 +28,7 @@ public class TicketService {
 
     /**
      * Obtain the ticket form the database.
+     *
      * @param id is the ticket identification number.
      * @return the ticket.
      */
@@ -35,7 +37,9 @@ public class TicketService {
     }
 
     /**
-     * This is a private method that creates a new ticket and save it in the database.
+     * This is a private method that creates a new ticket and save it in the
+     * database.
+     *
      * @param zone of the ticket that has been purchased.
      * @param price of the ticket.
      * @param concert that corresponds to a certain ticket
@@ -48,11 +52,13 @@ public class TicketService {
     }
 
     /**
-     * This method will create a ticket (by calling the createTicket method). Once created will do the following things:
-     * Adding that new ticket to the user ticket list.
-     * Once the ticket has being associated to a user, it will be saved in the ticket`s repository.
-     * Finally, the same thing will be happening with the user,
-     * once all the purchased tickets has beeing included to his list, the user will be saved in its repository. 
+     * This method will create a ticket (by calling the createTicket method).
+     * Once created will do the following things: Adding that new ticket to the
+     * user ticket list. Once the ticket has being associated to a user, it will
+     * be saved in the ticket`s repository. Finally, the same thing will be
+     * happening with the user, once all the purchased tickets has beeing
+     * included to his list, the user will be saved in its repository.
+     *
      * @param type is the type of the ticket.
      * @param number is the ammount of tickets de user has purchased.
      * @param concertId is the identification number for a concert.
@@ -61,33 +67,46 @@ public class TicketService {
         List<Ticket> userTickets = this.userService.getActiveUser().getTicketsList();
         Concert concert = this.concertRepository.findConcertById(concertId);
         for (int i = 0; i < number; i++) {
-            Ticket newTicket = this.createTicket(type, concert.getPrice(), concert); /* Creation of ticket. */
-            userTickets.add(newTicket); /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(this.userService.getActiveUser()); /* Associating the ticket to the user. */
-            this.ticketRepository.save(newTicket); /* Once it has been asssociated, the ticket is saved in its repository. */
+            Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
+            /* Creation of ticket. */
+            userTickets.add(newTicket);
+            /* Adding the ticket to the user ticket list. */
+            newTicket.setUser(this.userService.getActiveUser());
+            /* Associating the ticket to the user. */
+            this.ticketRepository.save(newTicket);
+            /* Once it has been asssociated, the ticket is saved in its repository. */
         }
-        this.userService.getActiveUser().setTicketList(userTickets); /* Updating the ticket list of the user. */
-        this.userRepository.save(this.userService.getActiveUser()); /* Saving the user in its repository. */
+        this.userService.getActiveUser().setTicketList(userTickets);
+        /* Updating the ticket list of the user. */
+        this.userRepository.save(this.userService.getActiveUser());
+        /* Saving the user in its repository. */
     }
 
     /**
-     * Handles the ticket deletion from a user: the Ticket object is destroyed and the number
-     * of tickets available in the concert is restored back so that another user can buy
-     * the ticket
+     * Handles the ticket deletion from a user: the Ticket object is destroyed
+     * and the number of tickets available in the concert is restored back so
+     * that another user can buy the ticket
+     *
      * @param id ticket id
      * @return true if the transaction occured correctly, false in other case
      */
-    public boolean deleteTicketWithId(long id){
-        Optional<Ticket> ticket = this.ticketRepository.findById(id); /* We take the ticket */
-        if (!ticket.isPresent()) { /* If an ticket with such ID does not exist */
+    public boolean deleteTicketWithId(long id) {
+        Optional<Ticket> ticket = this.ticketRepository.findById(id);
+        /* We take the ticket */
+        if (!ticket.isPresent()) {
+            /* If an ticket with such ID does not exist */
             return false;
-        } 
-        else {
-            if(!this.concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())){ /* We try to restore the ticket */
-                return false; /*The change was not possible*/
-            } /* In the case the change is made, we make the deletion */
-            this.ticketRepository.deleteById(id); /* We delete the ticket with that ID */
-            return !this.ticketRepository.existsById(id); /* We return true if the ticket has been correctly deleted */
+        } else {
+            if (!this.concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())) {
+                /* We try to restore the ticket */
+                return false;
+                /*The change was not possible*/
+            }
+            /* In the case the change is made, we make the deletion */
+            this.ticketRepository.deleteById(id);
+            /* We delete the ticket with that ID */
+            return !this.ticketRepository.existsById(id);
+            /* We return true if the ticket has been correctly deleted */
         }
     }
 }

@@ -1,27 +1,33 @@
-*{ /*General settings to make easier the design*/
+* {
+    /*General settings to make easier the design*/
     margin: 0;
     padding: 0;
 }
 
-.selling-info-container{ /*Subheader generated right below the main one that contain concert specific information*/
-    width: 100%; /*Occupies whole width*/
+.selling-info-container {
+    /*Subheader generated right below the main one that contain concert specific information*/
+    width: 100%;
+    /*Occupies whole width*/
     height: 80px;
     background-color: rgb(33, 33, 33);
-    display: flex; 
+    display: flex;
     align-items: center;
     margin: 0 0 10vh 0;
 }
 
-.info-container{ /*Subdivisions inside the subheader, they display specific dynamic information*/
+.info-container {
+    /*Subdivisions inside the subheader, they display specific dynamic information*/
     height: 100%;
     width: 40%;
     margin: 0 auto;
     display: flex;
-    align-items: center; /*Everything is placed in the center*/
+    align-items: center;
+    /*Everything is placed in the center*/
     vertical-align: middle;
 }
 
-.info-container p{ /*Style of the text inside the subdivisions of the subheader*/
+.info-container p {
+    /*Style of the text inside the subdivisions of the subheader*/
     margin: 1vh auto;
     font-weight: 700;
     color: white;
@@ -30,11 +36,14 @@
     vertical-align: center;
 }
 
-#ticket-explaining, #concert-title{ /*Style of the text inside the subdivisions of the subheader*/
+#ticket-explaining,
+#concert-title {
+    /*Style of the text inside the subdivisions of the subheader*/
     font-size: 150%;
 }
 
-.map-container{ /*Spaces located in the main window, its objective is to contain the selection logic*/
+.map-container {
+    /*Spaces located in the main window, its objective is to contain the selection logic*/
     height: 200px;
     aspect-ratio: 1.5/1;
     background-color: rgb(199, 199, 199);
@@ -43,7 +52,8 @@
     border-radius: 5px;
 }
 
-.map-container form{ /*Place where a form that gets the number and type of selected tickets is placed*/
+.map-container form {
+    /*Place where a form that gets the number and type of selected tickets is placed*/
     width: 90%;
     height: 80%;
     margin: 2vh auto;
@@ -53,26 +63,30 @@
     align-items: center;
 }
 
-.ticket-selection{ /*Portion of space where the actual functional elements are placed*/
+.ticket-selection {
+    /*Portion of space where the actual functional elements are placed*/
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.title-of-box-container{ /*Portion of space where the section title should be placed*/
+.title-of-box-container {
+    /*Portion of space where the section title should be placed*/
     width: 90%;
     margin: 2vh auto;
     display: flex;
     text-align: center;
 }
 
-.title-of-box-container p{ /*Test style of the section title*/
+.title-of-box-container p {
+    /*Test style of the section title*/
     font-weight: 600;
     font-size: 130%;
     margin: 0 auto;
 }
 
-.zone-selector{ /*Actual zone selector style*/
+.zone-selector {
+    /*Actual zone selector style*/
     background-color: rgb(184, 184, 184);
     width: 70%;
     margin: 1vh auto;
@@ -80,14 +94,16 @@
     cursor: pointer;
 }
 
-#number-selector{ /*Number selector style*/
+#number-selector {
+    /*Number selector style*/
     width: 20%;
     margin: 1vh auto;
     text-align: center;
     cursor: pointer;
 }
 
-#submit-selection{ /*submit button selector*/
+#submit-selection {
+    /*submit button selector*/
     background-color: blue;
     color: white;
     font-weight: 600;
@@ -98,10 +114,12 @@
     cursor: pointer;
 }
 
-#submit-selection:hover{ /*Effects over the submit button*/
+#submit-selection:hover {
+    /*Effects over the submit button*/
     background-color: rgb(61, 61, 254);
 }
 
-#ticket-number-label{ /*Centering the number inside the number selector*/
+#ticket-number-label {
+    /*Centering the number inside the number selector*/
     margin: 0 auto;
 }
