@@ -61,9 +61,7 @@
                 <!-- Show the music video kept at the database -->
                 <h2 class="spaced">... or go watch some music videos</h2>
                 <div class="center">
-                    <!-- mv-link is the music video kept in the database -->
-                    <!-- it is program to be muted and only starts when the user clicks on it-->
-                    <video src="{{artist.videoLink}}" controls muted></video>
+                    <iframe id="video-display" width="560" height="315" src="{{artist.videoLink}}?mute=1&autoplay=0" title="Music Video" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <br>
             {{/artist.hasPage}}
