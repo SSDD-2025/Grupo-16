@@ -1254,4 +1254,4 @@ Below are described the most significant methods in this regard:
 >We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
 
 ## License
-This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENCE).
+This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
