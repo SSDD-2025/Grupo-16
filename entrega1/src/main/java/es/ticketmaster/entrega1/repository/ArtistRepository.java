@@ -19,6 +19,8 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     public Optional<Artist> findFirstByName(String name);
 
+    public Optional<Artist> findFirstByNameIgnoreCase(String name);
+
     /**
      * Makes a list of the 10 last artist to log in
      *

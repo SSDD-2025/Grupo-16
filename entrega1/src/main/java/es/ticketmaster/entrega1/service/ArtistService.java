@@ -114,6 +114,15 @@ public class ArtistService {
     }
 
     /**
+     * Returns the artist (if found) with an specific name
+     * @param name name of the artist to be found
+     * @return said artist on a Optional object (None if its not found)
+     */
+    public Optional<Artist> getByNameIgnoreCase(String name){
+        return artistRepository.findFirstByNameIgnoreCase(name);
+    }
+
+    /**
      * * Service method that modifies an existing artist with new attributes
      *
      * @param artist artist containing the new attributes that have been modified
@@ -186,6 +195,15 @@ public class ArtistService {
     public boolean checkIfExistsByName(String name){
 
         return artistRepository.findFirstByName(name).isPresent();
+    }
+
+    /**
+     * Method that checks if there is an artist on the database with a name (ignoring cases)
+     * @param name the name to search
+     * @return wheter it exists or not
+     */
+    public boolean artistExists(String name){
+        return artistRepository.findFirstByNameIgnoreCase(name).isPresent();
     }
 
     /**

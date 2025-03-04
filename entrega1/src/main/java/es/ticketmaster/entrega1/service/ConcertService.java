@@ -62,7 +62,7 @@ public class ConcertService {
             }
         }
         //whether the user is not logged or the concertListByCountry is empty, it will return a list of concerts order by artist's fame
-        return concertRepository.findAll(); //provisional until the query is fixed
+        return concertRepository.findTop7ByOrderByDateAsc(); //provisional until the query is fixed
     }
 
     /**

@@ -739,6 +739,12 @@ I created the queries that are used to display the artist onto the main page, wh
       <td>It returns the list of the top 10 artist with most recent session created date</td>
       <td>None</td>
     </tr>
+    <tr>
+      <td>findFirstByNameIgnoreCase</td>
+      <td>Optional&lt;Artist&gt;</td>
+      <td>It returns the artist with the name passed as a parameter (ignoring cases) if it exists</td>
+      <td>String name</td>
+    </tr>
   </tbody>
 </table>
 
@@ -767,9 +773,15 @@ The following, are the methods available in this `@Service`:
       <td>None</td>
     </tr>
     <tr>
-      <td>getByName</td>
-      <td>List&lt;Artist&gt;</td>
-      <td>It returns the first artist found with the name passed as a parameter(should be the only one)</td>
+      <td>getByNameIgnoreCase</td>
+      <td>Optional&lt;Artist&gt;</td>
+      <td>It returns the first artist found with the name passed as a parameter(should be the only one) ignoring cases</td>
+      <td>String name</td>
+    </tr>
+    <tr>
+      <td>artistExists</td>
+      <td>boolean</td>
+      <td>It returns if the artist whose name is passed as a parameter exists in the database ignoring cases</td>
       <td>String name</td>
     </tr>
   </tbody>

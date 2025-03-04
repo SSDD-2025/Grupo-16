@@ -117,7 +117,12 @@ public class ConcertController {
         @RequestParam(required = false) MultipartFile poster, @RequestParam(required = false) Long id, 
         @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws IOException {
         if (artistId == -1){ //the concert is from a new artist not registered yet
-            artistId = artistService.createNewArtist(newArtistName);
+            // Check if the name the admin entered already exists
+            if (artistService.artistExists(newArtistName)){
+                artistId = artistService.getByNameIgnoreCase(newArtistName).get().getId();
+            } else {
+                artistId = artistService.createNewArtist(newArtistName);
+            }
         } //else {} the concert is from someone already on the datatbase
 
         if (id != null){ //modify concert

@@ -36,6 +36,12 @@ public interface ConcertRepository extends JpaRepository<Concert, Long>{
     public List<Concert> findByPlace(String place);
 
     /**
+     * Returns the 7 earliest concerts to display on the main page (when anon user is navigating the web)
+     * @return a list containing said concerts
+     */
+    public List<Concert> findTop7ByOrderByDateAsc();
+
+    /**
      * Searches the concerts which name matches (contains) the introduced parameter
      * @param search searching parameter
      * @return List of Concerts that match
