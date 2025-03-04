@@ -117,7 +117,7 @@ Next, all the entities that are part of the application will be shown, as well a
     </tr>
     <tr>
       <td>Ticket</td>
-      <td>1..n</td>
+      <td>1..N</td>
       <td>@OneToMany(mappedBy="concert", cascade=CascadeType.ALL, orphanRemoval=true)</td>
     </tr>
   </tbody>
@@ -155,7 +155,10 @@ In addition to the actions that an anonymous user can take, registered users can
 
 Admin users can do all this and also create, modify and delete concerts and artists. In their profile photo they have two options: "Concert Manager" and "Artist Manager", where each link takes them to the corresponding page.
 
-Regarding the entities that the user owns, anonymous users have nothing to own, but each registered user and administrator will own a list of tickets, which is the list of tickets that the user has purchased. In the future, these types of users will also have an artist list, which contains the user's favorite artists.
+Regarding the entities that the user owns, anonymous users have nothing to own, but each registered user and administrator will own a list of tickets, which is the list of tickets that the user has purchased. 
+
+> ![NOTE]
+> In the future, these types of users will also have an artist list, which contains the user's favorite artists.
 
 ## Image Management
 The user entity has only one image associated with it, this being its profile picture.
@@ -257,6 +260,9 @@ To coordinate the team, we have used the Trello application, which allows us to 
 
 The following link leads to our team dashboard:
 [Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
+
+>[!IMPORTANT]
+> Merge commits are not being considered to calculate the participation of each member on a file. This is because merge commits are commits that GitHub does when there has been an new upload while someone was working on the repository. So, looking on the merge commit it will appear that a member has touched a file, when that is not the case (also the commit will show the same code the other member uploaded on a earlier commit).
 
 ## Alfonso Rodríguez Gutt
 
@@ -585,6 +591,9 @@ Although this file is not included in the 5 files in which I participated the mo
 4. [Administrator Concert Controller HTML documents.](https://github.com/SSDD-2025/Grupo-16/commit/906aa3f27c96235a4ea06122e4b4b75453e67501)
 5. [Creation of ActiveUser and its implementation so the login sets the new information available.](https://github.com/SSDD-2025/Grupo-16/commit/f20226ff9ed4312e59d809437f619d71a2d47a84)
 
+> [!IMPORTANT]
+> Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.
+
 ### Files with the most participation
 1. ConcertController.java
 2. ConcertService.java
@@ -597,7 +606,7 @@ In addition to these files, I worked on other files with a lower workload, or th
 2. Artist.java
 3. artist.html
 4. MainController.java
-5. main.html
+5. main.html + display-concerts.html
 6. ImageService.java
 7. ImageController.java
 8. ConcertRepository.java
@@ -605,6 +614,8 @@ In addition to these files, I worked on other files with a lower workload, or th
 10. concert-workbench.html
 
 Once the files in which I was a participant have been mentioned, I will explain in detail what was done in the most notable files:
+> ![NOTE]
+> The following methods are the ones I created on each file, not every method that is on the class. Also, they are not all the methods I created, only the ones more important to the operation of the web page.
 
 ### ConcertController
 Althought this class has not been created by me, I have implemented a lot of its method because I was in charge of the administrator concert control. This includes the mapping for adding, modifing and deleting concerts as the ones to show up the form to fill out the information or the search page to select the action the administrator wants to do.
@@ -829,6 +840,9 @@ __Methods__: the methods for this class are
 </table>
 
 The attribute __userId__ also has its getter and setter defined.
+
+> ![NOTE]
+> Other methods or classes less important that I have been a part of are the implementation of the querys that update the database adding/ substracting available tickets (coauthor with my colleague Alfonso Rodríguez) and the creation and implementation of the InitService, where I added 3 initial artists and 10 initial concerts to the database.
 
 ## David Rísquez Gómez
 
