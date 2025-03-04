@@ -31,6 +31,14 @@
   </tbody>
 </table>
 
+## Table Of Content
+- [Execution Instructions](#execution-instructions)
+- [Entities Information](#entities-information)
+- [User Privileges](#user-privileges)
+- [Image Management](#image-management)
+- [Application Functionality Overview](#application-functionality-overview)
+- [Team Members Participation](#team-members-participation)
+
 ## Execution Instructions
 1. Download the repository and unzip it.
 2. Run the application in your preferred IDE. We recommend that you use `Visual Studio Code`.
@@ -177,51 +185,51 @@ The objective of this webpage is to purchase concert tickets, like some real web
 ### ScreenShots
 - Main Page
 ![Main Page](Diagrams/Screenshots/main_page.png)
-Description: this is the main page of the web. If the user is logged it will show the concerts on his continent so he can access to them more easily. On the other case, it will show all the concerts kept in the database (this will change in later versions of the web). In these two cases, then its showed a display of the new artist added (only if it has a page to show). It also has the header which lets you to log in or register (if its an anonymous user) or to visit your profile, see your list of favourite artist and see the tickets that you have purchase. This header also has a search bar that lets you to search whatever concert or artist you want. It also contains the footee with the main information of the page (as a company).
+**Description:** this is the main page of the web. If the user is logged it will show the concerts on his continent so he can access to them more easily. On the other case, it will show all the concerts kept in the database (this will change in later versions of the web). In these two cases, then its showed a display of the new artist added (only if it has a page to show). It also has the header which lets you to log in or register (if its an anonymous user) or to visit your profile, see your list of favourite artist and see the tickets that you have purchase. This header also has a search bar that lets you to search whatever concert or artist you want. It also contains the footee with the main information of the page (as a company).
 
 - Search Page
 ![Search Page](Diagrams/Screenshots/search_page.png)
-Description: this is the page that shows the results of the search done in the header searchbar. First, it will show the artists whose names contains the string searched. Then, it will display the concerts that are by said artists and the concerts whose names contains that string. If the user is logged, prior to this display it will show the same (concerts by the artists and concerts with the string) that take place at the user's continent. This page also has the header as the main page.
+**Description:** this is the page that shows the results of the search done in the header searchbar. First, it will show the artists whose names contains the string searched. Then, it will display the concerts that are by said artists and the concerts whose names contains that string. If the user is logged, prior to this display it will show the same (concerts by the artists and concerts with the string) that take place at the user's continent. This page also has the header as the main page.
 
 - Artist Page
 ![Search Page](Diagrams/Screenshots/artist_page.png)
-Description: this page will show the artist information saved at the database. If there is no artist or the artist does not have a page, it will show a message telling so. This page shows the artist's photo next to the main information paragraph. Below this, it will show the extended information paragraph with additional information of the artist. Then, it will show the artist's two albums saved on the database as a photo with their respective Spotify and Apple Music's links inside to photos of the logos of said apps. At last, it will show a display of the concerts that this artist will be playing in every continent, with the possibility to go to the select tickets page for that concert. This page also has the header and the footer as the main page.
+**Description:** this page will show the artist information saved at the database. If there is no artist or the artist does not have a page, it will show a message telling so. This page shows the artist's photo next to the main information paragraph. Below this, it will show the extended information paragraph with additional information of the artist. Then, it will show the artist's two albums saved on the database as a photo with their respective Spotify and Apple Music's links inside to photos of the logos of said apps. At last, it will show a display of the concerts that this artist will be playing in every continent, with the possibility to go to the select tickets page for that concert. This page also has the header and the footer as the main page.
 
 - Select Tickets Page
 ![Select Tickets Page](Diagrams/Screenshots/ticket_selection.png)
-Description: this page will only be accessible if the user is logged. It will show a predetermined map of the arena where the concert is going to take place (is the same for every concert) and next to it will be a form so the user can choose the type of ticket he wants and the number of them. It also shows the price of the tickets. This page also has the header as the main page.
+**Description:** this page will only be accessible if the user is logged. It will show a predetermined map of the arena where the concert is going to take place (is the same for every concert) and next to it will be a form so the user can choose the type of ticket he wants and the number of them. It also shows the price of the tickets. This page also has the header as the main page.
 
 - Purchase Page
 ![Purchase Page](Diagrams/Screenshots/purchase_page.png)
-Description: on this page the user will have to enter his back data so he can purchase the tickets. First, the page shows the information of the tickets that the user is going to buy, giving him the option to cancel the purchase (which takes him back to a page thats shows a message telling the cancelation was succesfull). Below that is the form I named earlier, where the user has to enter its bank account data to purchase the tickets.
+**Description:** on this page the user will have to enter his back data so he can purchase the tickets. First, the page shows the information of the tickets that the user is going to buy, giving him the option to cancel the purchase (which takes him back to a page thats shows a message telling the cancelation was succesfull). Below that is the form I named earlier, where the user has to enter its bank account data to purchase the tickets.
 
 - Profile Page
 ![Profile Page](Diagrams/Screenshots/profile_page.png)
-Description: this page will show the main information of the user, giving him the option to change it. It will also let him to add/ change a profile picture. This page also has the header as the main page.
+**Description:** this page will show the main information of the user, giving him the option to change it. It will also let him to add/ change a profile picture. This page also has the header as the main page.
 
 - My Concerts' Page
 ![My Concerts Page](/Diagrams/Screenshots/my_concerts.png)
-Description: this page will show the tickets the user has purchased. By hovering over each one, the ticket turns over and shows the ticket details as well as the name of the user who purchased it. This page also has the header as the main page.
+**Description:** this page will show the tickets the user has purchased. By hovering over each one, the ticket turns over and shows the ticket details as well as the name of the user who purchased it. This page also has the header as the main page.
 
 - Administrator Pages
 ![Administrator Pages](Diagrams/Screenshots/admin_pages.png)
-Description: these pages will show a button to add a concert or artist and all the artists/ concerts saved at the database (so the administrator can select them in order to modify them). It also includes a searchbar that lets the administrator to shorten this list to find the concert/ artist he wants to modify in an easier way.
+**Description:** these pages will show a button to add a concert or artist and all the artists/ concerts saved at the database (so the administrator can select them in order to modify them). It also includes a searchbar that lets the administrator to shorten this list to find the concert/ artist he wants to modify in an easier way.
 
 - Add/ Modify Concerts (Administrator)
 ![Concert Workbench](Diagrams/Screenshots/concert_modify.png)
-Description: this page will display a form that the administrator will fill out with the information of a brand new concert or will display a form with an existing concert data so the administrator can change it. There are some differences with each display: on the brand new concert form, the administrator should enter the number of tickets available for each type and its general price; on the modify concert form, it will show the information of how many tickets are left of each type and its type, letting the administrator only to indicate how many tickets of each type he wants to add. Also, in the modify concert form is a button to delete the concert.
+**Description:** this page will display a form that the administrator will fill out with the information of a brand new concert or will display a form with an existing concert data so the administrator can change it. There are some differences with each display: on the brand new concert form, the administrator should enter the number of tickets available for each type and its general price; on the modify concert form, it will show the information of how many tickets are left of each type and its type, letting the administrator only to indicate how many tickets of each type he wants to add. Also, in the modify concert form is a button to delete the concert.
 
 - Add/ Modify Artists (Administrator)
 ![Artist Workbench](Diagrams/Screenshots/artist_modify.png)
-Description: this page is similar to the concert one, with the peculiarity that there is a preview of the artist miniature that autocompletes at the same time that the administrator is entering the data.
+**Description:** this page is similar to the concert one, with the peculiarity that there is a preview of the artist miniature that autocompletes at the same time that the administrator is entering the data.
 
 - Log In/ Register Pages
 ![Log In and Register](Diagrams/Screenshots/login_register.png)
-Description: these pages display a form so the user can log in or register. Each page lets the user to go to the other page if he wants to do the other activity. In the register form, the user has to enter his username, email, password and country but to log in, he only has to enter its username and his password.
+**Description:** these pages display a form so the user can log in or register. Each page lets the user to go to the other page if he wants to do the other activity. In the register form, the user has to enter his username, email, password and country but to log in, he only has to enter its username and his password.
 
 - Message Pages
 ![Message Pages](Diagrams/Screenshots/message_collection.png)
-Description: these pages are destined to show a message telling the user some information. These pages include the error page (static) that appears when an error has ocurred, the pages telling the administrator that the concert has been added/ modified/ deleted succesfully and the welcome pages when the user logs in or registers.
+**Description:** these pages are destined to show a message telling the user some information. These pages include the error page (static) that appears when an error has ocurred, the pages telling the administrator that the concert has been added/ modified/ deleted succesfully and the welcome pages when the user logs in or registers.
 
 ### Navigation Diagram
 * Blue: all users
@@ -1241,4 +1249,5 @@ Below are described the most significant methods in this regard:
   </tbody>
 </table>
 
-__Important note:__ We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
+>[!IMPORTANT]
+>We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
