@@ -161,7 +161,7 @@ Regarding the entities that the user owns, anonymous users have nothing to own, 
 ## Image Management
 The user entity has only one image associated with it, this being its profile picture.
 
-The artist entity has three images associated with it, these being its photo and two album covers (of the albums that the administrator fill out information for in the corresponding form). This entity also has a MP4 video associated as a Blob, which contains the music video that is displayed at the artist page.
+The artist entity has three images associated with it, these being its photo and two album covers (of the albums that the administrator fill out information for in the corresponding form). 
 
 The concert entity has only one image associated with it, this being its promotional poster.
 
