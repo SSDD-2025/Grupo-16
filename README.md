@@ -821,3 +821,379 @@ __Methods__: the methods for this class are
 The attribute __userId__ also has its getter and setter defined.
 
 ## David Rísquez Gómez
+
+### Commit List
+1. [Artists administrator panel and workbench.](https://github.com/SSDD-2025/Grupo-16/commit/e071891ad9de1cd7b132d19f30424b6c32c49015)
+2. [Profile display and modification enabled, with controllers and html structure.](https://github.com/SSDD-2025/Grupo-16/commit/7f2d5e957fdb856cbf015baefcd3528ae4614d0e)
+3. [Added artist deletion and corrected encapsulation in some methods.](https://github.com/SSDD-2025/Grupo-16/commit/0e65018d35ea93477e0c4e18999a70aa2ac592cc)
+4. [Restoration of the header to make it responsive, structurally better and more aesthetically pleasing.](https://github.com/SSDD-2025/Grupo-16/commit/ef0c41f3e6c78ee2b2ef1c36ca683605073f19a7)
+5. [Added HTML structure, style and linked controllers for the concert ticket-selling page.](https://github.com/SSDD-2025/Grupo-16/commit/45c84af1aaf779c2f814fbccf9476996cba5efff)
+
+### Files with the most participation:
+1. ArtistController.java
+2. ArtistService.java
+3. ConcertService.java
+4. UserController.java
+5. UserService.java
+
+In addition to these files, I worked on other files where my work has been notable, but which intrinsic importance is not as important or determinant as the previous ones. These files are:
+1. header.html
+2. Concert.java
+3. search-page.html
+4. artist-workbench.html
+5. TicketController.java
+6. concert.html
+7. MainController.java
+8. my-profile.html
+9. ArtistRepository.java
+10. common-styles.css
+11. ConcertRepository.java
+12. ticket-selling.html
+13. display-tickets.html
+
+Furthermore, the implementation, style and structure within the administrator branch responsible for managing artists has served as a reference and model for the development of similar tasks. Moreover, the aesthetics, methodology, and concepts such as the 'workbench for creation, modification, and deletion of entities' are my own design and initiative.
+
+Additionally, the search structures (search bars) on the pages within the header and the admin search sections have been developed by me.
+
+After mentioning the files in which I contributed, I will provide a detailed explanation of the work done in the most notable files:
+
+### ArtistController
+Even though the creation of this class was not authored by me, my work and contributions were considerable significance. I have developed nearly the entire class, as I was responsible for the Artist's administrator branch of work. Actions such as `Artist` modifying, adding or deleting artists are the primary functions carried out in this controller. Specifically, the URL mappings for the aforementioned actions are managed by methods contained within this class, which were created by me.
+
+Below is a detailed description of the methods I developed inside this class:
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>artistsAdminPage</td>
+      <td>admin-artists</td>
+      <td>@GetMapping</td>
+      <td>/admin/artist</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@RequestParam(required = false) String search</li>
+        </ul>
+      </td>
+      <td>It is shown a button where the administrator can add a new artist and a section that, complemented with a search bar, can be used in order to search for existing artists so that is easy for the administrator to find an existing artist for modifying purposes.</td>
+    </tr>
+    <tr>
+      <td>prepareArtistWorkbench</td>
+      <td>artist-workbench</td>
+      <td>@GetMapping</td>
+      <td>/admin/artist/workbench</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+        </ul>
+      </td>
+      <td>It prepares the artist workbench in order to be used by administrators to add a new artist (or modify a previous introduction that was not correct - by RedirectAttributes)</td>
+    </tr>
+    <tr>
+      <td>modifyExistingArtist</td>
+      <td>artist-workbench <br> error</td>
+      <td>@PostMapping</td>
+      <td>/admin/artist/{id}/modify</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@PathVariable long id</li>
+        </ul>
+      </td>
+      <td>It takes the information from an existing artist and projects the date into the artist-workbench html so that the user has an easy way to see all the information displayed and, if necessary, modify it. Also, it checks if it exists and returning error page in case it does not.</td>
+    </tr>
+    <tr>
+      <td>registerArtist</td>
+      <td>redirect:/admin/artist/workbench <br> redirect:/admin/artist <br> redirect:/error</td>
+      <td>@PostMapping</td>
+      <td>/register-new-artist</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@ModelAttribute Artist artist</li>
+          <li>@RequestParam(required = false) MultipartFile mainPhoto</li>
+          <li>@RequestParam(required = false) MultipartFile bestPhoto</li>
+          <li>@RequestParam(required = false) MultipartFile latestPhoto</li>
+          <li>@RequestParam(required = false) Long id</li>
+          <li>RedirectAttributes redirectAttributes</li>
+        </ul>
+      </td>
+      <td>It takes the information from the artist-workbench form (in case of new artist registration or previous artist modification) and handles the saving of the artist in the database. Afterwards, depending on the result of the saving, complete error, partial error or administration page redirections occur.</td>
+    </tr>
+    <tr>
+      <td>deleteExistingArtist</td>
+      <td>redirect:/admin/artist <br> error</td>
+      <td>@PostMapping</td>
+      <td>/admin/artist/{id}/delete</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@PathVariable long id</li>
+        </ul>
+      </td>
+      <td>It attempts the deletion of an artist, made from the artist-workbench and guided by the artist id. If the transaction happens correctly, the administrator is redirected to /admin/artist. Otherwise, the error html is displayed.</td>
+    </tr>
+  </tbody>
+</table>
+
+### ArtistService
+Continuing with my work on the development of the artist administration branch, my involvement in the `ArtistService` is crucial. This is because it is the service that supports the `ArtistController`, enabling functionalities such as searching, adding or removing artists, and performing real-time verifications to maintain a smooth flow of information between the database and the controller.
+
+Below is a detailed description of the methods I developed inside this class:
+
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getArtist</td>
+      <td>Artist</td>
+      <td>This method searhces for an artist with an specific id. For that, a query is launched in the repository. Afterwards, it is checked if the query was successful, returning null in the negative case.</td>
+      <td>
+        <ul>
+          <li>long id</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>getSearchBy</td>
+      <td>List&lt;Artist&gt;</td>
+      <td>This method is used when general searching is made. Its use is to find any artist whose name matches with the input search String. For that to happen, the artistRepository is used.</td>
+      <td>
+        <ul>
+          <li>String search</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>registerNewArtist</td>
+      <td>void</td>
+      <td>Method that handles the artist registration. It makes use of the ImageService to set every image for the artist and stablishes the Artist's iternal values, such as hasPage and sessionCreated. Finally, it uses the ArtistRepository to save the artist.</td>
+      <td>
+        <ul>
+          <li>Artist artist</li>
+          <li>MultipartFile mainPhoto</li>
+          <li>MultipartFile bestPhoto</li>
+          <li>MultipartFile latestPhoto</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>getEveryArtist</td>
+      <td>List&lt;Artist&gt;</td>
+      <td>Method that searches for each and every artist existing in the database.</td>
+      <td>
+        No parameters
+      </td>
+    </tr>
+    <tr>
+      <td>modifyArtistWithId</td>
+      <td>boolean</td>
+      <td>Method that handles the artist modification. It checks which are the new attributes to be changed and takes the remaining ones from the instance of the artist in the database. After changing the new attributes and rebuilding the artist into it's new shape, it is saved and true is returned. In case no artist with the specified id existed or any error occured, it is returned false.</td>
+      <td>
+        <ul>
+          <li>Artist artist</li>
+          <li>long id</li>
+          <li>MultipartFile mainPhoto</li>
+          <li>MultipartFile bestPhoto</li>
+          <li>MultipartFile latestPhoto</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>deleteArtistWithId</td>
+      <td>boolean</td>
+      <td>Method that provided with an id, handles the deletion of an artist by id. For that, the ArtistRepository is used and it is checked if the deletion has been successful or not. Trying to delete a non-existant artist is also considered an unsuccessful situation.</td>
+      <td>
+        <ul>
+          <li>long id</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>checkIfExistsByName</td>
+      <td>boolean</td>
+      <td>Method that checks if an specific artist name is already added to the database so that unique names are mantained. For that, ArtistRepository is used.</td>
+      <td>
+        <ul>
+          <li>String name</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### ConcertService
+In line with one of my main tasks as a developer of the search engines, page, and structure, I contributed to the `ConcertController` by creating useful methods to perform searches based on various criteria. Additionally, in the task of ticket removal by a user, methods were developed to return tickets to their concerts so that they can be sold to others.
+
+Below are described the most significant methods in this regard:
+
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getsearchBy</td>
+      <td>List&lt;Concert&gt;</td>
+      <td>This method searhces for concerts which name or which artist's name matches with the search String introduced in the main searchbar. For that, two querys are made with ConcertRepository.</td>
+      <td>
+        <ul>
+          <li>String search</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>findConcertById</td>
+      <td>Concert</td>
+      <td>This method finds an specific concert by its ID, making use of the ConcertRepository. The situation where no concert matches with that ID is also handled, returning null.</td>
+      <td>
+        <ul>
+          <li>long id</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>getConcertsNearUser</td>
+      <td>List&lt;Concert&gt;</td>
+      <td>Method that searches by country depending on the user login state. When the user is logged, the UserService is used to get its country and use it as a searching attribute. If the user is not logged, null is returned, because no concerts match with its inexistant country.</td>
+      <td>
+        <ul>
+          <li>boolean userLogged</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>returnTicket</td>
+      <td>boolean</td>
+      <td>Method that restores one ticket availability in a given zone of an specific concert, consequence of the deletion (devolution) of a ticket by an user. If the restoration is completed with success, true is returned. In any other case, false is returned.</td>
+      <td>
+        <ul>
+          <li>Concert concert</li>
+          <li>String zone</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### UserController
+Another area of my work involved customizing user values, allowing users to modify certain attributes, change their profile picture, and view all their information in a simple and intuitive manner, with a straightforward menu. Thus, data management and modifications are handled in `UserController`. I will now detail my work within it:"
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Returning Template</th>
+    <th>Mapping Type</th>
+    <th>URL</th>
+    <th>Parameters</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accessToProfile</td>
+      <td>my-profile <br> redirect:/sign-in</td>
+      <td>@GetMapping</td>
+      <td>/profile</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@RequestParam(required=false) boolean showPersonalInfo</li>
+          <li>@RequestParam(required=false) boolean showMyArtists</li>
+          <li>@RequestParam(required=false) boolean showMyConcerts</li>
+        </ul>
+      </td>
+      <td>This method is the principal handler for profile pages. The way personal pages were designed were using three variables that can be mutual-exclusively true. Each of them trigger the display of a different part of the user pages: personal information, my concerts (ticket visualization) and my artists. If the user not logged, it is redirected to the sign-in page. As well, through this method, administrator access is temporarily managed and granted.</td>
+    </tr>
+    <tr>
+      <td>changeUserSettings</td>
+      <td>redirect:/profile?showPersonalInfo=true <br> redirect:/error</td>
+      <td>@PostMapping</td>
+      <td>/profile/changeSettings</td>
+      <td>
+        <ul>
+          <li>Model model</li>
+          <li>@RequestParam long id</li>
+          <li>@RequestParam(required = false)  String country</li>
+          <li>@RequestParam(required = false) MultipartFile newPhoto</li>
+        </ul>
+      </td>
+      <td>Stablish the changes made by the user over it's personal attributes and redirect the user back to their personal page where the changes can be seen applied. For that, use of UserService is used. As well, if any error occurs, the user is redirected to the error page.</td>
+    </tr>
+    <tr>
+      <td>deleteUserProfile</td>
+      <td>redirect:/ <br> redirect:/error</td>
+      <td>@PostMapping</td>
+      <td>/profile/delete-profile</td>
+      <td>
+        <ul>
+          <li>@RequestParam long id</li>
+        </ul>
+      </td>
+      <td>Method that handles the situation of trying to delete a user. Cases when the ID does not correspond to any user are also managed, redirecting the user to an error page. As well, if the deletion has been achievedm the user is redirected to the main page.</td>
+    </tr>
+  </tbody>
+</table>
+
+### UserService
+Continuing with my work related to the modification, display, and deletion of aspects concerning the user and their tickets, my work in the `UserService` is focused on providing support for these matters to the `UserController`.
+
+Below are described the most significant methods in this regard:
+
+<table>
+  <thead>
+    <th>Method Name</th>
+    <th>Return Type</th>
+    <th>Description</th>
+    <th>Parameters</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getActiveUser</td>
+      <td>UserEntity</td>
+      <td>Gets the actual active user with help of the SessionScope component ActiveUser. For that, a query is launched into the database. The method checks id there exists such user and in the negative case, null is returned.</td>
+      <td>
+        No parameters
+      </td>
+    </tr>
+    <tr>
+      <td>saveUserWithId</td>
+      <td>boolean</td>
+      <td>Saves in the database the user whose id is passed as a parameter, changing their country and profile photo in case they are not null (meaning the user wanted to change them). It returns true if the transaction occured with no errors and false in any other case.</td>
+      <td>
+        <ul>
+          <li>long id</li>
+          <li>String country</li>
+          <li>MultipartFile newPhoto</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>removeExistingUserWithId</td>
+      <td>boolean</td>
+      <td>Method that, provided with an ID, handles the deletion of a user with the specified ID. For that, it is checked if the deletion as been successful or not, searching if an user with the given ID exists after the deletion. Tryinn to delete a non-existant user is also considered an unsuccessful situation.</td>
+      <td>
+        <ul>
+          <li>long id</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+__Important note:__ We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
