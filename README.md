@@ -1267,5 +1267,5 @@ To conclude this brief section, it is important to mention that I contributed to
 
 # Phase 2
 
-## License
+# License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
