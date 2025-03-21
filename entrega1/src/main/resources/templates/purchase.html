@@ -17,6 +17,7 @@
                 {{ticketType}} ({{concert.price}})</p>
             <form action="/concert/{{concert.id}}/cancel-purchase?type={{ticketType}}&number={{number}}" method="post">
                 <input type="submit" value="Cancel Purchase">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </div>
         <div class="image-container">
@@ -76,6 +77,7 @@
             <!-- With these hidden inputs, the type of the ticket and ammount of tickets selected, will be pass.-->
             <input type="hidden" name="ticketType" value="{{ticketType}}">
             <input type="hidden" name="number" value="{{number}}">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
         {{#error}}
         <p><strong>The card details entered are not correct.</strong></p>
@@ -85,5 +87,4 @@
     </div>
     {{/ticket}}
 </body>
-
 </html>

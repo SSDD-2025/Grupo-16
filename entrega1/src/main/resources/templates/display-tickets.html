@@ -15,6 +15,7 @@
         <form action="/ticket/delete" method="post" enctype="multipart/form-data"> <!--Form to delete a ticket-->
             <input type="hidden" name="id" value="{{id}}">
             <input type="submit" value="Delete Ticket" class="red-style">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
     </div>
 </div>

@@ -66,11 +66,10 @@ page and its function is to provide the user a simple way to select the tickets 
                     </div>
                     <input id="submit-selection" type="submit" value="Continue">
                     <!--Submit button that transports the user to the purchase page-->
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
                 </form>
             </div>
         </div>
-
     </main>
 </body>
-
 </html>

@@ -62,6 +62,7 @@ can be instantly previsualized (image and artist name)-->
                         Delete Artist
                     </p>
                 </button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
             {{/modificate}}
 
@@ -262,7 +263,7 @@ can be instantly previsualized (image and artist name)-->
                 <button tpye="submit" class="central-button">
                     {{^modificate}}Register Artist{{/modificate}}{{#modificate}}Modify Artist{{/modificate}}
                 </button>
-
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </div>
         </form>
@@ -385,5 +386,4 @@ can be instantly previsualized (image and artist name)-->
         return null;
     }
 </script>
-
 </html>

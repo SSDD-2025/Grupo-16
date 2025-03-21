@@ -20,6 +20,7 @@
         {{#modifyConcert}}
         <form action="/admin/concert/{{id}}/modify" method="post">
             <input type="submit" value="Modify Concert">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
         {{/modifyConcert}}
         {{^modifyConcert}}

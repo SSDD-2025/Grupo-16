@@ -146,6 +146,7 @@
 
             <!-- Submit button -->
             <input type="submit" value="Submit">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
 
         <hr>
@@ -160,5 +161,4 @@
         {{>footer}}
     </footer>
 </body>
-
 </html>

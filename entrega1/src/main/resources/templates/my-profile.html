@@ -89,6 +89,7 @@ my profile and my concerts (where tickets are)-->
 
                 <!--More Personal information categories to be added-->
             </div>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
 
         <!--Profile deletion form-->
@@ -100,6 +101,7 @@ my profile and my concerts (where tickets are)-->
                 <button type="submit" class="central-button red-style">Delete profile</button>
 
             </div>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
 
         <!--More categories of information to be added-->
@@ -130,9 +132,6 @@ my profile and my concerts (where tickets are)-->
             {{>display-tickets}} <!--Display bought tickets-->
         </div>
         {{/showMyConcerts}}
-
     </main>
-
 </body>
-
 </html>

@@ -27,6 +27,7 @@
                 </div>
                 <button type="submit">Log In</button>
                 <p class="register">Don’t have an account? <a href="/sign-up">Sign Up</a></p>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </div>
         <div class="log-in-error-container">
@@ -68,6 +69,7 @@
                 </div>
                 <button type="submit">Sign Up</button>
                 <p class="login">Already have an account? <a href="/sign-in">Log In</a></p>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </div>
         {{#newUser}}
@@ -78,5 +80,4 @@
     </div>
     {{/existUser}}
 </body>
-
 </html>

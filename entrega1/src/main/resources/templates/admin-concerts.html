@@ -37,6 +37,7 @@ deleting concerts, including a searchbar to find every concerts-->
                     Add new Concert
                 </p>
             </button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
 
         <!--Part where artists can be searched and modified-->
@@ -59,5 +60,4 @@ deleting concerts, including a searchbar to find every concerts-->
         {{>display-concerts}}
     </main>
 </body>
-
 </html>

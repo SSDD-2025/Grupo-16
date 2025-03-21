@@ -26,6 +26,7 @@
         {{#modifyArtist}} <!--If the artist is going to be modified, the modify button is displayed-->
         <form action="/admin/artist/{{id}}/modify" method="post" enctype="multipart/form-data">
             <input type="submit" value="Modify">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
         {{/modifyArtist}}
     </div>
