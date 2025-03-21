@@ -33,11 +33,13 @@
 
 ## Table of Contents
 - [Execution Instructions](#execution-instructions)
-- [Entities Information](#entities-information)
-- [User Privileges](#user-privileges)
-- [Image Management](#image-management)
-- [Application Functionality Overview](#application-functionality-overview)
-- [Team Members Participation](#team-members-participation)
+- [Phase 1](#phase-1)
+  - [Entities Information](#entities-information)
+  - [User Privileges](#user-privileges)
+  - [Image Management](#image-management)
+  - [Application Functionality Overview](#application-functionality-overview)
+  - [Team Members Participation](#team-members-participation)
+- [Phase 2](#phase-2)
 - [License](#license)
 
 ## Execution Instructions
@@ -71,6 +73,8 @@ The reason we strongly recommend using `Visual Studio Code` as the IDE to launch
 > At this time, version `3.4.3` is available, however we do not recommend using it for this project.
 
 If you use `Visual Studio Code`, you will need to have the `Spring Boot Extension Pack` extension.
+
+# Phase 1
 
 ## Entities Information
 Next, all the entities that are part of the application will be shown, as well as the relationships between them.
@@ -1260,6 +1264,8 @@ Below are described the most significant methods in this regard:
 >We have the guarantee that ID's are no repeated even when deletions are made because we use `@GeneratedValue(strategy = GenerationType.AUTO)` over every ID. This strategy does not recycle IDs. If the strategy changes, then deletion methods should also be changed.
 
 To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
+
+# Phase 2
 
 ## License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
