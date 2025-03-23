@@ -30,9 +30,9 @@ public class UserService {
      * @return the user (if exists).
      */
     public UserEntity verifyUser(String userName) {
-        UserEntity existingUser = this.userRepository.findByUserName(userName);
-        if (existingUser != null) {
-            return existingUser;
+        Optional<UserEntity> existingUser = this.userRepository.findByUserName(userName);
+        if (existingUser.isPresent()) {
+            return existingUser.get();
         }
         return null;
     }

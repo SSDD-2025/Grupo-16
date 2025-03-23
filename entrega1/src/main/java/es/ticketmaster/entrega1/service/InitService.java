@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import es.ticketmaster.entrega1.model.Artist;
@@ -28,6 +29,9 @@ public class InitService {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Initializes the database with default data.
@@ -153,11 +157,11 @@ public class InitService {
         concertRepository.save(concert);
 
         //Create Users
-        user = new UserEntity("armiiin13", "eras1325", "armiingrc@yahoo.com", "Europe");
+        user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe");
         userRepository.save(user);
-        user = new UserEntity("Fonssi29", "pollitoPio", "fonssi@gmail.com", "America");
+        user = new UserEntity("Fonssi29", passwordEncoder.encode("pollitoPio"), "fonssi@gmail.com", "America");
         this.userRepository.save(user);
-        user = new UserEntity("davih", "davilico", "drg@gmail.com", "Europe");
+        user = new UserEntity("davih", passwordEncoder.encode("davilico"), "drg@gmail.com", "Europe");
         userRepository.save(user);
     }
 }
