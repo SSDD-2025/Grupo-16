@@ -105,7 +105,7 @@ public class ArtistController {
      * @return HTML to be loaded
      * @throws IOException
      */
-    @PostMapping("/register-new-artist")
+    @PostMapping("/admin/artist/register")
     public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto,
             @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto,
             @RequestParam(required = false) Long id, RedirectAttributes redirectAttributes) throws IOException {
