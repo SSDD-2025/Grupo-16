@@ -37,10 +37,27 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 //Public Pages
                 .requestMatchers("/").permitAll()
+                .requestMatchers("/sign-up/*").permitAll()
+                .requestMatchers("/artist/*").permitAll()
                 //Registered User Pages
                 .requestMatchers("/profile").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/concert/*").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/ticket/*").hasAnyRole("USER", "ADMIN")
                 //Administrator Pages
                 .requestMatchers("/admin/*").hasAnyRole("ADMIN")
+            )
+            .formLogin(formLogin -> formLogin
+                .loginPage("/sign-in")
+                .failureUrl("/sign-in?error=true")
+                .defaultSuccessUrl("/")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
             );
+        
+        return http.build();
     }
 }

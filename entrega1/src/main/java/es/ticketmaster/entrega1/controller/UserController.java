@@ -27,11 +27,15 @@ public class UserController {
      * Will show the sign in display on the "sign-in.html" file.
      *
      * @param model is the model of the dinamic HTML document.
+     * @param error if there has been any error in previous attempts of logging in
      * @return the sign-in template.
      */
     @GetMapping("/sign-in")
-    public String signInUser(Model model) {
+    public String signInUser(Model model, @RequestParam(required = false) boolean error) {
         model.addAttribute("existUser", true);
+        if (error) {
+            model.addAttribute("error", true);
+        }
         return "sign-in";
     }
 
@@ -45,32 +49,6 @@ public class UserController {
     public String signUpUser(Model model) {
         model.addAttribute("existUser", false);
         return "sign-in";
-    }
-
-    /**
-     * It will verify if the userName introduced is valid (does exist).
-     *
-     * @param model is the model of the dinamic HTML document.
-     * @param userName is the one introduced by the user.
-     * @param password is the one introduced by the user.
-     * @return the sign-in-validation template (if everything goes well), in
-     * other case, will shown the sign-in template, with a message of error.
-     */
-    @PostMapping("/sign-in/validation")
-    public String verifySignIn(Model model, @RequestParam String userName, @RequestParam String password) {
-        model.addAttribute("existUser", true);
-        UserEntity receivedUser = this.userService.verifyUser(userName);
-        /* Verify if the user exist on the database and his password matches */
-        if ((receivedUser != null) && (this.userService.verifyPassword(userName, password))) {
-            this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password));
-            /* Session is established. */
-            model.addAttribute("welcome", receivedUser.getUserName());
-            return "validation";
-        }
-        model.addAttribute("error", true);
-        return "sign-in";
-        /* It will shown the same template, but, with a message indicating the user
-                         if the userName or password (or both) do not match. */
     }
 
     /**
