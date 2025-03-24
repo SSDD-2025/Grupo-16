@@ -63,13 +63,13 @@ public class UserController {
      * other case, will shown the sign-in template, with a message of error.
      */
     @PostMapping("/sign-up/validation")
-    public String verifySignUp(Model model, @RequestParam String userName, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
-        UserEntity newUser = this.userService.verifyUser(userName);
+    public String verifySignUp(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
+        UserEntity newUser = this.userService.verifyUser(username);
         model.addAttribute("existUser", false);
         if (newUser == null) { // The user does not exist on the database, therefore, can be register.
-            newUser = new UserEntity(userName, password, email, country);
+            newUser = new UserEntity(username, password, email, country);
             this.userService.registerUser(newUser);
-            this.activeUser.setNewActiveUser(this.userService.recoverUser(userName, password)); // A new session is established.
+            this.activeUser.setNewActiveUser(this.userService.recoverUser(username, password)); // A new session is established.
             model.addAttribute("welcome", newUser.getUserName());
             return "validation";
         }
@@ -95,29 +95,19 @@ public class UserController {
     public String accessToProfile(Model model, @RequestParam(required = false) boolean showPersonalInfo,
             @RequestParam(required = false) boolean showMyArtists, @RequestParam(required = false) boolean showMyConcerts) {
 
-        boolean isLogged = userService.isLogged();
-
-        if (isLogged) {
-
-            if (showMyConcerts) {
-                model.addAttribute("showMyConcerts", true);
-                model.addAttribute("ticketList", userService.getActiveUser().getTicketsList());
-            } else if (showMyArtists) {
-                model.addAttribute("showMyArtists", true);
-                model.addAttribute("artistList", userService.getActiveUser().getArtistsList());
-            } else { //In case there is no display option, personal information is displayed
-                model.addAttribute("user", userService.getActiveUser());
-                model.addAttribute("showPersonalInfo", true);
-            }
-
-            model.addAttribute("isLogged", true);
-            model.addAttribute("isAdmin", true); //Temporal until Admin is implementated
-
-            return "my-profile";
-
-        } else {
-            return "redirect:/sign-in";
+        if (showMyConcerts) {
+            model.addAttribute("showMyConcerts", true);
+            //TBC: model.addAttribute("ticketList", userService.getActiveUser().getTicketsList());
+        } else if (showMyArtists) {
+            model.addAttribute("showMyArtists", true);
+            //TBC: model.addAttribute("artistList", userService.getActiveUser().getArtistsList());
+        } else { //In case there is no display option, personal information is displayed
+            //TBC: model.addAttribute("user", userService.getActiveUser());
+            model.addAttribute("showPersonalInfo", true);
         }
+
+        return "my-profile";
+
     }
 
     /**

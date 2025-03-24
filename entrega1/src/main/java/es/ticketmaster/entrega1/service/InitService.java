@@ -157,11 +157,11 @@ public class InitService {
         concertRepository.save(concert);
 
         //Create Users
-        user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe");
+        user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe", "ADMIN");
         userRepository.save(user);
-        user = new UserEntity("Fonssi29", passwordEncoder.encode("pollitoPio"), "fonssi@gmail.com", "America");
+        user = new UserEntity("Fonssi29", passwordEncoder.encode("pollitoPio"), "fonssi@gmail.com", "America", "ADMIN");
         this.userRepository.save(user);
-        user = new UserEntity("davih", passwordEncoder.encode("davilico"), "drg@gmail.com", "Europe");
+        user = new UserEntity("davih", passwordEncoder.encode("davilico"), "drg@gmail.com", "Europe", "ADMIN");
         userRepository.save(user);
     }
 }

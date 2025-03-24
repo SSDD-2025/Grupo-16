@@ -35,19 +35,28 @@ public class WebSecurityConfig {
 
         http
             .authorizeHttpRequests(authorize -> authorize
+                //Access to static files
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/js/**").permitAll()
+                .requestMatchers("/DDBB/**").permitAll()
+                .requestMatchers("/media/**").permitAll()
+                .requestMatchers("/concert/*/download-poster").permitAll()
+                .requestMatchers("/artist/*/download-photo").permitAll()
                 //Public Pages
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/sign-up/*").permitAll()
-                .requestMatchers("/artist/*").permitAll()
+                .requestMatchers("/sign-up/**").permitAll()
+                .requestMatchers("/artist/**").permitAll()
+                .requestMatchers("/sign-in").permitAll()
                 //Registered User Pages
-                .requestMatchers("/profile").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/concert/*").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/ticket/*").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/concert/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/ticket/**").hasAnyRole("USER", "ADMIN")
                 //Administrator Pages
-                .requestMatchers("/admin/*").hasAnyRole("ADMIN")
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
             )
             .formLogin(formLogin -> formLogin
                 .loginPage("/sign-in")
+                .loginProcessingUrl("/login")
                 .failureUrl("/sign-in?error=true")
                 .defaultSuccessUrl("/")
                 .permitAll()

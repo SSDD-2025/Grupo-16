@@ -16,18 +16,18 @@
     <div class="container">
         <div class="login-container">
             <h2>Log In</h2>
-            <form action="/sign-in/validation" method="post">
+            <form action="/login" method="post">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="userName" required>
+                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
                 <button type="submit">Log In</button>
                 <p class="register">Don’t have an account? <a href="/sign-up">Sign Up</a></p>
-                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </div>
         <div class="log-in-error-container">
@@ -45,7 +45,7 @@
             <form action="/sign-up/validation" method="post">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="userName" required>
+                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="input-group">
                     <label for="email">Email</label>
