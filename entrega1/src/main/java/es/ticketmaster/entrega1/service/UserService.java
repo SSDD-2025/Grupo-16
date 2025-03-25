@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,63 +23,35 @@ public class UserService {
     @Autowired
     private ActiveUser activeUser;
 
-    /**
-     * This method will verify if the userName matches with one register on the
-     * database.
-     *
-     * @param userName introduced by the user at the time he try to log in.
-     * @return the user (if exists).
-     */
-    public UserEntity verifyUser(String userName) {
-        Optional<UserEntity> existingUser = this.userRepository.findByUserName(userName);
-        if (existingUser.isPresent()) {
-            return existingUser.get();
-        }
-        return null;
-    }
+    @Autowired
+    private PasswordEncoder encoder;
 
     /**
-     * This method will verify if the password introduced by the user, is the
-     * same one he used when the account was created.
-     *
-     * @param userName introduced by the user at the time he try to log in.
-     * @param password introduced by the user at the time he try to log in.
-     */
-    public boolean verifyPassword(String userName, String password) {
-        UserEntity user = this.verifyUser(userName);
-        return password.equals(user.getPassword());
-    }
-
-    /**
-     * This method will save a new user in the database, and in case of error,
-     * it will be managed.
+     * Method that tries to make the registration of a new user. For that, it searches if
+     * there is an existing user with that username and in case there is no repetition,
+     * saves the new user in the database.
      *
      * @param newUser is the user that will be register.
      * @return the user (in case everything goes well).
      */
-    public UserEntity registerUser(UserEntity newUser) {
+    public boolean registerUser(UserEntity newUser) {
         try {
-            activeUser.setNewActiveUser(newUser);
-            return this.userRepository.save(newUser);
+            // Verifies if there exist any user with the same username
+            if(this.userRepository.findByUsername(newUser.getUsername()).isPresent()){
+                return false;
+            }
+            newUser.setPassword(encoder.encode(newUser.getPassword()));
+            this.userRepository.save(newUser);
+            return true;
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
     /**
-     * This method will get the session of the user by getting the corresponding
-     * user from the database.
-     *
-     * @param userName.
-     * @param password
-     * @return the user recovered.
-     */
-    public UserEntity recoverUser(String userName, String password) {
-        return this.userRepository.findByUserNameAndPassword(userName, password);
-    }
-
-    /**
-     *
+     * DAVID's NOTE: This should be deleted shortly because Spring Security handles this
+     * aspects that deal with user activeness
+     * 
      * @return true if the active user at the session is logged or not
      */
     public boolean isLogged() {
@@ -86,6 +59,9 @@ public class UserService {
     }
 
     /**
+     * DAVID's NOTE: This should be deleted shortly because Spring Security handles this
+     * aspects that deal with user activeness
+     * 
      * Gets the actual active user object from the DDBB using its id
      *
      * @return the actual active user

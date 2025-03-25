@@ -1,27 +1,26 @@
 package es.ticketmaster.entrega1.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ActiveUser activeUser;
 
     /**
      * Will show the sign in display on the "sign-in.html" file.
@@ -63,19 +62,13 @@ public class UserController {
      * other case, will shown the sign-in template, with a message of error.
      */
     @PostMapping("/sign-up/validation")
-    public String verifySignUp(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String country, @RequestParam String email) {
-        UserEntity newUser = this.userService.verifyUser(username);
-        model.addAttribute("existUser", false);
-        if (newUser == null) { // The user does not exist on the database, therefore, can be register.
-            newUser = new UserEntity(username, password, email, country);
-            this.userService.registerUser(newUser);
-            this.activeUser.setNewActiveUser(this.userService.recoverUser(username, password)); // A new session is established.
-            model.addAttribute("welcome", newUser.getUserName());
-            return "validation";
+    public String verifySignUp(Model model, @ModelAttribute UserEntity user) {
+        System.out.println(user.toString());
+        if(!userService.registerUser(user)){ // The registration couldn't be done
+            model.addAttribute("newUser", true);
+            return "sign-in";
         }
-        // The user exist on the database, therefore, can not be register. 
-        model.addAttribute("newUser", true);
-        return "sign-in";
+        return "redirect:/sign-in";
     }
 
     /**
@@ -150,6 +143,27 @@ public class UserController {
             return "redirect:/";
         } else {
             return "redirect:/error";
+        }
+    }
+
+    /**
+     * (PROVISIONAL) This method that stabishes default attributes for aspects dealing with the UserController
+     * This method should be completed so that the previous controller methods work correctly within the model
+     * they have to provide 
+     * 
+     * @param model is the dynamic HTTP model
+     * @param request is the HTTP request to fulfill
+     */
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal!=null) {
+            model.addAttribute("isLogged", true);
+            model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("isLogged", false);
         }
     }
 }

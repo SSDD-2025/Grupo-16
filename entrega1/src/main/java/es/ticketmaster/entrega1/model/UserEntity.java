@@ -20,7 +20,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String userName;
+    private String username;
     private String password;
     private String email;
     private String country;
@@ -36,12 +36,13 @@ public class UserEntity {
 
     protected UserEntity() {
         /* Constructor used by the JPA interface. */
+        this.roles = List.of("USER"); //We stablish the default role
     }
 
     /* Constructor without the profile picture of the user. */
-    public UserEntity(String userName, String password, String email, String country) {
-        if ((!userName.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
-            this.userName = userName;
+    public UserEntity(String username, String password, String email, String country) {
+        if ((!username.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
+            this.username = username;
             this.password = password;
             this.email = email;
             this.country = country;
@@ -50,9 +51,9 @@ public class UserEntity {
     }
 
     /* Constructor without the profile picture of the user and letting enter the roles*/
-    public UserEntity(String userName, String password, String email, String country, String... roles) {
-        if ((!userName.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
-            this.userName = userName;
+    public UserEntity(String username, String password, String email, String country, String... roles) {
+        if ((!username.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
+            this.username = username;
             this.password = password;
             this.email = email;
             this.country = country;
@@ -61,9 +62,9 @@ public class UserEntity {
     }
 
     /* Constructor with the profile picture of the user. */
-    public UserEntity(String userName, String password, String email, String country, Blob picture) {
-        if ((!userName.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
-            this.userName = userName;
+    public UserEntity(String username, String password, String email, String country, Blob picture) {
+        if ((!username.isBlank()) && (!password.isBlank()) && (!email.isBlank()) && (!country.isBlank())) {
+            this.username = username;
             this.password = password;
             this.email = email;
             this.country = country;
@@ -75,8 +76,8 @@ public class UserEntity {
         return id;
     }
 
-    public String getUserName() {
-        return this.userName;
+    public String getUsername() {
+        return this.username;
     }
 
     public String getPassword() {
@@ -107,8 +108,8 @@ public class UserEntity {
         this.id = id;
     }
 
-    public void setUserName(String newName) {
-        this.userName = newName;
+    public void setUsername(String newName) {
+        this.username = newName;
     }
 
     public void setPassword(String newPassword) {
@@ -142,4 +143,8 @@ public class UserEntity {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+
+    public void setRole(String role){
+        this.roles.add(role);
+    }
 }

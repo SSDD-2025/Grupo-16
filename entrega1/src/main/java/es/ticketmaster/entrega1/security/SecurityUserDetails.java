@@ -23,7 +23,7 @@ public class SecurityUserDetails implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         // Get the user
-        UserEntity user = userRepository.findByUserName(username).orElseThrow( () -> new UsernameNotFoundException("User not found"));
+        UserEntity user = userRepository.findByUsername(username).orElseThrow( () -> new UsernameNotFoundException("User not found"));
 
         // Add the user roles in the way Spring recognize them
         List<GrantedAuthority> roles = new ArrayList<>();
@@ -32,6 +32,6 @@ public class SecurityUserDetails implements UserDetailsService{
         }
 
         // Return the user
-        return new User(user.getUserName(), user.getPassword(),roles);
+        return new User(user.getUsername(), user.getPassword(),roles);
     }
 }
