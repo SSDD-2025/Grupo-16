@@ -18,6 +18,7 @@ import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ImageController {
@@ -123,12 +124,10 @@ public class ImageController {
      * @throws SQLException
      */
     @GetMapping("/profile/download-profile-picture")
-    public ResponseEntity<Object> downloadProfilePicture() throws SQLException {
+    public ResponseEntity<Object> downloadProfilePicture(HttpServletRequest request) throws SQLException {
+        UserEntity user = userService.getActiveUser(request.getUserPrincipal());
 
-        UserEntity user = userService.getActiveUser();
-
-        if (user.getProfilePicture() != null) {
-
+        if (user != null && user.getProfilePicture() != null) {
             Blob image = user.getProfilePicture();
             Resource file = new InputStreamResource(image.getBinaryStream());
 

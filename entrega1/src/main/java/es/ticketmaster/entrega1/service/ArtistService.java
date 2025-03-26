@@ -125,7 +125,7 @@ public class ArtistService {
      * @return said artist on a Optional object (None if its not found)
      */
     public Optional<Artist> getByNameIgnoreCase(String name) {
-        return artistRepository.findFirstByNameIgnoreCase(name);
+        return artistRepository.findFirstByNameIgnoreCase(name); 
     }
 
     /**

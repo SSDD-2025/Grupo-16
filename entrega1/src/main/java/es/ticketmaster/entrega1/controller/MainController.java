@@ -39,7 +39,7 @@ public class MainController {
 
             model.addAttribute("concertList", concertService.getConcertDisplay(principal));
             model.addAttribute("modifyConcert", false);
-            model.addAttribute("artistList", artistService.getArtistDisplayBySession(principal));
+            model.addAttribute("artistList", artistService.getArtistDisplayBySession());
 
         } else {
 
