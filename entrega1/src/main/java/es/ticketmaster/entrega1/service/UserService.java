@@ -46,27 +46,14 @@ public class UserService {
     }
 
     /**
-     * DAVID's NOTE: This should be deleted shortly because Spring Security handles this
-     * aspects that deal with user activeness
-     * 
-     * @return true if the active user at the session is logged or not
-     */
-    /*public boolean isLogged() {
-        return (activeUser.isUserLogged());
-    }*/
-
-    /**
-     * DAVID's NOTE: This should be deleted shortly because Spring Security handles this
-     * aspects that deal with user activeness
-     * 
-     * Gets the actual active user object from the DDBB using its id
+     * Gets the actual active user object from the Principal user provided by SpringSecurity
      *
+     * @param principal the principal class from where the username can be requested
      * @return the actual active user
      */
-    public UserEntity getActiveUser() {
+    public UserEntity getActiveUser(Principal principal) {
 
-        Principal principal = 
-        Optional<UserEntity> user = userRepository.findById(activeUser.getId());
+        Optional<UserEntity> user = userRepository.findByUsername(principal.getName());
 
         if (user.isEmpty()) {
             return null;
