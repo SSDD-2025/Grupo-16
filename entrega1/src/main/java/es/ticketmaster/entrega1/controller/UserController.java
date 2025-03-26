@@ -54,7 +54,7 @@ public class UserController {
      * It will verify if the userName introduced is valid (does not exist).
      *
      * @param model is the model of the dinamic HTML document.
-     * @param userName is the one introduced by the user.
+     * @param username is the one introduced by the user.
      * @param password is the one introduced by the user.
      * @param country is the country from where the user is from.
      * @param email is the email from the user.
@@ -63,7 +63,6 @@ public class UserController {
      */
     @PostMapping("/sign-up/validation")
     public String verifySignUp(Model model, @ModelAttribute UserEntity user) {
-        System.out.println(user.toString());
         if(!userService.registerUser(user)){ // The registration couldn't be done
             model.addAttribute("newUser", true);
             return "sign-in";
@@ -86,16 +85,18 @@ public class UserController {
      */
     @GetMapping("/profile")
     public String accessToProfile(Model model, @RequestParam(required = false) boolean showPersonalInfo,
-            @RequestParam(required = false) boolean showMyArtists, @RequestParam(required = false) boolean showMyConcerts) {
-
+            @RequestParam(required = false) boolean showMyArtists, @RequestParam(required = false) boolean showMyConcerts,
+            HttpServletRequest request) {
+        
+        Principal user = request.getUserPrincipal();
         if (showMyConcerts) {
             model.addAttribute("showMyConcerts", true);
-            //TBC: model.addAttribute("ticketList", userService.getActiveUser().getTicketsList());
+            model.addAttribute("ticketList", userService.getActiveUser(user).getTicketsList());
         } else if (showMyArtists) {
             model.addAttribute("showMyArtists", true);
-            //TBC: model.addAttribute("artistList", userService.getActiveUser().getArtistsList());
+            model.addAttribute("artistList", userService.getActiveUser(user).getArtistsList());
         } else { //In case there is no display option, personal information is displayed
-            //TBC: model.addAttribute("user", userService.getActiveUser());
+            model.addAttribute("user", userService.getActiveUser(user));
             model.addAttribute("showPersonalInfo", true);
         }
 

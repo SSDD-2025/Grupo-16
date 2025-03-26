@@ -11,7 +11,7 @@
         <p>{{concert.artist.name}}</p> <!--Specific ticket information: artist name-->
         <p>{{concert.formattedTime}} - {{concert.place}}</p>
         <p>{{zone}} Stands</p> <!--Specific ticket information: zone-->
-        <p>{{ticketUser.userName}}</p> <!--Specific ticket information: zone-->
+        <p>{{ticketUser.username}}</p> <!--Specific ticket information: zone-->
         <form action="/ticket/delete" method="post" enctype="multipart/form-data"> <!--Form to delete a ticket-->
             <input type="hidden" name="id" value="{{id}}">
             <input type="submit" value="Delete Ticket" class="red-style">

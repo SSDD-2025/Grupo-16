@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
-import es.ticketmaster.entrega1.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -24,9 +23,6 @@ public class ConcertController {
 
     @Autowired
     private ConcertService concertService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private ArtistService artistService;
