@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ConcertController {
@@ -31,7 +33,7 @@ public class ConcertController {
 
     /**
      * When the user is logged, the ticket selection page of the concert defined
-     * by the id parameter is displayed. In other case, an error page is shown.
+     * by the id parameter is displayed.
      * It is compulsory for the user to be logged in order to buy tickets.
      *
      * @param model model of the dinamic HTML document
@@ -41,16 +43,8 @@ public class ConcertController {
     @GetMapping("/concert/{id}")
     public String postMethodName(Model model, @PathVariable Long id) {
 
-        boolean userLogged = userService.isLogged();
-
-        if (userLogged) {
-            model.addAttribute("concert", concertService.findConcertById(id));
-            model.addAttribute("isLogged", true);
-            return "ticket-selling";
-        } else {
-            return "redirect:/sign-in";
-            /*If the user isn't logged, it is redirected to the sign-in page*/
-        }
+        model.addAttribute("concert", concertService.findConcertById(id));
+        return "ticket-selling";
     }
 
     /**
@@ -163,5 +157,28 @@ public class ConcertController {
         concertService.deleteConcert(id);
         model.addAttribute("deleted", true);
         return "concert-validation";
+    }
+
+    /**
+     * This method stablishes the needed variables as far as the concert controller is concerned.
+     * The information needed is: if the user is logged or if the user is an admin. This variables
+     * are used to show diferent UI corresponding to their role.
+     * The way this method works is adding the correspondent attributes to the model 
+     * when any of the previous controller methods are called so that the information is pre-loaded.
+     * 
+     * @param model is the model of dynamic HTTP
+     * @param request is the HTTP request
+     */
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal!=null) { //If there is a principal user (means it is logged)
+            model.addAttribute("isLogged", true);
+            model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("isLogged", false);
+        }
     }
 }

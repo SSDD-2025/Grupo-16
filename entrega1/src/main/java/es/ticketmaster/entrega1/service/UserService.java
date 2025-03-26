@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.ticketmaster.entrega1.model.ActiveUser;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.UserRepository;
 
@@ -19,9 +18,6 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private ActiveUser activeUser;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -54,9 +50,9 @@ public class UserService {
      * 
      * @return true if the active user at the session is logged or not
      */
-    public boolean isLogged() {
+    /*public boolean isLogged() {
         return (activeUser.isUserLogged());
-    }
+    }*/
 
     /**
      * DAVID's NOTE: This should be deleted shortly because Spring Security handles this
@@ -66,7 +62,7 @@ public class UserService {
      *
      * @return the actual active user
      */
-    public UserEntity getActiveUser() {
+    /*public UserEntity getActiveUser() {
 
         Optional<UserEntity> user = userRepository.findById(activeUser.getId());
 
@@ -75,7 +71,7 @@ public class UserService {
         } else {
             return user.get();
         }
-    }
+    }*/
 
     /**
      * Saves in the DDBB the user whose id is passed as a parameter and changing
@@ -105,6 +101,7 @@ public class UserService {
     }
 
     /**
+     * (TEMPORALY UNAVAILABLE)
      * Method that, provided with an ID, handles the deletion of an user with
      * the specified id. For that, it is checked if the deletion has been
      * successful or not, searching if an user with the given ID exists after
@@ -120,7 +117,7 @@ public class UserService {
             return false;
         } else {
             userRepository.deleteById(id); //We delete the artist with that ID
-            activeUser.setUserAsNotActive();
+            //activeUser.setUserAsNotActive();
             return !userRepository.existsById(id); //We return true if the artist has been correctly deleted
         }
 
