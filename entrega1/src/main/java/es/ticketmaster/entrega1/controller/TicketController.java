@@ -72,8 +72,8 @@ public class TicketController {
      * but with an error message.
      */
     @PostMapping("/concert/{id}/purchase/confirmation")
-    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number) {
-        this.ticketService.associateUserWithTicket(ticketType, number, id);
+    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number, HttpServletRequest request) {
+        this.ticketService.associateUserWithTicket(ticketType, number, id, request.getUserPrincipal());
         return "purchase-confirmation";
     }
 

@@ -1,5 +1,6 @@
 package es.ticketmaster.entrega1.service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,22 +64,22 @@ public class TicketService {
      * @param number is the ammount of tickets de user has purchased.
      * @param concertId is the identification number for a concert.
      */
-    public void associateUserWithTicket(String type, int number, long concertId) {
-        List<Ticket> userTickets = this.userService.getActiveUser().getTicketsList();
+    public void associateUserWithTicket(String type, int number, long concertId, Principal principal) {
+        List<Ticket> userTickets = this.userService.getActiveUser(principal).getTicketsList();
         Concert concert = this.concertRepository.findConcertById(concertId);
         for (int i = 0; i < number; i++) {
             Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
             /* Creation of ticket. */
             userTickets.add(newTicket);
             /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(this.userService.getActiveUser());
+            newTicket.setUser(this.userService.getActiveUser(principal));
             /* Associating the ticket to the user. */
             this.ticketRepository.save(newTicket);
             /* Once it has been asssociated, the ticket is saved in its repository. */
         }
-        this.userService.getActiveUser().setTicketList(userTickets);
+        this.userService.getActiveUser(principal).setTicketList(userTickets);
         /* Updating the ticket list of the user. */
-        this.userRepository.save(this.userService.getActiveUser());
+        this.userRepository.save(this.userService.getActiveUser(principal));
         /* Saving the user in its repository. */
     }
 
