@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,9 +60,9 @@ public class ConcertService {
      * @return the list of the concerts taking place at the country/ city
      * specified
      */
-    public List<Concert> getConcertDisplay(boolean userLogged) {
-        if (userLogged) { //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser().getCountry());
+    public List<Concert> getConcertDisplay(Principal user) {
+        if (user != null) { //is logged, the display will be of concerts at the same country as the user
+            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser(user).getCountry());
             if (!(concertList.isEmpty())) {
                 return concertList;
             }
@@ -226,9 +227,9 @@ public class ConcertService {
      * @param userLogged if the user is logged or not
      * @return list (empty or with elements) of concerts near the activeUser
      */
-    public List<Concert> getConcertsNearUser(boolean userLogged) {
-        if (userLogged) { //is logged, the display will be of concerts at the same country as the user
-            UserEntity actualUser = userService.getActiveUser();
+    public List<Concert> getConcertsNearUser(Principal user) {
+        if (user != null) { //is logged, the display will be of concerts at the same country as the user
+            UserEntity actualUser = userService.getActiveUser(user);
             if (actualUser != null) {
                 String country = actualUser.getCountry();
                 return concertRepository.findByPlace(country);

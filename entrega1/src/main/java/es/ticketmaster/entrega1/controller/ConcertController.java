@@ -94,7 +94,6 @@ public class ConcertController {
      */
     @PostMapping("/admin/concert/workbench")
     public String formAddConcert(Model model) {
-
         model.addAttribute("concert", null);
         model.addAttribute("artistList", artistService.getEveryArtist());
         return "concert-workbench";
