@@ -11,18 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
-import es.ticketmaster.entrega1.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
 
     @Autowired
     private ArtistService artistService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private ConcertService concertService;
@@ -36,19 +31,19 @@ public class MainController {
      * @return the main template
      */
     @GetMapping("/")
-    public String getMain(Model model, @RequestParam(required = false) String search, HttpSession session) {
+    public String getMain(Model model, @RequestParam(required = false) String search, HttpServletRequest request) {
 
-        boolean userLogged = userService.isLogged();
+        Principal principal = request.getUserPrincipal(); //Gets the principal
 
         if (search == null) {
 
-            model.addAttribute("concertList", concertService.getConcertDisplay(userLogged));
+            model.addAttribute("concertList", concertService.getConcertDisplay(principal));
             model.addAttribute("modifyConcert", false);
-            model.addAttribute("artistList", artistService.getArtistDisplayBySession());
+            model.addAttribute("artistList", artistService.getArtistDisplayBySession(principal));
 
         } else {
 
-            model.addAttribute("personalConcertsList", concertService.getConcertsNearUser(userLogged));
+            model.addAttribute("personalConcertsList", concertService.getConcertsNearUser(principal));
             model.addAttribute("artistList", artistService.getSearchBy(search));
             model.addAttribute("generalConcertsList", concertService.getSearchBy(search));
 

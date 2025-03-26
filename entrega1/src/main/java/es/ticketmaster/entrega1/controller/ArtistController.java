@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
-import es.ticketmaster.entrega1.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ArtistController {
@@ -26,9 +27,6 @@ public class ArtistController {
 
     @Autowired
     private ConcertService concertService;
-
-    @Autowired
-    private UserService userService;
 
     /**
      *
@@ -42,9 +40,6 @@ public class ArtistController {
      */
     @GetMapping("/artist/{id}")
     public String getArtistPage(Model model, @PathVariable long id) {
-
-        boolean userLogged = userService.isLogged();
-        model.addAttribute("isLogged", userLogged);
 
         Artist artist = artistService.getArtist(id);
         if (artist != null) {
@@ -73,9 +68,6 @@ public class ArtistController {
      */
     @GetMapping("/admin/artist")
     public String artistsAdminPage(Model model, @RequestParam(required = false) String search) {
-
-        boolean userLogged = userService.isLogged();
-        model.addAttribute("isLogged", userLogged);
 
         if (search != null) {
             model.addAttribute("artistList", artistService.getSearchBy(search));
@@ -136,9 +128,6 @@ public class ArtistController {
     @GetMapping("/admin/artist/workbench")
     public String prepareArtistWorkbench(Model model) {
 
-        boolean userLogged = userService.isLogged();
-        model.addAttribute("isLogged", userLogged);
-
         return "artist-workbench";
     }
 
@@ -151,9 +140,6 @@ public class ArtistController {
      */
     @PostMapping("/admin/artist/{id}/modify")
     public String modifyExistingArtist(Model model, @PathVariable long id) {
-
-        boolean userLogged = userService.isLogged();
-        model.addAttribute("isLogged", userLogged);
 
         Artist artist = artistService.getArtist(id);
 
@@ -188,6 +174,29 @@ public class ArtistController {
         } else {
             /*In any other case*/
             return "error";
+        }
+    }
+
+    /**
+     * This method stablishes the needed variables as far as the artist controller is concerned.
+     * The information needed is: if the user is logged or if the user is an admin. This variables
+     * are used to show diferent UI corresponding to their role.
+     * The way this method works is adding the correspondent attributes to the model 
+     * when any of the previous controller methods are called so that the information is pre-loaded.
+     * 
+     * @param model is the model of dynamic HTTP
+     * @param request is the HTTP request
+     */
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal!=null) { //If there is a principal user (means it is logged)
+            model.addAttribute("isLogged", true);
+            model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("isLogged", false);
         }
     }
 

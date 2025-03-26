@@ -1,8 +1,11 @@
 package es.ticketmaster.entrega1.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class TicketController {
@@ -112,6 +116,29 @@ public class TicketController {
             return "redirect:/profile?showMyConcerts=true";
         } else {
             return "redirect:/error";
+        }
+    }
+
+    /**
+     * This method stablishes the needed variables as far as the ticket controller is concerned.
+     * The information needed is: if the user is logged or if the user is an admin. This variables
+     * are used to show diferent UI corresponding to their role.
+     * The way this method works is adding the correspondent attributes to the model 
+     * when any of the previous controller methods are called so that the information is pre-loaded.
+     * 
+     * @param model is the model of dynamic HTTP
+     * @param request is the HTTP request
+     */
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal!=null) { //If there is a principal user (means it is logged)
+            model.addAttribute("isLogged", true);
+            model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("isLogged", false);
         }
     }
 }

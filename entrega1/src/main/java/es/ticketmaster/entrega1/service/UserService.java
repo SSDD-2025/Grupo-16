@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -62,8 +63,9 @@ public class UserService {
      *
      * @return the actual active user
      */
-    /*public UserEntity getActiveUser() {
+    public UserEntity getActiveUser() {
 
+        Principal principal = 
         Optional<UserEntity> user = userRepository.findById(activeUser.getId());
 
         if (user.isEmpty()) {
@@ -71,7 +73,7 @@ public class UserService {
         } else {
             return user.get();
         }
-    }*/
+    }
 
     /**
      * Saves in the DDBB the user whose id is passed as a parameter and changing
