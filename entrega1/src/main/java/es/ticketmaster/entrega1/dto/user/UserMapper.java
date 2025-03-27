@@ -12,8 +12,12 @@ import es.ticketmaster.entrega1.model.UserEntity;
 public interface UserMapper {
     UserDTO toPrincipalDTO(UserEntity user);
     List<UserDTO> toPrincipalDTOs(Collection<UserEntity> users);
-    UserEntity toDomain(UserDTO userDTO);
 
+    @Mapping(target = "artistsList", ignore = true)
+    @Mapping(target = "ticketList", ignore = true)
+    @Mapping(target = "profilePicture", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    UserEntity toDomain(UserDTO userDTO);
 
     ShowUserDTO toShowUserDTO(UserEntity user);
     List<ShowUserDTO> toShowUserDTOs(Collection<UserEntity> users);

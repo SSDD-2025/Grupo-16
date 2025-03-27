@@ -67,7 +67,7 @@ public class Ticket {
         return this.id;
     }
 
-    public UserEntity getUser() {
+    public UserEntity getTicketUser() {
         return this.ticketUser;
     }
 
