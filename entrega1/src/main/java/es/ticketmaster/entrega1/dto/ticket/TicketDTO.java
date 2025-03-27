@@ -1,5 +1,5 @@
 package es.ticketmaster.entrega1.dto.ticket;
 
-public record TicketDTO() {
-    
-}
+import es.ticketmaster.entrega1.dto.user.UserDTO;
+
+public record TicketDTO(String username, UserDTO user) {}
