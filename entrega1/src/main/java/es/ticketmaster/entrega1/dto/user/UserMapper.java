@@ -12,4 +12,5 @@ public interface UserMapper {
     ShowUserDTO toShowUserDTO(UserEntity user);
     List<ShowUserDTO> toShowUserDTOs(Collection<UserEntity> users);
     UserEntity toShowUserDTO(ShowUserDTO userDTO);
+    UserShowTicketsDTO toShowTicketsDTO(UserEntity user);
 }
