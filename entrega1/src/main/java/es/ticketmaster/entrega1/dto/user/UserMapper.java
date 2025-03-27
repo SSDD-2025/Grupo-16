@@ -19,4 +19,5 @@ public interface UserMapper {
     @Mapping(target = "ticketList", ignore = true)
     @Mapping(target = "profilePicture", ignore = true)
     UserEntity toShowUserDTO(ShowUserDTO userDTO);
+    UserShowTicketsDTO toShowTicketsDTO(UserEntity user);
 }
