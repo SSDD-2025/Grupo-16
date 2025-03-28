@@ -199,5 +199,4 @@ public class ArtistController {
             model.addAttribute("isLogged", false);
         }
     }
-
 }

@@ -63,6 +63,7 @@ public class TicketService {
      * @param type is the type of the ticket.
      * @param number is the ammount of tickets de user has purchased.
      * @param concertId is the identification number for a concert.
+     * @param principal is the currently authenticated user, used to retrieve the active user. 
      */
     public void associateUserWithTicket(String type, int number, long concertId, Principal principal) {
         List<Ticket> userTickets = this.userService.getActiveUser(principal).getTicketsList();
@@ -97,7 +98,8 @@ public class TicketService {
         if (!ticket.isPresent()) {
             /* If an ticket with such ID does not exist */
             return false;
-        } else {
+        } 
+        else {
             if (!this.concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())) {
                 /* We try to restore the ticket */
                 return false;

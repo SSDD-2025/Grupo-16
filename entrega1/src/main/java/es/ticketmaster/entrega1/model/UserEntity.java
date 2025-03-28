@@ -34,7 +34,7 @@ public class UserEntity {
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-    protected UserEntity() {
+    public UserEntity() {
         /* Constructor used by the JPA interface. */
         this.roles = List.of("USER"); //We stablish the default role
     }

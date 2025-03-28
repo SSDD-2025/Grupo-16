@@ -24,11 +24,12 @@ public class MainController {
 
     /**
      * It will show the main page with the correct lists displays regarding if
-     * the user is logged or not
+     * the user is logged or not.
      *
-     * @param model is the model of the dinamic HTML document
-     * @param search (Optional) Search introduced by the user in the searchbar
-     * @return the main template
+     * @param model is the model of the dinamic HTML document.
+     * @param search (Optional) Search introduced by the user in the searchbar.
+     * @param request is the HTTP request.
+     * @return the main template.
      */
     @GetMapping("/")
     public String getMain(Model model, @RequestParam(required = false) String search, HttpServletRequest request) {
@@ -61,7 +62,7 @@ public class MainController {
      * when any of the previous controller methods are called so that the information is pre-loaded.
      * 
      * @param model is the model of dynamic HTTP
-     * @param request is the HTTP request
+     * @param request is the HTTP request.
      */
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request){

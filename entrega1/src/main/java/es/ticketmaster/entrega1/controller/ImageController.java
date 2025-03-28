@@ -119,6 +119,7 @@ public class ImageController {
      * mapping is called Acts uppon the mapping
      * /artist/{{id}}/download-latestAlbum-photo
      *
+     * @param request is the HTTP request.
      * @return the photo on the ResponseEntity<Object> if everything went well
      * (otherwise returns a not found object)
      * @throws SQLException
@@ -139,6 +140,12 @@ public class ImageController {
         }
     }
 
+    /**
+     * TODO: EL QUE HAYA HECHO ESTE MÉTODO, QUE HAGA SU DOCUMENTACIÓN.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @GetMapping("/concert/{id}/download-poster")
     public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException {
 

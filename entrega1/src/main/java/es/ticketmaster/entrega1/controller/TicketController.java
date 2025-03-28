@@ -67,6 +67,7 @@ public class TicketController {
      * @param id is the identification number for the concert.
      * @param ticketType is the zone/section of the ticket.
      * @param number of tickets that the user has chosen.
+     * @param request is the HTTP request.
      * @return If there is no error on the card`s information, it will shown de
      * "purchase-confirmation" template. If not, the same "purchase" template
      * but with an error message.

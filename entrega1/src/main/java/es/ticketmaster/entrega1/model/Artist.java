@@ -56,7 +56,7 @@ public class Artist {
     /**
      * Contructor for the JPA
      */
-    protected Artist() {
+    public Artist() {
     }
 
     /**

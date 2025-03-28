@@ -26,7 +26,7 @@ public class UserController {
      * Will show the sign in display on the "sign-in.html" file.
      *
      * @param model is the model of the dinamic HTML document.
-     * @param error if there has been any error in previous attempts of logging in
+     * @param error if there has been any error in previous attempts of logging in.
      * @return the sign-in template.
      */
     @GetMapping("/sign-in")
@@ -54,16 +54,13 @@ public class UserController {
      * It will verify if the userName introduced is valid (does not exist).
      *
      * @param model is the model of the dinamic HTML document.
-     * @param username is the one introduced by the user.
-     * @param password is the one introduced by the user.
-     * @param country is the country from where the user is from.
-     * @param email is the email from the user.
+     * @param user represents a determine user.
      * @return the sign-in-validation template (if everything goes well), in
      * other case, will shown the sign-in template, with a message of error.
      */
     @PostMapping("/sign-up/validation")
     public String verifySignUp(Model model, @ModelAttribute UserEntity user) {
-        if(!userService.registerUser(user)){ // The registration couldn't be done
+        if(!userService.registerUser(user)){ // The registration couldn't be done.
             model.addAttribute("newUser", true);
             return "sign-in";
         }
@@ -81,7 +78,7 @@ public class UserController {
      * its form)
      * @param showMyArtists if true, favourite artists list is diplayed
      * @param showMyConcerts if true, actual purchased tickets are displayed
-     * @return
+     * @return the my-profile template.
      */
     @GetMapping("/profile")
     public String accessToProfile(Model model, @RequestParam(required = false) boolean showPersonalInfo,
@@ -99,9 +96,7 @@ public class UserController {
             model.addAttribute("user", userService.getActiveUser(user));
             model.addAttribute("showPersonalInfo", true);
         }
-
         return "my-profile";
-
     }
 
     /**
@@ -133,7 +128,6 @@ public class UserController {
      * user to an error page. As well, if the deletion has been achieved, the
      * user is redirected to the main page.
      *
-     * @param model model of the actual dynamic HTML
      * @param id id of the future deleted user
      * @return HTML to be loaded
      */

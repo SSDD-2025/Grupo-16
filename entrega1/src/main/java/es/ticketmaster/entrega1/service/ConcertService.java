@@ -57,6 +57,7 @@ public class ConcertService {
      * Searches the concerts taken at a specific place
      *
      * @param place is the country/ city which the search is based
+     * @param principal is the currently authenticated user, used to retrieve the active user.
      * @return the list of the concerts taking place at the country/ city
      * specified
      */
@@ -224,7 +225,8 @@ public class ConcertService {
     /**
      * Method that searched by country and depending on the user login state
      *
-     * @param userLogged if the user is logged or not
+     * @param userLogged if the user is logged or not.
+     * @param principal is the currently authenticated user, used to retrieve the active user.
      * @return list (empty or with elements) of concerts near the activeUser
      */
     public List<Concert> getConcertsNearUser(Principal user) {

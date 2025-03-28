@@ -25,7 +25,7 @@ public class Ticket {
     private String zone;
     private float price;
 
-    protected Ticket() {
+    public Ticket() {
         /* Constructor used by the JPA interface */
     }
 

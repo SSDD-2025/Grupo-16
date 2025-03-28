@@ -48,7 +48,7 @@ public class UserService {
     /**
      * Gets the actual active user object from the Principal user provided by SpringSecurity
      *
-     * @param principal the principal class from where the username can be requested
+     * @param principal the principal class from where the username can be requested.
      * @return the actual active user
      */
     public UserEntity getActiveUser(Principal principal) {
@@ -111,5 +111,4 @@ public class UserService {
         }
 
     }
-
 }
