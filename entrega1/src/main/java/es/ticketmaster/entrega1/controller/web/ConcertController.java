@@ -1,4 +1,4 @@
-package es.ticketmaster.entrega1.controller;
+package es.ticketmaster.entrega1.controller.web;
 
 import java.io.IOException;
 import java.security.Principal;

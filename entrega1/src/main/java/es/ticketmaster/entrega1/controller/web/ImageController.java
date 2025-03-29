@@ -1,4 +1,4 @@
-package es.ticketmaster.entrega1.controller;
+package es.ticketmaster.entrega1.controller.web;
 
 import java.sql.Blob;
 import java.sql.SQLException;
