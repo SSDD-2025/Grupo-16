@@ -47,4 +47,18 @@ public interface UserMapper {
     
     @Mapping(target = "ticketList", source = "ticketList")
     UserShowTicketsDTO toShowTicketsDTO(UserEntity user);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "country", ignore = true)
+    @Mapping(target = "artistList", ignore = true)
+    @Mapping(target = "profilePicture", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "ticketList", ignore = true)
+    UserEntity toUserShowArtistsDomain(UserShowArtistsDTO userDTO);
+
+    @Mapping(target= "artistsList", source= "artistsList")
+    UserShowArtistsDTO toShowArtistsDTO(UserEntity user);
 }
