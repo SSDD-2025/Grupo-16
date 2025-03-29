@@ -126,7 +126,7 @@ public class ImageController {
      */
     @GetMapping("/profile/download-profile-picture")
     public ResponseEntity<Object> downloadProfilePicture(HttpServletRequest request) throws SQLException {
-        UserEntity user = userService.getActiveUser(request.getUserPrincipal());
+        UserEntity user = userService.getActiveUserWithProfilePicture(request.getUserPrincipal());
 
         if (user != null && user.getProfilePicture() != null) {
             Blob image = user.getProfilePicture();

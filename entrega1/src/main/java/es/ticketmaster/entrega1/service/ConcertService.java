@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.model.Concert;
-import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 
 /**
@@ -63,7 +63,7 @@ public class ConcertService {
      */
     public List<Concert> getConcertDisplay(Principal user) {
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser(user).getCountry());
+            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser(user).country());
             if (!(concertList.isEmpty())) {
                 return concertList;
             }
@@ -231,9 +231,9 @@ public class ConcertService {
      */
     public List<Concert> getConcertsNearUser(Principal user) {
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
-            UserEntity actualUser = userService.getActiveUser(user);
+            ShowUserDTO actualUser = userService.getActiveUser(user);
             if (actualUser != null) {
-                String country = actualUser.getCountry();
+                String country = actualUser.country();
                 return concertRepository.findByPlace(country);
             }
         }

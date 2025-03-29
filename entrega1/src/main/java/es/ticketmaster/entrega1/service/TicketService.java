@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
+import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 import es.ticketmaster.entrega1.repository.TicketRepository;
 import es.ticketmaster.entrega1.repository.UserRepository;
@@ -18,12 +20,13 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private ConcertRepository concertRepository;
+    
     @Autowired
     private ConcertService concertService;
 
@@ -66,22 +69,25 @@ public class TicketService {
      * @param principal is the currently authenticated user, used to retrieve the active user. 
      */
     public void associateUserWithTicket(String type, int number, long concertId, Principal principal) {
-        List<Ticket> userTickets = this.userService.getActiveUser(principal).getTicketsList();
-        Concert concert = this.concertRepository.findConcertById(concertId);
+        UserEntity userEntity = this.userRepository.findByUsername(principal.getName())
+                                                    .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+
+        List<Ticket> userTickets = userEntity.getTicketList(); /* Gets the actual ticket list for the respective user. */
+
+        Concert concert = this.concertRepository.findConcertById(concertId); /* Gets the respective concert. */
         for (int i = 0; i < number; i++) {
             Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
             /* Creation of ticket. */
             userTickets.add(newTicket);
             /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(this.userService.getActiveUser(principal));
+            newTicket.setUser(userEntity);
             /* Associating the ticket to the user. */
             this.ticketRepository.save(newTicket);
             /* Once it has been asssociated, the ticket is saved in its repository. */
         }
-        this.userService.getActiveUser(principal).setTicketList(userTickets);
-        /* Updating the ticket list of the user. */
-        this.userRepository.save(this.userService.getActiveUser(principal));
-        /* Saving the user in its repository. */
+        /* Now that the tickets have been added, the user's ticket list is updated. */
+        userEntity.setTicketList(userTickets);
+        this.userRepository.save(userEntity); /* Finally, we save in the database the updated ticket list for the user. */
     }
 
     /**

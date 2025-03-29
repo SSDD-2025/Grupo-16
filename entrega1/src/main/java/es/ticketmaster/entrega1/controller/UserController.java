@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.ticketmaster.entrega1.model.UserEntity;
+import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -54,12 +54,12 @@ public class UserController {
      * It will verify if the userName introduced is valid (does not exist).
      *
      * @param model is the model of the dinamic HTML document.
-     * @param user represents a determine user.
+     * @param user represents a determine user in DTO format.
      * @return the sign-in-validation template (if everything goes well), in
      * other case, will shown the sign-in template, with a message of error.
      */
     @PostMapping("/sign-up/validation")
-    public String verifySignUp(Model model, @ModelAttribute UserEntity user) {
+    public String verifySignUp(Model model, @ModelAttribute UserDTO user) {
         if(!userService.registerUser(user)){ // The registration couldn't be done.
             model.addAttribute("newUser", true);
             return "sign-in";
@@ -88,12 +88,12 @@ public class UserController {
         Principal user = request.getUserPrincipal();
         if (showMyConcerts) {
             model.addAttribute("showMyConcerts", true);
-            model.addAttribute("ticketList", userService.getActiveUser(user).getTicketsList());
+            model.addAttribute("ticketList", userService.getTicketsForActiveUser(user).ticketList());
         } else if (showMyArtists) {
             model.addAttribute("showMyArtists", true);
-            model.addAttribute("artistList", userService.getActiveUser(user).getArtistsList());
+            model.addAttribute("artistList", userService.getArtistsForActiveUser(user).artistsList());
         } else { //In case there is no display option, personal information is displayed
-            model.addAttribute("user", userService.getActiveUser(user));
+            model.addAttribute("user", userService.getActiveUserWithProfilePicture(user));
             model.addAttribute("showPersonalInfo", true);
         }
         return "my-profile";

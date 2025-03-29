@@ -20,13 +20,34 @@ public interface UserMapper {
     UserEntity toDomain(UserDTO userDTO);
 
     ShowUserDTO toShowUserDTO(UserEntity user);
+    UserEntity toShowUserEntity(ShowUserDTO userDTO);
     List<ShowUserDTO> toShowUserDTOs(Collection<UserEntity> users);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "artistsList", ignore = true)
-    @Mapping(target = "ticketList", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "country", ignore = true)
+    @Mapping(target = "artistList", ignore = true)
     @Mapping(target = "profilePicture", ignore = true)
-    UserEntity toShowUserDTO(ShowUserDTO userDTO);
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "artistsList", ignore = true)
+    UserEntity toUserShowTicketsEntity(UserShowTicketsDTO userShowTicketsDTO);
+    
+    @Mapping(target = "ticketList", source = "ticketList")
     UserShowTicketsDTO toShowTicketsDTO(UserEntity user);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "country", ignore = true)
+    @Mapping(target = "artistList", ignore = true)
+    @Mapping(target = "profilePicture", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "ticketList", ignore = true)
+    UserEntity toUserShowArtistsEntity(UserShowArtistsDTO userDTO);
+
+    @Mapping(target= "artistsList", source= "artistsList")
+    UserShowArtistsDTO toShowArtistsDTO(UserEntity user);
 }

@@ -11,8 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
+import es.ticketmaster.entrega1.dto.user.UserDTO;
+import es.ticketmaster.entrega1.dto.user.UserMapper;
+import es.ticketmaster.entrega1.dto.user.UserShowArtistsDTO;
+import es.ticketmaster.entrega1.dto.user.UserShowTicketsDTO;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.UserRepository;
+import es.ticketmaster.entrega1.service.exceptions.UserAlreadyExistsException;
 
 @Service
 public class UserService {
@@ -23,35 +29,60 @@ public class UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
     /**
      * Method that tries to make the registration of a new user. For that, it searches if
      * there is an existing user with that username and in case there is no repetition,
      * saves the new user in the database.
      *
-     * @param newUser is the user that will be register.
-     * @return the user (in case everything goes well).
+     * @param newUser is the DTO correspondig to the user.
+     * @return true if the user is successfully registered, false if the username is already taken.
      */
-    public boolean registerUser(UserEntity newUser) {
+    public boolean registerUser(UserDTO newUser) {
         try {
-            // Verifies if there exist any user with the same username
-            if(this.userRepository.findByUsername(newUser.getUsername()).isPresent()){
+            // Verifies if there is a user with the same username.
+            if(this.userRepository.findByUsername(newUser.username()).isPresent()){
                 return false;
             }
-            newUser.setPassword(encoder.encode(newUser.getPassword()));
-            this.userRepository.save(newUser);
+            UserEntity user = this.userMapper.toDomain(newUser);
+            user.setPassword(encoder.encode(newUser.password()));
+            this.userRepository.save(user);
+            this.userMapper.toPrincipalDTO(user);
             return true;
-        } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException(e.getMessage());
+        } 
+        catch (DataIntegrityViolationException e) {
+            throw new UserAlreadyExistsException(e.getMessage());
         }
     }
 
     /**
-     * Gets the actual active user object from the Principal user provided by SpringSecurity
+     * Gets the actual active user object from the Principal user provided by SpringSecurity.
      *
      * @param principal the principal class from where the username can be requested.
-     * @return the actual active user
+     * @return the actual active user as ShowUserDTO, or null if no user is found.
      */
-    public UserEntity getActiveUser(Principal principal) {
+    public ShowUserDTO getActiveUser(Principal principal) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
+        Optional<ShowUserDTO> showUserDTO = userEntity.map(this.userMapper :: toShowUserDTO);
+
+        if (showUserDTO.isEmpty()) {
+            return null;
+        } 
+        else {
+            return showUserDTO.get();
+        }
+    }
+
+    /**
+     * Gets the actual active user object from the Principal user provided by SpringSecurity.
+     * @implNote This method is for exclusive use by ImageController.
+     *
+     * @param principal the principal class from where the username can be requested.
+     * @return the actual active user.
+     */
+    public UserEntity getActiveUserWithProfilePicture(Principal principal) {
 
         Optional<UserEntity> user = userRepository.findByUsername(principal.getName());
 
@@ -59,6 +90,42 @@ public class UserService {
             return null;
         } else {
             return user.get();
+        }
+    }
+
+    /**
+     * Gets the all the tickets associated with the actual active user object from the Principal user provided by SpringSecurity.
+     *
+     * @param principal the principal class from where the username can be requested.
+     * @return the actual active user as UserShowTicketsDTO, or null if no user is found.
+     */
+    public UserShowTicketsDTO getTicketsForActiveUser(Principal principal) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
+        Optional<UserShowTicketsDTO> userShowTicketsDTO = userEntity.map(this.userMapper :: toShowTicketsDTO);
+
+        if (userShowTicketsDTO.isEmpty()) {
+            return null;
+        } 
+        else {
+            return userShowTicketsDTO.get();
+        }
+    }
+
+    /**
+     * Gets the all the artists associated with the actual active user object from the Principal user provided by SpringSecurity.
+     *
+     * @param principal the principal class from where the username can be requested.
+     * @return the actual active user as UserShowArtistsDTO, or null if no user is found.
+     */
+    public UserShowArtistsDTO getArtistsForActiveUser(Principal principal) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
+        Optional<UserShowArtistsDTO> userShowArtistsDTO = userEntity.map(this.userMapper:: toShowArtistsDTO);
+
+        if (userShowArtistsDTO.isEmpty()) {
+            return null;
+        } 
+        else {
+            return userShowArtistsDTO.get();
         }
     }
 

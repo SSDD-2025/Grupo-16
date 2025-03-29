@@ -100,7 +100,7 @@ public class UserEntity {
         return this.artistsList;
     }
 
-    public List<Ticket> getTicketsList() {
+    public List<Ticket> getTicketList() {
         return this.ticketList;
     }
 
