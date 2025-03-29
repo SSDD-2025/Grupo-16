@@ -30,7 +30,7 @@ public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "ticketList", ignore = true)
     @Mapping(target = "artistsList", ignore = true)
-    UserEntity toShowUserEntity(ShowUserDTO userDTO);
+    UserEntity toShowUserDomain(ShowUserDTO userDTO);
     
     List<ShowUserDTO> toShowUserDTOs(Collection<UserEntity> users);
 
@@ -43,7 +43,7 @@ public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "artistsList", ignore = true)
-    UserEntity toUserShowTicketsEntity(UserShowTicketsDTO userShowTicketsDTO);
+    UserEntity toUserShowTicketsDomain(UserShowTicketsDTO userShowTicketsDTO);
     
     @Mapping(target = "ticketList", source = "ticketList")
     UserShowTicketsDTO toShowTicketsDTO(UserEntity user);
