@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.dto.user.UserMapper;
-import es.ticketmaster.entrega1.dto.user.UserShowArtistsDTO;
 import es.ticketmaster.entrega1.dto.user.UserShowTicketsDTO;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.UserRepository;
@@ -108,24 +107,6 @@ public class UserService {
         } 
         else {
             return userShowTicketsDTO.get();
-        }
-    }
-
-    /**
-     * Gets the all the artists associated with the actual active user object from the Principal user provided by SpringSecurity.
-     *
-     * @param principal the principal class from where the username can be requested.
-     * @return the actual active user as UserShowArtistsDTO, or null if no user is found.
-     */
-    public UserShowArtistsDTO getArtistsForActiveUser(Principal principal) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
-        Optional<UserShowArtistsDTO> userShowArtistsDTO = userEntity.map(this.userMapper:: toShowArtistsDTO);
-
-        if (userShowArtistsDTO.isEmpty()) {
-            return null;
-        } 
-        else {
-            return userShowArtistsDTO.get();
         }
     }
 

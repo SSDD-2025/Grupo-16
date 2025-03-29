@@ -91,7 +91,7 @@ public class UserController {
             model.addAttribute("ticketList", userService.getTicketsForActiveUser(user).ticketList());
         } else if (showMyArtists) {
             model.addAttribute("showMyArtists", true);
-            model.addAttribute("artistList", userService.getArtistsForActiveUser(user).artistsList());
+            model.addAttribute("artistList", false); // When this DTO is implemented, it will be changed.
         } else { //In case there is no display option, personal information is displayed
             model.addAttribute("user", userService.getActiveUserWithProfilePicture(user));
             model.addAttribute("showPersonalInfo", true);
