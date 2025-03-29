@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import es.ticketmaster.entrega1.dto.concert.ConcertMapper;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
 import es.ticketmaster.entrega1.model.UserEntity;
@@ -29,6 +30,9 @@ public class TicketService {
     
     @Autowired
     private ConcertService concertService;
+
+    @Autowired
+    private ConcertMapper mapper;
 
     /**
      * Obtain the ticket form the database.
@@ -106,7 +110,7 @@ public class TicketService {
             return false;
         } 
         else {
-            if (!this.concertService.returnTicket(ticket.get().getConcert(), ticket.get().getZone())) {
+            if (!this.concertService.returnTicket(mapper.toDTO(ticket.get().getConcert()), ticket.get().getZone())) {
                 /* We try to restore the ticket */
                 return false;
                 /*The change was not possible*/

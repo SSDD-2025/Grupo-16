@@ -149,15 +149,14 @@ public class ImageController {
     @GetMapping("/concert/{id}/download-poster")
     public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException {
 
-        Concert concert = concertService.findConcertById(id);
+        Blob concertImage = concertService.getConcertImage(id);
 
-        if ((concert != null) && (concert.getImage() != null)) {
+        if (concertImage != null) {
 
-            Blob image = concert.getImage();
-            Resource file = new InputStreamResource(image.getBinaryStream());
+            Resource file = new InputStreamResource(concertImage.getBinaryStream());
 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(image.length()).body(file);
+                    .contentLength(concertImage.length()).body(file);
 
         } else {
             return ResponseEntity.notFound().build();

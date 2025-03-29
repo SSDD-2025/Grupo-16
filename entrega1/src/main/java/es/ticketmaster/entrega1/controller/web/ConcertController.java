@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.ticketmaster.entrega1.model.Concert;
+import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -115,7 +115,7 @@ public class ConcertController {
      * @throws IOException if an error occurs during file handling
      */
     @PostMapping("/admin/concert/register")
-    public String postAddConcert(Model model, @ModelAttribute Concert newConcert,
+    public String postAddConcert(Model model, @ModelAttribute ConcertDTO newConcert,
             @RequestParam(required = false) MultipartFile poster, @RequestParam(required = false) Long id,
             @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws IOException {
         if (artistId == -1) { //the concert is from a new artist not registered yet

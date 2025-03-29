@@ -2,6 +2,7 @@ package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
+import es.ticketmaster.entrega1.dto.concert.ConcertMapper;
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
@@ -33,6 +36,9 @@ public class ConcertService {
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private ConcertMapper mapper;
+
     /**
      * Method that searches for concerts which Concert.name or
      * Concert.artist.name matches with a String and returns a list of concerts
@@ -42,12 +48,12 @@ public class ConcertService {
      * @return List of Concert that could be empty when no concerts are found
      * @see Concert
      */
-    public List<Concert> getSearchBy(String search) {
+    public List<ConcertDTO> getSearchBy(String search) {
 
-        List<Concert> searchedConcerts = concertRepository.findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(search);
+        List<ConcertDTO> searchedConcerts = mapper.toDTOs(concertRepository.findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(search));
 
         if (search.length() > 2) { //To avoid repeated simple input answers
-            searchedConcerts.addAll(concertRepository.findByArtistNameContainingIgnoreCase(search));
+            searchedConcerts.addAll(mapper.toDTOs(concertRepository.findByArtistNameContainingIgnoreCase(search)));
         }
 
         return searchedConcerts;
@@ -61,15 +67,15 @@ public class ConcertService {
      * @return the list of the concerts taking place at the country/ city
      * specified
      */
-    public List<Concert> getConcertDisplay(Principal user) {
+    public List<ConcertDTO> getConcertDisplay(Principal user) {
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
-            List<Concert> concertList = concertRepository.findByPlace(userService.getActiveUser(user).country());
+            List<ConcertDTO> concertList = mapper.toDTOs(concertRepository.findByPlace(userService.getActiveUser(user).country()));
             if (!(concertList.isEmpty())) {
                 return concertList;
             }
         }
         //whether the user is not logged or the concertListByCountry is empty, it will return a list of concerts order by artist's fame
-        return concertRepository.findTop7ByOrderByDateAsc(); //provisional until the query is fixed
+        return mapper.toDTOs(concertRepository.findTop7ByOrderByDateAsc()); //provisional until the query is fixed
     }
 
     /**
@@ -77,8 +83,8 @@ public class ConcertService {
      *
      * @return List with all the concerts registered
      */
-    public List<Concert> getAllConcerts() {
-        return concertRepository.findAll();
+    public List<ConcertDTO> getAllConcerts() {
+        return mapper.toDTOs(concertRepository.findAll());
     }
 
     /**
@@ -87,13 +93,13 @@ public class ConcertService {
      * @param id id of the concert to be searched
      * @return The concert (if it exists), null if there is no match
      */
-    public Concert findConcertById(long id) {
+    public ConcertDTO findConcertById(long id) {
 
         Optional<Concert> concert = concertRepository.findById(id);
 
         if (!concert.isEmpty()) {
             /*If a concert has been found*/
-            return concert.get();
+            return mapper.toDTO(concert.get());
         } else {
             /*If there is no concert match*/
             return null;
@@ -103,10 +109,11 @@ public class ConcertService {
     /**
      * Check the existence of a concert.
      *
-     * @param concert the concert in question.
+     * @param concertDTO the concert in question.
      * @return true if it exist, false otherwise.
      */
-    public boolean existConcert(Concert concert) {
+    public boolean existConcert(ConcertDTO concertDTO) {
+        Concert concert = mapper.toDomain(concertDTO);
         return (concert != null);
     }
 
@@ -114,8 +121,33 @@ public class ConcertService {
      * @param artistName the artist name whose concert list is being returned
      * @return said list
      */
-    public List<Concert> getArtistConcerts(String artistName) {
-        return concertRepository.findByArtistNameIgnoreCase(artistName);
+    public List<ConcertDTO> getArtistConcerts(String artistName) {
+        return mapper.toDTOs(concertRepository.findByArtistNameIgnoreCase(artistName));
+    }
+
+    /**
+     * 
+     * @param concertDTO concert that the user wants to buy tickets from
+     * @param tickets number of tickets purchase from said concert
+     * @return total price of the purchase
+     */
+    public float getTotalPrice(ConcertDTO concertDTO, int tickets){
+        Concert concert = mapper.toDomain(concertDTO);
+        return concert.getPrice() * tickets;
+    }
+
+    /**
+     * 
+     * @param id id from the concert whose photo is being returned
+     * @return the blob of the photo
+     */
+    public Blob getConcertImage(long id){
+        Concert concert = concertRepository.findConcertById(id);
+        if (concert == null){
+            return null;
+        } else {
+            return concert.getImage();
+        }
     }
 
     /**
@@ -170,15 +202,16 @@ public class ConcertService {
      * @param artistId the id whose concert is being uploaded to the DDBB
      * @throws IOException if an error occurs during file handling
      */
-    public void saveConcert(Concert concert, MultipartFile poster, long artistId) throws IOException {
+    public void saveConcert(ConcertDTO concert, MultipartFile poster, long artistId) throws IOException {
+        Concert newConcert = mapper.toDomain(concert);
         if ((poster != null) && (!poster.isEmpty())) {
-            concert.setImage(imageService.getBlobOf(poster));
+            newConcert.setImage(imageService.getBlobOf(poster));
         }
 
         //set the artist
-        concert.setArtist(artistService.getArtist(artistId));
+        newConcert.setArtist(artistService.getArtist(artistId));
 
-        concertRepository.save(concert);
+        concertRepository.save(newConcert);
     }
 
     /**
@@ -193,24 +226,25 @@ public class ConcertService {
      * new artist)
      * @throws IOException if an error occurs during file handling
      */
-    public void modifyConcert(Concert concert, long id, MultipartFile poster, long artistId) throws IOException {
+    public void modifyConcert(ConcertDTO concert, long id, MultipartFile poster, long artistId) throws IOException {
         // concert has the number of added tickets
         // so then modified concert is concert with the old concert available tickets added
+        Concert modifiedConcert = mapper.toDomain(concert);
         Concert oldConcert = concertRepository.findConcertById(id);
-        concert.addTickets(oldConcert);
+        modifiedConcert.addTickets(oldConcert);
         if (poster != null) {
-            concert.setImage(imageService.getBlobOf(poster));
+            modifiedConcert.setImage(imageService.getBlobOf(poster));
         } else {
-            concert.setImage(oldConcert.getImage());
+            modifiedConcert.setImage(oldConcert.getImage());
         }
 
         // set the old id to the modified concert
-        concert.setId(id);
+        modifiedConcert.setId(id);
 
         //set the artist
-        concert.setArtist(artistService.getArtist(artistId));
+        modifiedConcert.setArtist(artistService.getArtist(artistId));
 
-        concertRepository.save(concert);
+        concertRepository.save(modifiedConcert);
     }
 
     /**
@@ -229,12 +263,12 @@ public class ConcertService {
      * @param principal is the currently authenticated user, used to retrieve the active user.
      * @return list (empty or with elements) of concerts near the activeUser
      */
-    public List<Concert> getConcertsNearUser(Principal user) {
+    public List<ConcertDTO> getConcertsNearUser(Principal user) {
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
             ShowUserDTO actualUser = userService.getActiveUser(user);
             if (actualUser != null) {
                 String country = actualUser.country();
-                return concertRepository.findByPlace(country);
+                return mapper.toDTOs(concertRepository.findByPlace(country));
             }
         }
         //whether the user is not logged or does not exist
@@ -245,12 +279,13 @@ public class ConcertService {
      * Method that restores one ticket availability in a given zone of an
      * specific concert
      *
-     * @param concert the concert to restore which ticket is about to be
+     * @param concertDTO the concert to restore which ticket is about to be
      * restored
      * @param zone zone where the ticket is restored
      * @return true if the restoration happened correctly, false in other case
      */
-    public boolean returnTicket(Concert concert, String zone) {
+    public boolean returnTicket(ConcertDTO concertDTO, String zone) {
+        Concert concert = mapper.toDomain(concertDTO);
         return switch (zone) {
             /*Depending on the zone, a different repository method for restoration is used*/
             case "North" ->

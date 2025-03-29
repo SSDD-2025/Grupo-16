@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.ticketmaster.entrega1.model.Concert;
+import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.TicketService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class TicketController {
      */
     @PostMapping("/concert/{id}/purchase")
     public String showPurchaseInformation(Model model, @PathVariable long id, @RequestParam int number, @RequestParam String ticketType) {
-        Concert concert = this.concertService.findConcertById(id);
+        ConcertDTO concert = this.concertService.findConcertById(id);
         if (this.concertService.existConcert(concert)) {
             /* Verify if the concert with such id exist. */
  /* It will check if there are tickets available for the type of ticket that has been chosen. */
@@ -50,7 +50,7 @@ public class TicketController {
             This method can be found right after the current method. */
             model.addAttribute("ticketType", ticketType);
             model.addAttribute("number", number);
-            float totalPrice = concert.getPrice() * number;
+            float totalPrice = this.concertService.getTotalPrice(concert,number);
             model.addAttribute("total-price", totalPrice);
             return "purchase";
         } else {
