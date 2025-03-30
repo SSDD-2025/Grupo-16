@@ -58,21 +58,23 @@ public class UserService {
     }
 
     /**
+     * Gets the user in DTO format. 
+     * @implNote it is used for the UserRestController.
+     * @param id is the identification number of the user.
+     * @return the user in its DTO format.
+     */
+    public ShowUserDTO getUserWithID(long id) {
+        return this.userRepository.findById(id).map(this.userMapper :: toShowUserDTO).orElse(null);
+    }
+
+    /**
      * Gets the actual active user object from the Principal user provided by SpringSecurity.
      *
      * @param principal the principal class from where the username can be requested.
      * @return the actual active user as ShowUserDTO, or null if no user is found.
      */
     public ShowUserDTO getActiveUser(Principal principal) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
-        Optional<ShowUserDTO> showUserDTO = userEntity.map(this.userMapper :: toShowUserDTO);
-
-        if (showUserDTO.isEmpty()) {
-            return null;
-        } 
-        else {
-            return showUserDTO.get();
-        }
+        return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowUserDTO).orElse(null);
     }
 
     /**
@@ -83,14 +85,7 @@ public class UserService {
      * @return the actual active user.
      */
     public UserEntity getActiveUserWithProfilePicture(Principal principal) {
-
-        Optional<UserEntity> user = userRepository.findByUsername(principal.getName());
-
-        if (user.isEmpty()) {
-            return null;
-        } else {
-            return user.get();
-        }
+        return this.userRepository.findByUsername(principal.getName()).orElse(null);
     }
 
     /**
@@ -100,15 +95,7 @@ public class UserService {
      * @return the actual active user as UserShowTicketsDTO, or null if no user is found.
      */
     public UserShowTicketsDTO getTicketsForActiveUser(Principal principal) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
-        Optional<UserShowTicketsDTO> userShowTicketsDTO = userEntity.map(this.userMapper :: toShowTicketsDTO);
-
-        if (userShowTicketsDTO.isEmpty()) {
-            return null;
-        } 
-        else {
-            return userShowTicketsDTO.get();
-        }
+        return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowTicketsDTO).orElse(null);
     }
 
     /**
@@ -118,15 +105,7 @@ public class UserService {
      * @return the actual active user as UserShowArtistsDTO, or null if no user is found.
      */
     public UserShowArtistsDTO getArtistsForActiveUser(Principal principal) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(principal.getName());
-        Optional<UserShowArtistsDTO> userShowArtistsDTO = userEntity.map(this.userMapper:: toShowArtistsDTO);
-
-        if (userShowArtistsDTO.isEmpty()) {
-            return null;
-        } 
-        else {
-            return userShowArtistsDTO.get();
-        }
+        return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowArtistsDTO).orElse(null);
     }
 
     /**
@@ -176,6 +155,5 @@ public class UserService {
             //activeUser.setUserAsNotActive();
             return !userRepository.existsById(id); //We return true if the artist has been correctly deleted
         }
-
     }
 }

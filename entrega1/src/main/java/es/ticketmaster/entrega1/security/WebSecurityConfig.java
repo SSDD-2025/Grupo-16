@@ -42,6 +42,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/media/**").permitAll()
                 .requestMatchers("/concert/*/download-poster").permitAll()
                 .requestMatchers("/artist/*/download-photo").permitAll()
+
+                // Access to the API REST.
+                .requestMatchers("/api/**").permitAll()
+
                 //Public Pages
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/sign-up/**").permitAll()
