@@ -2,6 +2,7 @@ package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -58,8 +59,18 @@ public class UserService {
     }
 
     /**
+     * Method that obtains all the users that are registered in the database.
+     * @implNote this is used in the UserRestController.
+     * @return the collection of users in the ShowUserDTO format.
+     */
+    public Collection<ShowUserDTO> getAllUsersFromDatabase() {
+        Collection<UserEntity> userList = this.userRepository.findAll();
+        return this.userMapper.toShowUserDTOs(userList);
+    }
+
+    /**
      * Gets the user in DTO format. 
-     * @implNote it is used for the UserRestController.
+     * @implNote this is used in the UserRestController.
      * @param id is the identification number of the user.
      * @return the user in its DTO format.
      */

@@ -2,6 +2,7 @@ package es.ticketmaster.entrega1.controller.rest;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.service.UserService;
-
 
 @RestController
 @RequestMapping("/api/users")
@@ -57,7 +57,7 @@ public class UserRestController {
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
-    @GetMapping("/me/{id}")
+    @GetMapping("/profile/{id}")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(@PathVariable long id) {
         ShowUserDTO user = this.userService.getUserWithID(id);
         if (user == null) {
@@ -68,6 +68,15 @@ public class UserRestController {
         }
     }
 
+    /**
+     * Retrieves the information for all registered users.
+     * @return the collection of users in the ShowUserDTO format.
+     */
+    @GetMapping("/all-profiles")
+    public Collection<ShowUserDTO> getAllUsers() {
+        return this.userService.getAllUsersFromDatabase();
+    }
+    
     /**
      * This method handles the HTTP PUT request to update the user's profile settings.
      * In this case, the profile picture is not being updated as the method is provided with `null` for it.
@@ -80,7 +89,7 @@ public class UserRestController {
      *          - 400 Bad Request if an IOException occurs while handling the request.
      *          - 500 Internal Server Error if an unexpected error occurs.
      */
-    @PutMapping("/modify-me/{id}")
+    @PutMapping("/modify-profile/{id}")
     public ResponseEntity<ShowUserDTO> changeUserSettingsREST(@PathVariable long id, @RequestBody ShowUserDTO user) {
         try {
             if (this.userService.saveUserWithId(id, user.country(), null)) {
@@ -106,7 +115,7 @@ public class UserRestController {
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */
-    @DeleteMapping("/delete-me/{id}")
+    @DeleteMapping("/delete-profile/{id}")
     public ResponseEntity<Void> deleteUserProfileREST(@PathVariable long id) {
         if (this.userService.removeExistingUserWithId(id)) {
             return ResponseEntity.ok().build();
