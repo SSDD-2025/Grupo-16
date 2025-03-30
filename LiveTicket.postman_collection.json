@@ -27,9 +27,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{serverURL}}/profile/{id}/",
+							"raw": "{{userURL}}/profile/{id}/",
 							"host": [
-								"{{serverURL}}"
+								"{{userURL}}"
 							],
 							"path": [
 								"profile",
@@ -46,9 +46,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{serverURL}}/register/",
+							"raw": "{{userURL}}}/register/",
 							"host": [
-								"{{serverURL}}"
+								"{{userURL}}}"
 							],
 							"path": [
 								"register",
@@ -64,9 +64,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{serverURL}}/all-profiles/",
+							"raw": "{{userURL}}}/all-profiles/",
 							"host": [
-								"{{serverURL}}"
+								"{{userURL}}}"
 							],
 							"path": [
 								"all-profiles",
@@ -82,9 +82,9 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{serverURL}}/modify-profile/{id}/",
+							"raw": "{{userURL}}}/modify-profile/{id}/",
 							"host": [
-								"{{serverURL}}"
+								"{{userURL}}}"
 							],
 							"path": [
 								"modify-profile",
@@ -101,9 +101,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{serverURL}}/delete-profile/{id}/",
+							"raw": "{{userURL}}}/delete-profile/{id}/",
 							"host": [
-								"{{serverURL}}"
+								"{{userURL}}}"
 							],
 							"path": [
 								"delete-profile",
