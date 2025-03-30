@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,6 +57,7 @@ public class Concert {
     private int northStandsNumber; //Number of North Stands tickets available
     private int generalAdmissionNumber; //Number of General Admission tickets available
 
+    @JsonIgnore
     @Lob
     private Blob image; //Image of the concert's poster
 

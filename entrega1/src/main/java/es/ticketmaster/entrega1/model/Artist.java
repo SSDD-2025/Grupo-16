@@ -4,6 +4,8 @@ import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Artist {
     private int popularityIndex; //Number of listeners
     private LocalDateTime sessionCreated;
 
+    @JsonIgnore
     @Lob
     private Blob photo; //photo of the artist
 
@@ -39,9 +42,11 @@ public class Artist {
     private String latestAlbumAppleLink;
 
     //Album Images
+    @JsonIgnore
     @Lob
     private Blob bestAlbumPhoto;
 
+    @JsonIgnore
     @Lob
     private Blob latestAlbumPhoto;
 
@@ -50,6 +55,7 @@ public class Artist {
 
     /*Concert List -> For the first delivery, we assume that deleting an artist
     also deleting the concerts associated with him or her*/
+    @JsonIgnore
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Concert> concertList;
 

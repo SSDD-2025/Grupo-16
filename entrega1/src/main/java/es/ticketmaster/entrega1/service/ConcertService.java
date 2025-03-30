@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.Blob;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.concert.BasicConcertDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertMapper;
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
+import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 
@@ -48,12 +51,12 @@ public class ConcertService {
      * @return List of Concert that could be empty when no concerts are found
      * @see Concert
      */
-    public List<ConcertDTO> getSearchBy(String search) {
+    public List<BasicConcertDTO> getSearchBy(String search) {
 
-        List<ConcertDTO> searchedConcerts = mapper.toDTOs(concertRepository.findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(search));
+        List<BasicConcertDTO> searchedConcerts = mapper.toBasicConcertDTOs(concertRepository.findByNameContainingIgnoreCaseOrderByArtistPopularityIndexDesc(search));
 
         if (search.length() > 2) { //To avoid repeated simple input answers
-            searchedConcerts.addAll(mapper.toDTOs(concertRepository.findByArtistNameContainingIgnoreCase(search)));
+            searchedConcerts.addAll(mapper.toBasicConcertDTOs(concertRepository.findByArtistNameContainingIgnoreCase(search)));
         }
 
         return searchedConcerts;
@@ -67,16 +70,16 @@ public class ConcertService {
      * @return the list of the concerts taking place at the country/ city
      * specified
      */
-    public List<ConcertDTO> getConcertDisplay(Principal principal) {
+    public List<BasicConcertDTO> getConcertDisplay(Principal principal) {
         ShowUserDTO user = userService.getActiveUser(principal);
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
-            List<ConcertDTO> concertList = mapper.toDTOs(concertRepository.findByPlace(user.country()));
+            List<BasicConcertDTO> concertList = mapper.toBasicConcertDTOs(concertRepository.findByPlace(user.country()));
             if (!(concertList.isEmpty())) {
                 return concertList;
             }
         }
         //whether the user is not logged or the concertListByCountry is empty, it will return a list of concerts order by artist's fame
-        return mapper.toDTOs(concertRepository.findTop7ByOrderByDateAsc()); //provisional until the query is fixed
+        return mapper.toBasicConcertDTOs(concertRepository.findTop7ByOrderByDateAsc()); //provisional until the query is fixed
     }
 
     /**
@@ -84,8 +87,8 @@ public class ConcertService {
      *
      * @return List with all the concerts registered
      */
-    public List<ConcertDTO> getAllConcerts() {
-        return mapper.toDTOs(concertRepository.findAll());
+    public List<BasicConcertDTO> getAllConcerts() {
+        return mapper.toBasicConcertDTOs(concertRepository.findAll());
     }
 
     /**
@@ -103,7 +106,7 @@ public class ConcertService {
             return mapper.toDTO(concert.get());
         } else {
             /*If there is no concert match*/
-            return null;
+            throw new NoSuchElementException();
         }
     }
 
@@ -122,8 +125,8 @@ public class ConcertService {
      * @param artistName the artist name whose concert list is being returned
      * @return said list
      */
-    public List<ConcertDTO> getArtistConcerts(String artistName) {
-        return mapper.toDTOs(concertRepository.findByArtistNameIgnoreCase(artistName));
+    public List<BasicConcertDTO> getArtistConcerts(String artistName) {
+        return mapper.toBasicConcertDTOs(concertRepository.findByArtistNameIgnoreCase(artistName));
     }
 
     /**
@@ -216,6 +219,25 @@ public class ConcertService {
     }
 
     /**
+     * This method will be used by the Concert RestController to create a new post
+     * @param concertDTO concert to save in the database
+     * @return the concert saved with the changes made
+     */
+    public ConcertDTO saveConcert(ConcertDTO concertDTO){
+        Concert concert = mapper.toDomain(concertDTO);
+        Artist artist;
+        if (artistService.artistExists(concert.getArtist().getName())){
+            artist = artistService.getByNameIgnoreCase(concert.getArtist().getName()).get();
+        } else {
+            long id = artistService.createNewArtist(concert.getArtist().getName());
+            artist = artistService.getArtist(id);
+        }
+        concert.setArtist(artist);
+        concertRepository.save(concert);
+        return mapper.toDTO(concert);
+    }
+
+    /**
      * This method will modify a concert, setting its attributes the correct way
      * and saving this changes onto the database
      *
@@ -249,12 +271,44 @@ public class ConcertService {
     }
 
     /**
+     * 
+     * @param newConcert concert modifications to put on the old concert
+     * @param id old id
+     * @return the concert modified
+     */
+    public ConcertDTO modifyConcert(ConcertDTO newConcert, long id){
+        Concert modifiedConcert = mapper.toDomain(newConcert);
+        Concert oldConcert = concertRepository.findConcertById(id);
+        modifiedConcert.addTickets(oldConcert);
+        modifiedConcert.setImage(oldConcert.getImage());
+
+        // set the old id to the modified concert
+        modifiedConcert.setId(id);
+
+        //set the artist
+        Artist artist;
+        if (artistService.artistExists(modifiedConcert.getArtist().getName())){
+            artist = artistService.getByNameIgnoreCase(modifiedConcert.getArtist().getName()).get();
+        } else {
+            long idArtist = artistService.createNewArtist(modifiedConcert.getArtist().getName());
+            artist = artistService.getArtist(idArtist);
+        }
+        modifiedConcert.setArtist(artist);
+
+        concertRepository.save(modifiedConcert);
+
+        return mapper.toDTO(modifiedConcert);
+    }
+
+    /**
      * This method will delete a concert from the datatbase
      *
      * @param id id of the concert that is being deleted
      */
-    public void deleteConcert(long id) {
+    public ConcertDTO deleteConcert(long id) {
+        Concert deleted = concertRepository.findConcertById(id);
         concertRepository.deleteById(id);
+        return mapper.toDTO(deleted);
     }
 
     /**
