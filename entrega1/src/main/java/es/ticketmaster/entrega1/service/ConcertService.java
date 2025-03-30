@@ -67,9 +67,10 @@ public class ConcertService {
      * @return the list of the concerts taking place at the country/ city
      * specified
      */
-    public List<ConcertDTO> getConcertDisplay(Principal user) {
+    public List<ConcertDTO> getConcertDisplay(Principal principal) {
+        ShowUserDTO user = userService.getActiveUser(principal);
         if (user != null) { //is logged, the display will be of concerts at the same country as the user
-            List<ConcertDTO> concertList = mapper.toDTOs(concertRepository.findByPlace(userService.getActiveUser(user).country()));
+            List<ConcertDTO> concertList = mapper.toDTOs(concertRepository.findByPlace(user.country()));
             if (!(concertList.isEmpty())) {
                 return concertList;
             }

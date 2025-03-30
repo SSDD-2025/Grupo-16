@@ -85,7 +85,12 @@ public class UserService {
      * @return the actual active user as ShowUserDTO, or null if no user is found.
      */
     public ShowUserDTO getActiveUser(Principal principal) {
-        return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowUserDTO).orElse(null);
+        if (principal == null){
+            return null;
+        } else {
+            return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowUserDTO).orElse(null);
+        }
+        
     }
 
     /**
