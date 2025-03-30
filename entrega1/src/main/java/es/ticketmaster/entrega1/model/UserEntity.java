@@ -4,6 +4,8 @@ import java.sql.Blob;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,10 +26,14 @@ public class UserEntity {
     private String password;
     private String email;
     private String country;
+
+    @JsonIgnore
     @Lob
     private Blob profilePicture;
+
     @OneToMany
     private List<Artist> artistsList = new LinkedList<>();
+    
     @OneToMany(mappedBy = "ticketUser")
     private List<Ticket> ticketList = new LinkedList<>();
 

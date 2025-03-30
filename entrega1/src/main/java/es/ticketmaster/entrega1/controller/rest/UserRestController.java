@@ -42,7 +42,7 @@ public class UserRestController {
     @PostMapping("/register/")
     public ResponseEntity<Object> verifySignUpREST(@RequestBody UserDTO userDTO) {
         if (this.userService.registerUser(userDTO)) {
-            URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
+            URI location = fromCurrentRequest().path("/profile/{id}/").buildAndExpand(userDTO.id()).toUri();
             return ResponseEntity.created(location).body(userDTO);
         }
         else {
