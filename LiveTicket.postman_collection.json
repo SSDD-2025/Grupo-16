@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3c6e303a-fd4a-4cf0-bef0-a4cddda41356",
+		"_postman_id": "8c2807bb-d697-4342-86da-2f2933120036",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43184465",
-		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-3c6e303a-fd4a-4cf0-bef0-a4cddda41356?action=share&source=collection_link&creator=43184465"
+		"_exporter_id": "43181860"
 	},
 	"item": [
 		{
@@ -28,13 +27,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/profile/{id}/",
+							"raw": "{{userURL}}/profile/2/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
 								"profile",
-								"{id}",
+								"2",
 								""
 							]
 						}
@@ -46,6 +45,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{userURL}}}/register/",
 							"host": [
@@ -102,13 +110,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}}/delete-profile/{id}/",
+							"raw": "{{userURL}}}/delete-profile/1/",
 							"host": [
 								"{{userURL}}}"
 							],
 							"path": [
 								"delete-profile",
-								"{id}",
+								"1",
 								""
 							]
 						}
