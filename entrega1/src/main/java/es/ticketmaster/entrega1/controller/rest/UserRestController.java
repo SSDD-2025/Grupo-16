@@ -39,7 +39,7 @@ public class UserRestController {
      *         - If successful: A 201 Created response with the URI of the newly created user and the user details.
      *         - If failure (user already exists): A 400 Bad Request response, indicating that the user already exists.
      */
-    @PostMapping("/register")
+    @PostMapping("/register/")
     public ResponseEntity<Object> verifySignUpREST(@RequestBody UserDTO userDTO) {
         if (this.userService.registerUser(userDTO)) {
             URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
@@ -57,7 +57,7 @@ public class UserRestController {
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile/{id}/")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(@PathVariable long id) {
         ShowUserDTO user = this.userService.getUserWithID(id);
         if (user == null) {
@@ -72,7 +72,7 @@ public class UserRestController {
      * Retrieves the information for all registered users.
      * @return the collection of users in the ShowUserDTO format.
      */
-    @GetMapping("/all-profiles")
+    @GetMapping("/all-profiles/")
     public Collection<ShowUserDTO> getAllUsers() {
         return this.userService.getAllUsersFromDatabase();
     }
@@ -89,7 +89,7 @@ public class UserRestController {
      *          - 400 Bad Request if an IOException occurs while handling the request.
      *          - 500 Internal Server Error if an unexpected error occurs.
      */
-    @PutMapping("/modify-profile/{id}")
+    @PutMapping("/modify-profile/{id}/")
     public ResponseEntity<ShowUserDTO> changeUserSettingsREST(@PathVariable long id, @RequestBody ShowUserDTO user) {
         try {
             if (this.userService.saveUserWithId(id, user.country(), null)) {
@@ -115,7 +115,7 @@ public class UserRestController {
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */
-    @DeleteMapping("/delete-profile/{id}")
+    @DeleteMapping("/delete-profile/{id}/")
     public ResponseEntity<Void> deleteUserProfileREST(@PathVariable long id) {
         if (this.userService.removeExistingUserWithId(id)) {
             return ResponseEntity.ok().build();
