@@ -33,4 +33,32 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * Handles UserNotFoundException and returns a structured error response.
+     * @param exception is the exception thrown when a user is not found.
+     * @return a ResponseEntity containing an error message and a NOT_FOUND status.
+     */
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handlerUserNotFound(UserNotFoundException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", exception.getMessage());
+        body.put("error", "UserNotFound");
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles the exception thrown when a user already exists in the system.
+     * 
+     * @param exception the exception thrown when a user with the same username is already present.
+     * @return a ResponseEntity containing:
+     *         - 400 Bad Request status and a structured error message if the user already exists.
+     */
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerUserAlreadyExists(UserAlreadyExistsException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", exception.getMessage());
+        body.put("error", "UserAlreadyExists");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 }

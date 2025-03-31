@@ -59,13 +59,7 @@ public class UserRestController {
      */
     @GetMapping("/profile/{id}/")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(@PathVariable long id) {
-        ShowUserDTO user = this.userService.getUserWithID(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        else {
-            return ResponseEntity.ok(user);
-        }
+        return ResponseEntity.ok(this.userService.getUserWithID(id));   
     }
 
     /**

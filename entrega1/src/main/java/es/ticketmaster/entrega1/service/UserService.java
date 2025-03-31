@@ -20,6 +20,7 @@ import es.ticketmaster.entrega1.dto.user.UserShowTicketsDTO;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.UserRepository;
 import es.ticketmaster.entrega1.service.exceptions.UserAlreadyExistsException;
+import es.ticketmaster.entrega1.service.exceptions.UserNotFoundException;
 
 @Service
 public class UserService {
@@ -54,7 +55,7 @@ public class UserService {
             return true;
         } 
         catch (DataIntegrityViolationException e) {
-            throw new UserAlreadyExistsException(e.getMessage());
+            throw new UserAlreadyExistsException("The user with username: " + newUser.username() + " already exists in the database.");
         }
     }
 
@@ -75,7 +76,8 @@ public class UserService {
      * @return the user in its DTO format.
      */
     public ShowUserDTO getUserWithID(long id) {
-        return this.userRepository.findById(id).map(this.userMapper :: toShowUserDTO).orElse(null);
+        return this.userRepository.findById(id).map(this.userMapper :: toShowUserDTO).orElseThrow(() -> 
+                                                    new UserNotFoundException(id));
     }
 
     /**

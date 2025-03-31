@@ -5,6 +5,7 @@ package es.ticketmaster.entrega1.service.exceptions;
  * Since it's not generic, it provides better information for error handling.
  */
 public class UserAlreadyExistsException extends RuntimeException {
+    
     public UserAlreadyExistsException(String message) {
         super(message);
     }
