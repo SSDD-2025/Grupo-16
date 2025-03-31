@@ -213,7 +213,7 @@ public class ConcertService {
         }
 
         //set the artist
-        newConcert.setArtist(artistService.getArtist(artistId));
+        newConcert.setArtist(artistService.getArtistEntity(artistId));
 
         concertRepository.save(newConcert);
     }
@@ -230,7 +230,7 @@ public class ConcertService {
             artist = artistService.getByNameIgnoreCase(concert.getArtist().getName()).get();
         } else {
             long id = artistService.createNewArtist(concert.getArtist().getName());
-            artist = artistService.getArtist(id);
+            artist = artistService.getArtistEntity(id);
         }
         concert.setArtist(artist);
         concertRepository.save(concert);
@@ -265,7 +265,7 @@ public class ConcertService {
         modifiedConcert.setId(id);
 
         //set the artist
-        modifiedConcert.setArtist(artistService.getArtist(artistId));
+        modifiedConcert.setArtist(artistService.getArtistEntity(artistId));
 
         concertRepository.save(modifiedConcert);
     }
@@ -291,7 +291,7 @@ public class ConcertService {
             artist = artistService.getByNameIgnoreCase(modifiedConcert.getArtist().getName()).get();
         } else {
             long idArtist = artistService.createNewArtist(modifiedConcert.getArtist().getName());
-            artist = artistService.getArtist(idArtist);
+            artist = artistService.getArtistEntity(idArtist);
         }
         modifiedConcert.setArtist(artist);
 

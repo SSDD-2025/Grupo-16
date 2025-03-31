@@ -21,7 +21,7 @@ public class ImageService {
      * @throws IOException if an error occurs during file handling
      */
     public Blob getBlobOf(MultipartFile photo) throws IOException {
-        if (!photo.isEmpty()) {
+        if (photo!= null && !photo.isEmpty()) {
             return BlobProxy.generateProxy(photo.getInputStream(), photo.getSize());
         } else {
             return null;
