@@ -61,4 +61,17 @@ public class GlobalExceptionHandler {
         body.put("error", "UserAlreadyExists");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * Handles TicketNotFoundException and returns a structured error response.
+     * @param exception is the exception thrown when a ticket is not found.
+     * @return a ResponseEntity containing an error message and a NOT_FOUND status.
+     */
+    @ExceptionHandler(TicketNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handlerTicketNotFound(TicketNotFoundException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", exception.getMessage());
+        body.put("error", "TicketNotFound");
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
 }

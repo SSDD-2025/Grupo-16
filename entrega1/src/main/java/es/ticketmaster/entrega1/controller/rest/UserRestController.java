@@ -34,6 +34,7 @@ public class UserRestController {
      * Verifies if the provided user information is valid and attempts to register the user.
      * If the registration is successful, a new resource is created, and the location of the created resource is returned.
      * If the user already exists, a BAD_REQUEST response is returned.
+     * 
      * @param userDTO represents a determine user in DTO format.
      * @return A ResponseEntity object representing the response:
      *         - If successful: A 201 Created response with the URI of the newly created user and the user details.
@@ -52,6 +53,8 @@ public class UserRestController {
 
     /**
      * Retrieves the profile information of a user based on the provided ID.
+     * 
+     * @see GlobalExceptionHandler#UserNotFound(UserNotFound)
      * @param id is the unique identifier of the user whose profile is requested.
      * @return A ResponseEntity containing:
      *              - 200 OK and the user details in a ShowUserDTO format.
@@ -64,6 +67,7 @@ public class UserRestController {
 
     /**
      * Retrieves the information for all registered users.
+     * 
      * @return the collection of users in the ShowUserDTO format.
      */
     @GetMapping("/all-profiles/")
@@ -75,6 +79,7 @@ public class UserRestController {
      * This method handles the HTTP PUT request to update the user's profile settings.
      * In this case, the profile picture is not being updated as the method is provided with `null` for it.
      * It only update the user´s contry.
+     * 
      * @param id is the unique identifier of the user whose profile is requested.
      * @param user is the updated user data in ShowUserDTO format.
      * @return A ResponseEntity containing:
@@ -104,6 +109,7 @@ public class UserRestController {
     
     /**
      * This method attempts to delete the profile of the user with the given ID.
+     * 
      * @param id is the unique identifier of the user whose profile is requested.
      * @return A ResponseEntity with:
      *           - 200 OK if the user was successfully deleted.

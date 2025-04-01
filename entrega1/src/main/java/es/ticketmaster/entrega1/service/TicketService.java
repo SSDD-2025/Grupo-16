@@ -9,12 +9,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import es.ticketmaster.entrega1.dto.concert.ConcertMapper;
+import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
+import es.ticketmaster.entrega1.dto.ticket.TicketMapper;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
 import es.ticketmaster.entrega1.repository.TicketRepository;
 import es.ticketmaster.entrega1.repository.UserRepository;
+import es.ticketmaster.entrega1.service.exceptions.TicketNotFoundException;
 
 @Service
 public class TicketService {
@@ -34,14 +37,18 @@ public class TicketService {
     @Autowired
     private ConcertMapper mapper;
 
+    @Autowired
+    private TicketMapper ticketMapper;
+
     /**
-     * Obtain the ticket form the database.
+     * Obtain the ticket from the database.
      *
      * @param id is the ticket identification number.
-     * @return the ticket.
+     * @return the ticket in a DTO format or, a TicketNotFoundException if the ticket not exist in the database.
      */
-    public Ticket getTicket(long id) {
-        return this.ticketRepository.findTicketById(id);
+    public TicketDTO getTicket(long id) {
+        return this.ticketRepository.findById(id).map(this.ticketMapper :: toDTO).orElseThrow(() -> 
+                                                    new TicketNotFoundException(id));
     }
 
     /**
