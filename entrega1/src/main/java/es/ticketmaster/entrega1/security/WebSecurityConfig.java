@@ -55,7 +55,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
         http
-            .securityMatcher("*/api/**")
+            .securityMatcher("/api/**")
             .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
         http
