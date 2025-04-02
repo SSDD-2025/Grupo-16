@@ -81,23 +81,30 @@ public class TicketRestController {
     }
 
     /**
-     * Deletes a ticket identified by the given ticket ID.
+     * Deletes a ticket identified by the given ticket ID. Only if it belongs to the active user.
      * 
      * @see TicketService#getTicket(long)
      * @see GlobalExceptionHandler#TicketNotFoundException(TicketNotFoundException)
      * 
      * @param id is the unique identifier of the ticket to be deleted.
-     * @return ResponseEntity containing the deleted TicketDTO object if successful, 
-     * or a BAD_REQUEST (400) response if the ticket cannot be deleted.
+     * @param principal the principal class from where the username can be requested.
+     * @return ResponseEntity containing the deleted TicketDTO object if successful, or:
+     *                          - a UNAUTHORIZED (401) if the principal is null.
+     *                          - a BAD_REQUEST (400) response if the ticket cannot be deleted.
      */
     @DeleteMapping("/tickets/delete/{id}")
-    public ResponseEntity<TicketDTO> deleteTicketREST(@PathVariable long id) {
-        TicketDTO ticketDTO = this.ticketService.getTicket(id);
-        if (this.ticketService.deleteTicketWithId(id)) {
-            return ResponseEntity.ok(ticketDTO);
+    public ResponseEntity<TicketDTO> deleteTicketREST(@PathVariable long id, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            TicketDTO ticketDTO = this.ticketService.getTicket(id);
+            if (this.ticketService.deleteTicketWithId(id)) {
+                return ResponseEntity.ok(ticketDTO);
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
         }
     }
 }
