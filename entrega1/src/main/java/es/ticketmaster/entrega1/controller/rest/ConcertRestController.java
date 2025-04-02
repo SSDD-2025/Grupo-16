@@ -29,16 +29,30 @@ public class ConcertRestController {
     @Autowired
     private ConcertService concertService;
     
+    /**
+     * NOTE: add pageable
+     * @return the list of all the concerts existing in the database (just main information)
+     */
     @GetMapping("/")
     public Collection<BasicConcertDTO> getConcerts() {
         return concertService.getAllConcerts();
     }
 
+    /**
+     * Get the whole concert from an id
+     * @param id id of the concert to show
+     * @return said concertDTO
+     */
     @GetMapping("/{id}")
     public ConcertDTO getConcert(@PathVariable long id) {
         return concertService.findConcertById(id);
     }
     
+    /**
+     * Create a concert
+     * @param concert the new concert to be created
+     * @return the information of the concert that has been created
+     */
     @PostMapping("/")
     public ResponseEntity<ConcertDTO> createConcert(@RequestBody ConcertDTO concert) {
         ConcertDTO created = concertService.saveConcert(concert);
@@ -46,11 +60,22 @@ public class ConcertRestController {
 		return ResponseEntity.created(location).body(created);
     }
 
+    /**
+     * Modify a concert
+     * @param id id of the concert that is being changed
+     * @param concert data of the concert modified
+     * @return the concert modified
+     */
     @PutMapping("/{id}")
     public ConcertDTO modifyConcert(@PathVariable long id, @RequestBody ConcertDTO concert) {
         return concertService.modifyConcert(concert, id);
     }
 
+    /**
+     * Delete an existing concert
+     * @param id id of the concert to be erased from the database
+     * @return the concert that has been deleted
+     */
     @DeleteMapping("/{id}")
     public ConcertDTO deleteConcert(@PathVariable long id){
         return concertService.deleteConcert(id);
