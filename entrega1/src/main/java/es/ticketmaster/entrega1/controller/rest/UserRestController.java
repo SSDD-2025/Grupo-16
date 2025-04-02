@@ -58,6 +58,7 @@ public class UserRestController {
      * @see GlobalExceptionHandler#UserNotFound(UserNotFound)
      * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity containing:
+     *              - 401 UNAUTHORIZED if the principal is null.
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
@@ -126,6 +127,7 @@ public class UserRestController {
      * 
      * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity with:
+     *           - 401 UNAUTHORIZED if the principal is null.
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */
