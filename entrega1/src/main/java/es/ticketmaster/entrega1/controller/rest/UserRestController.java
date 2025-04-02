@@ -58,7 +58,7 @@ public class UserRestController {
      * @see GlobalExceptionHandler#UserNotFound(UserNotFound)
      * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity containing:
-     *              - 401 UNAUTHORIZED if the principal is null.
+     *              - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
@@ -91,7 +91,7 @@ public class UserRestController {
      * @param principal the principal class from where the username can be requested.
      * @param user is the updated user data in ShowUserDTO format.
      * @return A ResponseEntity containing:
-     *          - 401 UNAUTHORIZED if the principal is null.
+     *          - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *          - 200 OK and the updated user details if the update is successful.
      *          - 404 Not Found if no user exists with the given ID.
      *          - 400 Bad Request if an IOException occurs while handling the request.
@@ -127,7 +127,7 @@ public class UserRestController {
      * 
      * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity with:
-     *           - 401 UNAUTHORIZED if the principal is null.
+     *           - 401 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */

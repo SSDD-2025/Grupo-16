@@ -43,9 +43,7 @@ public class TicketRestController {
         return userService.getTicketsForActiveUser(request.getUserPrincipal()).getTicketList();
     }
     
-    
     /**
-     *  TODO: NO ESTOY SEGURO DE LA IMPLEMENTACIÓN DE ESTE MÉTODO, CUALQUIER COSA ME DICEN Y LO CAMBIO YO. ATT: Fonssi.
      * Confirms the purchase of tickets for a specific concert.
      * The URL contains the concert ID due to the ticket's relationship to it.
      * Since a ticket must be related to a concert (it can't be independent), to associate it with the user,
@@ -57,8 +55,8 @@ public class TicketRestController {
      * @param principal The currently authenticated user, used to retrieve the active user and associate tickets with them.
      * 
      * @return ResponseEntity containing the TicketDTO object with the purchased ticket details if successful, or: 
-     *         a UNAUTHORIZED (401) response if the user is not logged in, 
-     *         a BAD_REQUEST (400) response if the purchase fails.
+     *          - a UNAUTHORIZED (401) if the principal is null (user is not authenticated). 
+     *          - a BAD_REQUEST (400) response if the purchase fails.
      */
     @PostMapping("/concert/{id}/ticket-purchase")
     public ResponseEntity<TicketDTO> confirmPurchaseREST(
@@ -89,8 +87,8 @@ public class TicketRestController {
      * @param id is the unique identifier of the ticket to be deleted.
      * @param principal the principal class from where the username can be requested.
      * @return ResponseEntity containing the deleted TicketDTO object if successful, or:
-     *                          - a UNAUTHORIZED (401) if the principal is null.
-     *                          - a BAD_REQUEST (400) response if the ticket cannot be deleted.
+     *                  - a UNAUTHORIZED (401) if the principal is null (user is not authenticated).
+     *                  - a BAD_REQUEST (400) response if the ticket cannot be deleted.
      */
     @DeleteMapping("/tickets/delete/{id}")
     public ResponseEntity<TicketDTO> deleteTicketREST(@PathVariable long id, Principal principal) {
