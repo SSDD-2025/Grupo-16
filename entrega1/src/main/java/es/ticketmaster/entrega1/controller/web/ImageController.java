@@ -140,9 +140,9 @@ public class ImageController {
     }
 
     /**
-     * TODO: EL QUE HAYA HECHO ESTE MÉTODO, QUE HAGA SU DOCUMENTACIÓN.
-     * @param id
-     * @return
+     * 
+     * @param id id of the concert whose poster photo is going to be shown
+     * @return the photo on the ResponseEntity<Object> if everything went well (otherwise returns a not found object)
      * @throws SQLException
      */
     @GetMapping("/concert/{id}/download-poster")
