@@ -43,7 +43,7 @@ public class ImageController {
     @GetMapping("/artist/{id}/download-photo")
     public ResponseEntity<Object> downloadArtistPhoto(@PathVariable long id) throws SQLException {
 
-        Artist op = artistService.getArtist(id);
+        Artist op = artistService.getArtistEntity(id);
 
         if ((op != null) && op.getPhoto() != null) {
 
@@ -71,7 +71,7 @@ public class ImageController {
     @GetMapping("/artist/{id}/download-latestAlbum-photo")
     public ResponseEntity<Object> downloadLatestAlbumPhoto(@PathVariable long id) throws SQLException {
 
-        Artist op = artistService.getArtist(id);
+        Artist op = artistService.getArtistEntity(id);
 
         if ((op != null) && op.getLatestAlbumPhoto() != null) {
 
@@ -98,7 +98,7 @@ public class ImageController {
     @GetMapping("/artist/{id}/download-bestAlbum-photo")
     public ResponseEntity<Object> downloadBestAlbumPhoto(@PathVariable long id) throws SQLException {
 
-        Artist op = artistService.getArtist(id);
+        Artist op = artistService.getArtistEntity(id);
 
         if ((op != null) && op.getBestAlbumPhoto() != null) {
 

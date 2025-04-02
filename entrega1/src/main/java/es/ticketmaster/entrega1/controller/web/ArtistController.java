@@ -41,7 +41,7 @@ public class ArtistController {
     @GetMapping("/artist/{id}")
     public String getArtistPage(Model model, @PathVariable long id) {
 
-        Artist artist = artistService.getArtist(id);
+        Artist artist = artistService.getArtistEntity(id);
         if (artist != null) {
             model.addAttribute("artist", artist);
             model.addAttribute("titleName", artist.getName());
@@ -141,7 +141,7 @@ public class ArtistController {
     @PostMapping("/admin/artist/{id}/modify")
     public String modifyExistingArtist(Model model, @PathVariable long id) {
 
-        Artist artist = artistService.getArtist(id);
+        Artist artist = artistService.getArtistEntity(id);
 
         if (artist != null) {
             model.addAttribute("artist", artist);
@@ -166,13 +166,12 @@ public class ArtistController {
     public String deleteExistingArtist(Model model, @PathVariable long id) {
 
         /*Tries to delete the artist with the specified ID and checks if the deletion has been completed*/
-        boolean success = artistService.deleteArtistWithId(id);
-
-        if (success) {
+        try {
             /*If the deletion is successfull (the artist existed and now does not) */
+            artistService.deleteArtistWithId(id);
             return "redirect:/admin/artist";
-        } else {
-            /*In any other case*/
+        } catch (Exception e) {
+            /*In case any exception occured*/
             return "error";
         }
     }

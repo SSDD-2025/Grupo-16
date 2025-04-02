@@ -115,7 +115,7 @@ public class ArtistService {
      * (ignoring cases)
      *
      * @param name the name to search
-     * @return wheter it exists or not
+     * @return whether it exists or not
      */
     public boolean artistExists(String name) {
         return artistRepository.findFirstByNameIgnoreCase(name).isPresent();
@@ -233,27 +233,18 @@ public class ArtistService {
     /*METHODS DEALING WITH ARTIST CREATION AND MODIFICATION*/
 
     /**
-     * Service method that builds an artist in order for it to be registered (saved in
-     * the DDBB). As well, the register date is saved. As a confirmation, the Artist's
-     * DTO is returned.
+     * Service method that builds an artist in order to be registered (saved in
+     * the DDBB). As well, the register date is saved.
      *
-     * @param artistDTO artist's input DTO
+     * @param artist artist to be saved
      * @param mainPhoto MultipartFile photo to stablish the artist photo
      * @param bestPhoto (PROV) MultipartFile photo to stablish the artist best
      * album photo
      * @param latestPhoto (PROV) MultipartFile photo to stablish the artist
      * latest album photo
-     * @return Artist's DTO representing the registered artist that is saved in the DDBB.
-     * @throws Exception 
+     * @throws IOException
      */
-    public ArtistDTO registerNewArtist(ArtistDTO artistDTO, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws Exception {
-
-        /*We get the artist as an Entity object*/
-        Artist artist = artistMapper.toDomain(artistDTO);
-
-        if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
-            throw new ArtistAlreadyExistsException(artist.getName());
-        }
+    public void registerNewArtist(Artist artist, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
 
         /*The photo is setted (if there is any error, it is set to null) */
         artist.setPhoto(imageService.getBlobOf(mainPhoto));
@@ -261,6 +252,30 @@ public class ArtistService {
         /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
         artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
         /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
+
+        artist.setSessionCreated(LocalDateTime.now());
+        artist.setHasPage(true);
+
+        artistRepository.save(artist);
+    }
+
+    /**
+     * Service method that builds an artist in order for it to be registered (saved in
+     * the DDBB). As well, the register date is saved. As a confirmation, the Artist's
+     * DTO is returned.
+     *
+     * @param artistDTO artist's input DTO
+     * @return Artist's DTO representing the registered artist that is saved in the DDBB.
+     * @throws Exception 
+     */
+    public ArtistDTO registerNewArtist(ArtistDTO artistDTO) throws Exception {
+
+        /*We get the artist as an Entity object*/
+        Artist artist = artistMapper.toDomain(artistDTO);
+
+        if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
+            throw new ArtistAlreadyExistsException(artist.getName());
+        }
 
         artist.setSessionCreated(LocalDateTime.now());
         artist.setHasPage(true);
@@ -347,6 +362,59 @@ public class ArtistService {
     }
 
     /**
+     * * Service method that modifies an existing artist with new attributes
+     *
+     * @param artist artist containing the new attributes that have been
+     * modified
+     * @param id id of that artist
+     * @param mainPhoto (optional) new photo for the artist
+     * @param bestPhoto (PROV - optional) new photo for the best album
+     * @param latestPhoto ( PROV - optional) new photo for the latest album
+     * @return
+     * @throws IOException
+     */
+    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
+
+        artist.setId(id);
+
+        Optional<Artist> oldArtist = artistRepository.findById(id);
+
+        if (!oldArtist.isEmpty()) {
+            artist.setConcertList(oldArtist.get().getConcertList());
+            artist.setHasPage(oldArtist.get().isHasPage());
+            if (!mainPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
+                artist.setPhoto(imageService.getBlobOf(mainPhoto));
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
+                artist.setPhoto(oldArtist.get().getPhoto());
+            }
+            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
+            if (!bestPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
+                artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
+                artist.setBestAlbumPhoto(oldArtist.get().getBestAlbumPhoto());
+            }
+            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
+            if (!latestPhoto.isEmpty()) {
+                /*If a new photo has been uploaded*/
+                artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
+            } else {
+                /*If no new photo has been uploaded, it takes the older one*/
+                artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
+            }
+            artist.setHasPage(true);
+            artistRepository.save(artist);
+            return true;
+        } else {
+            return false;
+            /*There was not an artist with such ID*/
+        }
+    }
+
+    /**
      * Service method that modifies an existing artist with new attributes. Every attribute is modificable
      * except for artistName
      *
@@ -358,7 +426,7 @@ public class ArtistService {
      * @return Artist's DTO representing the modified artist that is saved in the DDBB.
      * @throws IOException
      */
-    public ArtistDTO modifyArtistWithId(ArtistDTO artistDTO, long id, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
+    public ArtistDTO modifyArtistWithId(ArtistDTO artistDTO, long id) throws IOException {
 
         Optional<Artist> oldArtist = artistRepository.findById(id);
 
@@ -368,32 +436,6 @@ public class ArtistService {
             artist.setName(oldArtist.get().getName());
             artist.setConcertList(oldArtist.get().getConcertList());
             artist.setHasPage(oldArtist.get().isHasPage());
-
-            if (!mainPhoto.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setPhoto(imageService.getBlobOf(mainPhoto));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setPhoto(oldArtist.get().getPhoto());
-            }
-
-            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if (!bestPhoto.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setBestAlbumPhoto(oldArtist.get().getBestAlbumPhoto());
-            }
-
-            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if (!latestPhoto.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
-            }
 
             artist.setHasPage(true);
             artistRepository.save(artist);

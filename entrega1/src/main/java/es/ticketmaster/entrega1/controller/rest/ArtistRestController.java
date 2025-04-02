@@ -122,7 +122,7 @@ public class ArtistRestController {
     @PostMapping 
     public ResponseEntity<ArtistDTO> createArtist(@RequestBody ArtistDTO artistDTO) throws Exception{
         
-        artistDTO = artistService.registerNewArtist(artistDTO, null, null, null);
+        artistDTO = artistService.registerNewArtist(artistDTO);
 
         URI location = fromCurrentRequest().path("/id").buildAndExpand(artistDTO.id()).toUri();
 
@@ -200,7 +200,7 @@ public class ArtistRestController {
     @PutMapping("/{id}")
     public ArtistDTO modifyArtist(@PathVariable long id, @RequestBody ArtistDTO artistDTO) throws IOException {
 
-        return artistService.modifyArtistWithId(artistDTO, id, null, null, null);
+        return artistService.modifyArtistWithId(artistDTO, id);
 
     }
 
