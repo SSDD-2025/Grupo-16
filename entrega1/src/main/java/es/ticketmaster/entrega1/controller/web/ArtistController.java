@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,12 +68,12 @@ public class ArtistController {
      * @return HTML to be loaded
      */
     @GetMapping("/admin/artist")
-    public String artistsAdminPage(Model model, @RequestParam(required = false) String search) {
+    public String artistsAdminPage(Model model, @RequestParam(required = false) String search, Pageable pageable) {
 
         if (search != null) {
-            model.addAttribute("artistList", artistService.getSearchBy(search));
+            model.addAttribute("artistList", artistService.getSearchBy(search, pageable));
         } else {
-            model.addAttribute("artistList", artistService.getEveryArtist()); //Show every artist
+            model.addAttribute("artistList", artistService.getEveryArtist(pageable)); //Show every artist
         }
 
         /*Artists are displayed in modify mode*/
@@ -138,7 +139,7 @@ public class ArtistController {
      * @param id id of the artist to be modified
      * @return the HTML to load
      */
-    @PostMapping("/admin/artist/{id}/modify")
+    @GetMapping("/admin/artist/{id}/modify")
     public String modifyExistingArtist(Model model, @PathVariable long id) {
 
         Artist artist = artistService.getArtistEntity(id);

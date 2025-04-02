@@ -8,6 +8,7 @@ is logged, concerts in his country matching the search and the country-->
     <link rel="stylesheet" href="/css/common-styles.css">
     <link rel="icon" type="image/png" href="/media/microphone.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.2.1/mustache.min.js"></script>
 </head>
 
 <body>
@@ -23,9 +24,12 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="general-container row-container"> <!--Artist container-->
+        <div class="general-container row-container" id="more-artists"> <!--Artist container-->
             {{>display-artists}}
         </div>
+
+        <!-- Button to add more dynamic artists -->
+        <button id="load-more-artists" style="display:none; margin: 20px auto;">Load more</button>
 
         {{#isLogged}} <!--If the user is logged, country matching concerts are displayed-->
         <!--User personal search made filtering the country: Concert lines-->
@@ -62,5 +66,7 @@ is logged, concerts in his country matching the search and the country-->
             {{/generalConcertsList}}
         </div>
     </main>
+    <!--JS that handle pagination for artists-->
+    <script src="/js/artistPagination.js"></script>
 </body>
 </html>

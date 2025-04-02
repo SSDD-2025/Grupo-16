@@ -3,13 +3,14 @@ package es.ticketmaster.entrega1.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,8 +65,8 @@ public class ArtistService {
      *
      * @return
      */
-    public Collection<ArtistDTO> getEveryArtist() {
-        return artistMapper.toDTOs(artistRepository.findAll());
+    public Page<ArtistDTO> getEveryArtist(Pageable pageable) {
+        return artistRepository.findAll(pageable).map(artist -> artistMapper.toDTO(artist));
     }
 
     /**
@@ -88,14 +89,29 @@ public class ArtistService {
     }
 
     /**
-     * Makes the artist search by artist name making use of the repository
+     * Makes the artist search by artist name making use of the repository. A Page of artist is returned,
+     * meaning that this method makes use of pagination.
      *
      * @param search string to be searched
+     * @param pageable the desired pagination configuration
      * @return List of artists who match with search
      */
-    public List<Artist> getSearchBy(String search) {
+    public Page<Artist> getSearchBy(String search, Pageable pageable) {
 
-        return artistRepository.findByNameContainingIgnoreCase(search);
+        return artistRepository.findByNameContainingIgnoreCase(search, pageable);
+    }
+
+    /**
+     * Makes the artist search by artist name making use of the repository and returning a Page of
+     * ArtistDTO. As the returning type is a Page, this method makes use of pagination.
+     *
+     * @param search string to be searched
+     * @param pageable the desired pagination configuration
+     * @return List of artists who match with search
+     */
+    public Page<ArtistDTO> getSearchDTOBy(String search, Pageable pageable) {
+
+        return artistRepository.findByNameContainingIgnoreCase(search, pageable).map(element -> artistMapper.toDTO(element));
     }
 
     /**

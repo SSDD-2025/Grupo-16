@@ -3,10 +3,12 @@ package es.ticketmaster.entrega1.controller.rest;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,9 +45,13 @@ public class ArtistRestController {
      * @return A Collection of all the artist's DTOs.
      */
     @GetMapping
-    public Collection<ArtistDTO> getAllArtists(){
+    public Page<ArtistDTO> getAllArtists(@PageableDefault(page = 0, size = 10) Pageable pageable, @RequestParam(name= "search", required = false) String search){
 
-        return artistService.getEveryArtist();
+        if (search == null){
+            return artistService.getEveryArtist(pageable);
+        } else {
+            return artistService.getSearchDTOBy(search, pageable);
+        }
 
     }
 

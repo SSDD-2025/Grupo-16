@@ -3,6 +3,8 @@ package es.ticketmaster.entrega1.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.ticketmaster.entrega1.model.Artist;
@@ -34,7 +36,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
      * @param search substring to be searched inside the artists names
      * @return the specified list
      */
-    public List<Artist> findByNameContainingIgnoreCase(String search);
+    public Page<Artist> findByNameContainingIgnoreCase(String search, Pageable pageable);
 
     /**
      * Deletes from the repository the Artist with the given ID

@@ -3,6 +3,8 @@ package es.ticketmaster.entrega1.controller.web;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,7 @@ public class MainController {
      * @return the main template.
      */
     @GetMapping("/")
-    public String getMain(Model model, @RequestParam(required = false) String search, HttpServletRequest request) {
+    public String getMain(Model model, @RequestParam(required = false) String search, HttpServletRequest request,@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         Principal principal = request.getUserPrincipal(); //Gets the principal
 
@@ -45,7 +47,7 @@ public class MainController {
         } else {
 
             model.addAttribute("personalConcertsList", concertService.getConcertsNearUser(principal));
-            model.addAttribute("artistList", artistService.getSearchBy(search));
+            model.addAttribute("artistList", artistService.getSearchBy(search, pageable));
             model.addAttribute("generalConcertsList", concertService.getSearchBy(search));
 
             return "search-page";
