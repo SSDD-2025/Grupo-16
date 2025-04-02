@@ -27,13 +27,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/profile/1/",
+							"raw": "{{userURL}}/profile/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
 								"profile",
-								"1",
 								""
 							]
 						}
@@ -103,13 +102,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/modify-profile/3/",
+							"raw": "{{userURL}}/modify-profile/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
 								"modify-profile",
-								"3",
 								""
 							]
 						}
@@ -125,13 +123,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/delete-profile/1/",
+							"raw": "{{userURL}}/delete-profile/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
 								"delete-profile",
-								"1",
 								""
 							]
 						}

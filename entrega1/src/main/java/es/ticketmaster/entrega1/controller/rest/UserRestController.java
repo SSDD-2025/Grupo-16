@@ -2,6 +2,7 @@ package es.ticketmaster.entrega1.controller.rest;
 
 import java.io.IOException;
 import java.net.URI;
+import java.security.Principal;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +20,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.service.UserService;
+import es.ticketmaster.entrega1.service.exceptions.GlobalExceptionHandler;
 
 @RestController
 @RequestMapping("/api/users")
@@ -52,17 +53,24 @@ public class UserRestController {
     }
 
     /**
-     * Retrieves the profile information of a user based on the provided ID.
+     * Retrieves the profile information of the active user.
      * 
      * @see GlobalExceptionHandler#UserNotFound(UserNotFound)
-     * @param id is the unique identifier of the user whose profile is requested.
+     * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity containing:
+     *              - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
-    @GetMapping("/profile/{id}/")
-    public ResponseEntity<ShowUserDTO> accesToProfileREST(@PathVariable long id) {
-        return ResponseEntity.ok(this.userService.getUserWithID(id));   
+    @GetMapping("/profile/")
+    public ResponseEntity<ShowUserDTO> accesToProfileREST(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        else {
+            long id = this.userService.getIdOfUser(principal.getName());
+            return ResponseEntity.ok(this.userService.getUserWithID(id));
+        }   
     }
 
     /**
@@ -76,52 +84,66 @@ public class UserRestController {
     }
     
     /**
-     * This method handles the HTTP PUT request to update the user's profile settings.
+     * This method handles the HTTP PUT request to update the the active user profile settings.
      * In this case, the profile picture is not being updated as the method is provided with `null` for it.
-     * It only update the user´s contry.
+     * It only update the user´s country.
      * 
-     * @param id is the unique identifier of the user whose profile is requested.
+     * @param principal the principal class from where the username can be requested.
      * @param user is the updated user data in ShowUserDTO format.
      * @return A ResponseEntity containing:
+     *          - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *          - 200 OK and the updated user details if the update is successful.
      *          - 404 Not Found if no user exists with the given ID.
      *          - 400 Bad Request if an IOException occurs while handling the request.
      *          - 500 Internal Server Error if an unexpected error occurs.
      */
-    @PutMapping("/modify-profile/{id}/")
-    public ResponseEntity<ShowUserDTO> changeUserSettingsREST(@PathVariable long id, @RequestBody ShowUserDTO user) {
-        try {
-            if (this.userService.saveUserWithId(id, user.country(), null)) {
-                ShowUserDTO updatedUser = this.userService.getUserWithID(id);
-                return ResponseEntity.ok(updatedUser);
-            } 
-            else {
-                return ResponseEntity.notFound().build();
+    @PutMapping("/modify-profile/")
+    public ResponseEntity<ShowUserDTO> changeUserSettingsREST(Principal principal, @RequestBody ShowUserDTO user) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        else {
+            try {
+                long id = this.userService.getIdOfUser(principal.getName());
+                if (this.userService.saveUserWithId(id, user.country(), null)) {
+                    ShowUserDTO updatedUser = this.userService.getUserWithID(id);
+                    return ResponseEntity.ok(updatedUser);
+                } 
+                else {
+                    return ResponseEntity.notFound().build();
+                }
             }
-        }
-        catch (IOException e) {
-            return ResponseEntity.badRequest().build();        
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            catch (IOException e) {
+                return ResponseEntity.badRequest().build();        
+            }
+            catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
     }
     
     /**
-     * This method attempts to delete the profile of the user with the given ID.
+     * This method attempts to delete the profile of the active user.
      * 
-     * @param id is the unique identifier of the user whose profile is requested.
+     * @param principal the principal class from where the username can be requested.
      * @return A ResponseEntity with:
+     *           - 401 401 UNAUTHORIZED if the principal is null (user is not authenticated).
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */
-    @DeleteMapping("/delete-profile/{id}/")
-    public ResponseEntity<Void> deleteUserProfileREST(@PathVariable long id) {
-        if (this.userService.removeExistingUserWithId(id)) {
-            return ResponseEntity.ok().build();
+    @DeleteMapping("/delete-profile/")
+    public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         else {
-            return ResponseEntity.notFound().build();
+            long id = this.userService.getIdOfUser(principal.getName());
+            if (this.userService.removeExistingUserWithId(id)) {
+                return ResponseEntity.ok(this.userService.getUserWithID(id));
+            }
+            else {
+                return ResponseEntity.notFound().build();
+            }
         }
     }
 }
