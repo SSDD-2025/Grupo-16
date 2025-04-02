@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,6 +57,21 @@ public class UserService {
         } 
         catch (DataIntegrityViolationException e) {
             throw new UserAlreadyExistsException("The user with username: " + newUser.username() + " already exists in the database.");
+        }
+    }
+
+    /**
+     * Get the id of a user based on its username.
+     * @param username the said username of a user.
+     * @return the id of the user, or, a UsernameNotFoundException.
+     */
+    public long getIdOfUser(String username) {
+        Optional<UserEntity> user = this.userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            return user.get().getId();
+        }
+        else {
+            throw new UsernameNotFoundException(username);
         }
     }
 
