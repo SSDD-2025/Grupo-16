@@ -12,10 +12,17 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     
+    /**
+     * Handler of ArtistAlreadyExistsException, executed when, inside any of the controllers, an exception of
+     * class ArtistAlreadyExistsExcpetion is thrown to show a JSON ResponseEntity with the error information.
+     * @param ex catched exception
+     * @param request the request that caused the exception
+     * @return ResponseEntity to return in order to show the exception/error
+     */
     @ExceptionHandler(ArtistAlreadyExistsException.class)
     public ResponseEntity<Map<String, Object>> handlerArtistAlreadyExists(ArtistAlreadyExistsException ex, WebRequest request){
         
-        Map<String, Object> body = new HashMap();
+        Map<String, Object> body = new HashMap<>();
         
         body.put("message", ex.getMessage());
         body.put("error", "ArtistAlreadyExists");
@@ -23,13 +30,38 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handler of ArtistNotFoundException, executed when, inside any of the controllers, an exception of
+     * class ArtistNotFoundExcpetion is thrown to show a JSON ResponseEntity with the error information.
+     * @param ex catched exception
+     * @param request the request that caused the exception
+     * @return ResponseEntity to return in order to show the exception/error
+     */
     @ExceptionHandler(ArtistNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handlerArtistNotFound(ArtistNotFoundException ex){
         
-        Map<String, Object> body = new HashMap();
+        Map<String, Object> body = new HashMap<>();
         
         body.put("message", ex.getMessage());
         body.put("error", "ArtistNotFound");
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handler of ImageException, executed when, inside any of the controllers, an exception of
+     * class ImageExistsExcpetion is thrown to show a JSON ResponseEntity with the error information.
+     * @param ex catched exception
+     * @param request the request that caused the exception
+     * @return ResponseEntity to return in order to show the exception/error
+     */
+    @ExceptionHandler(ImageException.class)
+    public ResponseEntity<Map<String, Object>> handlerImageException(ImageException ex, WebRequest request){
+        
+        Map<String, Object> body = new HashMap<>();
+        
+        body.put("message", ex.getMessage());
+        body.put("error", "ImageException");
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
