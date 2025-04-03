@@ -20,6 +20,7 @@ import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.repository.ConcertRepository;
+import es.ticketmaster.entrega1.service.exceptions.ConcertNotFoundException;
 
 /**
  * Concert service that gets access to the ConcertRepository to make specific
@@ -131,7 +132,7 @@ public class ConcertService {
             return mapper.toDTO(concert.get());
         } else {
             /*If there is no concert match*/
-            throw new NoSuchElementException();
+            throw new ConcertNotFoundException(id);
         }
     }
 
@@ -304,6 +305,9 @@ public class ConcertService {
     public ConcertDTO modifyConcert(ConcertDTO newConcert, long id){
         Concert modifiedConcert = mapper.toDomain(newConcert);
         Concert oldConcert = concertRepository.findConcertById(id);
+        if (oldConcert == null){
+            throw new ConcertNotFoundException(id);
+        }
         modifiedConcert.addTickets(oldConcert);
         modifiedConcert.setImage(oldConcert.getImage());
 
@@ -332,6 +336,9 @@ public class ConcertService {
      */
     public ConcertDTO deleteConcert(long id) {
         Concert deleted = concertRepository.findConcertById(id);
+        if (deleted == null){
+            throw new ConcertNotFoundException(id);
+        }
         concertRepository.deleteById(id);
         return mapper.toDTO(deleted);
     }
