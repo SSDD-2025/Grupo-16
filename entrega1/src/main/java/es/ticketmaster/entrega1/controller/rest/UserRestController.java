@@ -3,9 +3,11 @@ package es.ticketmaster.entrega1.controller.rest;
 import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -79,8 +81,8 @@ public class UserRestController {
      * @return the collection of users in the ShowUserDTO format.
      */
     @GetMapping("/all-profiles/")
-    public Collection<ShowUserDTO> getAllUsers() {
-        return this.userService.getAllUsersFromDatabase();
+    public Page<ShowUserDTO> getAllUsers(@PageableDefault(page = 0, size = 10)Pageable pageable) {
+        return this.userService.getAllUsersFromDatabase(pageable);
     }
     
     /**

@@ -2,12 +2,13 @@ package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -78,11 +79,10 @@ public class UserService {
     /**
      * Method that obtains all the users that are registered in the database.
      * @implNote this is used in the UserRestController.
-     * @return the collection of users in the ShowUserDTO format.
+     * @return the Page of users in the ShowUserDTO format.
      */
-    public Collection<ShowUserDTO> getAllUsersFromDatabase() {
-        Collection<UserEntity> userList = this.userRepository.findAll();
-        return this.userMapper.toShowUserDTOs(userList);
+    public Page<ShowUserDTO> getAllUsersFromDatabase(Pageable pageable) {
+        return this.userRepository.findAll(pageable).map(user -> this.userMapper.toShowUserDTO(user));
     }
 
     /**
