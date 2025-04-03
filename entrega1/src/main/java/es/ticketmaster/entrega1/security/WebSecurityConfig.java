@@ -114,7 +114,7 @@ public class WebSecurityConfig {
 
         http
             .authorizeHttpRequests(authorize -> authorize
-                //Access to static files
+                // Access to static files
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/js/**").permitAll()
                 .requestMatchers("/DDBB/**").permitAll()
@@ -122,17 +122,20 @@ public class WebSecurityConfig {
                 .requestMatchers("/concert/*/download-poster").permitAll()
                 .requestMatchers("/artist/*/download-photo").permitAll()
 
-                //Public Pages
+                // Public Pages
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/sign-up/**").permitAll()
                 .requestMatchers("/artist/**").permitAll()
                 .requestMatchers("/sign-in").permitAll()
-                //Registered User Pages
+                // Registered User Pages
                 .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/concert/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/ticket/**").hasAnyRole("USER", "ADMIN")
-                //Administrator Pages
+                // Administrator Pages
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+            )
+            .exceptionHandling(ex -> ex
+                .accessDeniedPage("/error") // Redirige a tu controlador de error
             )
             .formLogin(formLogin -> formLogin
                 .loginPage("/sign-in")
@@ -146,7 +149,7 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/")
                 .permitAll()
             );
-        
+
         return http.build();
     }
 }
