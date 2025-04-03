@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,10 +75,10 @@ public class ConcertController {
      * @return the concert-workbench.html with the appropriate attributes set
      */
     @PostMapping("/admin/concert/{id}/modify")
-    public String formModifyConcert(Model model, @PathVariable long id) {
+    public String formModifyConcert(Model model, @PathVariable long id, @RequestParam Pageable pageable) {
 
         model.addAttribute("concert", concertService.findConcertById(id));
-        model.addAttribute("artistList", artistService.getEveryArtist());
+        model.addAttribute("artistList", artistService.getEveryArtist(pageable));
         return "concert-workbench";
     }
 
@@ -89,9 +90,9 @@ public class ConcertController {
      * @return the concert-workbench.html with the appropriate attributes set
      */
     @PostMapping("/admin/concert/workbench")
-    public String formAddConcert(Model model) {
+    public String formAddConcert(Model model, @RequestParam Pageable pageable) {
         model.addAttribute("concert", null);
-        model.addAttribute("artistList", artistService.getEveryArtist());
+        model.addAttribute("artistList", artistService.getEveryArtist(pageable));
         return "concert-workbench";
     }
 

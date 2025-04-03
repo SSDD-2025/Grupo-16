@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,9 @@ public class TicketService {
     
     @Autowired
     private ConcertService concertService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ConcertMapper mapper;
@@ -64,6 +69,17 @@ public class TicketService {
         Ticket newTicket = new Ticket(zone, price, null, concert);
         this.ticketRepository.save(newTicket);
         return newTicket;
+    }
+
+    /**
+     * Gets the page of the user's tickets
+     * @param principal data from the http request
+     * @param pageable characteristics of the page that is being returned
+     * @return said page with the tickets as DTOs
+     */
+    public Page<TicketDTO> getTicketPage(Principal principal, Pageable pageable){
+        long id = userService.getIdOfUser(principal.getName());
+        return ticketRepository.findTicketByTicketUserId(id, pageable).map(ticketMapper::toDTO);
     }
 
     /**

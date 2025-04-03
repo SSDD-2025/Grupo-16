@@ -7,8 +7,4 @@ import es.ticketmaster.entrega1.model.Ticket;
 public record UserShowTicketsDTO(
     String username,
     List<Ticket> ticketList
-) {
-    public List<Ticket> getTicketList(){
-        return ticketList;
-    }
-}
+) {}
