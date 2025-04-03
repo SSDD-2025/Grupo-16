@@ -63,26 +63,26 @@ public class WebSecurityConfig {
                     // PRIVATE ENDPOINTS:
                     // UserRestController:
                     .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/users/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.POST, "/api/users/**").permitAll()
                     .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("USER")
 
                     // ConcertRestController
-                    .requestMatchers(HttpMethod.GET, "/api/concerts/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/concerts/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/concerts/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/concerts/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/concerts/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/concerts/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/concerts/**").hasRole("ADMIN")
 
                     // ArtistRestController
-                    .requestMatchers(HttpMethod.GET, "/api/artists/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/artists/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/artists/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/artists/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/artists/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/artists/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/artists/**").hasRole("ADMIN")
 
                     // TicketRestController
                     .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/tickets/**").hasRole("ADMIN")
 
                     // PUBLIC ENDPOINTS:
