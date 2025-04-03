@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,6 +91,29 @@ public class ConcertService {
      */
     public List<BasicConcertDTO> getAllConcerts() {
         return mapper.toBasicConcertDTOs(concertRepository.findAll());
+    }
+
+    /**
+     * Returns the page of the main information of the concerts (order by date)
+     * @param pageable the characteristics of the page
+     * @return page of the basicConcertDTOs
+     */
+    public Page<BasicConcertDTO> getAllConcertPage(Pageable pageable){
+        return concertRepository.findByOrderByDateAsc(pageable).map(mapper::toBasicConcertDTO);
+    }
+
+    /**
+     * Returns the page of the main information of the concerts at the user's country
+     * @param pageable the characteristics of the page
+     * @return page of the basicConcertDTOs
+     */
+    public Page<BasicConcertDTO> getUserConcertPage(Principal principal, Pageable pageable){
+        ShowUserDTO user = userService.getActiveUser(principal);
+        if (user == null){
+            return getAllConcertPage(pageable);
+        } else {
+            return concertRepository.findByPlace(user.country(), pageable).map(mapper::toBasicConcertDTO);
+        }
     }
 
     /**

@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 import es.ticketmaster.entrega1.dto.concert.BasicConcertDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.service.ConcertService;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.net.URI;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/api/concerts")
 public class ConcertRestController {
@@ -30,12 +31,11 @@ public class ConcertRestController {
     private ConcertService concertService;
     
     /**
-     * NOTE: add pageable
      * @return the list of all the concerts existing in the database (just main information)
      */
     @GetMapping("/")
-    public Collection<BasicConcertDTO> getConcerts() {
-        return concertService.getAllConcerts();
+    public Page<BasicConcertDTO> getConcerts(Pageable pageable) {
+        return concertService.getAllConcertPage(pageable);
     }
 
     /**
@@ -47,6 +47,18 @@ public class ConcertRestController {
     public ConcertDTO getConcert(@PathVariable long id) {
         return concertService.findConcertById(id);
     }
+
+    /**
+     * Gets a page of the concerts that are being held at the same country as the user
+     * @param request http request information
+     * @param pageable the object Pageable which contains the information of the characteristics of the page
+     * @return the page with the concerts
+     */
+    @GetMapping("/near-user")
+    public Page<BasicConcertDTO> getConcertsNearUser(HttpServletRequest request, Pageable pageable) {
+        return concertService.getUserConcertPage(request.getUserPrincipal(), pageable);
+    }
+    
     
     /**
      * Create a concert
