@@ -78,10 +78,10 @@ public class UserRestController {
     /**
      * Retrieves the information for all registered users.
      * 
-     * @return the collection of users in the ShowUserDTO format.
+     * @return the Page of users in the ShowUserDTO format.
      */
     @GetMapping("/all-profiles/")
-    public Page<ShowUserDTO> getAllUsers(@PageableDefault(page = 0, size = 10)Pageable pageable) {
+    public Page<ShowUserDTO> getAllUsers(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return this.userService.getAllUsersFromDatabase(pageable);
     }
     
