@@ -282,6 +282,106 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET Concert Poster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE Concert Poster",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Concert Poster",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Concert Poster",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

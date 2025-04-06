@@ -1,12 +1,13 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Blob;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -181,6 +182,51 @@ public class ConcertService {
     }
 
     /**
+     * THE CONCERT HAS TO BE CREATED BEFORE ADDING THE PHOTO
+     * Sets the inputStream parameter as the binary photo (poster) of the concert whose id is passed as a parameter
+     * @param id id of the concert whose photo is being changed
+     * @param inputStream binary stream (data) of the image
+     * @param size size of the image
+     */
+    public void setPosterPhoto(long id, InputStream inputStream, long size, boolean present){
+        Optional<Concert> op = concertRepository.findById(id);
+        if (op.isPresent()){
+            Concert concert = op.get();
+            if (present){
+                concert.setImage(BlobProxy.generateProxy(inputStream, size));
+            } else {
+                this.setDefaultPoster(concert);
+            }  
+            concertRepository.save(concert);
+        } else {
+            throw new ConcertNotFoundException(id);
+        }
+    }
+
+    /**
+     * Deletes the concert's poster photo by setting it to default
+     * @param id concert whose image is being eliminated
+     */
+    public void deleteConcertPoster(long id){
+        Optional<Concert> op = concertRepository.findById(id);
+        if (op.isPresent()){
+            Concert concert = op.get();
+            this.setDefaultPoster(concert);
+            concertRepository.save(concert);
+        } else {
+            throw new ConcertNotFoundException(id);
+        }
+    }
+
+    /**
+     * Sets a concert's poster photo to the default one
+     * @param concert concert whose image is being set to default
+     */
+    private void setDefaultPoster(Concert concert){
+        concert.setImage(imageService.getBlobOf("null"));
+    }
+
+    /**
      * This method will verify is there are available tickets for a specific
      * type (section).
      *
@@ -236,6 +282,8 @@ public class ConcertService {
         Concert newConcert = mapper.toDomain(concert);
         if ((poster != null) && (!poster.isEmpty())) {
             newConcert.setImage(imageService.getBlobOf(poster));
+        } else {
+            this.setDefaultPoster(newConcert);
         }
 
         //set the artist

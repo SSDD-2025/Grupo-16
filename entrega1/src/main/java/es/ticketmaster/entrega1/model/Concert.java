@@ -412,6 +412,10 @@ public class Concert {
     }
 
     /* Other methods */
+    /**
+     * Method that adds the tickets of a concert to another
+     * @param otherConcert the concert whose tickets are being added on "self"
+     */
     public void addTickets(Concert otherConcert) {
         //Adds otherConcert tickets to this concert
         this.generalAdmissionNumber += otherConcert.getGeneralAdmissionNumber();
