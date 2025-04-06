@@ -49,9 +49,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}}/api/users/register/",
+							"raw": "{{userURL}}/api/users/register/",
 							"host": [
-								"{{userURL}}}"
+								"{{userURL}}"
 							],
 							"path": [
 								"api",
@@ -66,12 +66,15 @@
 				{
 					"name": "Get All Profiles",
 					"request": {
+						"auth": {
+ 							"type": "noauth"
+ 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}}/api/users/all-profiles/",
+							"raw": "{{userURL}}/api/users/all-profiles/",
 							"host": [
-								"{{userURL}}}"
+								"{{userURL}}"
 							],
 							"path": [
 								"api",
@@ -88,16 +91,25 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+ 							"mode": "raw",
+ 							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
+ 							"options": {
+ 								"raw": {
+ 									"language": "json"
+ 								}
+ 							}
+ 						},
 						"url": {
-							"raw": "{{userURL}}}/api/users/modify-profile/{id}/",
+							"raw": "{{userURL}}/api/users/modify-profile/3/",
 							"host": [
-								"{{userURL}}}"
+								"{{userURL}}"
 							],
 							"path": [
 								"api",
 								"users",
 								"modify-profile",
-								"{id}",
+								"3",
 								""
 							]
 						}
@@ -110,9 +122,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}}/api/users/delete-profile/1/",
+							"raw": "{{userURL}}/api/users/delete-profile/1/",
 							"host": [
-								"{{userURL}}}"
+								"{{userURL}}"
 							],
 							"path": [
 								"api",
@@ -412,6 +424,49 @@
 									"key": "size",
 									"value": "10"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchase Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/concert/1/ticket-purchase",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"concert",
+								"1",
+								"ticket-purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/tickets/delete/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"tickets",
+								"delete",
+								"1"
 							]
 						}
 					},
