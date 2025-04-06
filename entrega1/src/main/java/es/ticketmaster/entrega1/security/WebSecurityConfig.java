@@ -127,15 +127,14 @@ public class WebSecurityConfig {
                 .requestMatchers("/sign-up/**").permitAll()
                 .requestMatchers("/artist/**").permitAll()
                 .requestMatchers("/sign-in").permitAll()
+                // Error Page
+                .requestMatchers("/error").permitAll()
                 // Registered User Pages
                 .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/concert/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/ticket/**").hasAnyRole("USER", "ADMIN")
                 // Administrator Pages
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-            )
-            .exceptionHandling(ex -> ex
-                .accessDeniedPage("/error") // Redirige a tu controlador de error
             )
             .formLogin(formLogin -> formLogin
                 .loginPage("/sign-in")

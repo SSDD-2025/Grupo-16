@@ -20,7 +20,7 @@ public class CustomErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                model.addAttribute("errorCode", "404 Error");
+                model.addAttribute("errorCode", "404 Not Found");
                 model.addAttribute("errorMessage", "Oops! The page you are looking for does not exist.");
             } 
             else if (statusCode == HttpStatus.FORBIDDEN.value()) {
@@ -30,7 +30,11 @@ public class CustomErrorController implements ErrorController {
             else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 model.addAttribute("errorCode", "500 Internal Server Error");
                 model.addAttribute("errorMessage", "Something went wrong on our end.");
-            } 
+            }
+            else if (statusCode == HttpStatus.SERVICE_UNAVAILABLE.value()) {
+                model.addAttribute("errorCode", "503 Service Unavailable");
+                model.addAttribute("errorMessage", "The server is currently unavailable. Please try again later.");
+            }
             else {
                 model.addAttribute("errorCode", statusCode + " Error");
                 model.addAttribute("errorMessage", "An unexpected error has occurred.");
