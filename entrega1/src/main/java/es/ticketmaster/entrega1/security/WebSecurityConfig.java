@@ -62,10 +62,10 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS:
                     // UserRestController:
-                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("USER", "ADMIN")
                     .requestMatchers(HttpMethod.POST, "/api/users/**").permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole("USER", "ADMIN")
 
                     // ConcertRestController
                     .requestMatchers(HttpMethod.GET, "/api/concerts/**").permitAll()
@@ -80,7 +80,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/api/artists/**").hasRole("ADMIN")
 
                     // TicketRestController
-                    .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasAnyRole("USER", "ADMIN")
                     .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/tickets/**").hasRole("ADMIN")
