@@ -74,7 +74,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/api/concerts/**").hasRole("ADMIN")
 
                     // ArtistRestController
-                    .requestMatchers(HttpMethod.GET, "/api/artists/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/artists/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/artists/**").hasRole("USER")
                     .requestMatchers(HttpMethod.PUT, "/api/artists/**").hasRole("USER")
                     .requestMatchers(HttpMethod.DELETE, "/api/artists/**").hasRole("ADMIN")

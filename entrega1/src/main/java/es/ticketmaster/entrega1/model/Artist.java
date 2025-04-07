@@ -23,12 +23,13 @@ public class Artist {
     private long id; //id of the artist
 
     private String name; //artistic name
-    private int popularityIndex; //Number of listeners
+    private long popularityIndex; //Number of listeners
     private LocalDateTime sessionCreated;
 
     @JsonIgnore
     @Lob
     private Blob photo; //photo of the artist
+    private String photoLink; //If the Artist has any photo, the API REST link is saved here
 
     private boolean hasPage;
 
@@ -37,18 +38,7 @@ public class Artist {
 
     //Album Links to Spotify and Apple Music
     private String bestAlbumSpotifyLink;
-    private String bestAlbumAppleLink;
     private String latestAlbumSpotifyLink;
-    private String latestAlbumAppleLink;
-
-    //Album Images
-    @JsonIgnore
-    @Lob
-    private Blob bestAlbumPhoto;
-
-    @JsonIgnore
-    @Lob
-    private Blob latestAlbumPhoto;
 
     //Music Video Link
     private String videoLink;
@@ -81,20 +71,16 @@ public class Artist {
      * @param latestAlbumPhoto latest album photo cover
      * @param videoLink URL to youtube to watch the music video
      */
-    public Artist(String name, int popularityIndex, Blob photo, String mainInfo, String extendedInfo,
-            String bestAlbumSpotifyLink, String bestAlbumAppleLink, String latestAlbumSpotifyLink,
-            String latestAlbumAppleLink, Blob bestAlbumPhoto, Blob latestAlbumPhoto, String videoLink) {
+    public Artist(String name, int popularityIndex, Blob photo, String photoLink, String mainInfo, String extendedInfo,
+            String bestAlbumSpotifyLink, String latestAlbumSpotifyLink, String videoLink) {
         this.name = name;
         this.popularityIndex = popularityIndex;
         this.photo = photo;
+        this.photoLink = photoLink;
         this.mainInfo = mainInfo;
         this.extendedInfo = extendedInfo;
         this.bestAlbumSpotifyLink = bestAlbumSpotifyLink;
-        this.bestAlbumAppleLink = bestAlbumAppleLink;
         this.latestAlbumSpotifyLink = latestAlbumSpotifyLink;
-        this.latestAlbumAppleLink = latestAlbumAppleLink;
-        this.bestAlbumPhoto = bestAlbumPhoto;
-        this.latestAlbumPhoto = latestAlbumPhoto;
         this.videoLink = videoLink;
         this.hasPage = true;
     }
@@ -114,19 +100,14 @@ public class Artist {
      * @param videoLink
      */
     public Artist(String name, int popularityIndex, Blob photo, String mainInfo, String extendedInfo,
-            String bestAlbumSpotifyLink, String bestAlbumAppleLink, String latestAlbumSpotifyLink,
-            String latestAlbumAppleLink, String videoLink) {
+            String bestAlbumSpotifyLink, String latestAlbumSpotifyLink, String videoLink) {
         this.name = name;
         this.popularityIndex = popularityIndex;
         this.photo = photo;
         this.mainInfo = mainInfo;
         this.extendedInfo = extendedInfo;
         this.bestAlbumSpotifyLink = bestAlbumSpotifyLink;
-        this.bestAlbumAppleLink = bestAlbumAppleLink;
         this.latestAlbumSpotifyLink = latestAlbumSpotifyLink;
-        this.latestAlbumAppleLink = latestAlbumAppleLink;
-        this.bestAlbumPhoto = null;
-        this.latestAlbumPhoto = null;
         this.videoLink = videoLink;
         this.hasPage = true;
     }
@@ -174,7 +155,7 @@ public class Artist {
      *
      * @return the popularityIndex
      */
-    public int getPopularityIndex() {
+    public long getPopularityIndex() {
         return popularityIndex;
     }
 
@@ -182,7 +163,7 @@ public class Artist {
      *
      * @param popularityIndex new listeners number
      */
-    public void setPopularityIndex(int popularityIndex) {
+    public void setPopularityIndex(long popularityIndex) {
         this.popularityIndex = popularityIndex;
     }
 
@@ -269,18 +250,19 @@ public class Artist {
 
     /**
      *
-     * @return the link to the best album on Apple Music
+     * @return Returns the artist's profile photo link in the API REST. Null in case the
+     * artist has no photo 
      */
-    public String getBestAlbumAppleLink() {
-        return bestAlbumAppleLink;
+    public String getPhotoLink() {
+        return this.photoLink;
     }
 
     /**
      *
-     * @param bestAlbumAppleLink the new link to the best album on Apple Music
+     * @param photoLink API REST photo link of the artist. 
      */
-    public void setBestAlbumAppleLink(String bestAlbumAppleLink) {
-        this.bestAlbumAppleLink = bestAlbumAppleLink;
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
     }
 
     /**
@@ -297,54 +279,6 @@ public class Artist {
      */
     public void setLatestAlbumSpotifyLink(String latestAlbumSpotifyLink) {
         this.latestAlbumSpotifyLink = latestAlbumSpotifyLink;
-    }
-
-    /**
-     *
-     * @return the link to the latest album on Apple Music
-     */
-    public String getLatestAlbumAppleLink() {
-        return latestAlbumAppleLink;
-    }
-
-    /**
-     *
-     * @param latestAlbumAppleLink new link to the latest album on Apple Music
-     */
-    public void setLatestAlbumAppleLink(String latestAlbumAppleLink) {
-        this.latestAlbumAppleLink = latestAlbumAppleLink;
-    }
-
-    /**
-     *
-     * @return photo cover of the best album
-     */
-    public Blob getBestAlbumPhoto() {
-        return bestAlbumPhoto;
-    }
-
-    /**
-     *
-     * @param bestAlbumPhoto set new cover to the best album
-     */
-    public void setBestAlbumPhoto(Blob bestAlbumPhoto) {
-        this.bestAlbumPhoto = bestAlbumPhoto;
-    }
-
-    /**
-     *
-     * @return photo cover of the latest album
-     */
-    public Blob getLatestAlbumPhoto() {
-        return latestAlbumPhoto;
-    }
-
-    /**
-     *
-     * @param latestAlbumPhoto set new cover to the latets album
-     */
-    public void setLatestAlbumPhoto(Blob latestAlbumPhoto) {
-        this.latestAlbumPhoto = latestAlbumPhoto;
     }
 
     /**

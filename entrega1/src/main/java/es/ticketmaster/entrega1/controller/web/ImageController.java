@@ -59,61 +59,6 @@ public class ImageController {
     }
 
     /**
-     * It shows the latest album cover by an artist on the page where the
-     * mapping is called Acts uppon the mapping
-     * /artist/{{id}}/download-latestAlbum-photo
-     *
-     * @param id the artist's id whose latest album will be shown
-     * @return the photo on the ResponseEntity<Object> if everything went well
-     * (otherwise returns a not found object)
-     * @throws SQLException
-     */
-    @GetMapping("/artist/{id}/download-latestAlbum-photo")
-    public ResponseEntity<Object> downloadLatestAlbumPhoto(@PathVariable long id) throws SQLException {
-
-        Artist op = artistService.getArtistEntity(id);
-
-        if ((op != null) && op.getLatestAlbumPhoto() != null) {
-
-            Blob image = op.getLatestAlbumPhoto();
-            Resource file = new InputStreamResource(image.getBinaryStream());
-
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(image.length()).body(file);
-
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    /**
-     * It shows the best album cover by an artist on the page where the mapping
-     * is called Acts uppon the mapping /artist/{{id}}/download-bestAlbum-photo
-     *
-     * @param id the artist's id whose best album will be shown
-     * @return the photo on the ResponseEntity<Object> if everything went well
-     * (otherwise returns a not found object)
-     * @throws SQLException
-     */
-    @GetMapping("/artist/{id}/download-bestAlbum-photo")
-    public ResponseEntity<Object> downloadBestAlbumPhoto(@PathVariable long id) throws SQLException {
-
-        Artist op = artistService.getArtistEntity(id);
-
-        if ((op != null) && op.getBestAlbumPhoto() != null) {
-
-            Blob image = op.getBestAlbumPhoto();
-            Resource file = new InputStreamResource(image.getBinaryStream());
-
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(image.length()).body(file);
-
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    /**
      * It shows the profile picture of the activeUser on the page where the
      * mapping is called Acts uppon the mapping
      * /artist/{{id}}/download-latestAlbum-photo

@@ -1,6 +1,7 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -183,61 +184,13 @@ public class ArtistService {
      * @return The main photo of the artist
      * @throws SQLException
      */
-    public Resource getMainPhoto(long id) throws SQLException{
+    public Resource getPhoto(long id) throws SQLException{
         
         Optional<Artist> artist = artistRepository.findById(id);
 
         if(artist.isPresent()){
-            if(artist.get().getPhoto() != null){
+            if(artist.get().getPhotoLink() != null){
                 return new InputStreamResource(artist.get().getPhoto().getBinaryStream());
-            } else {
-                throw new ImageException("That image does not exist");
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that returns the best photo of an specified-by-id artist. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the artist does
-     * not have best photo, an ImageException with a notification is thrown.
-     * 
-     * @param id identifier of the artist
-     * @return The best photo of the artist
-     * @throws SQLException
-     */
-    public Resource getBestPhoto(long id) throws SQLException{
-        
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getBestAlbumPhoto() != null){
-                return new InputStreamResource(artist.get().getBestAlbumPhoto().getBinaryStream());
-            } else {
-                throw new ImageException("That image does not exist");
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that returns the latest photo of an specified-by-id artist. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the artist does
-     * not have latest photo, an ImageException with a notification is thrown.
-     * 
-     * @param id identifier of the artist
-     * @return The latest photo of the artist
-     * @throws SQLException
-     */
-    public Resource getLatestPhoto(long id) throws SQLException{
-        
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getLatestAlbumPhoto() != null){
-                return new InputStreamResource(artist.get().getLatestAlbumPhoto().getBinaryStream());
             } else {
                 throw new ImageException("That image does not exist");
             }
@@ -253,26 +206,33 @@ public class ArtistService {
      * the DDBB). As well, the register date is saved.
      *
      * @param artist artist to be saved
-     * @param mainPhoto MultipartFile photo to stablish the artist photo
-     * @param bestPhoto (PROV) MultipartFile photo to stablish the artist best
-     * album photo
-     * @param latestPhoto (PROV) MultipartFile photo to stablish the artist
-     * latest album photo
+     * @param photo MultipartFile photo to stablish the artist photo
      * @throws IOException
      */
-    public void registerNewArtist(Artist artist, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
+    public boolean registerNewArtist(Artist artist, MultipartFile photo) throws IOException {
 
-        /*The photo is setted (if there is any error, it is set to null) */
-        artist.setPhoto(imageService.getBlobOf(mainPhoto));
-        artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
-        /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
-        artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
-        /*PROVISIONAL - TO BE DELETED IN FUTURE HANDLES*/
+        /*The photo is set (if there is any error, it is set to null) */
+        Blob photoblob = imageService.getBlobOf(photo);
+        if (!(photoblob == null)){
+            artist.setPhoto(imageService.getBlobOf(photo));
+            artist.setPhotoLink("/api/artists/" + artist.getId() + "/photo");
+        }
+
+        /*Checks compulsory attributes in order to create a new artist*/
+        if(artist.getName() == null){
+            return false;
+        }
+        if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
+            return false;
+        }
+
+        /*Attributes not needed to be registered, but required in order to have a page*/
 
         artist.setSessionCreated(LocalDateTime.now());
         artist.setHasPage(true);
 
         artistRepository.save(artist);
+        return true;
     }
 
     /**
@@ -289,10 +249,17 @@ public class ArtistService {
         /*We get the artist as an Entity object*/
         Artist artist = artistMapper.toDomain(artistDTO);
 
+        /*Checks compulsory attributes in order to create a new artist*/
+        if(artist.getName() == null){
+            /*return false;*/
+        }
         if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
             throw new ArtistAlreadyExistsException(artist.getName());
         }
 
+        /*Attributes not needed to be registered, but required in order to have a page*/
+
+        artist.setPhotoLink(null); //There is no posibility any photo is provided
         artist.setSessionCreated(LocalDateTime.now());
         artist.setHasPage(true);
 
@@ -308,66 +275,16 @@ public class ArtistService {
      * @param id artist identifier
      * @param image image to stablish as main photo
      */
-    public void createMainPhotoImage(long id, MultipartFile image){
+    public void createPhotoImage(long id, MultipartFile image){
         
         Optional<Artist> artist = artistRepository.findById(id);
 
         if(artist.isPresent()){
-            if(artist.get().getPhoto() != null){
+            if(artist.get().getPhotoLink() != null){
                 throw new ImageException("Artist already has a main photo");
             }
             try {
                 artist.get().setPhoto(imageService.getBlobOf(image));
-                artistRepository.save(artist.get());
-            } catch (IOException e) {
-                throw new ImageException(e.toString());
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that creates the best-photo of an artist, specified by id. In case no artist
-     * with such id is found, it is returned an ArtistNotFoundException.
-     * @param id artist identifier
-     * @param image image to stablish as best photo
-     */
-    public void createBestPhotoImage(long id, MultipartFile image){
-        
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getBestAlbumPhoto() != null){
-                throw new ImageException("Artist already has a best photo");
-            }
-            try {
-                artist.get().setBestAlbumPhoto(imageService.getBlobOf(image));
-                artistRepository.save(artist.get());
-            } catch (IOException e) {
-                throw new ImageException(e.toString());
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that creates the latest-photo of an artist, specified by id. In case no artist
-     * with such id is found, it is returned an ArtistNotFoundException.
-     * @param id artist identifier
-     * @param image image to stablish as latest photo
-     */
-    public void createLatestPhotoImage(long id, MultipartFile image){
-        
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getLatestAlbumPhoto() != null){
-                throw new ImageException("Artist already has a latest photo");
-            }
-            try {
-                artist.get().setLatestAlbumPhoto(imageService.getBlobOf(image));
                 artistRepository.save(artist.get());
             } catch (IOException e) {
                 throw new ImageException(e.toString());
@@ -383,13 +300,11 @@ public class ArtistService {
      * @param artist artist containing the new attributes that have been
      * modified
      * @param id id of that artist
-     * @param mainPhoto (optional) new photo for the artist
-     * @param bestPhoto (PROV - optional) new photo for the best album
-     * @param latestPhoto ( PROV - optional) new photo for the latest album
+     * @param photo (optional) new photo for the artist
      * @return
      * @throws IOException
      */
-    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile mainPhoto, MultipartFile bestPhoto, MultipartFile latestPhoto) throws IOException {
+    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException {
 
         artist.setId(id);
 
@@ -398,28 +313,12 @@ public class ArtistService {
         if (!oldArtist.isEmpty()) {
             artist.setConcertList(oldArtist.get().getConcertList());
             artist.setHasPage(oldArtist.get().isHasPage());
-            if (!mainPhoto.isEmpty()) {
+            if (!photo.isEmpty()) {
                 /*If a new photo has been uploaded*/
-                artist.setPhoto(imageService.getBlobOf(mainPhoto));
+                artist.setPhoto(imageService.getBlobOf(photo));
             } else {
                 /*If no new photo has been uploaded, it takes the older one*/
                 artist.setPhoto(oldArtist.get().getPhoto());
-            }
-            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if (!bestPhoto.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setBestAlbumPhoto(imageService.getBlobOf(bestPhoto));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setBestAlbumPhoto(oldArtist.get().getBestAlbumPhoto());
-            }
-            /*TO BE REMOVED IN THE FUTURE - PROVISIONAL*/
-            if (!latestPhoto.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setLatestAlbumPhoto(imageService.getBlobOf(latestPhoto));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setLatestAlbumPhoto(oldArtist.get().getLatestAlbumPhoto());
             }
             artist.setHasPage(true);
             artistRepository.save(artist);
@@ -436,9 +335,7 @@ public class ArtistService {
      *
      * @param artistDTO artist's input DTO with the modified attributes
      * @param id id of that artist
-     * @param mainPhoto (optional) new photo for the artist
-     * @param bestPhoto (PROV - optional) new photo for the best album
-     * @param latestPhoto ( PROV - optional) new photo for the latest album
+     * @param photo (optional) new photo for the artist
      * @return Artist's DTO representing the modified artist that is saved in the DDBB.
      * @throws IOException
      */
@@ -451,9 +348,11 @@ public class ArtistService {
             artist.setId(id);
             artist.setName(oldArtist.get().getName());
             artist.setConcertList(oldArtist.get().getConcertList());
-            artist.setHasPage(oldArtist.get().isHasPage());
 
+            //In case the required attributes are provided, the artist can have page
+            artist.setHasPage(oldArtist.get().isHasPage());
             artist.setHasPage(true);
+
             artistRepository.save(artist);
             return artistMapper.toDTO(artist);
         } else {
@@ -471,72 +370,16 @@ public class ArtistService {
      * @param image the image that will be turned into the artist's main-photo
      * @throws IOException
      */
-    public void replaceMainPhotoImage(long id, MultipartFile image) throws IOException{
+    public void replacePhotoImage(long id, MultipartFile image) throws IOException{
 
         Optional<Artist> artist = artistRepository.findById(id);
 
         if(artist.isPresent()){
-            if(artist.get().getPhoto() == null){
+            if(artist.get().getPhotoLink() == null){
                 throw new ImageException("Artist does not have a latest photo");
             }
             try {
                 artist.get().setPhoto(imageService.getBlobOf(image));
-                artistRepository.save(artist.get());
-            } catch (IOException e) {
-                throw new ImageException(e.toString());
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that replaces the best-photo of an artist. If the artist does not exist, an
-     * ArtistNotFoundException is thrown. If there is any problem getting the image Blob, the exception
-     * is returned
-     *  
-     * @param id the artist identifier
-     * @param image the image that will be turned into the artist's best-photo
-     * @throws IOException
-     */
-    public void replaceBestPhotoImage(long id, MultipartFile image) throws IOException{
-
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getBestAlbumPhoto() == null){
-                throw new ImageException("Artist does not have a latest photo");
-            }
-            try {
-                artist.get().setBestAlbumPhoto(imageService.getBlobOf(image));
-                artistRepository.save(artist.get());
-            } catch (IOException e) {
-                throw new ImageException(e.toString());
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Service method that replaces the latest-photo of an artist. If the artist does not exist, an
-     * ArtistNotFoundException is thrown. If there is any problem getting the image Blob, the exception
-     * is returned
-     *  
-     * @param id the artist identifier
-     * @param image the image that will be turned into the artist's latest-photo
-     * @throws IOException
-     */
-    public void replaceLatestPhotoImage(long id, MultipartFile image) throws IOException{
-
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getLatestAlbumPhoto() == null){
-                throw new ImageException("Artist does not have a latest photo");
-            }
-            try {
-                artist.get().setLatestAlbumPhoto(imageService.getBlobOf(image));
                 artistRepository.save(artist.get());
             } catch (IOException e) {
                 throw new ImageException(e.toString());
@@ -564,9 +407,14 @@ public class ArtistService {
      */
     public ArtistDTO deleteArtistWithId(long id) {
 
-        Artist artist = artistRepository.findById(id).orElseThrow();
-        artistRepository.deleteById(id); //We delete the artist with that ID
-        return artistMapper.toDTO(artist);
+        Optional<Artist> artist = artistRepository.findById(id);
+
+        if(artist.isPresent()){
+            artistRepository.deleteById(id); //We delete the artist with that ID
+            return artistMapper.toDTO(artist.get());
+        } else {
+            throw new ArtistNotFoundException(id);
+        }
 
     }
 
@@ -577,59 +425,14 @@ public class ArtistService {
      * 
      * @param id identifier of the artist which main photo will be deleted
      */
-    public void deleteMainPhoto(long id){
+    public void deletePhotoImage(long id){
 
         Optional<Artist> artist = artistRepository.findById(id);
 
         if(artist.isPresent()){
-            if(artist.get().getPhoto() != null){
+            if(artist.get().getPhotoLink() != null){
                 artist.get().setPhoto(null);
-                artistRepository.save(artist.get());
-            } else {
-                throw new ImageException("That image does not exist");
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Method that handles the deletion of an Artist's best-photo by its ID. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the photo does
-     * not exist, an ImageException is thrown.
-     * 
-     * @param id identifier of the artist which best photo will be deleted
-     */
-    public void deleteBestPhoto(long id){
-
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getBestAlbumPhoto() != null){
-                artist.get().setBestAlbumPhoto(null);
-                artistRepository.save(artist.get());
-            } else {
-                throw new ImageException("That image does not exist");
-            }
-        } else {
-            throw new ArtistNotFoundException(id);
-        }
-    }
-
-    /**
-     * Method that handles the deletion of an Artist's latest-photo by its ID. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the photo does
-     * not exist, an ImageException is thrown.
-     * 
-     * @param id identifier of the artist which latest photo will be deleted
-     */
-    public void deleteLatestPhoto(long id){
-
-        Optional<Artist> artist = artistRepository.findById(id);
-
-        if(artist.isPresent()){
-            if(artist.get().getLatestAlbumPhoto() != null){
-                artist.get().setLatestAlbumPhoto(null);
+                artist.get().setPhotoLink(null);
                 artistRepository.save(artist.get());
             } else {
                 throw new ImageException("That image does not exist");

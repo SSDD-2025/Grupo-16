@@ -13,14 +13,11 @@ public interface ArtistMapper{
     ArtistDTO toDTO(Artist artist);
 
     @Mapping(target="photo", ignore = true)
-    @Mapping(target="bestAlbumPhoto", ignore = true)
-    @Mapping(target="latestAlbumPhoto", ignore = true)
     @Mapping(target="concertList", ignore = true)
     List<ArtistDTO> toDTOs(Collection<Artist> artists);
 
     @Mapping(target="photo", ignore = true)
-    @Mapping(target="bestAlbumPhoto", ignore = true)
-    @Mapping(target="latestAlbumPhoto", ignore = true)
     @Mapping(target="concertList", ignore = true)
+    @Mapping(target="sessionCreated", ignore = true)
     Artist toDomain(ArtistDTO artistDTO);
 }
