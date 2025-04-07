@@ -44,10 +44,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception ex) {
-			log.error("Exception processing JWT Token: ", ex);
+			//log.error("Exception processing JWT Token: ", ex);
 		}
-
 		filterChain.doFilter(request, response);
-	}	
-
+	}
 }
