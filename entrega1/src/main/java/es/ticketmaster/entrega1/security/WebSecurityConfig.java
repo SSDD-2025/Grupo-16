@@ -62,27 +62,27 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS:
                     // UserRestController:
-                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/users/**").permitAll()
+                    .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole("USER", "ADMIN")
 
                     // ConcertRestController
-                    .requestMatchers(HttpMethod.GET, "/api/concerts/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/concerts/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/concerts/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/concerts/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/concerts/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/concerts/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/concerts/**").hasRole("ADMIN")
 
                     // ArtistRestController
                     .requestMatchers(HttpMethod.GET, "/api/artists/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/artists/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/artists/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.POST, "/api/artists/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/artists/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/artists/**").hasRole("ADMIN")
 
                     // TicketRestController
-                    .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/tickets/**").hasRole("ADMIN")
 
                     // PUBLIC ENDPOINTS:
@@ -114,7 +114,7 @@ public class WebSecurityConfig {
 
         http
             .authorizeHttpRequests(authorize -> authorize
-                //Access to static files
+                // Access to static files
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/js/**").permitAll()
                 .requestMatchers("/DDBB/**").permitAll()
@@ -122,16 +122,18 @@ public class WebSecurityConfig {
                 .requestMatchers("/concert/*/download-poster").permitAll()
                 .requestMatchers("/artist/*/download-photo").permitAll()
 
-                //Public Pages
+                // Public Pages
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/sign-up/**").permitAll()
                 .requestMatchers("/artist/**").permitAll()
                 .requestMatchers("/sign-in").permitAll()
-                //Registered User Pages
+                // Error Page
+                .requestMatchers("/error").permitAll()
+                // Registered User Pages
                 .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/concert/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/ticket/**").hasAnyRole("USER", "ADMIN")
-                //Administrator Pages
+                // Administrator Pages
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
             )
             .formLogin(formLogin -> formLogin
@@ -146,7 +148,7 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/")
                 .permitAll()
             );
-        
+
         return http.build();
     }
 }

@@ -1,13 +1,14 @@
 {
 	"info": {
-		"_postman_id": "8c2807bb-d697-4342-86da-2f2933120036",
+		"_postman_id": "3c6e303a-fd4a-4cf0-bef0-a4cddda41356",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43181860"
+		"_exporter_id": "43184465",
+		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-3c6e303a-fd4a-4cf0-bef0-a4cddda41356?action=share&source=collection_link&creator=43184465"
 	},
 	"item": [
 		{
-			"name": "UserRestController",
+			"name": "Users",
 			"item": [
 				{
 					"name": "Get Single Profile",
@@ -27,12 +28,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/profile/",
+							"raw": "{{userURL}}/api/users/profile/1/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
+								"api",
+								"users",
 								"profile",
+								"1",
 								""
 							]
 						}
@@ -44,21 +48,14 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{userURL}}/register/",
+							"raw": "{{userURL}}/api/users/register/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
+								"api",
+								"users",
 								"register",
 								""
 							]
@@ -70,16 +67,18 @@
 					"name": "Get All Profiles",
 					"request": {
 						"auth": {
-							"type": "noauth"
-						},
+ 							"type": "noauth"
+ 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/all-profiles/",
+							"raw": "{{userURL}}/api/users/all-profiles/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
+								"api",
+								"users",
 								"all-profiles",
 								""
 							]
@@ -93,21 +92,24 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
+ 							"mode": "raw",
+ 							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
+ 							"options": {
+ 								"raw": {
+ 									"language": "json"
+ 								}
+ 							}
+ 						},
 						"url": {
-							"raw": "{{userURL}}/modify-profile/",
+							"raw": "{{userURL}}/api/users/modify-profile/3/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
+								"api",
+								"users",
 								"modify-profile",
+								"3",
 								""
 							]
 						}
@@ -117,18 +119,18 @@
 				{
 					"name": "Delete Profile",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/delete-profile/",
+							"raw": "{{userURL}}/api/users/delete-profile/1/",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
+								"api",
+								"users",
 								"delete-profile",
+								"1",
 								""
 							]
 						}
@@ -146,16 +148,53 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/concerts/",
-							"protocol": "https",
+							"raw": "{{userURL}}/api/concerts/?page=page0&size=10",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
 								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "page0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Concerts Near User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/concerts/near-user?page=0&size=10",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"near-user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -164,18 +203,13 @@
 				{
 					"name": "GET Concert",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/concerts/5",
-							"protocol": "https",
+							"raw": "{{userURL}}/api/concerts/5",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -200,15 +234,14 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/concerts",
-							"protocol": "https",
+							"raw": "{{userURL}}/api/concerts/",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"api",
-								"concerts"
+								"concerts",
+								""
 							]
 						}
 					},
@@ -229,12 +262,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/concerts/1",
-							"protocol": "https",
+							"raw": "{{userURL}}/api/concerts/1",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -250,16 +281,115 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/concerts/1",
-							"protocol": "https",
+							"raw": "{{userURL}}/api/concerts/1/",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
-								"1"
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Concert Poster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE Concert Poster",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Concert Poster",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Concert Poster",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/concerts/1/image",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"concerts",
+								"1",
+								"image"
 							]
 						}
 					},
@@ -270,6 +400,35 @@
 		{
 			"name": "Tickets",
 			"item": [
+				{
+					"name": "GET User's Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/api/tickets/?page=0&size=10",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Purchase Ticket",
 					"request": {

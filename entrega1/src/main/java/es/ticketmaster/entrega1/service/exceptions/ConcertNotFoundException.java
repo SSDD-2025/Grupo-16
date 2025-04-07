@@ -1,16 +1,11 @@
 package es.ticketmaster.entrega1.service.exceptions;
 
-import java.util.NoSuchElementException;
+public class ConcertNotFoundException extends RuntimeException{
+	public ConcertNotFoundException(String name, String place){
+		super("It does not exists a concert named " + name + " taking place in " + place);
+	}
 
-import org.springframework.http.HttpStatus;
-
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ControllerAdvice
-public class ConcertNotFoundException {
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(NoSuchElementException.class)
-	public void handleNotFound() {}
+	public ConcertNotFoundException(long id){
+		super("It does not exists a concert with the id " + id);
+	}
 }

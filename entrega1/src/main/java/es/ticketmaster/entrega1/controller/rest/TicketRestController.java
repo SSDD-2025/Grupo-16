@@ -1,9 +1,10 @@
 package es.ticketmaster.entrega1.controller.rest;
 
 import java.security.Principal;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
-import es.ticketmaster.entrega1.model.Ticket;
 import es.ticketmaster.entrega1.service.TicketService;
-import es.ticketmaster.entrega1.service.UserService;
 import es.ticketmaster.entrega1.service.exceptions.GlobalExceptionHandler;
 import es.ticketmaster.entrega1.service.exceptions.TicketNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,18 +28,14 @@ public class TicketRestController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private UserService userService;
-
     /**
      * Get all the tickets from a user (the active user)
-     * NOTE: Pageable
      * @param request the HttpRequest that includes the data of the active user
      * @return the ticket list of the active user
      */
     @GetMapping("/tickets/")
-    public Collection<Ticket> getUserTickets(HttpServletRequest request){
-        return userService.getTicketsForActiveUser(request.getUserPrincipal()).getTicketList();
+    public Page<TicketDTO> getUserTickets(HttpServletRequest request, Pageable pageable){
+        return ticketService.getTicketPage(request.getUserPrincipal(),pageable);
     }
     
     /**
