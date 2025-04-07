@@ -4,6 +4,7 @@
     <title>{{titleName}}</title> <!-- The title is the name of the artist -->
     <link type="text/css" rel="stylesheet" href="/css/artist-style.css">
     <link rel="icon" type="image/png" href="/media/microphone.png">
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </head>
 
 <body>
@@ -43,24 +44,12 @@
     </div>
     <div class="album-display">
         <div class="album-container">
-            <h3>Best Album</h3>
-            <img class="album-photo" src="/artist/{{id}}/download-bestAlbum-photo"> <!-- Photo of the cover -->
-            <div class="music-apps">
-                <a href="{{artist.bestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a>
-                <!-- URL linking to the album in Spotify (kept in database)-->
-                <a href="{{artist.bestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a>
-                <!-- URL linking to the album in Apple Music (kept in database)-->
-            </div>
+            <!--BEST ALBUM SPOTIFY LINK-->
+            <div id="embed-iframe-best-album"></div>
         </div>
         <div class="album-container">
-            <h3>Latest Album</h3>
-            <img class="album-photo" src="/artist/{{id}}/download-latestAlbum-photo"> <!-- Photo of the cover -->
-            <div class="music-apps">
-                <a href="{{artist.latestAlbumSpotifyLink}}"><img class="spotify" src="/media/spotify.png"></a>
-                <!-- URL linking to the album in Spotify (kept in database)-->
-                <a href="{{artist.latestAlbumAppleLink}}"><img class="apple" src="/media/apple_music.png"></a>
-                <!-- URL linking to the album in Apple Music (kept in database)-->
-            </div>
+            <!--LATEST ALBUM SPOTIFY LINK-->
+            <div id="embed-iframe-latest-album"></div>
         </div>
     </div>
 
@@ -89,3 +78,22 @@
     </footer>
 </body>
 </html>
+<script>
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let bestAlbum = document.getElementById('embed-iframe-best-album');
+        let options = {
+            uri: '{{artist.bestAlbumSpotifyLink}}',
+            height: 500,
+            width: 500
+            };
+        const callback = (EmbedController) => {};
+        IFrameAPI.createController(bestAlbum, options, callback);
+        let latestAlbum = document.getElementById('embed-iframe-latest-album');
+        options = {
+            uri: '{{artist.latestAlbumSpotifyLink}}',
+            height: 500,
+            width: 500
+            };
+        IFrameAPI.createController(latestAlbum, options, callback);
+    };
+</script>

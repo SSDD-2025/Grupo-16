@@ -84,7 +84,7 @@ function loadMoreArtists() {
 				container.innerHTML += Mustache.render(template, { // The mustache render evaluate the variables
 					id: artist.id,
 					name: artist.name,
-					photo: artist.mainPhoto
+					photo: artist.photoLink
 				});
 			});
 

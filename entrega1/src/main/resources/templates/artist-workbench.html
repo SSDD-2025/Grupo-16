@@ -13,7 +13,7 @@ can be instantly previsualized (image and artist name)-->
     <link rel="stylesheet" href="/css/artist-style.css">
     <link rel="stylesheet" href="/css/personal-pages-style.css">
     <link rel="icon" type="image/png" href="/media/admin.png">
-    <script src="/js/update-new-artist.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </head>
 
 <body>
@@ -69,13 +69,14 @@ can be instantly previsualized (image and artist name)-->
             <hr>
 
             <!--Actual form containing all the information of the artist that is compulsory to add-->
+            {{#modificate}} <!--If the artist is going to be modified, the url for the controller is changed to the specific artist-->
+            <form action="/admin/artist/{{artist.id}}" method="post" enctype="multipart/form-data"
+                class="general-container column-container">
+            {{/modificate}}
+            {{^modificate}}
             <form action="/admin/artist/register" method="post" enctype="multipart/form-data"
                 class="general-container column-container">
-
-                {{#modificate}}
-                <!--If the artist is going to be modified, the id is passed to the form in a hidden way-->
-                <input type="hidden" name="id" value="{{artist.id}}">
-                {{/modificate}}
+            {{/modificate}}
 
                 <!--Artist name-->
                 <div class="attribute-container">
@@ -148,29 +149,7 @@ can be instantly previsualized (image and artist name)-->
 
                 <!--Initially hidden display of the media, controlled with JavaScript-->
                 <div class="spotify-container" style="display: none;" id="bestAlbumSpotifyLink-preview-container">
-                    <iframe id="best-album-spotify-embed" src="" frameborder="0" allowtransparency="true"
-                        allow="encrypted-media"></iframe>
-                </div>
-
-                <!-- Best Album Apple Music -->
-                <div class="attribute-container">
-                    <label for="bestAlbumAppleMusicLink">Best Album Apple Music Link</label>
-                    {{#artist.bestAlbumAppleLink}}
-                    <input type="url" id="bestAlbumAppleMusicLink" name="bestAlbumAppleLink"
-                        data-iframe="best-album-apple-embed" data-display="bestAlbumAppleLink-preview-container"
-                        plat="apple-music" value="{{artist.bestAlbumAppleLink}}" required>
-                    {{/artist.bestAlbumAppleLink}}
-                    {{^artist.bestAlbumAppleLink}}
-                    <input type="url" id="bestAlbumAppleMusicLink" name="bestAlbumAppleLink"
-                        data-iframe="best-album-apple-embed" data-display="bestAlbumAppleLink-preview-container"
-                        plat="apple-music" required>
-                    {{/artist.bestAlbumAppleLink}}
-                </div>
-
-                <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="apple-music-container" style="display: none;" id="bestAlbumAppleLink-preview-container">
-                    <iframe id="best-album-apple-embed" src="" frameborder="0" allow="autoplay *; encrypted-media *;"
-                        width="100%" height="150"></iframe>
+                    <div id="embed-iframe-best-album"></div>
                 </div>
 
                 <!--Latest album spotify link-->
@@ -190,57 +169,8 @@ can be instantly previsualized (image and artist name)-->
 
                 <!--Initially hidden display of the media, controlled with JavaScript-->
                 <div class="spotify-container" style="display: none;" id="latestAlbumSpotifyLink-preview-container">
-                    <iframe id="latest-album-spotify-embed" src="" frameborder="0" allowtransparency="true"
-                        allow="encrypted-media"></iframe>
+                    <div id="embed-iframe-latest-album"></div>
                 </div>
-
-                <!-- Latest Album Apple Music -->
-                <div class="attribute-container">
-                    <label for="latestAlbumAppleLink">Latest Album Apple Music Link</label>
-                    {{#artist.latestAlbumAppleLink}}
-                    <input type="url" id="latestAlbumAppleLink" name="latestAlbumAppleLink"
-                        data-iframe="latest-album-apple-embed" data-display="latestAlbumAppleLink-preview-container"
-                        plat="apple-music" value="{{artist.latestAlbumAppleLink}}" required>
-                    {{/artist.latestAlbumAppleLink}}
-                    {{^artist.latestAlbumAppleLink}}
-                    <input type="url" id="latestAlbumAppleLink" name="latestAlbumAppleLink"
-                        data-iframe="latest-album-apple-embed" data-display="latestAlbumAppleLink-preview-container"
-                        plat="apple-music" required>
-                    {{/artist.latestAlbumAppleLink}}
-                </div>
-
-                <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="apple-music-container" style="display: none;" id="latestAlbumAppleLink-preview-container">
-                    <iframe id="latest-album-apple-embed" src="" frameborder="0" allow="autoplay *; encrypted-media *;"
-                        width="100%" height="150"></iframe>
-                </div>
-
-                <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
-                <!--Best Album Image input-->
-                <div class="attribute-container">
-                    {{#modificate}} <!--Artist Best Album photo optative because it already has one-->
-                    <label for="best-photo">Change Best Album Photo</label>
-                    <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg">
-                    {{/modificate}}
-                    {{^modificate}} <!--Artist Best Album photo compulsory if the artist was nor previously added-->
-                    <label for="best-photo">Best Album Photo</label>
-                    <input type="file" id="best-photo" name="bestPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/modificate}}
-                </div>
-
-                <!--COMPLETELY PROVISIONAL - TO BE DELETED IN A FUTURE-->
-                <!--Latest Album Image input-->
-                <div class="attribute-container">
-                    {{#modificate}} <!--Artist Latest Album photo optative because it already has one-->
-                    <label for="latest-photo">Change Latest Album Photo</label>
-                    <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg">
-                    {{/modificate}}
-                    {{^modificate}} <!--Artist Latest Album photo compulsory if the artist was nor previously added-->
-                    <label for="latest-photo">Latest Album Photo</label>
-                    <input type="file" id="latest-photo" name="latestPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/modificate}}
-                </div>
-
 
                 <!--Video input and confirmation display-->
                 <div class="attribute-container">
@@ -279,32 +209,6 @@ can be instantly previsualized (image and artist name)-->
     });
 
 </script>
-<script> /*Script that projects the introduced video in the preview*/
-    let videoPreview = document.getElementById("video-display"); //We get the display
-    let videoInput = document.getElementById("videoLink"); //We get the link input
-    let videoPreviewContainer = document.getElementById("video-display-container")
-
-    videoInput.addEventListener("input", function () { /*When an input is heard*/
-        let videoId = extractYouTubeID(videoInput.value); /*Using lambda expressions and pattern matching
-                                                            we get the embed link*/
-
-        if (videoId) { /*If it exists an embed link, it is displayed*/
-            videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
-            videoPreviewContainer.style.display = "block";
-            videoInput.value = videoPreview.src;
-        } else { /*In other case, it is hidden and cleared*/
-            videoPreview.src = "";
-            videoPreviewContainer.style.display = "none";
-        }
-    });
-
-    /*Function used to extract the embed YouTube URL from the input one, using pattern matching and lambda expression*/
-    function extractYouTubeID(url) {
-        let match = url.match(/(?:youtube\.com\/(?:.*[?&]v=|embed\/|v\/)|youtu\.be\/)([^"&?\/\s]{11})/);
-        return match ? match[1] : null;
-    }
-
-</script>
 <script> /*Script that updates the artist photo in the preview*/
     let photoInput = document.getElementById("main-photo");
     let imagePreview = document.getElementById("image-preview");
@@ -320,70 +224,6 @@ can be instantly previsualized (image and artist name)-->
     });
 
 </script>
-<script> /*Script that displays the introduced music album in Spotify*/
-    /*We make a search of every element in the HTML that is an input html and contains every attirbute*/
-    let spotifyInputs = document.querySelectorAll("input[type='url'][data-iframe][data-display][plat='spotify']");
-
-    /* For each and everyone of the obtained inputs, we add an Event listener for when the value is
-    changed, which function is to change the iframe src correctly to display the spotify injectable*/
-    spotifyInputs.forEach(input => {
-        input.addEventListener("input", function () {
-
-            let songPreview = document.getElementById(input.getAttribute("data-iframe")); /*We obtain the iframe where the video is displayed*/
-            let songDisplay = document.getElementById(input.getAttribute("data-display"));/*We obtain the container of the previous iframe, that is hidden*/
-
-            let embedUrl = convertSpotifyURL(input.value); /*We use pattern matching to transform the URL into an embed one (readable for HTML)*/
-
-            if (embedUrl) { /*If there is an embed compatible URL, the video is displayed*/
-                songPreview.src = embedUrl;
-                songDisplay.style.display = "block";
-                input.value = embedUrl;
-            } else { /*Otherwise, there is nothing changed*/
-                songPreview.src = "";
-                songDisplay.style.display = "none";
-            }
-        });
-    });
-
-    function convertSpotifyURL(url) { /*Function that uses pattern matching to transform the Spotify URL into an embed one*/
-        let match = url.match(/(?:https?:\/\/open\.spotify\.com\/(?:intl-[a-z]{2}\/)?(track|album|playlist)\/)([a-zA-Z0-9]+)/);
-        return match ? `https://open.spotify.com/embed/${match[1]}/${match[2]}` : null;
-    }
-</script>
-
-<script> /*Script that displays the introduced music album in Apple Music*/
-    /*We make a search of every element in the HTML that is an input html and contains every attirbute*/
-    let appleMusicInputs = document.querySelectorAll("input[type='url'][data-iframe][data-display][plat='apple-music']");
-
-    /*We add an event listener, for when an input is made*/
-    appleMusicInputs.forEach(input => {
-        input.addEventListener("input", function () {
-            let iframeID = input.getAttribute("data-iframe"); /*Displayer ID*/
-            let displayID = input.getAttribute("data-display"); /*Container of the displayer (the one that is hidden) ID*/
-
-            let songPreview = document.getElementById(iframeID);
-            let songDisplay = document.getElementById(displayID);
-
-            let embedUrl = convertAppleMusicURL(input.value); /*We get the embed URL*/
-
-            if (embedUrl) { /*If the embed URL exists, the media is displayed*/
-                songPreview.src = embedUrl;
-                songDisplay.style.display = "block";
-                input.value = embedUrl;
-            } else { /*Otherwise, the media is cleared and hidden*/
-                songPreview.src = "";
-                songDisplay.style.display = "none";
-            }
-        });
-    });
-
-    /*Function used to extract the embed Apple Music URL from the input one, using pattern matching and lambda expression*/
-    function convertAppleMusicURL(url) {
-        let match = url.match(/https:\/\/music\.apple\.com\/[a-z]{2}\/(album|song|playlist)\/[^/]+\/(\d+)/);
-        if (match) {
-            return `https://embed.music.apple.com/us/${match[1]}/${match[2]}`;
-        }
-        return null;
-    }
-</script>
+<script src="/js/YouTubeUpdate.js"></script>
+<script src="/js/SpotifyUpdate.js"></script>
 </html>

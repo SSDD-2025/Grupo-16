@@ -83,40 +83,49 @@ public class ArtistController {
     }
 
     /**
-     * * Method that controlls the registration of a new artist/modification of
-     * an existing one. For that, the ArtistService is used, being this Service
-     * the one encharged of the DDBB handling. Afterwards, the user is
-     * redirected to the artist admin page
+     * * Method that controlls the registration of a new artist. For that, the
+     * ArtistService is used, being this Service the one encharged of the DDBB
+     * handling. Afterwards, the user is redirected to the artist admin page
      *
      * @param model the actual dynamic HTML
      * @param artist artist collected from the form
      * @param mainPhoto (optional) artist photo in MultipartFile format
-     * @param bestPhoto (optional) best album photo in MultipartFile format
-     * @param latestPhoto (optional) best album photo in MultipartFile format
-     * @param id (optional) artist's id
      * @param redirectAttributes attributes for the redirection solicitude
      * @return HTML to be loaded
      * @throws IOException
      */
     @PostMapping("/admin/artist/register")
-    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto,
-            @RequestParam(required = false) MultipartFile bestPhoto, @RequestParam(required = false) MultipartFile latestPhoto,
-            @RequestParam(required = false) Long id, RedirectAttributes redirectAttributes) throws IOException {
+    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, RedirectAttributes redirectAttributes) throws IOException {
 
-        if (id == null) { //Add new artist
-            if (artistService.checkIfExistsByName(artist.getName())) {
-                artist.setName(null);
-                redirectAttributes.addFlashAttribute("error", "Artist name already exists");
-                redirectAttributes.addFlashAttribute("artist", artist);
-                return "redirect:/admin/artist/workbench";
-            }
-            artistService.registerNewArtist(artist, mainPhoto, bestPhoto, latestPhoto);
-        } else {
-            if (!artistService.modifyArtistWithId(artist, id, mainPhoto, bestPhoto, latestPhoto)) {
-                return "redirect:/error";
-            }
+        if (artistService.checkIfExistsByName(artist.getName())) {
+            artist.setName(null);
+            redirectAttributes.addFlashAttribute("error", "Artist name already exists");
+            redirectAttributes.addFlashAttribute("artist", artist);
+            return "redirect:/admin/artist/workbench";
         }
+        artistService.registerNewArtist(artist, mainPhoto);
 
+        return "redirect:/admin/artist";
+    }
+
+    /**
+     * Method that controlls the modification of an existing artist. For that,
+     * the ArtistService is used, being this Service the one encharged of the
+     * DDBB handling. Afterwards, the user is redirected to the artist admin
+     * page
+     *
+     * @param model the actual dynamic HTML
+     * @param id id of the artist which modification is desired.
+     * @param artist artist collected from the form
+     * @param mainPhoto artist photo in MultipartFile format
+     * @return HTML to be loaded
+     * @throws IOException
+     */
+    @PostMapping("/admin/artist/{id}/modify")
+    public String modifyArtist(Model model, @PathVariable long id, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto) throws IOException {
+        if (!artistService.modifyArtistWithId(artist, id, mainPhoto)) {
+            return "redirect:/error";
+        }
         return "redirect:/admin/artist";
     }
 
@@ -139,7 +148,7 @@ public class ArtistController {
      * @param id id of the artist to be modified
      * @return the HTML to load
      */
-    @GetMapping("/admin/artist/{id}/modify")
+    @GetMapping("/admin/artist/{id}")
     public String modifyExistingArtist(Model model, @PathVariable long id) {
 
         Artist artist = artistService.getArtistEntity(id);
@@ -178,21 +187,22 @@ public class ArtistController {
     }
 
     /**
-     * This method stablishes the needed variables as far as the artist controller is concerned.
-     * The information needed is: if the user is logged or if the user is an admin. This variables
-     * are used to show diferent UI corresponding to their role.
-     * The way this method works is adding the correspondent attributes to the model 
-     * when any of the previous controller methods are called so that the information is pre-loaded.
-     * 
+     * This method stablishes the needed variables as far as the artist
+     * controller is concerned. The information needed is: if the user is logged
+     * or if the user is an admin. This variables are used to show diferent UI
+     * corresponding to their role. The way this method works is adding the
+     * correspondent attributes to the model when any of the previous controller
+     * methods are called so that the information is pre-loaded.
+     *
      * @param model is the model of dynamic HTTP
      * @param request is the HTTP request
      */
     @ModelAttribute
-    public void addAttributes(Model model, HttpServletRequest request){
+    public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
-        if (principal!=null) { //If there is a principal user (means it is logged)
+        if (principal != null) { //If there is a principal user (means it is logged)
             model.addAttribute("isLogged", true);
             model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
         } else {
