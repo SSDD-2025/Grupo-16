@@ -43,10 +43,10 @@ public class UserRestController {
      *         - If successful: A 201 Created response with the URI of the newly created user and the user details.
      *         - If failure (user already exists): A 400 Bad Request response, indicating that the user already exists.
      */
-    @PostMapping("/register/")
+    @PostMapping
     public ResponseEntity<Object> verifySignUpREST(@RequestBody UserDTO userDTO) {
         if (this.userService.registerUser(userDTO)) {
-            URI location = fromCurrentRequest().path("/profile/{id}/").buildAndExpand(userDTO.id()).toUri();
+            URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
             return ResponseEntity.created(location).body(userDTO);
         }
         else {
@@ -64,7 +64,7 @@ public class UserRestController {
      *              - 200 OK and the user details in a ShowUserDTO format.
      *              - 404 Not Found if there is no user with the given id.
      */
-    @GetMapping("/profile/")
+    @GetMapping("/me")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -80,7 +80,7 @@ public class UserRestController {
      * 
      * @return the Page of users in the ShowUserDTO format.
      */
-    @GetMapping("/all-profiles/")
+    @GetMapping
     public Page<ShowUserDTO> getAllUsers(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return this.userService.getAllUsersFromDatabase(pageable);
     }
@@ -99,7 +99,7 @@ public class UserRestController {
      *          - 400 Bad Request if an IOException occurs while handling the request.
      *          - 500 Internal Server Error if an unexpected error occurs.
      */
-    @PutMapping("/modify-profile/")
+    @PutMapping("/me")
     public ResponseEntity<ShowUserDTO> changeUserSettingsREST(Principal principal, @RequestBody ShowUserDTO user) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -133,7 +133,7 @@ public class UserRestController {
      *           - 200 OK if the user was successfully deleted.
      *           - 404 Not Found if the user does not exist.
      */
-    @DeleteMapping("/delete-profile/")
+    @DeleteMapping("/me")
     public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

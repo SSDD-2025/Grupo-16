@@ -1,5 +1,6 @@
 package es.ticketmaster.entrega1.controller.rest;
 
+import java.net.URI;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
 import es.ticketmaster.entrega1.service.TicketService;
@@ -51,13 +53,13 @@ public class TicketRestController {
      * 
      * @return ResponseEntity containing the TicketDTO object with the purchased ticket details if successful, or: 
      *          - a UNAUTHORIZED (401) if the principal is null (user is not authenticated). 
+     *          - a CREATED (201) if the ticket is succesfully created.
      *          - a BAD_REQUEST (400) response if the purchase fails.
      */
-    @PostMapping("/concert/{id}/ticket-purchase")
-    public ResponseEntity<TicketDTO> confirmPurchaseREST(
-        @PathVariable long concertId, 
-        @RequestBody TicketDTO ticketDTO, 
-        @RequestParam int number, Principal principal) {
+    @PostMapping("/concert/{id}/ticket")
+    public ResponseEntity<Object> confirmPurchaseREST(@PathVariable long concertId, @RequestBody TicketDTO ticketDTO, 
+            @RequestParam int number, 
+            Principal principal) {
 
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -65,7 +67,8 @@ public class TicketRestController {
         else {
             try {
                 this.ticketService.associateUserWithTicket(ticketDTO.zone(), number, concertId, principal);
-                return ResponseEntity.ok(ticketDTO);
+                URI location = fromCurrentRequest().path("/{id}").buildAndExpand(ticketDTO.id()).toUri();
+                return ResponseEntity.created(location).body(ticketDTO);
             } 
             catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -85,7 +88,7 @@ public class TicketRestController {
      *                  - a UNAUTHORIZED (401) if the principal is null (user is not authenticated).
      *                  - a BAD_REQUEST (400) response if the ticket cannot be deleted.
      */
-    @DeleteMapping("/tickets/delete/{id}")
+    @DeleteMapping("/tickets/{id}")
     public ResponseEntity<TicketDTO> deleteTicketREST(@PathVariable long id, Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
