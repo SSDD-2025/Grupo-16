@@ -20,13 +20,15 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
 import es.ticketmaster.entrega1.service.TicketService;
-import es.ticketmaster.entrega1.service.exceptions.GlobalExceptionHandler;
-import es.ticketmaster.entrega1.service.exceptions.TicketNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api")
 public class TicketRestController {
+
     @Autowired
     private TicketService ticketService;
 
@@ -40,22 +42,12 @@ public class TicketRestController {
         return ticketService.getTicketPage(request.getUserPrincipal(),pageable);
     }
     
-    /**
-     * Confirms the purchase of tickets for a specific concert.
-     * The URL contains the concert ID due to the ticket's relationship to it.
-     * Since a ticket must be related to a concert (it can't be independent), to associate it with the user,
-     * the concert ID is required.
-     * 
-     * @param concertId The unique identifier of the concert for which the tickets are being purchased.
-     * @param ticketDTO The DTO representing the ticket.
-     * @param number The number of tickets to be purchased.
-     * @param principal The currently authenticated user, used to retrieve the active user and associate tickets with them.
-     * 
-     * @return ResponseEntity containing the TicketDTO object with the purchased ticket details if successful, or: 
-     *          - a UNAUTHORIZED (401) if the principal is null (user is not authenticated). 
-     *          - a CREATED (201) if the ticket is succesfully created.
-     *          - a BAD_REQUEST (400) response if the purchase fails.
-     */
+   @Operation(summary = "Confirm purchase of tickets", description = "Confirms the purchase of tickets for a specific concert. Requires concert ID to link the tickets with the concert.")
+   @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Ticket successfully purchased."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: Purchase failed."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated.")
+    })
     @PostMapping("/concert/{id}/ticket")
     public ResponseEntity<Object> confirmPurchaseREST(@PathVariable long concertId, @RequestBody TicketDTO ticketDTO, 
             @RequestParam int number, 
@@ -76,18 +68,12 @@ public class TicketRestController {
         }
     }
 
-    /**
-     * Deletes a ticket identified by the given ticket ID. Only if it belongs to the active user.
-     * 
-     * @see TicketService#getTicket(long)
-     * @see GlobalExceptionHandler#TicketNotFoundException(TicketNotFoundException)
-     * 
-     * @param id is the unique identifier of the ticket to be deleted.
-     * @param principal the principal class from where the username can be requested.
-     * @return ResponseEntity containing the deleted TicketDTO object if successful, or:
-     *                  - a UNAUTHORIZED (401) if the principal is null (user is not authenticated).
-     *                  - a BAD_REQUEST (400) response if the ticket cannot be deleted.
-     */
+    @Operation(summary = "Delete a ticket", description = "Deletes a ticket identified by the ticket ID. The ticket must belong to the active user.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Ticket successfully deleted."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: Unable to delete ticket."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated.")
+    })
     @DeleteMapping("/tickets/{id}")
     public ResponseEntity<TicketDTO> deleteTicketREST(@PathVariable long id, Principal principal) {
         if (principal == null) {

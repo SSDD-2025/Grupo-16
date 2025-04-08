@@ -22,7 +22,9 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import es.ticketmaster.entrega1.dto.user.ShowUserDTO;
 import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.service.UserService;
-import es.ticketmaster.entrega1.service.exceptions.GlobalExceptionHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/users")
@@ -33,77 +35,59 @@ public class UserRestController {
 
     private static final String BAD_REQUEST_MESSAGE = "The user already exists.";
 
-    /**
-     * Verifies if the provided user information is valid and attempts to register the user.
-     * If the registration is successful, a new resource is created, and the location of the created resource is returned.
-     * If the user already exists, a BAD_REQUEST response is returned.
-     * 
-     * @param userDTO represents a determine user in DTO format.
-     * @return A ResponseEntity object representing the response:
-     *         - If successful: A 201 Created response with the URI of the newly created user and the user details.
-     *         - If failure (user already exists): A 400 Bad Request response, indicating that the user already exists.
-     */
+    @Operation(summary = "Register a new user", description = "Verifies user information and attempts to register the user. Returns user details if successful.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "User successfully created."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: The user already exists.")
+    })
     @PostMapping
     public ResponseEntity<Object> verifySignUpREST(@RequestBody UserDTO userDTO) {
         if (this.userService.registerUser(userDTO)) {
             URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
             return ResponseEntity.created(location).body(userDTO);
-        }
+        } 
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BAD_REQUEST_MESSAGE);
         }
     }
 
-    /**
-     * Retrieves the profile information of the active user.
-     * 
-     * @see GlobalExceptionHandler#UserNotFound(UserNotFound)
-     * @param principal the principal class from where the username can be requested.
-     * @return A ResponseEntity containing:
-     *              - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
-     *              - 200 OK and the user details in a ShowUserDTO format.
-     *              - 404 Not Found if there is no user with the given id.
-     */
+    @Operation(summary = "Get active user profile", description = "Retrieves the profile information of the active user.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User profile fetched successfully."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated."),
+        @ApiResponse(responseCode = "404", description = "Not Found: User not found.")
+    })
     @GetMapping("/me")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        } 
         else {
             long id = this.userService.getIdOfUser(principal.getName());
             return ResponseEntity.ok(this.userService.getUserWithID(id));
-        }   
+        }
     }
 
-    /**
-     * Retrieves the information for all registered users.
-     * 
-     * @return the Page of users in the ShowUserDTO format.
-     */
+    @Operation(summary = "Get all users", description = "Retrieves information for all registered users.")
+    @ApiResponse(responseCode = "200", description = "All users fetched successfully.")
     @GetMapping
     public Page<ShowUserDTO> getAllUsers(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return this.userService.getAllUsersFromDatabase(pageable);
     }
-    
-    /**
-     * This method handles the HTTP PUT request to update the the active user profile settings.
-     * In this case, the profile picture is not being updated as the method is provided with `null` for it.
-     * It only update the user´s country.
-     * 
-     * @param principal the principal class from where the username can be requested.
-     * @param user is the updated user data in ShowUserDTO format.
-     * @return A ResponseEntity containing:
-     *          - 401 UNAUTHORIZED if the principal is null (user is not authenticated).
-     *          - 200 OK and the updated user details if the update is successful.
-     *          - 404 Not Found if no user exists with the given ID.
-     *          - 400 Bad Request if an IOException occurs while handling the request.
-     *          - 500 Internal Server Error if an unexpected error occurs.
-     */
+
+    @Operation(summary = "Update active user profile settings", description = "Updates the active user profile settings. Profile picture is not updated.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User profile updated successfully."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated."),
+        @ApiResponse(responseCode = "404", description = "Not Found: User not found."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: Invalid data."),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error: Unexpected error.")
+    })
     @PutMapping("/me")
     public ResponseEntity<ShowUserDTO> changeUserSettingsREST(Principal principal, @RequestBody ShowUserDTO user) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        } 
         else {
             try {
                 long id = this.userService.getIdOfUser(principal.getName());
@@ -114,35 +98,32 @@ public class UserRestController {
                 else {
                     return ResponseEntity.notFound().build();
                 }
-            }
+            } 
             catch (IOException e) {
-                return ResponseEntity.badRequest().build();        
-            }
+                return ResponseEntity.badRequest().build();
+            } 
             catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
     }
-    
-    /**
-     * This method attempts to delete the profile of the active user.
-     * 
-     * @param principal the principal class from where the username can be requested.
-     * @return A ResponseEntity with:
-     *           - 401 401 UNAUTHORIZED if the principal is null (user is not authenticated).
-     *           - 200 OK if the user was successfully deleted.
-     *           - 404 Not Found if the user does not exist.
-     */
+
+    @Operation(summary = "Delete active user profile", description = "Attempts to delete the active user's profile.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User profile deleted successfully."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated."),
+        @ApiResponse(responseCode = "404", description = "Not Found: User not found.")
+    })
     @DeleteMapping("/me")
     public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        } 
         else {
             long id = this.userService.getIdOfUser(principal.getName());
             if (this.userService.removeExistingUserWithId(id)) {
                 return ResponseEntity.ok(this.userService.getUserWithID(id));
-            }
+            } 
             else {
                 return ResponseEntity.notFound().build();
             }
