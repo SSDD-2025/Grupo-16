@@ -60,6 +60,9 @@ public class WebSecurityConfig {
 
         http
             .authorizeHttpRequests(authorize -> authorize
+                    // AUTHENTICATION ENDPOINTS
+                    .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                    
                     // PRIVATE ENDPOINTS:
                     // UserRestController:
                     .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("USER", "ADMIN")
@@ -124,6 +127,7 @@ public class WebSecurityConfig {
 
                 // Public Pages
                 .requestMatchers("/").permitAll()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/sign-up/**").permitAll()
                 .requestMatchers("/artist/**").permitAll()
                 .requestMatchers("/sign-in").permitAll()
