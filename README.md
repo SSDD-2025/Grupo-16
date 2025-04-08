@@ -39,7 +39,17 @@
   - [Image Management](#image-management)
   - [Application Functionality Overview](#application-functionality-overview)
   - [Team Members Participation](#team-members-participation)
+    - [Alfonso Rodríguez Gutt](#alfonso-rodríguez-gutt)
+    - [Arminda García Moreno](#arminda-garcía-moreno)
+    - [David Rísquez Gómez](#david-rísquez-gómez)
 - [Phase 2](#phase-2)
+  - [Modifications with respect to the first phase](#modifications-with-respect-to-the-first-phase)
+  - [News](#news)
+  - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
+  - [Team Members Participation](#team-members-participation)
+    - [Alfonso Rodríguez Gutt](#alfonso-rodríguez-gutt)
+    - [Arminda García Moreno](#arminda-garcía-moreno)
+    - [David Rísquez Gómez](#david-rísquez-gómez)
 - [License](#license)
 
 ## Execution Instructions
@@ -281,7 +291,7 @@ The following link leads to our team dashboard:
 [Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
 
 >[!IMPORTANT]
-> Merge commits are not being considered to calculate the participation of each member on a file. This is because merge commits are commits that GitHub does when there has been an new upload while someone was working on the repository. So, looking on the merge commit it will appear that a member has touched a file, when that is not the case (also the commit will show the same code the other member uploaded on a earlier commit).
+> Merge commits are not being considered to calculate the participation of each member on a file. This is because merge commits are commits that GitHub does when there has been a new upload while someone was working on the repository. So, looking on the merge commit it will appear that a member has touched a file, when that is not the case (also the commit will show the same code the other member uploaded on a earlier commit).
 
 >[!NOTE]
 > Each method will be explained by the corresponding author. However, the code was documented using `Javadoc` documentation for each method, providing greater clarity in understanding its purpose and operation.
@@ -1266,6 +1276,30 @@ Below are described the most significant methods in this regard:
 To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
 
 # Phase 2
+**REDACTAR UN BREVE PÁRRAFO DE "INTRODUCCIÓN".**
+
+## Modifications with respect to the first phase
+**MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
+
+## News
+**AQUÍ SE EXPLICARÁ A RASGOS GENERALES TODO LO QUE SE HIZO EN LA FASE 2, INCLUYENDO LOS DIAGRAMAS QUE HAYAN QUE METER (LO MISMO QUE SE HIZO PARA LA FASE 1). EL TÍTULO NO ES DEFINITIVO**
+
+## Types of Users and Browsing Permissions
+**AQUÍ HAY QUE INDICAR LOS TIPOS DE USUARIOS QUE HAY, Y A QUE PÁGINAS TIENEN ACCESO CADA TIPO.**
+
+## Team Members Participation
+In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
+
+To coordinate the team, we have used the Trello application, which allows us to create Kanban panels virtually.
+
+The following link leads to our team dashboard:
+[Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
+
+## Alfonso Rodríguez Gutt
+
+## Arminda García Moreno
+
+## David Rísquez Gómez
 
 # License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
