@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3c6e303a-fd4a-4cf0-bef0-a4cddda41356",
+		"_postman_id": "4e371852-cfac-4345-9bcf-72aef33604ff",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43184465",
-		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-3c6e303a-fd4a-4cf0-bef0-a4cddda41356?action=share&source=collection_link&creator=43184465"
+		"_exporter_id": "43181860"
 	},
 	"item": [
 		{
@@ -17,7 +16,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -28,16 +33,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/api/users/profile/1/",
+							"raw": "{{userURL}}/me",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
-								"users",
-								"profile",
-								"1",
-								""
+								"me"
 							]
 						}
 					},
@@ -47,17 +48,29 @@
 					"name": "Register",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"Pedro\", \"country\": \"America\", \"email\": \"prueba@gmail\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{userURL}}/api/users/register/",
+							"raw": "{{userURL}}/users",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
-								"users",
-								"register",
-								""
+								"users"
 							]
 						}
 					},
@@ -67,20 +80,23 @@
 					"name": "Get All Profiles",
 					"request": {
 						"auth": {
- 							"type": "noauth"
- 						},
+							"type": "noauth"
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{userURL}}/api/users/all-profiles/",
+							"raw": "{{userURL}}/users",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
-								"users",
-								"all-profiles",
-								""
+								"users"
 							]
 						}
 					},
@@ -92,25 +108,22 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
- 							"mode": "raw",
- 							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
- 							"options": {
- 								"raw": {
- 									"language": "json"
- 								}
- 							}
- 						},
+							"mode": "raw",
+							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{userURL}}/api/users/modify-profile/3/",
+							"raw": "{{userURL}}/users/me",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
 								"users",
-								"modify-profile",
-								"3",
-								""
+								"me"
 							]
 						}
 					},
@@ -120,18 +133,21 @@
 					"name": "Delete Profile",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{userURL}}/api/users/delete-profile/1/",
+							"raw": "{{userURL}}/users/me",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
 								"users",
-								"delete-profile",
-								"1",
-								""
+								"me"
 							]
 						}
 					},
@@ -146,12 +162,20 @@
 					"name": "GET Concerts",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiQUNDRVNTIiwic3ViIjoiRm9uc3NpMjkiLCJpYXQiOjE3NDQxMjc5NTAsImV4cCI6MTc0NDEyODI1MH0.htuHt8S7YJpNTrYWv2MSKgcZYDu7rm9CO2LIZQClROo",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/?page=page0&size=10",
+							"raw": "https://localhost:8443/api/concerts/?page=page0&size=10",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -223,7 +247,13 @@
 					"name": "CREATE Concert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiQUNDRVNTIiwic3ViIjoiRm9uc3NpMjkiLCJpYXQiOjE3NDQxMjc5NTAsImV4cCI6MTc0NDEyODI1MH0.htuHt8S7YJpNTrYWv2MSKgcZYDu7rm9CO2LIZQClROo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"artist\":{\r\n        \"name\": \"Michael Jackson\"\r\n    },\r\n    \"name\": \"Thriller: Now With Real Zombies\",\r\n    \"info\": \"Newest Michael Jackson tour from heaven\",\r\n    \"date\": \"2025-06-15T20:00:00\",\r\n    \"place\": \"Europe\",\r\n    \"price\": 80.0,\r\n    \"westStandsNumber\": 50,\r\n    \"eastStandsNumber\": 50,\r\n    \"northStandsNumber\": 50,\r\n    \"generalAdmissionNumber\": 120\r\n}\r\n",
@@ -234,14 +264,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/",
+							"raw": "{{userURL}}/concerts",
 							"host": [
 								"{{userURL}}"
 							],
 							"path": [
-								"api",
-								"concerts",
-								""
+								"concerts"
 							]
 						}
 					},
@@ -435,17 +463,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/concert/1/ticket-purchase",
-							"protocol": "https",
+							"raw": "{{userURL}}/concert/1/ticket",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
-								"api",
 								"concert",
 								"1",
-								"ticket-purchase"
+								"ticket"
 							]
 						}
 					},
@@ -457,16 +482,98 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/tickets/delete/1",
-							"protocol": "https",
+							"raw": "{{userURL}}/tickets/1",
 							"host": [
-								"localhost"
+								"{{userURL}}"
 							],
-							"port": "8443",
 							"path": [
 								"tickets",
-								"delete",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JWTGeneration",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Fonssi29\",\r\n    \"password\": \"pollitoPio\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userURL}}/auth/login",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "RefreshToken=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiUkVGUkVTSCIsInN1YiI6IkZvbnNzaTI5IiwiaWF0IjoxNzQ0MDY1OTE5LCJleHAiOjE3NDQ2NzA3MTl9.7IwLOqxkCnSJD5ffp0ABO-bCrK4G3seLmqcEF2_P5Y4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{userURL}}/auth/refresh",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{userURL}}/auth/logout",
+							"host": [
+								"{{userURL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
 							]
 						}
 					},
