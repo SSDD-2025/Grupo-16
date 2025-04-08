@@ -46,6 +46,7 @@
   - [Modifications with respect to the first phase](#modifications-with-respect-to-the-first-phase)
   - [News](#news)
   - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
+  - [API REST Documentation](#api-rest-documentation)
   - [Team Members Participation](#team-members-participation)
     - [Alfonso Rodríguez Gutt](#alfonso-rodríguez-gutt)
     - [Arminda García Moreno](#arminda-garcía-moreno)
@@ -1281,11 +1282,24 @@ To conclude this brief section, it is important to mention that I contributed to
 ## Modifications with respect to the first phase
 **MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
 
+To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, the following files were removed during this phase, as they were not being used:
+- `CardVerifyingService.java`
+- `validation.html`
+
 ## News
 **AQUÍ SE EXPLICARÁ A RASGOS GENERALES TODO LO QUE SE HIZO EN LA FASE 2, INCLUYENDO LOS DIAGRAMAS QUE HAYAN QUE METER (LO MISMO QUE SE HIZO PARA LA FASE 1). EL TÍTULO NO ES DEFINITIVO**
 
+### 📚 Class Diagram
+>[!NOTE]
+> For clarity and readability, the class diagram below will only show the relationships between the new classes implemented during this phase. Classes not included in the diagram have not had any changes to their relationships.
+
+![Class Diagram](Diagrams/DigClasesREST.jpg)
+
 ## Types of Users and Browsing Permissions
 **AQUÍ HAY QUE INDICAR LOS TIPOS DE USUARIOS QUE HAY, Y A QUE PÁGINAS TIENEN ACCESO CADA TIPO.**
+
+## API REST Documentation
+**AQUÍ SE METERÍA UN ENLACE AL ARCHIVO ESTÁTICO QUE CONTENDRÁ DICHA DOCUMENTACIÓN**
 
 ## Team Members Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
@@ -1296,6 +1310,35 @@ The following link leads to our team dashboard:
 [Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
 
 ## Alfonso Rodríguez Gutt
+> [!NOTE]
+> Nested commits are those where more than one commit was used to implement a specific feature.
+
+### ✅ Commit List
+
+1. [Add the UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/3f7edb9796ca4b5dd0cef52028c1e9cb005ed32e)  
+   1.1. [Fix UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/72d7cc6086b32777dd80ad452c47e7fa56440d39)  
+   1.2. [Add Spring DOC](https://github.com/SSDD-2025/Grupo-16/commit/db6b8dc988eaff04d4321c724738d74995c0a86d)  
+   1.3. [Add Pagination to UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/38d3fbc2bbdfb4593f616b212e50a50b228dac15)  
+
+2. [Refactorize the UserService with the UserDTOs](https://github.com/SSDD-2025/Grupo-16/commit/b910ad923e50ab73be513e48522a1aa6151f13cf)  
+
+3. [Add POST and DELETE methods in TicketRestController](https://github.com/SSDD-2025/Grupo-16/commit/bb05532870049a58a629f3ca5901032a96dd8f67)  
+   3.1. [Fix DELETE of TicketRestController](https://github.com/SSDD-2025/Grupo-16/commit/233a56c5637db3f95f93cbbb7299c1e226282a5b)  
+   3.2. [Add Spring DOC](https://github.com/SSDD-2025/Grupo-16/commit/db6b8dc988eaff04d4321c724738d74995c0a86d)  
+
+4. [Add the filterChain for the API REST](https://github.com/SSDD-2025/Grupo-16/commit/4e471de5cf7abf75d1c7cfa7721fe88519f793da)  
+   4.1. [Add LoginController](https://github.com/SSDD-2025/Grupo-16/commit/244a46718d25f03d1e156bd261f58ffad1018b30)  
+
+5. [Add Error Handler](https://github.com/SSDD-2025/Grupo-16/commit/b4582be28dc6eb9c5d93a6a9503fb86212a1139b)  
+   5.1. [Fix the error page](https://github.com/SSDD-2025/Grupo-16/commit/9777ed5073bb2f2c4d3a4be5b253cbf05190c5e0)
+
+
+### 📂 Files with the most participation
+1. `UserRestController.java`
+2. `TicketRestController.java`
+3. `WebSecurityConfig.java`
+4. `CustomErrorController.java`
+5. `UserService.java`
 
 ## Arminda García Moreno
 
