@@ -10,6 +10,7 @@ deleting concerts, including a searchbar to find every concerts-->
     <title>Admin Concerts</title>
     <link rel="stylesheet" href="/css/common-styles.css">
     <link rel="stylesheet" href="/css/concert-style.css">
+    <link rel="stylesheet" href="/css/display-concert-style.css">
     <link rel="stylesheet" href="/css/personal-pages-style.css">
     <link rel="stylesheet" href="/css/header-style.css">
     <link rel="icon" type="image/png" href="/media/admin.png">
@@ -57,7 +58,10 @@ deleting concerts, including a searchbar to find every concerts-->
         </div>
 
         <!-- Concert display-->
-        {{>display-concerts}}
+        <div id="concert-display"></div>
+        <input type="hidden" id="context" value="admin">
+        <button id="load-more">Show More</button>
+        <script src="/js/concertPagination.js"></script>
     </main>
 </body>
 </html>

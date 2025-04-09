@@ -4,6 +4,7 @@
     <title>{{titleName}}</title> <!-- The title is the name of the artist -->
     <link type="text/css" rel="stylesheet" href="/css/artist-style.css">
     <link rel="icon" type="image/png" href="/media/microphone.png">
+    <link rel="stylesheet" href="/css/display-concert-style.css">
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </head>
 
@@ -71,7 +72,10 @@
     <!-- Show upcoming concerts of the artist -->
     <h2>Upcoming Concerts:</h2>
     <div>
-        {{>display-concerts}}
+        <div id="concert-display"></div>
+        <input type="hidden" id="context" value="{{artist.name}}">
+        <button id="load-more">Show More</button>
+        <script src="/js/concertPagination.js"></script>
     </div>
     <footer>
         {{>footer}}

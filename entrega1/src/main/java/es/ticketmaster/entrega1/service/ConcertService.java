@@ -111,6 +111,7 @@ public class ConcertService {
      */
     public Page<BasicConcertDTO> getUserConcertPage(Principal principal, Pageable pageable){
         ShowUserDTO user = userService.getActiveUser(principal);
+        System.out.println(user == null);
         if (user == null){
             return getAllConcertPage(pageable);
         } else {

@@ -4,6 +4,7 @@
     <title>Ticketmaster</title>
     <link type="text/css" rel="stylesheet" href="/css/common-styles.css">
     <link type="text/css" rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/css/display-concert-style.css">
     <link rel="icon" type="image/png" href="/media/microphone.png">
 </head>
 
@@ -23,8 +24,11 @@
         </div>
 
         <!-- Show Concerts -->
-        {{>display-concerts}}
-
+        <div id="concert-display"></div>
+        <input type="hidden" id="context" value="main">
+        <button id="load-more">Show More</button>
+        <script src="js/concertPagination.js"></script>
+        
         <!-- Meet New Artist -->
         <div class="title-container">
             <h1>Meet:</h1>
@@ -39,4 +43,3 @@
         {{>footer}}
     </footer>
 </body>
-</html>
