@@ -44,7 +44,7 @@
   - [News](#news)
   - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
   - [API REST Documentation](#api-rest-documentation)
-  - [Team Members Participation](#team-members-participation)
+  - [Team Participation](#team-participation)
 - [License](#license)
 
 ## Execution Instructions
@@ -1301,7 +1301,7 @@ To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code qu
 ## API REST Documentation
 **AQUÍ SE METERÍA UN ENLACE AL ARCHIVO ESTÁTICO QUE CONTENDRÁ DICHA DOCUMENTACIÓN**
 
-## Team Members Participation
+## Team Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
 
 To coordinate the team, we have used the Trello application, which allows us to create Kanban panels virtually.
