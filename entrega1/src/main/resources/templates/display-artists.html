@@ -4,16 +4,16 @@
 <link rel="stylesheet" href="/css/artist-style.css">
 <link rel="stylesheet" href="/css/common-styles.css">
 <div class="artist-container">
-    {{#photo}}
+    {{#photoLink}}
     <div class="artist-photo">
         <img src="/artist/{{id}}/download-photo" class="image-in-container image-rounded">
     </div>
-    {{/photo}}
-    {{^photo}}
+    {{/photoLink}}
+    {{^photoLink}}
     <div class="artist-photo">
         <img src="/media/no-photo-artist.png" class="image-in-container image-rounded">
     </div>
-    {{/photo}}
+    {{/photoLink}}
     <div class="name-container">
         <p>{{name}}</p>
     </div>

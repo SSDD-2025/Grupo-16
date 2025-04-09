@@ -106,16 +106,10 @@ can be instantly previsualized (image and artist name)-->
                     {{/artist.popularityIndex}}
                 </div>
 
-                <!--Artist main photo-->
+                <!--Artist main photo: optative-->
                 <div class="attribute-container">
-                    {{#modificate}} <!--Artist photo optative because it already has one-->
                     <label for="main-photo">Change photo</label>
                     <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg">
-                    {{/modificate}}
-                    {{^modificate}} <!--Artist photo compulsory if the artist was nor previously added-->
-                    <label for="main-photo">Main photo</label>
-                    <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg" required>
-                    {{/modificate}}
                 </div>
 
                 <!--Artist main info-->

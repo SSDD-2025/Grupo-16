@@ -156,6 +156,17 @@ public class InitService {
         concert = new Concert(artist, "The Eras Tour", LocalDateTime.of(2024, Month.FEBRUARY, 7, 18, 0), "Asia", "Taylor Swift’s Eras Tour is a career-spanning spectacle, celebrating her musical journey with dazzling visuals, emotional storytelling, and record-breaking performances.", 100, 0, 0, 0, 0, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\The Eras Tour.jpg"));
         concertRepository.save(concert);
 
+        // Create and Save Artist: Rosalia
+        mainText = "Rosalía is a Spanish singer and songwriter who blends flamenco with pop, reggaeton, and electronic sounds. Known for her powerful vocals, avant-garde style, and bold visuals, she’s reshaping global music with a fresh and fearless approach.";
+        extText = "Beyond her genre-defying sound, Rosalía is celebrated for her striking fashion, conceptual performances, and deep cultural references. Her work bridges tradition and modernity, earning her critical acclaim, Grammy awards, and a global fanbase.";
+        artist = new Artist("Rosalia", 21803367, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Rosalia.jpeg"), "/api/artists/7/photo", mainText, extText, "https://open.spotify.com/intl-es/album/355bjCHzRJztCzaG5Za4gq", "https://open.spotify.com/intl-es/album/6jbtHi5R0jMXoliU2OS0lo", "https://www.youtube.com/watch?v=e-CEd6xrRQc");
+
+        artistRepository.save(artist);
+
+        // Create and Save Rosalia's concerts
+        concert = new Concert(artist, "Motomami Tour", LocalDateTime.of(2022, Month.JUNE, 19, 22, 0), "Europe", "The Motomami World Tour was Rosalía’s third concert tour, supporting her 2022 album Motomami. Spanning 68 shows across 21 countries, it showcased her bold artistry and drew nearly two million fans across three continents", 150, 0, 0, 0, 0, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Motomami World Tour.jpeg"));
+        concertRepository.save(concert);
+
         //Create Users
         user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe", "USER","ADMIN");
         userRepository.save(user);

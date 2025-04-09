@@ -10,6 +10,7 @@ deleting artists, including a searchbar to find every artist-->
     <link rel="stylesheet" href="/css/personal-pages-style.css">
     <link rel="stylesheet" href="/css/header-style.css">
     <link rel="icon" type="image/png" href="/media/admin.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.2.1/mustache.min.js"></script>
 </head>
 
 <body>
@@ -53,10 +54,15 @@ deleting artists, including a searchbar to find every artist-->
         </div>
 
         <!--Artists display-->
-        <div class="general-container row-container">
+        <div class="general-container row-container" id="more-artists"> <!--Artist container-->
             {{>display-artists}}
         </div>
-        </div>
+
+        <!-- Button to add more dynamic artists -->
+        <button id="load-more-artists" style="display:none; margin: 20px auto;">Load more</button>
     </main>
+    <!--JS that handle pagination for artists-->
+    <script src="/js/artistPagination.js"></script>
 </body>
+
 </html>

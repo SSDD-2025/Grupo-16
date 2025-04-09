@@ -5,6 +5,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,10 +66,11 @@ public class ArtistController {
      *
      * @param model the model of the dynamic HTML
      * @param search (optional) artist search made
+     * @param pageable pagination object
      * @return HTML to be loaded
      */
     @GetMapping("/admin/artist")
-    public String artistsAdminPage(Model model, @RequestParam(required = false) String search, Pageable pageable) {
+    public String artistsAdminPage(Model model, @RequestParam(required = false) String search, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         if (search != null) {
             model.addAttribute("artistList", artistService.getSearchBy(search, pageable));
