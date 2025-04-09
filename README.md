@@ -1322,22 +1322,17 @@ The following link leads to our team dashboard:
 ### ✅ Commit List
 
 1. [Add the UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/3f7edb9796ca4b5dd0cef52028c1e9cb005ed32e)  
-   1.1. [Fix UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/72d7cc6086b32777dd80ad452c47e7fa56440d39)  
-   1.2. [Add Spring DOC](https://github.com/SSDD-2025/Grupo-16/commit/db6b8dc988eaff04d4321c724738d74995c0a86d)  
-   1.3. [Add Pagination to UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/38d3fbc2bbdfb4593f616b212e50a50b228dac15)  
 
 2. [Refactorize the UserService with the UserDTOs](https://github.com/SSDD-2025/Grupo-16/commit/b910ad923e50ab73be513e48522a1aa6151f13cf)  
 
-3. [Add POST and DELETE methods in TicketRestController](https://github.com/SSDD-2025/Grupo-16/commit/bb05532870049a58a629f3ca5901032a96dd8f67)  
-   3.1. [Fix DELETE of TicketRestController](https://github.com/SSDD-2025/Grupo-16/commit/233a56c5637db3f95f93cbbb7299c1e226282a5b)  
-   3.2. [Add Spring DOC](https://github.com/SSDD-2025/Grupo-16/commit/db6b8dc988eaff04d4321c724738d74995c0a86d)  
+3. [Add POST and DELETE methods in TicketRestController](https://github.com/SSDD-2025/Grupo-16/commit/bb05532870049a58a629f3ca5901032a96dd8f67)    
 
-4. [Add the filterChain for the API REST](https://github.com/SSDD-2025/Grupo-16/commit/4e471de5cf7abf75d1c7cfa7721fe88519f793da)  
-   4.1. [Add LoginController](https://github.com/SSDD-2025/Grupo-16/commit/244a46718d25f03d1e156bd261f58ffad1018b30)  
+4. [Add the filterChain for the API REST](https://github.com/SSDD-2025/Grupo-16/commit/4e471de5cf7abf75d1c7cfa7721fe88519f793da)   
 
-5. [Add Error Handler](https://github.com/SSDD-2025/Grupo-16/commit/b4582be28dc6eb9c5d93a6a9503fb86212a1139b)  
-   5.1. [Fix the error page](https://github.com/SSDD-2025/Grupo-16/commit/9777ed5073bb2f2c4d3a4be5b253cbf05190c5e0)
+5. [Add Error Handler](https://github.com/SSDD-2025/Grupo-16/commit/b4582be28dc6eb9c5d93a6a9503fb86212a1139b)
 
+> [!IMPORTANT]
+> Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.
 
 ### 📂 Files with the most participation
 1. `UserRestController.java`
