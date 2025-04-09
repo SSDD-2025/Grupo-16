@@ -1295,6 +1295,12 @@ To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code qu
 
 ![Class Diagram](Diagrams/DigClasesREST.jpg)
 
+### 🏗️ Project Structure Diagram
+**LA IMAGEN SE INSERTARÁ EN BREVES**
+
+>[!NOTE]
+> If you would like to better view and interact with the diagram, you can do so by following this [link](https://gitdiagram.com/SSDD-2025/Grupo-16).
+
 ## Types of Users and Browsing Permissions
 **AQUÍ HAY QUE INDICAR LOS TIPOS DE USUARIOS QUE HAY, Y A QUE PÁGINAS TIENEN ACCESO CADA TIPO.**
 
