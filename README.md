@@ -39,18 +39,12 @@
   - [Image Management](#image-management)
   - [Application Functionality Overview](#application-functionality-overview)
   - [Team Members Participation](#team-members-participation)
-    - [Alfonso Rodríguez Gutt](#alfonso-rodríguez-gutt)
-    - [Arminda García Moreno](#arminda-garcía-moreno)
-    - [David Rísquez Gómez](#david-rísquez-gómez)
 - [Phase 2](#phase-2)
   - [Modifications with respect to the first phase](#modifications-with-respect-to-the-first-phase)
   - [News](#news)
   - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
   - [API REST Documentation](#api-rest-documentation)
   - [Team Members Participation](#team-members-participation)
-    - [Alfonso Rodríguez Gutt](#alfonso-rodríguez-gutt)
-    - [Arminda García Moreno](#arminda-garcía-moreno)
-    - [David Rísquez Gómez](#david-rísquez-gómez)
 - [License](#license)
 
 ## Execution Instructions
