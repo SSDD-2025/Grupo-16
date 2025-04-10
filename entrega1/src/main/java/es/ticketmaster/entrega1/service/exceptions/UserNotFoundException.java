@@ -9,7 +9,7 @@ public class UserNotFoundException extends RuntimeException {
      * Constructs a new UserNotFoundException with a detailed message.
      * @param id the ID of the not found user.
      */
-    public UserNotFoundException(Long id) {
-        super("User with ID " + id + " not found");
+    public UserNotFoundException() {
+        super("User not found");
     }
 }
