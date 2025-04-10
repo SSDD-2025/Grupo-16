@@ -1336,7 +1336,27 @@ The following link leads to our team dashboard:
 5. `UserService.java`
 
 ## Arminda García Moreno
+### ✅ Commit List
 
+1. [Added HTTPS protocol and main security configurations methods](https://github.com/SSDD-2025/Grupo-16/commit/1746459b82637769c559b02c5ec7a46da87ec74c)  
+
+2. [Refactoring the ConcertService and ConcertController using DTOs](https://github.com/SSDD-2025/Grupo-16/commit/2b5ce34d8ac19120f802ee2b6ff213bb24b3e328)  
+
+3. [ConcertRestController and Postman requests](https://github.com/SSDD-2025/Grupo-16/commit/be729b7984d498019772f6ff248b2b281c664a9a)    
+
+4. [Concert Web Pagination](https://github.com/SSDD-2025/Grupo-16/commit/d480ad4e2c2908d14191a9e103aafb56ab0c3855)   
+
+5. [Concert Rest Pagination (and changes regarding this implementation)](https://github.com/SSDD-2025/Grupo-16/commit/dacd63dbf39572a1e823f6fb5fcc28093a78a5f6)
+
+> [!IMPORTANT]
+> Accessing commits with the links specified above may not reflect the current version of the file. This is because there were smaller commits after that, where small errors were corrected, comments were added, etc.
+### 📂 Files with the most participation
+1. `concertPagination.js`
+2. `ConcertRestController.java`
+3. `ConcertService.java`
+4. `ArtistMapper.java`
+5. `TicketRestController.java`
+   
 ## David Rísquez Gómez
 
 # License
