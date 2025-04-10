@@ -112,6 +112,19 @@ public class UserService {
     }
 
     /**
+     * Gets the country of the user in DTO format.
+     * @param user is the user in DTO format.
+     * @return the country of the user.
+     */
+    public String getUsersCountry(ShowUserDTO user){
+        if (user == null){
+            return "";
+        } else {
+            return user.getCountry();
+        }
+    }
+
+    /**
      * Gets the actual active user object from the Principal user provided by SpringSecurity.
      * @implNote This method is for exclusive use by ImageController.
      *

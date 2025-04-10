@@ -98,3 +98,33 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.center-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#load-more {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4f46e5; /* Indigo-600 */
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 9999px; /* pill shape */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+#load-more:hover {
+    background-color: #3730a3; /* Darker indigo */
+    transform: scale(1.05);
+}
+  
+#load-more:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

@@ -107,11 +107,25 @@ public class ConcertService {
     /**
      * Returns the page of the main information of the concerts at the user's country
      * @param pageable the characteristics of the page
+     * @param country the country of the user
+     * @return page of the basicConcertDTOs
+     */
+    public Page<BasicConcertDTO> getUserConcertPage(Pageable pageable, String country){
+        if (country == null || country == ""){
+            return getAllConcertPage(pageable);
+        } else {
+            return concertRepository.findByPlace(country, pageable).map(mapper::toBasicConcertDTO);
+        }
+    }
+
+    /**
+     * Returns the page of the main information of the concerts at the user's country
+     * @param pageable the characteristics of the page
+     * @param principal is the currently authenticated user, used to retrieve the active user.
      * @return page of the basicConcertDTOs
      */
     public Page<BasicConcertDTO> getUserConcertPage(Principal principal, Pageable pageable){
         ShowUserDTO user = userService.getActiveUser(principal);
-        System.out.println(user == null);
         if (user == null){
             return getAllConcertPage(pageable);
         } else {
@@ -155,6 +169,16 @@ public class ConcertService {
      */
     public List<BasicConcertDTO> getArtistConcerts(String artistName) {
         return mapper.toBasicConcertDTOs(concertRepository.findByArtistNameIgnoreCase(artistName));
+    }
+
+    /**
+     * * Returns a page of the concerts of a specific artist
+     * @param id  id of the artist whose concerts are being returned
+     * @param pageable the characteristics of the page
+     * @return page of the basicConcertDTOs
+     */
+    public Page<BasicConcertDTO> getArtistConcerts(long id, Pageable pageable) {
+        return concertRepository.findByArtistId(id, pageable).map(mapper::toBasicConcertDTO);
     }
 
     /**

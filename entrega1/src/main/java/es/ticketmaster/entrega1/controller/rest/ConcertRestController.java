@@ -65,8 +65,17 @@ public class ConcertRestController {
      * @return the page with the concerts
      */
     @GetMapping("/near-user")
-    public Page<BasicConcertDTO> getConcertsNearUser(HttpServletRequest request, Pageable pageable) {
-        return concertService.getUserConcertPage(request.getUserPrincipal(), pageable);
+    public Page<BasicConcertDTO> getConcertsNearUser(HttpServletRequest request, Pageable pageable, @RequestParam(required = false) String country) {
+        if (country == null) { //for API REST petitions on Postman
+            return concertService.getUserConcertPage(request.getUserPrincipal(), pageable);
+        } else { //for Web Api Rest Petitions on JavaScript script
+            return concertService.getUserConcertPage(pageable, country);
+        }
+    }
+
+    @GetMapping("/artist/{id}")
+    public Page<BasicConcertDTO> getArtistConcerts(@PathVariable long id, Pageable pageable) {
+        return concertService.getArtistConcerts(id,pageable);
     }
     
     

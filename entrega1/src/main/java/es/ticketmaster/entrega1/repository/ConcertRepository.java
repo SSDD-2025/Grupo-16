@@ -36,6 +36,14 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
     public Page<Concert> findByPlace(String place, Pageable page);
 
     /**
+     * Searches the concerts taken at a specific place and artist
+     * @param id is the id of the artist
+     * @param pageable is the object Pageable which contains the information of the
+     * @return the page of the concerts taking place at the country/ city specified
+     */
+    public Page<Concert> findByArtistId(long id, Pageable pageable);
+
+    /**
      * Returns the 7 earliest concerts to display on the main page (when anon
      * user is navigating the web)
      *

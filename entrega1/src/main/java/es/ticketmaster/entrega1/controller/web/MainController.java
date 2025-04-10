@@ -13,16 +13,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ArtistService artistService;
 
     @Autowired
     private ConcertService concertService;
+
+    MainController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * It will show the main page with the correct lists displays regarding if
@@ -37,11 +45,12 @@ public class MainController {
     public String getMain(Model model, @RequestParam(required = false) String search, HttpServletRequest request,@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         Principal principal = request.getUserPrincipal(); //Gets the principal
-
+        
         if (search == null) {
 
+            model.addAttribute("countryValue", userService.getUsersCountry(userService.getActiveUser(principal)));
             model.addAttribute("concertList", concertService.getConcertDisplay(principal));
-            model.addAttribute("modifyConcert", false);
+            //model.addAttribute("modifyConcert", false);
             model.addAttribute("artistList", artistService.getArtistDisplayBySession());
 
         } else {

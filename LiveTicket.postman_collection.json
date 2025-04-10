@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "4e371852-cfac-4345-9bcf-72aef33604ff",
+		"_postman_id": "c4227c06-3ff3-49a6-a739-572c38a4dad5",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43181860"
+		"_exporter_id": "43184465",
+		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-c4227c06-3ff3-49a6-a739-572c38a4dad5?action=share&source=collection_link&creator=43184465"
 	},
 	"item": [
 		{
@@ -221,6 +222,14 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Artist Concerts",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				},

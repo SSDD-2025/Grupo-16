@@ -73,8 +73,11 @@
     <h2>Upcoming Concerts:</h2>
     <div>
         <div id="concert-display"></div>
-        <input type="hidden" id="context" value="{{artist.name}}">
-        <button id="load-more">Show More</button>
+        <input type="hidden" id="context" value="{{id}}">
+        <input type="hidden" id="country" value="">
+        <div class="center-container">
+            <button id="load-more">Show More</button>
+        </div>
         <script src="/js/concertPagination.js"></script>
     </div>
     <footer>

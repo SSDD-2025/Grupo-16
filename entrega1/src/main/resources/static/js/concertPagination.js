@@ -5,13 +5,12 @@ async function loadConcerts() {
     try {
         let result;
         if (context === "main") {
-            result = await fetch(`/api/concerts/near-user?page=${nextPage}&size=${size}`);
+            result = await fetch(`/api/concerts/near-user?country=${country}&page=${nextPage}&size=${size}`);
         } else if (context === "admin") {
             result = await fetch(`/api/concerts/?page=${nextPage}&size=${size}`);
         } else {
-            // context will have the name of the artist whose concerts will be shown
-            //result = await fetch(`/api/concerts/${context}?page=${nextPage}&size=${size}`); 
-            result = await fetch(`/api/concerts/?page=${nextPage}&size=${size}`);
+            // context will have the id of the artist whose concerts will be shown
+            result = await fetch(`/api/concerts/artist/${context}?page=${nextPage}&size=${size}`); 
         }
         const data = await result.json();
 
@@ -78,6 +77,7 @@ function insertConcertsAdmin(concerts) {
 
 let display = document.getElementById("concert-display");
 let loadButton = document.getElementById("load-more");
+let country = document.getElementById("country").value;
 let context = document.getElementById("context").value;
 
 //Add event listener to the load button
