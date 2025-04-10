@@ -183,7 +183,7 @@ public class UserService {
             if (country != null) {
                 user.get().setCountry(country);
             }
-            if (!newPhoto.isEmpty()) {
+            if (!(newPhoto== null) && !newPhoto.isEmpty()) {
                 user.get().setProfilePicture(BlobProxy.generateProxy(newPhoto.getInputStream(), newPhoto.getSize()));
             }
             this.userRepository.save(user.get());

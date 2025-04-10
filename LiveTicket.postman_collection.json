@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4e371852-cfac-4345-9bcf-72aef33604ff",
+		"_postman_id": "685e9af2-89dc-4c92-8833-240e4fd54b30",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43181860"
@@ -18,8 +18,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer",
+								"key": "",
+								"value": "",
 								"type": "text"
 							}
 						],
@@ -33,11 +33,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/me",
+							"raw": "https://localhost:8443/api/users/me",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
+								"users",
 								"me"
 							]
 						}
@@ -50,14 +54,14 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer",
+								"key": "",
+								"value": "",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"Pedro\", \"country\": \"America\", \"email\": \"prueba@gmail\"}",
+							"raw": "{\"username\": \"Pedro\", \"password\": \"123\", \"email\": \"prueba@gmail\", \"country\": \"America\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -65,11 +69,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/users",
+							"raw": "https://localhost:8443/api/users",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -85,17 +92,20 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer",
+								"key": "",
+								"value": "",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{userURL}}/users",
+							"raw": "https://localhost:8443/api/users",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -106,10 +116,16 @@
 					"name": "Modify Profile",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\" : \"Pedro\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
+							"raw": "{\"username\" : \"Fonssi\", \"country\" : \"Asia\", \"email\" : \"prueba@gmail.com\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -117,11 +133,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/users/me",
+							"raw": "https://localhost:8443/api/users/me",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"users",
 								"me"
 							]
@@ -135,17 +154,20 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer",
+								"key": "",
+								"value": "",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{userURL}}/users/me",
+							"raw": "https://localhost:8443/api/users/me",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"users",
 								"me"
 							]
@@ -517,11 +539,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/auth/login",
+							"raw": "https://localhost:8443/api/auth/login",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"auth",
 								"login"
 							]
