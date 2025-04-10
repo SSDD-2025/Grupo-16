@@ -59,13 +59,8 @@ public class UserRestController {
     })
     @GetMapping("/me")
     public ResponseEntity<ShowUserDTO> accesToProfileREST(Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } 
-        else {
-            long id = this.userService.getIdOfUser(principal.getName());
-            return ResponseEntity.ok(this.userService.getUserWithID(id));
-        }
+        long id = this.userService.getIdOfUser(principal.getName());
+        return ResponseEntity.ok(this.userService.getUserWithID(id));
     }
 
     @Operation(summary = "Get all users", description = "Retrieves information for all registered users.")
@@ -85,26 +80,18 @@ public class UserRestController {
     })
     @PutMapping("/me")
     public ResponseEntity<ShowUserDTO> changeUserSettingsREST(Principal principal, @RequestBody ShowUserDTO user) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } 
-        else {
-            try {
-                long id = this.userService.getIdOfUser(principal.getName());
-                if (this.userService.saveUserWithId(id, user.country(), null)) {
-                    ShowUserDTO updatedUser = this.userService.getUserWithID(id);
-                    return ResponseEntity.ok(updatedUser);
-                } 
-                else {
-                    return ResponseEntity.notFound().build();
-                }
+        try {
+            long id = this.userService.getIdOfUser(principal.getName());
+            if (this.userService.saveUserWithId(id, user.country(), null)) {
+                ShowUserDTO updatedUser = this.userService.getUserWithID(id);
+                return ResponseEntity.ok(updatedUser);
             } 
-            catch (IOException e) {
-                return ResponseEntity.badRequest().build();
-            } 
-            catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            else {
+                return ResponseEntity.notFound().build();
             }
+        } 
+        catch (IOException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -116,17 +103,12 @@ public class UserRestController {
     })
     @DeleteMapping("/me")
     public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        long id = this.userService.getIdOfUser(principal.getName());
+        if (this.userService.removeExistingUserWithId(id)) {
+            return ResponseEntity.ok(this.userService.getUserWithID(id));
         } 
         else {
-            long id = this.userService.getIdOfUser(principal.getName());
-            if (this.userService.removeExistingUserWithId(id)) {
-                return ResponseEntity.ok(this.userService.getUserWithID(id));
-            } 
-            else {
-                return ResponseEntity.notFound().build();
-            }
+            return ResponseEntity.notFound().build();
         }
     }
 }
