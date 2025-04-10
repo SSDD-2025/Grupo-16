@@ -439,23 +439,21 @@ public class ConcertService {
      * Method that restores one ticket availability in a given zone of an
      * specific concert
      *
-     * @param concertDTO the concert to restore which ticket is about to be
-     * restored
      * @param zone zone where the ticket is restored
      * @return true if the restoration happened correctly, false in other case
      */
-    public boolean returnTicket(ConcertDTO concertDTO, String zone) {
-        Concert concert = mapper.toDomain(concertDTO);
+    public boolean returnTicket(long id, String zone) {
+
         return switch (zone) {
             /*Depending on the zone, a different repository method for restoration is used*/
             case "North" ->
-                concertRepository.restoreNorthStandsTickets(concert.getId(), 1) > 0;
+                concertRepository.restoreNorthStandsTickets(id, 1) > 0;
             case "East" ->
-                concertRepository.restoreEastStandsTickets(concert.getId(), 1) > 0;
+                concertRepository.restoreEastStandsTickets(id, 1) > 0;
             case "West" ->
-                concertRepository.restoreWestStandsTickets(concert.getId(), 1) > 0;
+                concertRepository.restoreWestStandsTickets(id, 1) > 0;
             case "General" ->
-                concertRepository.restoreGeneralAdmissionTickets(concert.getId(), 1) > 0;
+                concertRepository.restoreGeneralAdmissionTickets(id, 1) > 0;
             default ->
                 false;
         };

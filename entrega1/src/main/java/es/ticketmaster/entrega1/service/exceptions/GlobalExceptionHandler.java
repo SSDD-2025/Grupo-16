@@ -67,6 +67,23 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handler of ImageException, executed when, inside any of the controllers, an exception of
+     * class ImageExistsExcpetion is thrown to show a JSON ResponseEntity with the error information.
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(NotAllowedException.class)
+    public ResponseEntity<Map<String, Object>> handlerNotAllowed(NotAllowedException ex){
+        
+        Map<String, Object> body = new HashMap<>();
+        
+        body.put("message", ex.getMessage());
+        body.put("error", "NotAllowed");
+
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
      * Handles UserNotFoundException and returns a structured error response.
      * @param exception is the exception thrown when a user is not found.
      * @return a ResponseEntity containing an error message and a NOT_FOUND status.

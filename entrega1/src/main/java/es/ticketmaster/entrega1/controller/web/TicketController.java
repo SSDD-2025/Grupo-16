@@ -40,7 +40,7 @@ public class TicketController {
         ConcertDTO concert = this.concertService.findConcertById(id);
         if (this.concertService.existConcert(concert)) {
             /* Verify if the concert with such id exist. */
- /* It will check if there are tickets available for the type of ticket that has been chosen. */
+            /* It will check if there are tickets available for the type of ticket that has been chosen. */
             boolean available = this.concertService.verifyAvailability(id, number, ticketType);
             model.addAttribute("concert", concert);
             model.addAttribute("ticket", available);
@@ -67,14 +67,13 @@ public class TicketController {
      * @param id is the identification number for the concert.
      * @param ticketType is the zone/section of the ticket.
      * @param number of tickets that the user has chosen.
-     * @param request is the HTTP request.
      * @return If there is no error on the card`s information, it will shown de
      * "purchase-confirmation" template. If not, the same "purchase" template
      * but with an error message.
      */
     @PostMapping("/concert/{id}/purchase/confirmation")
-    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number, HttpServletRequest request) {
-        this.ticketService.associateUserWithTicket(ticketType, number, id, request.getUserPrincipal());
+    public String showPurchaseConfirmation(Model model, @PathVariable long id, @RequestParam String ticketType, @RequestParam int number) {
+        this.ticketService.associateUserWithTicket(ticketType, number, id);
         return "purchase-confirmation";
     }
 
@@ -103,21 +102,15 @@ public class TicketController {
      * (redirected to /profile?showMyConcerts=true). In other case, the error
      * page is returned
      *
-     * IMPORTANT NOTE: Security should be added in this method in the future
-     * because if the user changes the ID in the HTML, other concert's tickets
-     * could be returned, causing inconsistence.
-     *
      * @param model actual dynamic HTTP model
      * @param id id of the ticket
      * @return the page where the user is redirected
      */
     @PostMapping("/ticket/delete")
     public String ticketDeletion(Model model, @RequestParam long id) {
-        if (this.ticketService.deleteTicketWithId(id)) {
-            return "redirect:/profile?showMyConcerts=true";
-        } else {
-            return "redirect:/error";
-        }
+
+        this.ticketService.deleteTicketWithId(id);
+        return "redirect:/profile?showMyConcerts=true";
     }
 
     /**

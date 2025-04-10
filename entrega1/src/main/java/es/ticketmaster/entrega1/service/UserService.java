@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -93,7 +95,7 @@ public class UserService {
      */
     public ShowUserDTO getUserWithID(long id) {
         return this.userRepository.findById(id).map(this.userMapper :: toShowUserDTO).orElseThrow(() -> 
-                                                    new UserNotFoundException(id));
+                                                    new UserNotFoundException());
     }
 
     /**
@@ -136,6 +138,26 @@ public class UserService {
     }
 
     /**
+     * Service method that returns the actual user. The benefits of this implementation is that it can be used
+     * from anywhere in the application, without needing any Principal or Request arguments.
+     * 
+     * @return An Optional object containing the actual active user, if it is logged.
+     */
+    public Optional<UserEntity> getUser(){
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if(principal instanceof UserDetails){
+            username = ((UserDetails)principal).getUsername();
+        } else{
+            username = principal.toString();
+        }
+        
+        return userRepository.findByUsername(username);
+    }
+
+    /**
      * Gets the all the tickets associated with the actual active user object from the Principal user provided by SpringSecurity.
      *
      * @param principal the principal class from where the username can be requested.
@@ -174,7 +196,7 @@ public class UserService {
             if (country != null) {
                 user.get().setCountry(country);
             }
-            if (!newPhoto.isEmpty()) {
+            if (!(newPhoto== null) && !newPhoto.isEmpty()) {
                 user.get().setProfilePicture(BlobProxy.generateProxy(newPhoto.getInputStream(), newPhoto.getSize()));
             }
             this.userRepository.save(user.get());
