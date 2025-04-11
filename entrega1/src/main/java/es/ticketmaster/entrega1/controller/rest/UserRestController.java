@@ -70,7 +70,7 @@ public class UserRestController {
         return this.userService.getAllUsersFromDatabase(pageable);
     }
 
-    @Operation(summary = "Update active user profile settings", description = "Updates the active user profile settings. Profile picture is not updated.")
+    @Operation(summary = "Update active user profile settings", description = "Updates the active user profile settings. Only the country is updated.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "User profile updated successfully."),
         @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated."),
@@ -95,7 +95,7 @@ public class UserRestController {
         }
     }
 
-    @Operation(summary = "Delete active user profile", description = "Attempts to delete the active user's profile.")
+    @Operation(summary = "Delete active user profile", description = "Attempts to delete the active user's profile and returns the deleted user's details.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "User profile deleted successfully."),
         @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated."),
@@ -104,8 +104,9 @@ public class UserRestController {
     @DeleteMapping("/me")
     public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
         long id = this.userService.getIdOfUser(principal.getName());
+        ShowUserDTO userToDelete = this.userService.getUserWithID(id);
         if (this.userService.removeExistingUserWithId(id)) {
-            return ResponseEntity.ok(this.userService.getUserWithID(id));
+            return ResponseEntity.ok(userToDelete);
         } 
         else {
             return ResponseEntity.notFound().build();

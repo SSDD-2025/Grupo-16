@@ -53,28 +53,28 @@ public class TicketRestController {
             @RequestParam int number,
             Principal principal) {
 
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } else {
-            try {
-                this.ticketService.associateUserWithTicket(ticketDTO.zone(), number, concertId);
-                URI location = fromCurrentRequest().path("/{id}").buildAndExpand(ticketDTO.id()).toUri();
-                return ResponseEntity.created(location).body(ticketDTO);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
+        try {
+            this.ticketService.associateUserWithTicket(ticketDTO.zone(), number, concertId);
+            URI location = fromCurrentRequest().path("/{id}").buildAndExpand(ticketDTO.id()).toUri();
+            return ResponseEntity.created(location).body(ticketDTO);
+        } 
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
-    /**
-     * Controller method that calls the service so that it handles the deletion
-     * of a Ticket. In case any errors or violations occur during the process,
-     * the service throws an Exception, that will be catched and handled by the
-     * GlobalExceptionHandler
-     *
-     * @param id the ID of the ticket to delete
-     * @return
-     */
+    @Operation(
+        summary = "Delete a ticket",
+        description = "Deletes a specific ticket from the system using its ID. " +
+                      "If the ticket does not exist or an error occurs during deletion, " +
+                      "it will be handled by a global exception handler."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Ticket successfully deleted."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: Ticket could not be deleted."),
+        @ApiResponse(responseCode = "404", description = "Ticket not found with the provided ID."),
+        @ApiResponse(responseCode = "500", description = "Server error during ticket deletion.")
+    })
     @DeleteMapping("/tickets/{id}")
     public TicketDTO deleteTicketREST(@PathVariable long id) {
         return this.ticketService.deleteTicketWithId(id);

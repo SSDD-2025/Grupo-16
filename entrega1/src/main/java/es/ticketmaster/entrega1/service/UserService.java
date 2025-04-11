@@ -69,13 +69,8 @@ public class UserService {
      * @return the id of the user, or, a UsernameNotFoundException.
      */
     public long getIdOfUser(String username) {
-        Optional<UserEntity> user = this.userRepository.findByUsername(username);
-        if (user.isPresent()) {
-            return user.get().getId();
-        }
-        else {
-            throw new UsernameNotFoundException(username);
-        }
+        return this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username)).getId();
     }
 
     /**
@@ -107,10 +102,10 @@ public class UserService {
     public ShowUserDTO getActiveUser(Principal principal) {
         if (principal == null){
             return null;
-        } else {
+        } 
+        else {
             return this.userRepository.findByUsername(principal.getName()).map(this.userMapper :: toShowUserDTO).orElse(null);
-        }
-        
+        }    
     }
 
     /**
@@ -151,7 +146,7 @@ public class UserService {
         if(principal instanceof UserDetails){
             username = ((UserDetails)principal).getUsername();
         } else{
-            username = principal.toString();
+            username = (principal != null) ? principal.toString() : "";
         }
         
         return userRepository.findByUsername(username);

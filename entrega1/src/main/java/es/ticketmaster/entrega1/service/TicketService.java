@@ -64,11 +64,9 @@ public class TicketService {
      * @return said page with the tickets as DTOs
      */
     public Page<TicketDTO> getTicketPage(Pageable pageable){
-
         Optional<UserEntity> user = this.userService.getUser();
-
         if(user.isPresent()){
-            return ticketRepository.findTicketByTicketUserId(user.get().getId(), pageable).map(ticketMapper::toDTO);
+            return this.ticketRepository.findTicketByTicketUserId(user.get().getId(), pageable).map(ticketMapper::toDTO);
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
@@ -87,31 +85,22 @@ public class TicketService {
      * @param concertId is the identification number for a concert.
      */
     public void associateUserWithTicket(String type, int number, long concertId) {
-
-        Optional<UserEntity> user = this.userService.getUser();
-
-        if(user.isPresent()){
-            UserEntity userEntity = user.get();
-            List<Ticket> userTickets = userEntity.getTicketList(); /* Gets the actual ticket list for the respective user. */
-
-            Concert concert = this.concertRepository.findConcertById(concertId); /* Gets the respective concert. */
-            for (int i = 0; i < number; i++) {
-                Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
-                /* Creation of ticket. */
-                userTickets.add(newTicket);
-                /* Adding the ticket to the user ticket list. */
-                newTicket.setUser(userEntity);
-                /* Associating the ticket to the user. */
-                this.ticketRepository.save(newTicket);
-                /* Once it has been associated, the ticket is saved in its repository. */
-            }
-            /* Now that the tickets have been added, the user's ticket list is updated. */
-            userEntity.setTicketList(userTickets);
-            this.userRepository.save(userEntity); /* Finally, we save in the database the updated ticket list for the user. */
-
-        } else {
-            throw new UserNotFoundException();
+        UserEntity userEntity = this.userService.getUser().orElseThrow(() -> new UserNotFoundException());
+        List<Ticket> userTickets = userEntity.getTicketList(); /* Gets the actual ticket list for the respective user. */
+        Concert concert = this.concertRepository.findConcertById(concertId); /* Gets the respective concert. */
+        for (int i = 0; i < number; i++) {
+            Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
+            /* Creation of ticket. */
+            userTickets.add(newTicket);
+            /* Adding the ticket to the user ticket list. */
+            newTicket.setUser(userEntity);
+            /* Associating the ticket to the user. */
+            this.ticketRepository.save(newTicket);
+            /* Once it has been associated, the ticket is saved in its repository. */
         }
+        /* Now that the tickets have been added, the user's ticket list is updated. */
+        userEntity.setTicketList(userTickets);
+        this.userRepository.save(userEntity); /* Finally, we save in the database the updated ticket list for the user. */
     }
 
     /**
@@ -138,7 +127,6 @@ public class TicketService {
         } else {
             throw new UserNotFoundException();
         }
-
     }
 
     /**
