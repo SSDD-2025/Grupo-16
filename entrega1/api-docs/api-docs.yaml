@@ -1,0 +1,964 @@
+openapi: 3.1.0
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: https://localhost:8443
+  description: Generated server url
+paths:
+  /api/users/me:
+    get:
+      tags:
+      - user-rest-controller
+      summary: Get active user profile
+      description: Retrieves the profile information of the active user.
+      operationId: accesToProfileREST
+      responses:
+        "200":
+          description: User profile fetched successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "404":
+          description: "Not Found: User not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+    put:
+      tags:
+      - user-rest-controller
+      summary: Update active user profile settings
+      description: Updates the active user profile settings. Only the country is updated.
+      operationId: changeUserSettingsREST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShowUserDTO"
+        required: true
+      responses:
+        "200":
+          description: User profile updated successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "404":
+          description: "Not Found: User not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "400":
+          description: "Bad Request: Invalid data."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+    delete:
+      tags:
+      - user-rest-controller
+      summary: Delete active user profile
+      description: Attempts to delete the active user's profile and returns the deleted
+        user's details.
+      operationId: deleteUserProfileREST
+      responses:
+        "200":
+          description: User profile deleted successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+        "404":
+          description: "Not Found: User not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ShowUserDTO"
+  /api/concerts/{id}:
+    get:
+      tags:
+      - concert-rest-controller
+      operationId: getConcert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+    put:
+      tags:
+      - concert-rest-controller
+      operationId: modifyConcert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConcertDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+    delete:
+      tags:
+      - concert-rest-controller
+      operationId: deleteConcert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+  /api/concerts/{id}/image:
+    get:
+      tags:
+      - concert-rest-controller
+      operationId: getPosterPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - concert-rest-controller
+      operationId: putPosterPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                poster:
+                  type: string
+                  format: binary
+              required:
+              - poster
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - concert-rest-controller
+      operationId: postPosterPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                posterPhoto:
+                  type: string
+                  format: binary
+              required:
+              - posterPhoto
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - concert-rest-controller
+      operationId: deletePosterPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/artists/{id}:
+    get:
+      tags:
+      - artist-rest-controller
+      operationId: getArtist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+    put:
+      tags:
+      - artist-rest-controller
+      operationId: modifyArtist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArtistDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+    delete:
+      tags:
+      - artist-rest-controller
+      operationId: deleteArtist
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+  /api/artists/{id}/photo:
+    get:
+      tags:
+      - artist-rest-controller
+      operationId: getPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - artist-rest-controller
+      operationId: replacePhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - artist-rest-controller
+      operationId: createMainPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - artist-rest-controller
+      operationId: deleteMainPhoto
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users:
+    get:
+      tags:
+      - user-rest-controller
+      summary: Get all users
+      description: Retrieves information for all registered users.
+      operationId: getAllUsers
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: All users fetched successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelShowUserDTO"
+    post:
+      tags:
+      - user-rest-controller
+      summary: Register a new user
+      description: Verifies user information and attempts to register the user. Returns
+        user details if successful.
+      operationId: verifySignUpREST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDTO"
+        required: true
+      responses:
+        "201":
+          description: User successfully created.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: "Bad Request: The user already exists."
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/concerts/:
+    get:
+      tags:
+      - concert-rest-controller
+      operationId: getConcerts
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelBasicConcertDTO"
+    post:
+      tags:
+      - concert-rest-controller
+      operationId: createConcert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConcertDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+  /api/concert/{id}/ticket:
+    post:
+      tags:
+      - ticket-rest-controller
+      summary: Confirm purchase of tickets
+      description: Confirms the purchase of tickets for a specific concert. Requires
+        concert ID to link the tickets with the concert.
+      operationId: confirmPurchaseREST
+      parameters:
+      - name: number
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketDTO"
+        required: true
+      responses:
+        "201":
+          description: Ticket successfully purchased.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: "Bad Request: Purchase failed."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/auth/refresh:
+    post:
+      tags:
+      - login-controller
+      operationId: refreshToken
+      parameters:
+      - name: RefreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/logout:
+    post:
+      tags:
+      - login-controller
+      operationId: logOut
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/login:
+    post:
+      tags:
+      - login-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/artists:
+    get:
+      tags:
+      - artist-rest-controller
+      operationId: getAllArtists
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelArtistDTO"
+    post:
+      tags:
+      - artist-rest-controller
+      operationId: createArtist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArtistDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+  /api/tickets/:
+    get:
+      tags:
+      - ticket-rest-controller
+      operationId: getUserTickets
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+  /api/concerts/near-user:
+    get:
+      tags:
+      - concert-rest-controller
+      operationId: getConcertsNearUser
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelBasicConcertDTO"
+  /api/concerts/artist/{id}:
+    get:
+      tags:
+      - concert-rest-controller
+      operationId: getArtistConcerts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelBasicConcertDTO"
+  /api/tickets/{id}:
+    delete:
+      tags:
+      - ticket-rest-controller
+      summary: Delete a ticket
+      description: "Deletes a specific ticket from the system using its ID. If the\
+        \ ticket does not exist or an error occurs during deletion, it will be handled\
+        \ by a global exception handler."
+      operationId: deleteTicketREST
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Ticket successfully deleted.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TicketDTO"
+        "400":
+          description: "Bad Request: Ticket could not be deleted."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TicketDTO"
+        "404":
+          description: Ticket not found with the provided ID.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TicketDTO"
+        "500":
+          description: Server error during ticket deletion.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TicketDTO"
+components:
+  schemas:
+    ShowUserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+    Artist:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        popularityIndex:
+          type: integer
+          format: int64
+        sessionCreated:
+          type: string
+          format: date-time
+        photoLink:
+          type: string
+        hasPage:
+          type: boolean
+        mainInfo:
+          type: string
+        extendedInfo:
+          type: string
+        bestAlbumSpotifyLink:
+          type: string
+        latestAlbumSpotifyLink:
+          type: string
+        videoLink:
+          type: string
+    ConcertDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        artist:
+          $ref: "#/components/schemas/Artist"
+        name:
+          type: string
+        info:
+          type: string
+        date:
+          type: string
+          format: date-time
+        place:
+          type: string
+        price:
+          type: number
+          format: float
+        westStandsNumber:
+          type: integer
+          format: int32
+        eastStandsNumber:
+          type: integer
+          format: int32
+        northStandsNumber:
+          type: integer
+          format: int32
+        generalAdmissionNumber:
+          type: integer
+          format: int32
+        formattedTime:
+          type: string
+    ArtistDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        popularityIndex:
+          type: integer
+          format: int64
+        hasPage:
+          type: boolean
+        mainInfo:
+          type: string
+        extendedInfo:
+          type: string
+        bestAlbumSpotifyLink:
+          type: string
+        latestAlbumSpotifyLink:
+          type: string
+        videoLink:
+          type: string
+        photoLink:
+          type: string
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        country:
+          type: string
+    TicketDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        zone:
+          type: string
+        price:
+          type: number
+          format: float
+        ticketUser:
+          $ref: "#/components/schemas/UserDTO"
+        concert:
+          $ref: "#/components/schemas/ConcertDTO"
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+        sort:
+          type: array
+          items:
+            type: string
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    PagedModelShowUserDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShowUserDTO"
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    PagedModelTicketDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/TicketDTO"
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    BasicConcertDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        artist:
+          $ref: "#/components/schemas/Artist"
+        name:
+          type: string
+        place:
+          type: string
+        date:
+          type: string
+          format: date-time
+        info:
+          type: string
+        formattedTime:
+          type: string
+    PagedModelBasicConcertDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/BasicConcertDTO"
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    PagedModelArtistDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArtistDTO"
+        page:
+          $ref: "#/components/schemas/PageMetadata"
