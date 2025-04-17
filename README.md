@@ -50,7 +50,7 @@
 ## Execution Instructions
 1. Download the repository and unzip it.
 2. Run the application in your preferred IDE. We recommend that you use `Visual Studio Code`.
-3. Once the application is running, open your prefferred browser and go to: `http:\\localhost:8080/`.
+3. Once the application is running, open your prefferred browser and go to: `https:\\localhost:8443/`.
 4. You can access the application as an administrator by using one of the following accounts:
    * Username: armiiin13; Password: eras1325.
    * Username: Fonssi29; Password: pollitoPio.
@@ -1299,7 +1299,9 @@ To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code qu
 **AQUÍ HAY QUE INDICAR LOS TIPOS DE USUARIOS QUE HAY, Y A QUE PÁGINAS TIENEN ACCESO CADA TIPO.**
 
 ## API REST Documentation
-**AQUÍ SE METERÍA UN ENLACE AL ARCHIVO ESTÁTICO QUE CONTENDRÁ DICHA DOCUMENTACIÓN**
+The API documentation for this project was generated using Spring Doc. You can access it by following [this link](https://github.com/SSDD-2025/Grupo-16/tree/main/entrega1/api-docs).
+>[!NOTE]
+> TThe link above redirects to a folder containing the documentation in both `.html` and `.yaml` formats
 
 ## Team Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
