@@ -1306,7 +1306,7 @@ Additionally, since this type of project can sometimes be challenging to visuali
 ## Types of Users and Browsing Permissions
 As mentioned above, one of the most notable changes in this phase is the addition of security to the web application. In this section, we'll discuss and explain the different roles that a user can have, as well as the privacy settings for each URL, and therefore, what type of user can access each one.
 
-### 👥 Users Roles
+### 👥 Types of Users
 - **🔑 ADMIN:** This user has full access to all URLs within the application. Additionally, the admin is the only user authorized to perform the following operations:
   - Create, update, and delete artists.
   - Create, update, and delete concerts.
