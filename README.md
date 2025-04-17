@@ -1271,7 +1271,13 @@ Below are described the most significant methods in this regard:
 To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
 
 # Phase 2
-**REDACTAR UN BREVE PÁRRAFO DE "INTRODUCCIÓN".**
+Continuing with the development of this web application, the second phase focused primarily on enhancing the application's security and implementing the core back-end operations.
+
+The most notable change was the transition from HTTP to HTTPS, which added the necessary security layer that was previously missing from the project. As a result of this change, it became essential to define the privacy level of each URL—that is, to specify which type of user (ADMIN or USER) has access to certain pages, thereby enforcing proper access control based on user roles.
+
+In addition to the security improvements, a refactoring was carried out in the `@Service` and `@Controller` layers to prevent direct interaction with domain entities. Instead, `Data Transfer Objects (DTOs)` were introduced to promote a cleaner and more decoupled architecture.
+
+Finally, a `REST API` was developed to mirror the operations previously available through the web controllers for each entity. This allows all standard operations (GET, POST, PUT, DELETE) to now be performed through REST controllers as well, enabling greater flexibility and compatibility with external clients. These RESTful operations were tested and executed using `Postman`, which served as the main tool for interacting with and validating the API.
 
 ## Modifications with respect to the first phase
 **MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
@@ -1290,8 +1296,7 @@ To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code qu
 ![Class Diagram](Diagrams/DigClasesREST.jpg)
 
 ### 🏗️ Project Structure Diagram
-**LA IMAGEN SE INSERTARÁ EN BREVES**
-
+![Project Structure Diagram](Diagrams/ProjectStructureDiagram.png)
 >[!NOTE]
 > If you would like to better view and interact with the diagram, you can do so by following this [link](https://gitdiagram.com/SSDD-2025/Grupo-16).
 
