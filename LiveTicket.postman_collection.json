@@ -507,7 +507,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/concert/1/ticket",
+							"raw": "https://localhost:8443/api/concert/2/ticket?number=1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -516,8 +516,14 @@
 							"path": [
 								"api",
 								"concert",
-								"1",
+								"2",
 								"ticket"
+							],
+							"query": [
+								{
+									"key": "number",
+									"value": "1"
+								}
 							]
 						}
 					},
