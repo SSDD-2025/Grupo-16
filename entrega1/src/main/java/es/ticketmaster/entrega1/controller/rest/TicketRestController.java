@@ -1,7 +1,6 @@
 package es.ticketmaster.entrega1.controller.rest;
 
 import java.net.URI;
-import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,10 +47,9 @@ public class TicketRestController {
         @ApiResponse(responseCode = "400", description = "Bad Request: Purchase failed."),
         @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated.")
     })
-    @PostMapping("/concert/{id}/ticket")
-    public ResponseEntity<Object> confirmPurchaseREST(@PathVariable long concertId, @RequestBody TicketDTO ticketDTO,
-            @RequestParam int number,
-            Principal principal) {
+    @PostMapping("/concert/{concertId}/ticket")
+    public ResponseEntity<Object> confirmPurchaseREST(@PathVariable long concertId, @RequestBody TicketDTO ticketDTO, 
+        @RequestParam int number) {
 
         try {
             this.ticketService.associateUserWithTicket(ticketDTO.zone(), number, concertId);

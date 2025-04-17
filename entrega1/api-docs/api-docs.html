@@ -1168,7 +1168,7 @@ ul.nav-tabs {
       "format" : "float"
     },
     "ticketUser" : {
-      "$ref" : "#/components/schemas/UserDTO"
+      "$ref" : "#/components/schemas/ShowUserDTO"
     },
     "concert" : {
       "$ref" : "#/components/schemas/ConcertDTO"
@@ -10299,7 +10299,7 @@ pub fn main() {
                         <p class="marked">Confirms the purchase of tickets for a specific concert. Requires concert ID to link the tickets with the concert.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/concert/{id}/ticket</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/concert/{concertId}/ticket</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -10324,7 +10324,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X POST \
  -H "Accept: */*" \
  -H "Content-Type: application/json" \
- "https://localhost:8443/api/concert/{id}/ticket?number=56" \
+ "https://localhost:8443/api/concert/{concertId}/ticket?number=56" \
  -d '{
   &quot;zone&quot; : &quot;zone&quot;,
   &quot;price&quot; : 6.0274563,
@@ -10357,7 +10357,6 @@ pub fn main() {
   &quot;id&quot; : 0,
   &quot;ticketUser&quot; : {
     &quot;country&quot; : &quot;country&quot;,
-    &quot;password&quot; : &quot;password&quot;,
     &quot;id&quot; : 0,
     &quot;email&quot; : &quot;email&quot;,
     &quot;username&quot; : &quot;username&quot;
@@ -10379,11 +10378,12 @@ public class TicketRestControllerApiExample {
 
         // Create an instance of the API class
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
+        Long concertId = 789; // Long | 
         Integer number = 56; // Integer | 
         TicketDTO ticketDTO = ; // TicketDTO | 
 
         try {
-            Object result = apiInstance.confirmPurchaseREST(number, ticketDTO);
+            Object result = apiInstance.confirmPurchaseREST(concertId, number, ticketDTO);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#confirmPurchaseREST");
@@ -10399,11 +10399,12 @@ public class TicketRestControllerApiExample {
 
 final api_instance = DefaultApi();
 
+final Long concertId = new Long(); // Long | 
 final Integer number = new Integer(); // Integer | 
 final TicketDTO ticketDTO = new TicketDTO(); // TicketDTO | 
 
 try {
-    final result = await api_instance.confirmPurchaseREST(number, ticketDTO);
+    final result = await api_instance.confirmPurchaseREST(concertId, number, ticketDTO);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->confirmPurchaseREST: $e\n');
@@ -10418,11 +10419,12 @@ try {
 public class TicketRestControllerApiExample {
     public static void main(String[] args) {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
+        Long concertId = 789; // Long | 
         Integer number = 56; // Integer | 
         TicketDTO ticketDTO = ; // TicketDTO | 
 
         try {
-            Object result = apiInstance.confirmPurchaseREST(number, ticketDTO);
+            Object result = apiInstance.confirmPurchaseREST(concertId, number, ticketDTO);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#confirmPurchaseREST");
@@ -10440,11 +10442,13 @@ public class TicketRestControllerApiExample {
 
 // Create an instance of the API class
 TicketRestControllerApi *apiInstance = [[TicketRestControllerApi alloc] init];
+Long *concertId = 789; //  (default to null)
 Integer *number = 56; //  (default to null)
 TicketDTO *ticketDTO = ; // 
 
 // Confirm purchase of tickets
-[apiInstance confirmPurchaseRESTWith:number
+[apiInstance confirmPurchaseRESTWith:concertId
+    number:number
     ticketDTO:ticketDTO
               completionHandler: ^(Object output, NSError* error) {
     if (output) {
@@ -10462,6 +10466,7 @@ TicketDTO *ticketDTO = ; //
 
 // Create an instance of the API class
 var api = new OpenApiDefinition.TicketRestControllerApi()
+var concertId = 789; // {Long} 
 var number = 56; // {Integer} 
 var ticketDTO = ; // {TicketDTO} 
 
@@ -10472,7 +10477,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.confirmPurchaseREST(number, ticketDTO, callback);
+api.confirmPurchaseREST(concertId, number, ticketDTO, callback);
 </code></pre>
                             </div>
 
@@ -10495,12 +10500,13 @@ namespace Example
 
             // Create an instance of the API class
             var apiInstance = new TicketRestControllerApi();
+            var concertId = 789;  // Long |  (default to null)
             var number = 56;  // Integer |  (default to null)
             var ticketDTO = new TicketDTO(); // TicketDTO | 
 
             try {
                 // Confirm purchase of tickets
-                Object result = apiInstance.confirmPurchaseREST(number, ticketDTO);
+                Object result = apiInstance.confirmPurchaseREST(concertId, number, ticketDTO);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling TicketRestControllerApi.confirmPurchaseREST: " + e.Message );
@@ -10517,11 +10523,12 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\TicketRestControllerApi();
+$concertId = 789; // Long | 
 $number = 56; // Integer | 
 $ticketDTO = ; // TicketDTO | 
 
 try {
-    $result = $api_instance->confirmPurchaseREST($number, $ticketDTO);
+    $result = $api_instance->confirmPurchaseREST($concertId, $number, $ticketDTO);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TicketRestControllerApi->confirmPurchaseREST: ', $e->getMessage(), PHP_EOL;
@@ -10536,11 +10543,12 @@ use WWW::OPenAPIClient::TicketRestControllerApi;
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::TicketRestControllerApi->new();
+my $concertId = 789; # Long | 
 my $number = 56; # Integer | 
 my $ticketDTO = WWW::OPenAPIClient::Object::TicketDTO->new(); # TicketDTO | 
 
 eval {
-    my $result = $api_instance->confirmPurchaseREST(number => $number, ticketDTO => $ticketDTO);
+    my $result = $api_instance->confirmPurchaseREST(concertId => $concertId, number => $number, ticketDTO => $ticketDTO);
     print Dumper($result);
 };
 if ($@) {
@@ -10557,12 +10565,13 @@ from pprint import pprint
 
 # Create an instance of the API class
 api_instance = openapi_client.TicketRestControllerApi()
+concertId = 789 # Long |  (default to null)
 number = 56 # Integer |  (default to null)
 ticketDTO =  # TicketDTO | 
 
 try:
     # Confirm purchase of tickets
-    api_response = api_instance.confirm_purchase_rest(number, ticketDTO)
+    api_response = api_instance.confirm_purchase_rest(concertId, number, ticketDTO)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TicketRestControllerApi->confirmPurchaseREST: %s\n" % e)</code></pre>
@@ -10572,11 +10581,12 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate TicketRestControllerApi;
 
 pub fn main() {
+    let concertId = 789; // Long
     let number = 56; // Integer
     let ticketDTO = ; // TicketDTO
 
     let mut context = TicketRestControllerApi::Context::default();
-    let result = client.confirmPurchaseREST(number, ticketDTO, &context).wait();
+    let result = client.confirmPurchaseREST(concertId, number, ticketDTO, &context).wait();
 
     println!("{:?}", result);
 }
@@ -10591,6 +10601,36 @@ pub fn main() {
 
                           <h2>Parameters</h2>
 
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">concertId*</td>
+<td>
+
+
+    <div id="d2e199_confirmPurchaseREST_concertId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Long
+                </span>
+                    <span class="format">
+                        (int64)
+                    </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
 
                             <div class="methodsubtabletitle">Body parameters</div>

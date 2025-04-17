@@ -494,7 +494,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConcertDTO"
-  /api/concert/{id}/ticket:
+  /api/concert/{concertId}/ticket:
     post:
       tags:
       - ticket-rest-controller
@@ -503,6 +503,12 @@ paths:
         concert ID to link the tickets with the concert.
       operationId: confirmPurchaseREST
       parameters:
+      - name: concertId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       - name: number
         in: query
         required: true
@@ -855,7 +861,7 @@ components:
           type: number
           format: float
         ticketUser:
-          $ref: "#/components/schemas/UserDTO"
+          $ref: "#/components/schemas/ShowUserDTO"
         concert:
           $ref: "#/components/schemas/ConcertDTO"
     AuthResponse:
