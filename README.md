@@ -1271,6 +1271,15 @@ Below are described the most significant methods in this regard:
 To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
 
 # Phase 2
+
+## Modifications with respect to phase 1
+**MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
+
+To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, the following files were removed during this phase, as they were not being used:
+- `CardVerifyingService.java`
+- `validation.html`
+
+## News
 Continuing with the development of this web application, the second phase focused primarily on enhancing the application's security and implementing the core back-end operations.
 
 The most notable change was the transition from HTTP to HTTPS, which added the necessary security layer that was previously missing from the project. As a result of this change, it became essential to define the privacy level of each URL—that is, to specify which type of user (ADMIN or USER) has access to certain pages, thereby enforcing proper access control based on user roles.
@@ -1279,15 +1288,7 @@ In addition to the security improvements, a refactoring was carried out in the `
 
 Finally, a `REST API` was developed to mirror the operations previously available through the web controllers for each entity. This allows all standard operations (GET, POST, PUT, DELETE) to now be performed through REST controllers as well, enabling greater flexibility and compatibility with external clients. These RESTful operations were tested and executed using `Postman`, which served as the main tool for interacting with and validating the API.
 
-## Modifications with respect to the first phase
-**MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
-
-To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, the following files were removed during this phase, as they were not being used:
-- `CardVerifyingService.java`
-- `validation.html`
-
-## News
-**AQUÍ SE EXPLICARÁ A RASGOS GENERALES TODO LO QUE SE HIZO EN LA FASE 2, INCLUYENDO LOS DIAGRAMAS QUE HAYAN QUE METER (LO MISMO QUE SE HIZO PARA LA FASE 1). EL TÍTULO NO ES DEFINITIVO**
+To better understand the additions made in this phase, a `class diagram` is presented below, which clearly illustrates the changes that have been implemented.
 
 ### 📚 Class Diagram
 >[!NOTE]
@@ -1295,18 +1296,101 @@ To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code qu
 
 ![Class Diagram](Diagrams/DigClasesREST.jpg)
 
+Additionally, since this type of project can sometimes be challenging to visualize in terms of its architecture, a `project structure diagram` is also provided. This diagram offers a clear overview of how the application is organized and how its components are distributed.
+
 ### 🏗️ Project Structure Diagram
 ![Project Structure Diagram](Diagrams/ProjectStructureDiagram.png)
 >[!NOTE]
 > If you would like to better view and interact with the diagram, you can do so by following this [link](https://gitdiagram.com/SSDD-2025/Grupo-16).
 
 ## Types of Users and Browsing Permissions
-**AQUÍ HAY QUE INDICAR LOS TIPOS DE USUARIOS QUE HAY, Y A QUE PÁGINAS TIENEN ACCESO CADA TIPO.**
+As mentioned above, one of the most notable changes in this phase is the addition of security to the web application. In this section, we'll discuss and explain the different roles that a user can have, as well as the privacy settings for each URL, and therefore, what type of user can access each one.
+
+### 👥 Users Roles
+- **🔑 ADMIN:** This user has full access to all URLs within the application. Additionally, the admin is the only user authorized to perform the following operations:
+  - Create, update, and delete artists.
+  - Create, update, and delete concerts.
+
+- **🧑‍💻 USER:** This is the standard user role for anyone registered in the database (i.e., with an account). A user can perform the essential operations of the application, including:
+  - Purchasing tickets.
+  - Updating their own profile.
+  - Viewing information about artists and concerts.
+
+- **🕵️‍♂️ GUEST/ANONYMOUS:** This refers to users who are not registered in the database (i.e., do not have an account). As a result, their access is very limited. To perform any essential operations, such as buying tickets or personalizing the experience, an account is required.
+
+### 🔒 Browsing Permissions
+<table>
+  <thead>
+    <th>Page</th>
+    <th>Privacy</th>
+    <th>User(s) allowed</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sign-in/Sign-up form</td>
+      <td>Public</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Menu</td>
+      <td>Public</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Profile</td>
+      <td>Private</td>
+      <td>ADMIN, USER</td>
+    </tr>
+    <tr>
+      <td>Admin Concerts</td>
+      <td>Private</td>
+      <td>ADMIN</td>
+    </tr>
+    <tr>
+      <td>Admin Artists</td>
+      <td>Private</td>
+      <td>ADMIN</td>
+    </tr>
+    <tr>
+      <td>My Concerts</td>
+      <td>Private</td>
+      <td>ADMIN, USER</td>
+    </tr>
+    <tr>
+      <td>Artist Info</td>
+      <td>Public</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Concert Info</td>
+      <td>Public</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Select Ticket(s)</td>
+      <td>Private</td>
+      <td>ADMIN, USER</td>
+    </tr>
+    <tr>
+      <td>Purchase Ticket(s)</td>
+      <td>Private</td>
+      <td>ADMIN, USER</td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Public</td>
+      <td>All</td>
+    </tr>
+  </tbody>
+</table>
+
+>[!IMPORTANT]
+>This privacy setting also applies to REST operations. In fact, attempting to perform an operation without authentication will return the error HTML instead of the corresponding JSON. To perform this authentication, a `POST` operation was performed with the URL `/api/auth/login`.
 
 ## API REST Documentation
 The API documentation for this project was generated using Spring Doc. You can access it by following [this link](https://github.com/SSDD-2025/Grupo-16/tree/main/entrega1/api-docs).
 >[!NOTE]
-> TThe link above redirects to a folder containing the documentation in both `.html` and `.yaml` formats
+> The link above redirects to a folder containing the documentation in both `.html` and `.yaml` formats
 
 ## Team Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
