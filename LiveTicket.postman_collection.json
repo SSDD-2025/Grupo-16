@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4e371852-cfac-4345-9bcf-72aef33604ff",
+		"_postman_id": "685e9af2-89dc-4c92-8833-240e4fd54b30",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43184465",
-		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-c4227c06-3ff3-49a6-a739-572c38a4dad5?action=share&source=collection_link&creator=43184465"
+		"_exporter_id": "43181860"
 	},
 	"item": [
 		{
@@ -224,10 +223,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/near-user?page=0&size=10",
+							"raw": "https://localhost:8443/api/concerts/near-user?page=0&size=10",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -248,23 +249,17 @@
 					"response": []
 				},
 				{
-					"name": "GET Artist Concerts",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
 					"name": "GET Concert",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/5",
+							"raw": "https://localhost:8443/api/concerts/5",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -295,12 +290,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/concerts",
+							"raw": "https://localhost:8443/api/concerts/",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
-								"concerts"
+								"api",
+								"concerts",
+								""
 							]
 						}
 					},
@@ -340,15 +339,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/",
+							"raw": "https://localhost:8443/api/concerts/1",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
-								"1",
-								""
+								"1"
 							]
 						}
 					},
@@ -360,10 +360,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https://localhost:8443/api/concerts/1/image",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -465,10 +467,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/tickets/?page=0&size=10",
+							"raw": "https://localhost:8443/api/tickets/?page=0&size=10",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"tickets",
@@ -493,12 +497,24 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"zone\": \"North Side\", \"price\": \"30\", \"ticketUser\": {\r\n                \"id\": 2,\r\n                \"username\": \"Fonssi29\",\r\n                \"password\": \"$2a$10$NsoNEvYDE8NXVi0S6n22W.xAMu1SQqj.wLl1TGeK8SkkDxiTqTNkO\",\r\n                \"email\": \"fonssi@gmail.com\",\r\n                \"country\": \"America\"\r\n            },\r\n            \"concert\": {\r\n                \"id\": 3,\r\n                \"artist\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Tate McRae\",\r\n                    \"popularityIndex\": 45652467,\r\n                    \"sessionCreated\": null,\r\n                    \"photoLink\": \"/api/artists/1/photo\",\r\n                    \"hasPage\": true,\r\n                    \"mainInfo\": \"Tate McRae, a singer, songwriter, and dancer born in Calgary (Canada) on July 1, 2003, gained fame with You Broke Me First (2021). She released hits like greedy, exes, and 2 hands. Her latest album, So Close To What, features the single It's ok I'm ok\",\r\n                    \"extendedInfo\": \"Tate McRae has been called the teen dance star turned future pop idol by i-D. She's praised by artists like Paula Abdul, who called her a gift from God, and choreographers like Stacey Tookey, Blake McGrath, and Travis Wall, who named her one of his muses\",\r\n                    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/0OUOx6rJXtL66AzTnP9KUE\",\r\n                    \"latestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/3w32SV56JvtJXsrYtThwzP\",\r\n                    \"videoLink\": \"https://www.youtube.com/embed/rwlFWWGaZ5Y\"\r\n                },\r\n                \"name\": \"Miss Possessive Tour\",\r\n                \"info\": \"Tate's First Arena Concert Ever\",\r\n                \"date\": \"2025-09-13T21:00:00\",\r\n                \"place\": \"America\",\r\n                \"price\": 80.0,\r\n                \"westStandsNumber\": 70,\r\n                \"eastStandsNumber\": 70,\r\n                \"northStandsNumber\": 69,\r\n                \"generalAdmissionNumber\": 100,\r\n                \"formattedTime\": \"21:00\"\r\n            }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{userURL}}/concert/1/ticket",
+							"raw": "https://localhost:8443/api/concert/1/ticket",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"concert",
 								"1",
 								"ticket"
@@ -513,11 +529,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/tickets/1",
+							"raw": "https://localhost:8443/api/tickets/1",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
+								"api",
 								"tickets",
 								"1"
 							]
