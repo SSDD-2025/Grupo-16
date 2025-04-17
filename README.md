@@ -40,7 +40,7 @@
   - [Application Functionality Overview](#application-functionality-overview)
   - [Team Members Participation](#team-members-participation)
 - [Phase 2](#phase-2)
-  - [Modifications with respect to the first phase](#modifications-with-respect-to-phase-1)
+  - [Modifications with respect to the phase 1](#modifications-with-respect-to-phase-1)
   - [News](#news)
   - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
   - [API REST Documentation](#api-rest-documentation)
