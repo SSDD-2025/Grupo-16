@@ -5,14 +5,21 @@ info:
 servers:
 - url: https://localhost:8443
   description: Generated server url
+tags:
+- name: Concerts
+  description: Endpoints for managing concert resources
+- name: Tickets
+  description: Endpoints for managing ticket resources
+- name: Users
+  description: Endpoints for managing user resources
 paths:
   /api/users/me:
     get:
       tags:
-      - user-rest-controller
+      - Users
       summary: Get active user profile
       description: Retrieves the profile information of the active user.
-      operationId: accesToProfileREST
+      operationId: accessToProfileREST
       responses:
         "200":
           description: User profile fetched successfully.
@@ -34,7 +41,7 @@ paths:
                 $ref: "#/components/schemas/ShowUserDTO"
     put:
       tags:
-      - user-rest-controller
+      - Users
       summary: Update active user profile settings
       description: Updates the active user profile settings. Only the country is updated.
       operationId: changeUserSettingsREST
@@ -77,7 +84,7 @@ paths:
                 $ref: "#/components/schemas/ShowUserDTO"
     delete:
       tags:
-      - user-rest-controller
+      - Users
       summary: Delete active user profile
       description: Attempts to delete the active user's profile and returns the deleted
         user's details.
@@ -104,7 +111,9 @@ paths:
   /api/concerts/{id}:
     get:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Get concert by ID
+      description: Returns full concert details based on the given concert ID
       operationId: getConcert
       parameters:
       - name: id
@@ -115,14 +124,16 @@ paths:
           format: int64
       responses:
         "200":
-          description: OK
+          description: Concert fetched successfully.
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConcertDTO"
     put:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Update a concert
+      description: Updates and returns a concert based on the given ID
       operationId: modifyConcert
       parameters:
       - name: id
@@ -138,15 +149,47 @@ paths:
               $ref: "#/components/schemas/ConcertDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Concert modified successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "400":
+          description: Invalid concert data
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "404":
+          description: "Not Found: Concert not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConcertDTO"
     delete:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Delete a concert
+      description: Deletes a concert by its ID
       operationId: deleteConcert
       parameters:
       - name: id
@@ -156,8 +199,38 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Concert deleted successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "400":
+          description: Invalid concert data
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "404":
+          description: "Not Found: Concert not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
@@ -165,7 +238,9 @@ paths:
   /api/concerts/{id}/image:
     get:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Get concert image
+      description: Retrieves the poster image of a concert by ID
       operationId: getPosterPhoto
       parameters:
       - name: id
@@ -176,14 +251,22 @@ paths:
           format: int64
       responses:
         "200":
-          description: OK
+          description: Image retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Concert or image not found
           content:
             '*/*':
               schema:
                 type: object
     put:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Replace concert image
+      description: Replaces the poster image of a concert
       operationId: putPosterPhoto
       parameters:
       - name: id
@@ -204,15 +287,47 @@ paths:
               required:
               - poster
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image modified successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Invalid image format
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Concert or image not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 type: object
     post:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Upload concert image
+      description: Uploads a new poster image for a concert
       operationId: postPosterPhoto
       parameters:
       - name: id
@@ -233,15 +348,47 @@ paths:
               required:
               - posterPhoto
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image created successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Invalid image format
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Concert or image not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 type: object
     delete:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Delete concert image
+      description: Deletes the poster image of a concert by ID
       operationId: deletePosterPhoto
       parameters:
       - name: id
@@ -251,8 +398,38 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image deleted successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Invalid image format
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Concert or image not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
@@ -416,7 +593,7 @@ paths:
   /api/users:
     get:
       tags:
-      - user-rest-controller
+      - Users
       summary: Get all users
       description: Retrieves information for all registered users.
       operationId: getAllUsers
@@ -435,7 +612,7 @@ paths:
                 $ref: "#/components/schemas/PagedModelShowUserDTO"
     post:
       tags:
-      - user-rest-controller
+      - Users
       summary: Register a new user
       description: Verifies user information and attempts to register the user. Returns
         user details if successful.
@@ -462,7 +639,9 @@ paths:
   /api/concerts/:
     get:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Get all concerts
+      description: Returns a paginated list of all concerts with basic information
       operationId: getConcerts
       parameters:
       - name: pageable
@@ -472,14 +651,16 @@ paths:
           $ref: "#/components/schemas/Pageable"
       responses:
         "200":
-          description: OK
+          description: All concerts fetched successfully.
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PagedModelBasicConcertDTO"
     post:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Create a new concert
+      description: Creates and returns the newly created concert
       operationId: createConcert
       requestBody:
         content:
@@ -489,7 +670,31 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: New concert created successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute the method."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "400":
+          description: "Bad Request: Invalid data."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ConcertDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
@@ -497,7 +702,7 @@ paths:
   /api/concert/{concertId}/ticket:
     post:
       tags:
-      - ticket-rest-controller
+      - Tickets
       summary: Confirm purchase of tickets
       description: Confirms the purchase of tickets for a specific concert. Requires
         concert ID to link the tickets with the concert.
@@ -631,7 +836,9 @@ paths:
   /api/tickets/:
     get:
       tags:
-      - ticket-rest-controller
+      - Tickets
+      summary: Get the active user's ticket's list
+      description: Shows the page which contains 10 tickets the active user owns
       operationId: getUserTickets
       parameters:
       - name: pageable
@@ -640,8 +847,20 @@ paths:
         schema:
           $ref: "#/components/schemas/Pageable"
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Ticket list succesfully showed.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+        "400":
+          description: "Bad Request: petition failed or the page was empty."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
           content:
             '*/*':
               schema:
@@ -649,7 +868,10 @@ paths:
   /api/concerts/near-user:
     get:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Get concerts near user
+      description: Returns concerts based on the user's country or location (returns
+        a global paginated list if there is no user logged)
       operationId: getConcertsNearUser
       parameters:
       - name: pageable
@@ -664,15 +886,17 @@ paths:
           type: string
       responses:
         "200":
-          description: OK
+          description: All concerts fetched successfully.
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PagedModelBasicConcertDTO"
-  /api/concerts/artist/{id}:
+  /api/concerts/artists/{id}:
     get:
       tags:
-      - concert-rest-controller
+      - Concerts
+      summary: Get concerts by artist
+      description: Returns a paginated list of concerts for a specific artist
       operationId: getArtistConcerts
       parameters:
       - name: id
@@ -688,7 +912,7 @@ paths:
           $ref: "#/components/schemas/Pageable"
       responses:
         "200":
-          description: OK
+          description: All concerts fetched successfully.
           content:
             '*/*':
               schema:
@@ -696,7 +920,7 @@ paths:
   /api/tickets/{id}:
     delete:
       tags:
-      - ticket-rest-controller
+      - Tickets
       summary: Delete a ticket
       description: "Deletes a specific ticket from the system using its ID. If the\
         \ ticket does not exist or an error occurs during deletion, it will be handled\
