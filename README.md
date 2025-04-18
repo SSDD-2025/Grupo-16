@@ -43,7 +43,7 @@
   - [Modifications with respect to phase 1](#modifications-with-respect-to-phase-1)
   - [News](#news)
   - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
-  - [Errors Management](#errors-managment)
+  - [Errors Management](#errors-management)
   - [API REST Documentation](#api-rest-documentation)
   - [Team Participation](#team-participation)
 - [License](#license)
