@@ -36,6 +36,7 @@
 - [Phase 1](#phase-1)
   - [Entities Information](#entities-information)
   - [User Privileges](#user-privileges)
+  - [Errors Management](#errors-managment)
   - [Image Management](#image-management)
   - [Application Functionality Overview](#application-functionality-overview)
   - [Team Members Participation](#team-members-participation)
@@ -1390,7 +1391,7 @@ As mentioned above, one of the most notable changes in this phase is the additio
 >[!IMPORTANT]
 >This privacy setting also applies to REST operations. In fact, attempting to perform an operation without authentication will return the error HTML instead of the corresponding JSON. To perform this authentication, a `POST` operation was performed with the URL `/api/auth/login`.
 
-## Errors Manegment
+## Errors Management
 To be able to control what happens at the backend when sending petitions, we have created some exceptions the application throws when something has gone wrong or when we have to send a message explaining the situation to the user at the backend. All this exceptions are created extending the `RuntimeException` already existing in the Java API.
 
 In general, we have created exceptions for the four entities the application has regarding the NotFoundException. Artist and User have another exception associated with them, these being because they not only identified with the id (names should be unique), which is called `AlreadyExistsException`. User has also another exception associated, this being `TicketListEmptyException` which is an alert to the user that they do not have tickets (this is to not show an empty response body with the information of an empty page).
