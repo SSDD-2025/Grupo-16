@@ -23,8 +23,10 @@ import es.ticketmaster.entrega1.service.exceptions.TicketListEmptyException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@Tag(name = "Tickets", description = "Endpoints for managing ticket resources")
 @RequestMapping("/api")
 public class TicketRestController {
 

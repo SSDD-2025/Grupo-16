@@ -25,8 +25,10 @@ import es.ticketmaster.entrega1.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@Tag(name = "Users", description = "Endpoints for managing user resources")
 @RequestMapping("/api/users")
 public class UserRestController {
     

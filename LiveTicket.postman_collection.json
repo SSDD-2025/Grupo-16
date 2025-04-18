@@ -249,6 +249,14 @@
 					"response": []
 				},
 				{
+					"name": "GET Artist Concerts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
 					"name": "GET Concert",
 					"request": {
 						"method": "GET",
