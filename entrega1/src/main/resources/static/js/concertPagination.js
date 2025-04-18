@@ -10,7 +10,7 @@ async function loadConcerts() {
             result = await fetch(`/api/concerts/?page=${nextPage}&size=${size}`);
         } else {
             // context will have the id of the artist whose concerts will be shown
-            result = await fetch(`/api/concerts/artist/${context}?page=${nextPage}&size=${size}`); 
+            result = await fetch(`/api/concerts/artists/${context}?page=${nextPage}&size=${size}`); 
         }
         const data = await result.json();
 

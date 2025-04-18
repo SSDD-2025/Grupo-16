@@ -248,7 +248,7 @@ public class ConcertService {
      * @param concert concert whose image is being set to default
      */
     private void setDefaultPoster(Concert concert){
-        concert.setImage(imageService.getBlobOf("null"));
+        concert.setImage(imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\media\\default_poster.png"));
     }
 
     /**
@@ -332,6 +332,7 @@ public class ConcertService {
             artist = artistService.getArtistEntity(id);
         }
         concert.setArtist(artist);
+        this.setDefaultPoster(concert);
         concertRepository.save(concert);
         return mapper.toDTO(concert);
     }

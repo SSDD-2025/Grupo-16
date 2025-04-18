@@ -58,7 +58,7 @@ public class UserRestController {
         @ApiResponse(responseCode = "404", description = "Not Found: User not found.")
     })
     @GetMapping("/me")
-    public ResponseEntity<ShowUserDTO> accesToProfileREST(Principal principal) {
+    public ResponseEntity<ShowUserDTO> accessToProfileREST(Principal principal) {
         long id = this.userService.getIdOfUser(principal.getName());
         return ResponseEntity.ok(this.userService.getUserWithID(id));
     }

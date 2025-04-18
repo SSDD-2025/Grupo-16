@@ -19,6 +19,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
 import es.ticketmaster.entrega1.service.TicketService;
+import es.ticketmaster.entrega1.service.exceptions.TicketListEmptyException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,15 +31,21 @@ public class TicketRestController {
     @Autowired
     private TicketService ticketService;
 
-    /**
-     * Get all the tickets from a user (the active user)
-     *
-     * @param request the HttpRequest that includes the data of the active user
-     * @return the ticket list of the active user
-     */
+    @Operation(summary = "Get the active user's ticket's list",
+        description = "Shows the page which contains 10 tickets the active user owns")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Ticket list succesfully showed."),
+        @ApiResponse(responseCode = "400", description = "Bad Request: petition failed or the page was empty."),
+        @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated.")
+    })
     @GetMapping("/tickets/")
     public Page<TicketDTO> getUserTickets(Pageable pageable) {
-        return ticketService.getTicketPage(pageable);
+        Page<TicketDTO> list = ticketService.getTicketPage(pageable);
+        if (list.getTotalElements() == 0){
+            throw new TicketListEmptyException();
+        } else {
+            return list;
+        }
     }
 
     @Operation(summary = "Confirm purchase of tickets", description = "Confirms the purchase of tickets for a specific concert. Requires concert ID to link the tickets with the concert.")
