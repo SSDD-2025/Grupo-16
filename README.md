@@ -1273,11 +1273,14 @@ To conclude this brief section, it is important to mention that I contributed to
 # Phase 2
 
 ## Modifications with respect to phase 1
-**MENCIONAR AQUELLAS COSAS QUE SE MODIFICARON O BORRARON CON RESPECTO A LA PRIMERA FASE (EN CASO DE QUE ALGUIEN TENGA ALGO).**
+As a consequence of adding new functions to the application and fulfill the objectives stated in the rubric, some files have lost their importance/ function. So, to follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, these files have been deleted (others have had some changes made).
 
-To follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, the following files were removed during this phase, as they were not being used:
-- `CardVerifyingService.java`
-- `validation.html`
+The following section describes the situations or reasons why a file stops being used:
+1. The `CardVerifyingService.java` has been eliminated because we decided not to verify the credit card entered as it got complicated (in real life the webs connect to an external payment gateway to secure the payment).
+2. Adding the Spring Security part of the phase, makes Spring controlls the login and registration on the web. This makes the `validation.html` unnecessary, because this validation we did when this HTML showed. now it is done by Spring itself.
+3. Adding the web pagination makes the displays (concert and artist) unnecessary, because this display is now controlled by the javascript files. This is why we have deleted the `display-concerts.html`.
+4. As a consecuence of point 3, `main.html`, `admin-concerts.html` and `artist.html` got modified eliminating the concert-display inyectable and adding a div element to support all the concerts added with the javascript script and all the hidden inputs with the variables necessary to execute the script.
+5. The `error.html` got change to be able to show more than one error (it only showed the 404). Depending on what the error is it will show the correct error code.
 
 ## News
 Continuing with the development of this web application, the second phase focused primarily on enhancing the application's security and implementing the core back-end operations.
@@ -1386,6 +1389,46 @@ As mentioned above, one of the most notable changes in this phase is the additio
 
 >[!IMPORTANT]
 >This privacy setting also applies to REST operations. In fact, attempting to perform an operation without authentication will return the error HTML instead of the corresponding JSON. To perform this authentication, a `POST` operation was performed with the URL `/api/auth/login`.
+
+## Errors Manegment
+To be able to control what happens at the backend when sending petitions, we have created some exceptions the application throws when something has gone wrong or when we have to send a message explaining the situation to the user at the backend. All this exceptions are created extending the `RuntimeException` already existing in the Java API.
+
+In general, we have created exceptions for the four entities the application has regarding the NotFoundException. Artist and User have another exception associated with them, these being because they not only identified with the id (names should be unique), which is called `AlreadyExistsException`. User has also another exception associated, this being `TicketListEmptyException` which is an alert to the user that they do not have tickets (this is to not show an empty response body with the information of an empty page).
+
+In order to capture these thrown exceptions and convert them into alerts in the backend (response body of the Postman petitions), we have created a class called `GlobalExceptionHandler.java` which captures each exception created and returns the correct ResponseEntity build with the information of the http error code and description.
+
+At the frontend, we have modified the `error.html` to dynamically capture the error and show its code with a descriptive message. We have only implemented this to show the following basic errors:
+<table>
+  <thead>
+    <th>Error Code</th>
+    <th>Error</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>400</td>
+      <td>Bad Request</td>
+      <td>Server cannot process the petition because it is incomplete or with incorrect data</td>
+    </tr>
+    <tr>
+      <td>403</td>
+      <td>Forbidden</td>
+      <td>Server cannot authorize the petition due to lack of permits, access restrictions or server configuration</td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not Found</td>
+      <td>Server cannot localize the web page or resource ask by the user</td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>Internal Server Error</td>
+      <td>Server found a problem or unexpected error while processing the petition</td>
+    </tr>
+  </tbody>
+</table>
+
+These error codes are capture with the `CustomErrorController`, which we have created to do this specific feature. This `@Controller` implements the `ErrorController` Spring's class, so this is the controller Spring calls when an error occurs (mapping the "/error"). Inside this mapping controller method, we capture the request and obtain its status code (this being an attribute of the request). Once with this status, we can catalog it as one of the previous errors or we show an "unexpected error message" with that error code.
 
 ## API REST Documentation
 The API documentation for this project was generated using Spring Doc. You can access it by following [this link](https://github.com/SSDD-2025/Grupo-16/tree/main/entrega1/api-docs).
