@@ -1,6 +1,5 @@
 package es.ticketmaster.entrega1.controller.web;
 
-import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.artist.ArtistDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
@@ -113,18 +113,19 @@ public class ConcertController {
      * @param artistId the artist id whose concert is being added/ modified (-1
      * if its a new artist)
      * @return the concert-validation.html with the appropriate attributes set
-     * @throws IOException if an error occurs during file handling
+     * @throws Exception 
      */
     @PostMapping("/admin/concert/register")
     public String postAddConcert(Model model, @ModelAttribute ConcertDTO newConcert,
             @RequestParam(required = false) MultipartFile poster, @RequestParam(required = false) Long id,
-            @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws IOException {
+            @RequestParam(required = false) String newArtistName, @RequestParam Long artistId) throws Exception {
         if (artistId == -1) { //the concert is from a new artist not registered yet
             // Check if the name the admin entered already exists
             if (artistService.artistExists(newArtistName)) {
                 artistId = artistService.getByNameIgnoreCase(newArtistName).get().getId();
             } else {
-                artistId = artistService.createNewArtist(newArtistName);
+                ArtistDTO artistWithName = new ArtistDTO(null, newArtistName, null, null, null, null, null, null, null, null);
+                artistId = artistService.registerNewArtist(artistWithName).id();
             }
         } //else {} the concert is from someone already on the datatbase
 

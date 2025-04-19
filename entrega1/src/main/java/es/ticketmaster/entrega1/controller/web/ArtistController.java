@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.ticketmaster.entrega1.dto.artist.ArtistDTO;
 import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.exceptions.ArtistAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -94,18 +96,21 @@ public class ArtistController {
      * @param mainPhoto (optional) artist photo in MultipartFile format
      * @param redirectAttributes attributes for the redirection solicitude
      * @return HTML to be loaded
-     * @throws IOException
+     * @throws Exception 
      */
     @PostMapping("/admin/artist/register")
-    public String registerArtist(Model model, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto, RedirectAttributes redirectAttributes) throws IOException {
+    public String registerArtist(Model model, @ModelAttribute ArtistDTO artist, @RequestParam(required = false) MultipartFile mainPhoto, RedirectAttributes redirectAttributes) throws Exception {
 
-        if (artistService.checkIfExistsByName(artist.getName())) {
-            artist.setName(null);
+        try {
+            ArtistDTO registeredArtist = this.artistService.registerNewArtist(artist);
+            this.artistService.createPhotoImage(registeredArtist.id(), mainPhoto);
+
+        } catch (ArtistAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("error", "Artist name already exists");
-            redirectAttributes.addFlashAttribute("artist", artist);
+            ArtistDTO artistAttributes = new ArtistDTO(artist.id(), null, artist.popularityIndex(), artist.hasPage(), artist.mainInfo(), artist.extendedInfo(), artist.bestAlbumSpotifyLink(), artist.latestAlbumSpotifyLink(), artist.videoLink(), artist.photoLink());
+            redirectAttributes.addFlashAttribute("artist", artistAttributes);
             return "redirect:/admin/artist/workbench";
         }
-        artistService.registerNewArtist(artist, mainPhoto);
 
         return "redirect:/admin/artist";
     }
@@ -124,9 +129,10 @@ public class ArtistController {
      * @throws IOException
      */
     @PostMapping("/admin/artist/{id}/modify")
-    public String modifyArtist(Model model, @PathVariable long id, @ModelAttribute Artist artist, @RequestParam(required = false) MultipartFile mainPhoto) throws IOException {
-        if (!artistService.modifyArtistWithId(artist, id, mainPhoto)) {
-            return "redirect:/error";
+    public String modifyArtist(Model model, @PathVariable long id, @ModelAttribute ArtistDTO artist, @RequestParam(required = false) MultipartFile mainPhoto) throws IOException {
+        this.artistService.modifyArtistWithId(artist, id);
+        if (!(mainPhoto == null || mainPhoto.isEmpty())) {
+            this.artistService.replacePhotoImage(id, mainPhoto);
         }
         return "redirect:/admin/artist";
     }
