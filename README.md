@@ -31,7 +31,7 @@
   </tbody>
 </table>
 
-## Table of Contents
+## 🧾 Table of Contents
 - [Execution Instructions](#-execution-instructions)
 - [Phase 1](#-phase-1)
   - [Entities Information](#entities-information)
