@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.ticketmaster.entrega1.dto.artist.ArtistDTO;
 import es.ticketmaster.entrega1.dto.concert.BasicConcertDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.dto.concert.ConcertMapper;
@@ -321,15 +322,17 @@ public class ConcertService {
      * This method will be used by the Concert RestController to create a new post
      * @param concertDTO concert to save in the database
      * @return the concert saved with the changes made
+     * @throws Exception 
      */
-    public ConcertDTO saveConcert(ConcertDTO concertDTO){
+    public ConcertDTO saveConcert(ConcertDTO concertDTO) throws Exception{
         Concert concert = mapper.toDomain(concertDTO);
         Artist artist;
         if (artistService.artistExists(concert.getArtist().getName())){
             artist = artistService.getByNameIgnoreCase(concert.getArtist().getName()).get();
         } else {
-            long id = artistService.createNewArtist(concert.getArtist().getName());
-            artist = artistService.getArtistEntity(id);
+            ArtistDTO artistWithName = new ArtistDTO(null, concert.getArtist().getName(), null, null, null, null, null, null, null, null);
+            long idArtist = artistService.registerNewArtist(artistWithName).id();
+            artist = artistService.getArtistEntity(idArtist);
         }
         concert.setArtist(artist);
         this.setDefaultPoster(concert);
@@ -375,8 +378,9 @@ public class ConcertService {
      * @param newConcert concert modifications to put on the old concert
      * @param id old id
      * @return the concert modified
+     * @throws Exception 
      */
-    public ConcertDTO modifyConcert(ConcertDTO newConcert, long id){
+    public ConcertDTO modifyConcert(ConcertDTO newConcert, long id) throws Exception{
         Concert modifiedConcert = mapper.toDomain(newConcert);
         Concert oldConcert = concertRepository.findConcertById(id);
         if (oldConcert == null){
@@ -393,7 +397,8 @@ public class ConcertService {
         if (artistService.artistExists(modifiedConcert.getArtist().getName())){
             artist = artistService.getByNameIgnoreCase(modifiedConcert.getArtist().getName()).get();
         } else {
-            long idArtist = artistService.createNewArtist(modifiedConcert.getArtist().getName());
+            ArtistDTO artistWithName = new ArtistDTO(null, modifiedConcert.getArtist().getName(), null, null, null, null, null, null, null, null);
+            long idArtist = artistService.registerNewArtist(artistWithName).id();
             artist = artistService.getArtistEntity(idArtist);
         }
         modifiedConcert.setArtist(artist);

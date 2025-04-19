@@ -62,133 +62,136 @@ can be instantly previsualized (image and artist name)-->
                         Delete Artist
                     </p>
                 </button>
-                <input type="hidden" name="_csrf" value="{{token}}"/>
+                <input type="hidden" name="_csrf" value="{{token}}" />
             </form>
             {{/modificate}}
 
             <hr>
 
             <!--Actual form containing all the information of the artist that is compulsory to add-->
-            {{#modificate}} <!--If the artist is going to be modified, the url for the controller is changed to the specific artist-->
-            <form action="/admin/artist/{{artist.id}}" method="post" enctype="multipart/form-data"
+            {{#modificate}}
+            <!--If the artist is going to be modified, the url for the controller is changed to the specific artist-->
+            <form action="/admin/artist/{{artist.id}}/modify" method="post" enctype="multipart/form-data"
                 class="general-container column-container">
-            {{/modificate}}
-            {{^modificate}}
-            <form action="/admin/artist/register" method="post" enctype="multipart/form-data"
-                class="general-container column-container">
-            {{/modificate}}
+                {{/modificate}}
+                {{^modificate}}
+                <form action="/admin/artist/register" method="post" enctype="multipart/form-data"
+                    class="general-container column-container">
+                    {{/modificate}}
 
-                <!--Artist name-->
-                <div class="attribute-container">
-                    <label for="name">Artist name</label>
-                    {{#artist.name}} <!--Previous artist name is placed as the value of the text input-->
-                    <input type="text" placeholder="Name" id="name" name="name" value="{{artist.name}}" readonly>
-                    {{/artist.name}}
-                    {{^artist.name}}
-                    <input type="text" placeholder="Name" id="name" name="name" required>
-                    {{/artist.name}}
-                </div>
-                <!--Notification of errors-->
-                {{#error}}
-                <div class="text-error">{{error}}</div>
-                {{/error}}
+                    <!--Artist name-->
+                    <div class="attribute-container">
+                        <label for="name">Artist name</label>
+                        {{#artist.name}} <!--Previous artist name is placed as the value of the text input-->
+                        <input type="text" placeholder="Name" id="name" name="name" value="{{artist.name}}" readonly>
+                        {{/artist.name}}
+                        {{^artist.name}}
+                        <input type="text" placeholder="Name" id="name" name="name" required>
+                        {{/artist.name}}
+                    </div>
+                    <!--Notification of errors-->
+                    {{#error}}
+                    <div class="text-error">{{error}}</div>
+                    {{/error}}
 
-                <!--Popularity Index-->
-                <div class="attribute-container">
-                    <label for="popularity">Popularity index</label>
-                    {{#artist.popularityIndex}} <!--Previous previous index is placed as the value of the text input-->
-                    <input type="number" placeholder="Popularity index" id="popularity" name="popularityIndex" min="1"
-                        value="{{artist.popularityIndex}}" required>
-                    {{/artist.popularityIndex}}
-                    {{^artist.popularityIndex}}
-                    <input type="number" placeholder="Popularity index" id="popularity" name="popularityIndex" min="1"
-                        required>
-                    {{/artist.popularityIndex}}
-                </div>
+                    <!--Popularity Index: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="popularity">Popularity index</label>
+                        {{#artist.popularityIndex}}
+                        <!--Previous previous index is placed as the value of the text input-->
+                        <input type="number" placeholder="Popularity index" id="popularity" name="popularityIndex"
+                            min="1" value="{{artist.popularityIndex}}">
+                        {{/artist.popularityIndex}}
+                        {{^artist.popularityIndex}}
+                        <input type="number" placeholder="Popularity index" id="popularity" name="popularityIndex"
+                            min="1">
+                        {{/artist.popularityIndex}}
+                    </div>
 
-                <!--Artist main photo: optative-->
-                <div class="attribute-container">
-                    <label for="main-photo">Change photo</label>
-                    <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg">
-                </div>
+                    <!--Artist main photo: optative-->
+                    <div class="attribute-container">
+                        <label for="main-photo">Change photo</label>
+                        <input type="file" id="main-photo" name="mainPhoto" accept=".jpg, .png, .jpeg">
+                    </div>
 
-                <!--Artist main info-->
-                <div class="attribute-container">
-                    <label for="mainInfo">Main Information</label>
-                    <textarea name="mainInfo" id="mainInfo" placeholder="Artist's basic information..."
-                        required>{{#artist.mainInfo}}{{artist.mainInfo}}{{/artist.mainInfo}}</textarea>
-                </div>
+                    <!--Artist main info: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="mainInfo">Main Information</label>
+                        <textarea name="mainInfo" id="mainInfo"
+                            placeholder="Artist's basic information...">{{#artist.mainInfo}}{{artist.mainInfo}}{{/artist.mainInfo}}</textarea>
+                    </div>
 
-                <!--Artist extended info-->
-                <div class="attribute-container">
-                    <label for="extendedInfo">Extended Information</label>
-                    <textarea name="extendedInfo" id="extendedInfo" placeholder="Artist's extended information..."
-                        required>{{#artist.extendedInfo}}{{artist.extendedInfo}}{{/artist.extendedInfo}}</textarea>
-                </div>
+                    <!--Artist extended info: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="extendedInfo">Extended Information</label>
+                        <textarea name="extendedInfo" id="extendedInfo"
+                            placeholder="Artist's extended information...">{{#artist.extendedInfo}}{{artist.extendedInfo}}{{/artist.extendedInfo}}</textarea>
+                    </div>
 
-                <!--Best album spotify link-->
-                <div class="attribute-container">
-                    <label for="bestAlbumSpotifyLink">Best Album Spotify Link</label>
-                    {{#artist.bestAlbumSpotifyLink}} <!--If the artist had a best album link, it is displayed-->
-                    <input type="url" id="bestAlbumSpotifyLink" name="bestAlbumSpotifyLink"
-                        data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
-                        plat="spotify" value="{{artist.bestAlbumSpotifyLink}}" required>
-                    {{/artist.bestAlbumSpotifyLink}}
-                    {{^artist.bestAlbumSpotifyLink}}
-                    <input type="url" id="bestAlbumSpotifyLink" name="bestAlbumSpotifyLink"
-                        data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
-                        plat="spotify" required>
-                    {{/artist.bestAlbumSpotifyLink}}
-                </div>
+                    <!--Best album spotify link: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="bestAlbumSpotifyLink">Best Album Spotify Link</label>
+                        {{#artist.bestAlbumSpotifyLink}} <!--If the artist had a best album link, it is displayed-->
+                        <input type="url" id="bestAlbumSpotifyLink" name="bestAlbumSpotifyLink"
+                            data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
+                            plat="spotify" value="{{artist.bestAlbumSpotifyLink}}">
+                        {{/artist.bestAlbumSpotifyLink}}
+                        {{^artist.bestAlbumSpotifyLink}}
+                        <input type="url" id="bestAlbumSpotifyLink" name="bestAlbumSpotifyLink"
+                            data-iframe="best-album-spotify-embed" data-display="bestAlbumSpotifyLink-preview-container"
+                            plat="spotify">
+                        {{/artist.bestAlbumSpotifyLink}}
+                    </div>
 
-                <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="spotify-container" style="display: none;" id="bestAlbumSpotifyLink-preview-container">
-                    <div id="embed-iframe-best-album"></div>
-                </div>
+                    <!--Initially hidden display of the media, controlled with JavaScript-->
+                    <div class="spotify-container" style="display: none;" id="bestAlbumSpotifyLink-preview-container">
+                        <div id="embed-iframe-best-album"></div>
+                    </div>
 
-                <!--Latest album spotify link-->
-                <div class="attribute-container">
-                    <label for="latestAlbumSpotifyLink">Latest Album Spotify Link</label>
-                    {{#artist.latestAlbumSpotifyLink}}
-                    <input type="url" id="latestAlbumSpotifyLink" name="latestAlbumSpotifyLink"
-                        data-iframe="latest-album-spotify-embed" data-display="latestAlbumSpotifyLink-preview-container"
-                        plat="spotify" value="{{artist.latestAlbumSpotifyLink}}" required>
-                    {{/artist.latestAlbumSpotifyLink}}
-                    {{^artist.latestAlbumSpotifyLink}}
-                    <input type="url" id="latestAlbumSpotifyLink" name="latestAlbumSpotifyLink"
-                        data-iframe="latest-album-spotify-embed" data-display="latestAlbumSpotifyLink-preview-container"
-                        plat="spotify" required>
-                    {{/artist.latestAlbumSpotifyLink}}
-                </div>
+                    <!--Latest album spotify link: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="latestAlbumSpotifyLink">Latest Album Spotify Link</label>
+                        {{#artist.latestAlbumSpotifyLink}}
+                        <input type="url" id="latestAlbumSpotifyLink" name="latestAlbumSpotifyLink"
+                            data-iframe="latest-album-spotify-embed"
+                            data-display="latestAlbumSpotifyLink-preview-container" plat="spotify"
+                            value="{{artist.latestAlbumSpotifyLink}}">
+                        {{/artist.latestAlbumSpotifyLink}}
+                        {{^artist.latestAlbumSpotifyLink}}
+                        <input type="url" id="latestAlbumSpotifyLink" name="latestAlbumSpotifyLink"
+                            data-iframe="latest-album-spotify-embed"
+                            data-display="latestAlbumSpotifyLink-preview-container" plat="spotify">
+                        {{/artist.latestAlbumSpotifyLink}}
+                    </div>
 
-                <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="spotify-container" style="display: none;" id="latestAlbumSpotifyLink-preview-container">
-                    <div id="embed-iframe-latest-album"></div>
-                </div>
+                    <!--Initially hidden display of the media, controlled with JavaScript-->
+                    <div class="spotify-container" style="display: none;" id="latestAlbumSpotifyLink-preview-container">
+                        <div id="embed-iframe-latest-album"></div>
+                    </div>
 
-                <!--Video input and confirmation display-->
-                <div class="attribute-container">
-                    <label for="videoLink">Music Video Link</label>
-                    {{#artist.videoLink}}
-                    <input type="url" id="videoLink" name="videoLink" value="{{artist.videoLink}}" required>
-                    {{/artist.videoLink}}
-                    {{^artist.videoLink}}
-                    <input type="url" id="videoLink" name="videoLink" required>
-                    {{/artist.videoLink}}
-                </div>
+                    <!--Video input and confirmation display: optative, but compulsory to have page-->
+                    <div class="attribute-container">
+                        <label for="videoLink">Music Video Link</label>
+                        {{#artist.videoLink}}
+                        <input type="url" id="videoLink" name="videoLink" value="{{artist.videoLink}}">
+                        {{/artist.videoLink}}
+                        {{^artist.videoLink}}
+                        <input type="url" id="videoLink" name="videoLink">
+                        {{/artist.videoLink}}
+                    </div>
 
-                <!--Initially hidden display of the media, controlled with JavaScript-->
-                <div class="video-container" id="video-display-container">
-                    <iframe id="video-display" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%;"
-                        required></iframe>
-                </div>
+                    <!--Initially hidden display of the media, controlled with JavaScript-->
+                    <div class="video-container" id="video-display-container">
+                        <iframe id="video-display" src="" frameborder="0" allowfullscreen
+                            style="width: 100%; height: 100%;" required></iframe>
+                    </div>
 
-                <!--Submit of the form, which text depends on the function of the workbench-->
-                <button tpye="submit" class="central-button">
-                    {{^modificate}}Register Artist{{/modificate}}{{#modificate}}Modify Artist{{/modificate}}
-                </button>
-                <input type="hidden" name="_csrf" value="{{token}}"/>
-            </form>
+                    <!--Submit of the form, which text depends on the function of the workbench-->
+                    <button tpye="submit" class="central-button">
+                        {{^modificate}}Register Artist{{/modificate}}{{#modificate}}Modify Artist{{/modificate}}
+                    </button>
+                    <input type="hidden" name="_csrf" value="{{token}}" />
+                </form>
         </div>
         </form>
     </main>
@@ -220,4 +223,5 @@ can be instantly previsualized (image and artist name)-->
 </script>
 <script src="/js/YouTubeUpdate.js"></script>
 <script src="/js/SpotifyUpdate.js"></script>
+
 </html>

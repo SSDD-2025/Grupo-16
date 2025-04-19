@@ -1,9 +1,9 @@
 package es.ticketmaster.entrega1.service;
 
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +22,7 @@ import es.ticketmaster.entrega1.repository.ArtistRepository;
 import es.ticketmaster.entrega1.service.exceptions.ArtistAlreadyExistsException;
 import es.ticketmaster.entrega1.service.exceptions.ArtistNotFoundException;
 import es.ticketmaster.entrega1.service.exceptions.ImageException;
+import es.ticketmaster.entrega1.service.exceptions.NotAllowedException;
 
 @Component
 public class ArtistService {
@@ -36,19 +37,20 @@ public class ArtistService {
     private ArtistMapper artistMapper;
 
     /*METHODS DEALING WITH ARTIST SEARCHING AND GETTING*/
-
     /**
-     * Searches for the artist that has an specific ID and returns its DTO. In case the artist is
-     * not present at the DDBB, the pertinent exception is trown.
+     * Searches for the artist that has an specific ID and returns its DTO. In
+     * case the artist is not present at the DDBB, the pertinent exception is
+     * thrown.
      *
      * @param id the artist id that is searched
-     * @return The Artist's or Exception DTO if there is not any artist with that id.
+     * @return The Artist's or Exception DTO if there is not any artist with
+     * that id.
      */
     public ArtistDTO getArtist(long id) {
 
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
+        if (artist.isPresent()) {
 
             return artistMapper.toDTO(artist.get());
 
@@ -61,8 +63,8 @@ public class ArtistService {
     }
 
     /**
-     * Searches for every artist in the DDBB, returning a Collection with their DTO.
-     * FUTURE IMPROVAL: PAGINATION
+     * Searches for every artist in the DDBB, returning a Page with all the
+     * artists that fit inside its dimensions.
      *
      * @return
      */
@@ -98,8 +100,9 @@ public class ArtistService {
     }
 
     /**
-     * Makes the artist search by artist name making use of the repository. A Page of artist is returned,
-     * meaning that this method makes use of pagination.
+     * Makes the artist search by artist name making use of the repository. A
+     * Page of artist is returned, meaning that this method makes use of
+     * pagination.
      *
      * @param search string to be searched
      * @param pageable the desired pagination configuration
@@ -111,8 +114,9 @@ public class ArtistService {
     }
 
     /**
-     * Makes the artist search by artist name making use of the repository and returning a Page of
-     * ArtistDTO. As the returning type is a Page, this method makes use of pagination.
+     * Makes the artist search by artist name making use of the repository and
+     * returning a Page of ArtistDTO. As the returning type is a Page, this
+     * method makes use of pagination.
      *
      * @param search string to be searched
      * @param pageable the desired pagination configuration
@@ -163,20 +167,20 @@ public class ArtistService {
      * @return said artist on a Optional object (None if its not found)
      */
     public Optional<Artist> getByNameIgnoreCase(String name) {
-        return artistRepository.findFirstByNameIgnoreCase(name); 
+        return artistRepository.findFirstByNameIgnoreCase(name);
     }
 
     /**
      * Method that returns the ArtistEntity (java class object) by its id.
-     * 
+     *
      * @param id The ID of the Artist.
      * @return Artist object representing the desired Artist in the DDBB.
      */
-    public Artist getArtistEntity(long id){
+    public Artist getArtistEntity(long id) {
 
         Optional<Artist> artist = artistRepository.findById(id);
-        
-        if(artist.isEmpty()){
+
+        if (artist.isEmpty()) {
             return null;
         } else {
             return artist.get();
@@ -184,20 +188,21 @@ public class ArtistService {
     }
 
     /**
-     * Service method that returns the main photo of an specified-by-id artist. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the artist does
-     * not have main photo, an ImageException with a notification is thrown.
-     * 
+     * Service method that returns the main photo of an specified-by-id artist.
+     * In case the artist does not exist, an ArtistNotFoundException is thrown.
+     * In case the artist does not have main photo, an ImageException with a
+     * notification is thrown.
+     *
      * @param id identifier of the artist
      * @return The main photo of the artist
      * @throws SQLException
      */
-    public Resource getPhoto(long id) throws SQLException{
-        
+    public Resource getPhoto(long id) throws SQLException {
+
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
-            if(artist.get().getPhotoLink() != null){
+        if (artist.isPresent()) {
+            if (artist.get().getPhotoLink() != null) {
                 return new InputStreamResource(artist.get().getPhoto().getBinaryStream());
             } else {
                 throw new ImageException("That image does not exist");
@@ -208,87 +213,60 @@ public class ArtistService {
     }
 
     /*METHODS DEALING WITH ARTIST CREATION AND MODIFICATION*/
-
     /**
-     * Service method that builds an artist in order to be registered (saved in
-     * the DDBB). As well, the register date is saved.
-     *
-     * @param artist artist to be saved
-     * @param photo MultipartFile photo to stablish the artist photo
-     * @throws IOException
-     */
-    public boolean registerNewArtist(Artist artist, MultipartFile photo) throws IOException {
-
-        /*The photo is set (if there is any error, it is set to null) */
-        Blob photoblob = imageService.getBlobOf(photo);
-        if (!(photoblob == null)){
-            artist.setPhoto(imageService.getBlobOf(photo));
-            artist.setPhotoLink("/api/artists/" + artist.getId() + "/photo");
-        }
-
-        /*Checks compulsory attributes in order to create a new artist*/
-        if(artist.getName() == null){
-            return false;
-        }
-        if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
-            return false;
-        }
-
-        /*Attributes not needed to be registered, but required in order to have a page*/
-
-        artist.setSessionCreated(LocalDateTime.now());
-        artist.setHasPage(true);
-
-        artistRepository.save(artist);
-        return true;
-    }
-
-    /**
-     * Service method that builds an artist in order for it to be registered (saved in
-     * the DDBB). As well, the register date is saved. As a confirmation, the Artist's
-     * DTO is returned.
+     * Service method that builds an artist in order for it to be registered
+     * (saved in the DDBB). As well, the register date is saved. As a
+     * confirmation, the Artist's DTO is returned.
      *
      * @param artistDTO artist's input DTO
-     * @return Artist's DTO representing the registered artist that is saved in the DDBB.
-     * @throws Exception 
+     * @return Artist's DTO representing the registered artist that is saved in
+     * the DDBB.
+     * @throws Exception
      */
     public ArtistDTO registerNewArtist(ArtistDTO artistDTO) throws Exception {
 
         /*We get the artist as an Entity object*/
         Artist artist = artistMapper.toDomain(artistDTO);
 
-        /*Checks compulsory attributes in order to create a new artist*/
-        if(artist.getName() == null){
-            /*return false;*/
+        /*Checks compulsory conditions in order to create a new artist: Not repeated name*/
+        if (artist.getName() == null) {
+            throw new NotAllowedException("Create an artist without name");
         }
-        if(artistExists(artist.getName())){ /*Verifies the Artist name is not repeated*/
+        if (artistExists(artist.getName())) {
+            /*Verifies the Artist name is not repeated*/
             throw new ArtistAlreadyExistsException(artist.getName());
         }
 
-        /*Attributes not needed to be registered, but required in order to have a page*/
+        /*Checks if the artist can(not) have its own page*/
+        if (artist.canHavePage()) {
+            artist.setHasPage(true);
+        } else {
+            artist.setHasPage(false);
+        }
 
-        artist.setPhotoLink(null); //There is no posibility any photo is provided
+        /*Attributes automatically stablished by the service*/
+        artist.setPhotoLink(null); //There is no posibility any photo is provided when an artist is registered
         artist.setSessionCreated(LocalDateTime.now());
-        artist.setHasPage(true);
 
         artistRepository.save(artist);
 
         return artistMapper.toDTO(artist);
-
     }
 
     /**
-     * Service method that creates the main-photo of an artist, specified by id. In case no artist
-     * with such id is found, it is returned an ArtistNotFoundException.
+     * Service method that creates the main-photo of an artist, specified by id.
+     * In case no artist with such id is found, it is returned an
+     * ArtistNotFoundException.
+     *
      * @param id artist identifier
      * @param image image to stablish as main photo
      */
-    public void createPhotoImage(long id, MultipartFile image){
-        
+    public void createPhotoImage(long id, MultipartFile image) {
+
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
-            if(artist.get().getPhotoLink() != null){
+        if (artist.isPresent()) {
+            if (artist.get().getPhotoLink() != null) {
                 throw new ImageException("Artist already has a main photo");
             }
             try {
@@ -303,48 +281,16 @@ public class ArtistService {
     }
 
     /**
-     * * Service method that modifies an existing artist with new attributes
-     *
-     * @param artist artist containing the new attributes that have been
-     * modified
-     * @param id id of that artist
-     * @param photo (optional) new photo for the artist
-     * @return
-     * @throws IOException
-     */
-    public boolean modifyArtistWithId(Artist artist, long id, MultipartFile photo) throws IOException {
-
-        artist.setId(id);
-
-        Optional<Artist> oldArtist = artistRepository.findById(id);
-
-        if (!oldArtist.isEmpty()) {
-            artist.setConcertList(oldArtist.get().getConcertList());
-            artist.setHasPage(oldArtist.get().isHasPage());
-            if (!photo.isEmpty()) {
-                /*If a new photo has been uploaded*/
-                artist.setPhoto(imageService.getBlobOf(photo));
-            } else {
-                /*If no new photo has been uploaded, it takes the older one*/
-                artist.setPhoto(oldArtist.get().getPhoto());
-            }
-            artist.setHasPage(true);
-            artistRepository.save(artist);
-            return true;
-        } else {
-            return false;
-            /*There was not an artist with such ID*/
-        }
-    }
-
-    /**
-     * Service method that modifies an existing artist with new attributes. Every attribute is modificable
-     * except for artistName
+     * Service method that modifies an existing artist with new attributes.
+     * Every attribute is modificable except for artistName. As well, in case
+     * the artist has all the attributes needed to be considered an Artist with
+     * page, its hasPage attribute is turned to true. Otherwise, it is set to
+     * false.
      *
      * @param artistDTO artist's input DTO with the modified attributes
      * @param id id of that artist
-     * @param photo (optional) new photo for the artist
-     * @return Artist's DTO representing the modified artist that is saved in the DDBB.
+     * @return Artist's DTO representing the modified artist that is saved in
+     * the DDBB.
      * @throws IOException
      */
     public ArtistDTO modifyArtistWithId(ArtistDTO artistDTO, long id) throws IOException {
@@ -353,13 +299,19 @@ public class ArtistService {
 
         if (oldArtist.isPresent()) {
             Artist artist = artistMapper.toDomain(artistDTO);
+            /*Required attributes that the modified artist inherit from the old artist*/
             artist.setId(id);
             artist.setName(oldArtist.get().getName());
             artist.setConcertList(oldArtist.get().getConcertList());
+            artist.setPhoto(oldArtist.get().getPhoto());
+            artist.setPhotoLink(oldArtist.get().getPhotoLink());
 
-            //In case the required attributes are provided, the artist can have page
-            artist.setHasPage(oldArtist.get().isHasPage());
-            artist.setHasPage(true);
+            /*In case the required attributes are provided, the artist can have page*/
+            if (artist.canHavePage()) {
+                artist.setHasPage(true);
+            } else {
+                artist.setHasPage(false);
+            }
 
             artistRepository.save(artist);
             return artistMapper.toDTO(artist);
@@ -370,27 +322,44 @@ public class ArtistService {
     }
 
     /**
-     * Service method that replaces the main-photo of an artist. If the artist does not exist, an
-     * ArtistNotFoundException is thrown. If there is any problem getting the image Blob, the exception
-     * is returned
-     *  
+     * Service method that replaces the main-photo of an artist. If the artist
+     * does not exist, an ArtistNotFoundException is thrown. If there is any
+     * problem as far as the image format or content is concerned, an
+     * ImageException is returned.
+     *
+     * NOTE: If the artist does not have any photo, the image is also changed.
+     *
      * @param id the artist identifier
      * @param image the image that will be turned into the artist's main-photo
      * @throws IOException
      */
-    public void replacePhotoImage(long id, MultipartFile image) throws IOException{
+    public void replacePhotoImage(long id, MultipartFile image) throws IOException {
 
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
-            if(artist.get().getPhotoLink() == null){
-                throw new ImageException("Artist does not have a latest photo");
-            }
+        if (image == null || image.isEmpty()) {
+            throw new ImageException("Not a valid image.");
+        }
+
+        /*We get the content type to check if the image format is corect*/
+        String contentType = image.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new ImageException("Not a valid image format.");
+        }
+
+        // We check that the image fulfill the allowed types
+        List<String> allowedContentTypes = Arrays.asList("image/jpeg", "image/jpg", "image/png");
+        /*CAUTION WITH THE IMAGE NAME*/
+        if (!allowedContentTypes.contains(contentType)) {
+            throw new ImageException("Only images with JPEG, PNG and JPG format are allowed.");
+        }
+
+        if (artist.isPresent()) {
             try {
                 artist.get().setPhoto(imageService.getBlobOf(image));
                 artistRepository.save(artist.get());
             } catch (IOException e) {
-                throw new ImageException(e.toString());
+                throw new ImageException("Error proccessing the Artist Image: " + e.toString());
             }
         } else {
             throw new ArtistNotFoundException(id);
@@ -398,17 +367,16 @@ public class ArtistService {
     }
 
     /*METHODS DEALING WITH ARTIST DELETION*/
-
     /**
      * Method that, provided with an ID, handles the deletion of an artist with
      * the specified id. For that, it is checked if the deletion has been
      * successful or not, searching if an artist with the given ID exists after
      * the deletion. Trying to delete a non-existant artist is also considered
      * an unsuccessful situation.
-     * 
-     * IMPORTANT NOTE: Since @Generation.type = AUTO, there are no IDs recycled, so that
-     * is safe to check for a deleted id to find if it still exists, since it will not be
-     * assigned to another artist.
+     *
+     * IMPORTANT NOTE: Since @Generation.type = AUTO, there are no IDs recycled,
+     * so that is safe to check for a deleted id to find if it still exists,
+     * since it will not be assigned to another artist.
      *
      * @param id the Artist's ID
      * @return the deleted Artist's DTO
@@ -417,7 +385,7 @@ public class ArtistService {
 
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
+        if (artist.isPresent()) {
             artistRepository.deleteById(id); //We delete the artist with that ID
             return artistMapper.toDTO(artist.get());
         } else {
@@ -427,18 +395,18 @@ public class ArtistService {
     }
 
     /**
-     * Method that handles the deletion of an Artist's main-photo by its ID. In case the
-     * artist does not exist, an ArtistNotFoundException is thrown. In case the photo does
-     * not exist, an ImageException is thrown.
-     * 
+     * Method that handles the deletion of an Artist's main-photo by its ID. In
+     * case the artist does not exist, an ArtistNotFoundException is thrown. In
+     * case the photo does not exist, an ImageException is thrown.
+     *
      * @param id identifier of the artist which main photo will be deleted
      */
-    public void deletePhotoImage(long id){
+    public void deletePhotoImage(long id) {
 
         Optional<Artist> artist = artistRepository.findById(id);
 
-        if(artist.isPresent()){
-            if(artist.get().getPhotoLink() != null){
+        if (artist.isPresent()) {
+            if (artist.get().getPhotoLink() != null) {
                 artist.get().setPhoto(null);
                 artist.get().setPhotoLink(null);
                 artistRepository.save(artist.get());
@@ -448,18 +416,5 @@ public class ArtistService {
         } else {
             throw new ArtistNotFoundException(id);
         }
-    }
-
-    /**
-     * This method will create a new artist with only its name (it will not have
-     * an artist's page)
-     *
-     * @param name the artist name
-     * @return the new artist id
-     */
-    public long createNewArtist(String name) {
-        Artist newArtist = new Artist(name);
-        artistRepository.save(newArtist);
-        return newArtist.getId();
     }
 }

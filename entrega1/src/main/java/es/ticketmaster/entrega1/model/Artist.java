@@ -250,16 +250,15 @@ public class Artist {
 
     /**
      *
-     * @return Returns the artist's profile photo link in the API REST. Null in case the
-     * artist has no photo 
+     * @return Returns the artist's profile photo link in the API REST. Null in
+     * case the artist has no photo
      */
     public String getPhotoLink() {
         return this.photoLink;
     }
 
     /**
-     *
-     * @param photoLink API REST photo link of the artist. 
+     * @param photoLink API REST photo link of the artist.
      */
     public void setPhotoLink(String photoLink) {
         this.photoLink = photoLink;
@@ -330,5 +329,17 @@ public class Artist {
      */
     public void setSessionCreated(LocalDateTime sessionCreated) {
         this.sessionCreated = sessionCreated;
+    }
+
+    /**
+     * Method that determines if an artist can have or not its own page in the
+     * webserver. The criteria used is: "An artist can have page if and only if
+     * it has: popularityIndex, mainInfo, extendedInfo and the three required
+     * links (Spotify+YouTube)".
+     *
+     * @return wether the artist can(not) have its own page.
+     */
+    public boolean canHavePage() {
+        return (this.popularityIndex > 0) && !this.mainInfo.isBlank() && !this.extendedInfo.isBlank() && !this.bestAlbumSpotifyLink.isBlank() && !this.latestAlbumSpotifyLink.isBlank() && !this.videoLink.isBlank();
     }
 }
