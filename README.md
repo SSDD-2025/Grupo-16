@@ -1,6 +1,6 @@
 # LiveTicket
 
-## Participants of Group 16
+## 👥 Participants of Group 16
 
 <table>
   <thead>
@@ -31,24 +31,24 @@
   </tbody>
 </table>
 
-## Table of Contents
-- [Execution Instructions](#execution-instructions)
-- [Phase 1](#phase-1)
+## 🧾 Table of Contents
+- [Execution Instructions](#-execution-instructions)
+- [Phase 1](#-phase-1)
   - [Entities Information](#entities-information)
   - [User Privileges](#user-privileges)
   - [Image Management](#image-management)
   - [Application Functionality Overview](#application-functionality-overview)
   - [Team Members Participation](#team-members-participation)
-- [Phase 2](#phase-2)
-  - [Modifications with respect to phase 1](#modifications-with-respect-to-phase-1)
-  - [News](#news)
-  - [Types of Users and Browsing Permissions](#types-of-users-and-browsing-permissions)
-  - [Errors Management](#errors-management)
-  - [API REST Documentation](#api-rest-documentation)
-  - [Team Participation](#team-participation)
-- [License](#license)
+- [Phase 2](#-phase-2)
+  - [Modifications with respect to phase 1](#-modifications-with-respect-to-phase-1)
+  - [News](#-news)
+  - [Types of Users and Browsing Permissions](#--types-of-users-and-browsing-permissions)
+  - [Errors Management](#-errors-management)
+  - [API REST Documentation](#-api-rest-documentation)
+  - [Team Participation](#-team-participation)
+- [License](#-license)
 
-## Execution Instructions
+## 🔧 Execution Instructions
 1. Download the repository and unzip it.
 2. Run the application in your preferred IDE. We recommend that you use `Visual Studio Code`.
 3. Once the application is running, open your prefferred browser and go to: `https:\\localhost:8443/`.
@@ -59,7 +59,7 @@
 
 In addition to the steps above, you will need to meet the following requirements:
 
-### Java 21 (JDK 21)
+### ☕ Java 21 (JDK 21)
 In case you do not have JDK installed in your computer, this is how you can get it:
 * If you are a Windows user [Click Here](https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.zip).
 * If you use Linux as your operative system, you will need to put the following command in the terminal:
@@ -67,12 +67,12 @@ In case you do not have JDK installed in your computer, this is how you can get 
 sudo apt install openjdk-21
 ````
 
-### Maven v0.44.0
+### ⚙️ Maven v0.44.0
 If you are using `Visual Studio Code` as your IDE, you can get it by searching the `Maven for Java` extension.
 
 In other case, you can get it [Here](https://maven.apache.org/download.cgi).
 
-### Spring Boot 3.4.2
+### 💡 Spring Boot 3.4.2
 The reason we strongly recommend using `Visual Studio Code` as the IDE to launch the application, is because of the Spring Boot version. In this IDE, it is possible to use version `3.4.2`, however, in other IDEs such as `SpringToolSuite` the higher version available is `3.4.1`, so it may not work as it should.
 
 > [!WARNING]
@@ -80,7 +80,7 @@ The reason we strongly recommend using `Visual Studio Code` as the IDE to launch
 
 If you use `Visual Studio Code`, you will need to have the `Spring Boot Extension Pack` extension.
 
-# Phase 1
+# 🌐 Phase 1
 
 ## Entities Information
 Next, all the entities that are part of the application will be shown, as well as the relationships between them.
@@ -1271,9 +1271,9 @@ Below are described the most significant methods in this regard:
 
 To conclude this brief section, it is important to mention that I contributed to the default database by adding three artists and a total of nine concerts, including past events to preserve the historical record.
 
-# Phase 2
+# 🔐 Phase 2
 
-## Modifications with respect to phase 1
+## ✨ Modifications with respect to phase 1
 As a consequence of adding new functions to the application and fulfill the objectives stated in the rubric, some files have lost their importance/ function. So, to follow the YAGNI (You Aren't Gonna Need It) principle and improve the code quality, these files have been deleted (others have had some changes made).
 
 The following section describes the situations or reasons why a file stops being used:
@@ -1283,7 +1283,15 @@ The following section describes the situations or reasons why a file stops being
 4. As a consecuence of point 3, `main.html`, `admin-concerts.html` and `artist.html` got modified eliminating the concert-display inyectable and adding a div element to support all the concerts added with the javascript script and all the hidden inputs with the variables necessary to execute the script.
 5. The `error.html` got change to be able to show more than one error (it only showed the 404). Depending on what the error is it will show the correct error code.
 
-## News
+### Entities modification
+In this phase, certain modifications have been introduced with respect to the previously defined entities. Firstly, the existence of `UserEntity` roles (which are persisted in the database) is represented in the relational diagram by means of a `UserRoles` entity, given that each user can hold various roles. Secondly, a modification has been implemented in the `Artist` entity, removing the images corresponding to the albums, by virtue of the fact that the visualization of albums is now performed using Spotify iframes, the documentation for which can be found at [this link](https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api).
+
+These modifications, along with their collateral effects having been implemented, have significantly simplified and optimized the REST and web image handling of the `Artist` entity, with the artist's profile photo now being optional. With all these alterations incorporated, the resulting relational diagram is as follows:
+
+#### 📚 Relational Diagram
+![Relational Diagram](Diagrams/DB_Relational_Diagram_2.png)
+
+## 🚀 News
 Continuing with the development of this web application, the second phase focused primarily on enhancing the application's security and implementing the core back-end operations.
 
 The most notable change was the transition from HTTP to HTTPS, which added the necessary security layer that was previously missing from the project. As a result of this change, it became essential to define the privacy level of each URL—that is, to specify which type of user (ADMIN or USER) has access to certain pages, thereby enforcing proper access control based on user roles.
@@ -1307,7 +1315,7 @@ Additionally, since this type of project can sometimes be challenging to visuali
 >[!NOTE]
 > If you would like to better view and interact with the diagram, you can do so by following this [link](https://gitdiagram.com/SSDD-2025/Grupo-16).
 
-## Types of Users and Browsing Permissions
+## 👥 🔒 Types of Users and Browsing Permissions
 As mentioned above, one of the most notable changes in this phase is the addition of security to the web application. In this section, we'll discuss and explain the different roles that a user can have, as well as the privacy settings for each URL, and therefore, what type of user can access each one.
 
 ### 👥 Types of Users
@@ -1391,7 +1399,7 @@ As mentioned above, one of the most notable changes in this phase is the additio
 >[!IMPORTANT]
 >This privacy setting also applies to REST operations. In fact, attempting to perform an operation without authentication will return the error HTML instead of the corresponding JSON. To perform this authentication, a `POST` operation was performed with the URL `/api/auth/login`.
 
-## Errors Management
+## 🚨 Errors Management
 To be able to control what happens at the backend when sending petitions, we have created some exceptions the application throws when something has gone wrong or when we have to send a message explaining the situation to the user at the backend. All this exceptions are created extending the `RuntimeException` already existing in the Java API.
 
 In general, we have created exceptions for the four entities the application has regarding the NotFoundException. Artist and User have another exception associated with them, these being because they not only identified with the id (names should be unique), which is called `AlreadyExistsException`. User has also another exception associated, this being `TicketListEmptyException` which is an alert to the user that they do not have tickets (this is to not show an empty response body with the information of an empty page).
@@ -1431,20 +1439,12 @@ At the frontend, we have modified the `error.html` to dynamically capture the er
 
 These error codes are capture with the `CustomErrorController`, which we have created to do this specific feature. This `@Controller` implements the `ErrorController` Spring's class, so this is the controller Spring calls when an error occurs (mapping the "/error"). Inside this mapping controller method, we capture the request and obtain its status code (this being an attribute of the request). Once with this status, we can catalog it as one of the previous errors or we show an "unexpected error message" with that error code.
 
-## Entities modification
-In this phase, certain modifications have been introduced with respect to the previously defined entities. Firstly, the existence of `UserEntity` roles (which are persisted in the database) is represented in the relational diagram by means of a `UserRoles` entity, given that each user can hold various roles. Secondly, a modification has been implemented in the `Artist` entity, removing the images corresponding to the albums, by virtue of the fact that the visualization of albums is now performed using Spotify iframes, the documentation for which can be found at [this link](https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api).
-
-These modifications, along with their collateral effects having been implemented, have significantly simplified and optimized the REST and web image handling of the `Artist` entity, with the artist's profile photo now being optional. With all these alterations incorporated, the resulting relational diagram is as follows:
-
-### 📚 Relational Diagram
-![Relational Diagram](Diagrams/DB_Relational_Diagram_2.png)
-
-## API REST Documentation
+## 📖 API REST Documentation
 The API documentation for this project was generated using Spring Doc. You can access it by following [this link](https://github.com/SSDD-2025/Grupo-16/tree/main/entrega1/api-docs).
 >[!NOTE]
 > The link above redirects to a folder containing the documentation in both `.html` and `.yaml` formats
 
-## Team Participation
+## 🤝 Team Participation
 In this section, each of the participants in the development of the application will explain the tasks they have been responsible for, showing their most notable commits, and those files on which they worked the most.
 
 To coordinate the team, we have used the Trello application, which allows us to create Kanban panels virtually.
@@ -1502,5 +1502,5 @@ The following link leads to our team dashboard:
    
 ## David Rísquez Gómez
 
-# License
+# 📜 License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
