@@ -1431,6 +1431,14 @@ At the frontend, we have modified the `error.html` to dynamically capture the er
 
 These error codes are capture with the `CustomErrorController`, which we have created to do this specific feature. This `@Controller` implements the `ErrorController` Spring's class, so this is the controller Spring calls when an error occurs (mapping the "/error"). Inside this mapping controller method, we capture the request and obtain its status code (this being an attribute of the request). Once with this status, we can catalog it as one of the previous errors or we show an "unexpected error message" with that error code.
 
+## Entities modification
+In this phase, certain modifications have been introduced with respect to the previously defined entities. Firstly, the existence of `UserEntity` roles (which are persisted in the database) is represented in the relational diagram by means of a `UserRoles` entity, given that each user can hold various roles. Secondly, a modification has been implemented in the `Artist` entity, removing the images corresponding to the albums, by virtue of the fact that the visualization of albums is now performed using Spotify iframes, the documentation for which can be found at [this link](https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api).
+
+These modifications, along with their collateral effects having been implemented, have significantly simplified and optimized the REST and web image handling of the `Artist` entity, with the artist's profile photo now being optional. With all these alterations incorporated, the resulting relational diagram is as follows:
+
+### 📚 Relational Diagram
+![Relational Diagram](Diagrams/DB_Relational_Diagram_2.png)
+
 ## API REST Documentation
 The API documentation for this project was generated using Spring Doc. You can access it by following [this link](https://github.com/SSDD-2025/Grupo-16/tree/main/entrega1/api-docs).
 >[!NOTE]
