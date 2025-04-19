@@ -71,6 +71,14 @@ public class ArtistService {
     }
 
     /**
+     * Searches for every artist in the DDBB, returning a Collection with their DTO.
+     * @return list of every artist in the DDBB
+     */
+    public List<ArtistDTO> getEveryArtist() {
+        return artistMapper.toDTOs(artistRepository.findAll());
+    }
+
+    /**
      * Returns a list of the 10 most famous artists
      *
      * @return the list of the concerts of the top 10 most famous artist

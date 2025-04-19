@@ -90,9 +90,9 @@ public class ConcertController {
      * @return the concert-workbench.html with the appropriate attributes set
      */
     @PostMapping("/admin/concert/workbench")
-    public String formAddConcert(Model model, @RequestParam Pageable pageable) {
+    public String formAddConcert(Model model) {
         model.addAttribute("concert", null);
-        model.addAttribute("artistList", artistService.getEveryArtist(pageable));
+        model.addAttribute("artistList", artistService.getEveryArtist());
         return "concert-workbench";
     }
 

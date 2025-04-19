@@ -85,23 +85,24 @@
         {{>footer}}
     </footer>
 </body>
+
 </html>
 <script>
     window.onSpotifyIframeApiReady = (IFrameAPI) => {
         let bestAlbum = document.getElementById('embed-iframe-best-album');
         let options = {
-            uri: '{{artist.bestAlbumSpotifyLink}}',
+            uri: '{{#artist.hasPage}}{{artist.bestAlbumSpotifyLink}}{{/artist.hasPage}}',
             height: 500,
             width: 500
-            };
-        const callback = (EmbedController) => {};
+        };
+        const callback = (EmbedController) => { };
         IFrameAPI.createController(bestAlbum, options, callback);
         let latestAlbum = document.getElementById('embed-iframe-latest-album');
         options = {
-            uri: '{{artist.latestAlbumSpotifyLink}}',
+            uri: '{{#artist.hasPage}}{{artist.latestAlbumSpotifyLink}}{{/artist.hasPage}}',
             height: 500,
             width: 500
-            };
+        };
         IFrameAPI.createController(latestAlbum, options, callback);
     };
 </script>
