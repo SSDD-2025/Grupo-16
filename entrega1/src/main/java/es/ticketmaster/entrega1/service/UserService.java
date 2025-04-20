@@ -200,24 +200,23 @@ public class UserService {
     }
 
     /**
-     * (TEMPORALY UNAVAILABLE)
-     * Method that, provided with an ID, handles the deletion of an user with
-     * the specified id. For that, it is checked if the deletion has been
-     * successful or not, searching if an user with the given ID exists after
-     * the deletion. Trying to delete a non-existant user is also considered an
-     * unsuccessful situation.
+     * Method that deletes the actual active user. If no user is found, or if there is not
+     * an active user, an UserNotFoundException is thrown. 
      *
-     * @param id the User's ID
      * @return if the deletion has been completed successfully
      */
-    public boolean removeExistingUserWithId(long id) {
+    public ShowUserDTO deleteUser() {
 
-        if (!userRepository.existsById(id)) { //If an user with such ID does not exist
-            return false;
+        Optional<UserEntity> user = this.getUser();
+
+        if (user.isEmpty()) { //If an user with such ID does not exist
+            throw new UserNotFoundException();
         } else {
-            userRepository.deleteById(id); //We delete the artist with that ID
-            //activeUser.setUserAsNotActive();
-            return !userRepository.existsById(id); //We return true if the artist has been correctly deleted
+            if (!userRepository.existsById(user.get().getId())) { //If an user with such ID does not exist
+                throw new UserNotFoundException();
+            }
+            userRepository.deleteById(user.get().getId()); //We delete the artist with that ID
+            return this.userMapper.toShowUserDTO(user.get());
         }
     }
 }

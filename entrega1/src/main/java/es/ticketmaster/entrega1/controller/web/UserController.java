@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ticketmaster.entrega1.dto.user.UserDTO;
 import es.ticketmaster.entrega1.service.UserService;
+import es.ticketmaster.entrega1.service.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -123,22 +127,30 @@ public class UserController {
     }
 
     /**
-     * Method that handles the situation of trying to delete a user. Cases when
-     * the ID does not correspond to any user are also handled, redirecting the
-     * user to an error page. As well, if the deletion has been achieved, the
-     * user is redirected to the main page.
+     * Method that handles the situation of trying to delete the active user.
+     * 
+     * If the user cannot be found or it does not exist, the UserNotFoundException
+     * is handled by redirecting the user to an error page.
+     * 
+     * As well, if the deletion is achieved, the user is logged out.
      *
-     * @param id id of the future deleted user
+     * @param request the HTTP request.
+     * @param response the HTTP response.
      * @return HTML to be loaded
      */
     @PostMapping("/profile/delete-profile")
-    public String deleteUserProfile(@RequestParam long id) {
+    public String deleteUserProfile(HttpServletRequest request, HttpServletResponse response) {
 
-        if (userService.removeExistingUserWithId(id)) {
+        try {
+            userService.deleteUser();
+            /*We perform the logout of the user, since no its profile does not exist*/
+            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+            logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
             return "redirect:/";
-        } else {
+        } catch (UserNotFoundException e) {
             return "redirect:/error";
         }
+
     }
 
     /**

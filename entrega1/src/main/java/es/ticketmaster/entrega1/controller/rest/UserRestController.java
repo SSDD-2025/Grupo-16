@@ -104,14 +104,8 @@ public class UserRestController {
         @ApiResponse(responseCode = "404", description = "Not Found: User not found.")
     })
     @DeleteMapping("/me")
-    public ResponseEntity<ShowUserDTO> deleteUserProfileREST(Principal principal) {
-        long id = this.userService.getIdOfUser(principal.getName());
-        ShowUserDTO userToDelete = this.userService.getUserWithID(id);
-        if (this.userService.removeExistingUserWithId(id)) {
-            return ResponseEntity.ok(userToDelete);
-        } 
-        else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ShowUserDTO> deleteUserProfileREST() {
+        ShowUserDTO userToDelete = this.userService.deleteUser();
+        return ResponseEntity.ok(userToDelete); /*In case there is an error, an exception is thrown and the global handler presents the Response*/
     }
 }
