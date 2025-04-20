@@ -263,6 +263,7 @@ public class ArtistService {
             }
             try {
                 artist.get().setPhoto(imageService.getBlobOf(image));
+                artist.get().setPhotoLink("/api/artists/"+ artist.get().getId() + "/photo");
                 artistRepository.save(artist.get());
             } catch (IOException e) {
                 throw new ImageException(e.toString());

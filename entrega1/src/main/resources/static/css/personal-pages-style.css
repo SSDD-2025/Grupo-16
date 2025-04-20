@@ -216,6 +216,11 @@ hr {
 .red-style {
     border: 2px solid rgb(182, 31, 31);
     background-color: rgb(255, 203, 203);
+    color: rgb(0, 0, 0);
+}
+
+.red-style:hover {
+    background-color: rgb(247, 142, 142);
 }
 
 .big-button button:hover {

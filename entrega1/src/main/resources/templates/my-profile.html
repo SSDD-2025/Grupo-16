@@ -92,17 +92,25 @@ my profile and my concerts (where tickets are)-->
             <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
 
-        <!--Profile deletion form-->
-        <form action="/profile/delete-profile" enctype="multipart/form-data" method="post">
-            <input type="number" value="{{user.id}}" name="id" hidden>
+        <!--Profile deletion and logout forms-->
+        <div class="general-container row-container">
 
-            <div class="general-container column-container">
+            <form action="/profile/delete-profile" enctype="multipart/form-data" method="post" style="margin: 0 auto;">
+                <input type="number" value="{{user.id}}" name="id" hidden>
 
                 <button type="submit" class="central-button red-style">Delete profile</button>
+            
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+            </form>
 
-            </div>
-            <input type="hidden" name="_csrf" value="{{token}}"/>
-        </form>
+            <form action="/logout" method="post" enctype="multipart/form-data" style="margin: 0 auto;">
+
+                <button type="submit" class="central-button red-style">Logout</button>
+            
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+            </form>
+
+        </div>
 
         <!--More categories of information to be added-->
         {{/showPersonalInfo}}
