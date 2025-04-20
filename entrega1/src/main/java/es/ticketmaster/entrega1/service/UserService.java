@@ -143,12 +143,11 @@ public class UserService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
 
-        if(principal instanceof UserDetails){
-            username = ((UserDetails)principal).getUsername();
-        } else{
+        if (principal instanceof UserDetails userDetails) {
+            username = userDetails.getUsername();
+        } else {
             username = (principal != null) ? principal.toString() : "";
         }
-        
         return userRepository.findByUsername(username);
     }
 
