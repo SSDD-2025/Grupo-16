@@ -7,6 +7,7 @@ is logged, concerts in his country matching the search and the country-->
     <title>Searches displayer page</title>
     <link rel="stylesheet" href="/css/common-styles.css">
     <link rel="stylesheet" href="/css/artist-style.css">
+    <link rel="stylesheet" href="/css/concert-style.css">
     <link rel="icon" type="image/png" href="/media/microphone.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.2.1/mustache.min.js"></script>
@@ -33,6 +34,7 @@ is logged, concerts in his country matching the search and the country-->
         <button id="load-more-artists" style="display:none; margin: 20px auto;">Load more</button>
 
         {{#isLogged}} <!--If the user is logged, country matching concerts are displayed-->
+        <input type="hidden" id="logged" value="true">
         <!--User personal search made filtering the country: Concert lines-->
         <div class="title-container"> <!--Title container: CONCERTS NEAR YOU-->
             <div class="title">
@@ -40,15 +42,15 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="column-container general-container"> <!--Concerts container-->
-            {{#personalConcertsList}}
-            {{>concert}}
-            {{/personalConcertsList}}
-            {{^personalConcertsList}}
-            <h1>No concerts near you found.</h1>
-            {{/personalConcertsList}}
+        <!-- Concerts near the active user -->
+        <div id="personal-concert-container" class="column-container general-container"></div>
+        <input type="hidden" id="country" value="{{countryValue}}">
+        <div class="center-container">
+            <button id="load-more-1">Show More</button>
         </div>
-
+        {{/isLogged}}
+        {{^isLogged}}
+        <input type="hidden" id="logged" value="false">
         {{/isLogged}}
 
         <!--Search made by artist name: Row of artists-->
@@ -58,16 +60,18 @@ is logged, concerts in his country matching the search and the country-->
             </div>
         </div>
 
-        <div class="column-container general-container"> <!--Concerts container-->
-            {{#generalConcertsList}} <!--If there are concerts matching the search, show a list of them-->
-            {{>concert}}
-            {{/generalConcertsList}}
-            {{^generalConcertsList}} <!--Otherwise, show that there are no concerts found-->
-            <h1>No concerts found.</h1>
-            {{/generalConcertsList}}
+        <!-- Concerts -->
+        <div id="general-concert-container" class="column-container general-container"></div>
+        <div class="center-container">
+            <button id="load-more-2">Show More</button>
         </div>
+        <br>
+        <br>
     </main>
     <!--JS that handle pagination for artists-->
     <script src="/js/artistPagination.js"></script>
+
+    <!--JS that handle concert for artists-->
+    <script src="/js/searchConcertPagination.js"></script>
 </body>
 </html>

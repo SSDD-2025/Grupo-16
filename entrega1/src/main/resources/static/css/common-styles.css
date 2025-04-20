@@ -105,7 +105,7 @@ body {
     align-items: center;
 }
 
-#load-more {
+#load-more, #load-more-1, #load-more-2 {
     display: inline-block;
     padding: 10px 20px;
     background-color: #4f46e5; /* Indigo-600 */
@@ -119,12 +119,12 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
   
-#load-more:hover {
+#load-more:hover, #load-more-1:hover, #load-more-2:hover{
     background-color: #3730a3; /* Darker indigo */
     transform: scale(1.05);
 }
   
-#load-more:active {
+#load-more:active, #load-more-1:active, #load-more-2:active{
     transform: scale(0.98);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

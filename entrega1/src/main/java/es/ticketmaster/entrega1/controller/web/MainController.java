@@ -56,6 +56,7 @@ public class MainController {
         } else {
 
             model.addAttribute("personalConcertsList", concertService.getConcertsNearUser(principal));
+            model.addAttribute("countryValue", userService.getUsersCountry(userService.getActiveUser(principal)));
             model.addAttribute("artistList", artistService.getSearchBy(search, pageable));
             model.addAttribute("generalConcertsList", concertService.getSearchBy(search));
 

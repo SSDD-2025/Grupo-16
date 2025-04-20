@@ -20,10 +20,10 @@ async function loadConcerts() {
             return;
         }
 
-        if (context === "main") {
-            insertConcerts(data.content);
-        } else {
+        if (context === "admin") {
             insertConcertsAdmin(data.content);
+        } else {
+            insertConcerts(data.content);
         }
         // They are the rest of the data (there are no more)
         if (data.content.length < size) {
@@ -65,7 +65,7 @@ function insertConcertsAdmin(concerts) {
             <div class="date-container">
                 <p>${concerts[i].place} <br> ${concerts[i].date} </p>
             </div>
-            <form action="/admin/concert/${concerts[i].id}/modify" method="post">
+            <form action="/admin/concert/${concerts[i].id}/modify" method="get">
                 <input type="submit" value="Modify Concert">
                 <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
