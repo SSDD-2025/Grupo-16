@@ -274,7 +274,7 @@ public class ArtistService {
                 artist.get().setPhotoLink("/api/artists/"+ artist.get().getId() + "/photo");
                 artistRepository.save(artist.get());
             } catch (IOException e) {
-                throw new ImageException(e.toString());
+                throw new ImageException("Error proccessing the Artist Image: " + e.toString());
             }
         } else {
             throw new ArtistNotFoundException(id);

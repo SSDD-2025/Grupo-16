@@ -34,6 +34,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
      * Makes a list of the artists whose name contains the string search
      *
      * @param search substring to be searched inside the artists names
+     * @param pageable the pageable object containing information
      * @return the specified list
      */
     public Page<Artist> findByNameContainingIgnoreCase(String search, Pageable pageable);

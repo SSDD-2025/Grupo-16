@@ -87,11 +87,13 @@
 </body>
 
 </html>
+<!--Only if the artist has page the Spotify operations would be active (meaning the artis will have working links)-->
+{{#artist.hasPage}}
 <script>
     window.onSpotifyIframeApiReady = (IFrameAPI) => {
         let bestAlbum = document.getElementById('embed-iframe-best-album');
         let options = {
-            uri: '{{#artist.hasPage}}{{artist.bestAlbumSpotifyLink}}{{/artist.hasPage}}',
+            uri: '{{artist.bestAlbumSpotifyLink}}',
             height: 500,
             width: 500
         };
@@ -99,10 +101,11 @@
         IFrameAPI.createController(bestAlbum, options, callback);
         let latestAlbum = document.getElementById('embed-iframe-latest-album');
         options = {
-            uri: '{{#artist.hasPage}}{{artist.latestAlbumSpotifyLink}}{{/artist.hasPage}}',
+            uri: '{{artist.latestAlbumSpotifyLink}}',
             height: 500,
             width: 500
         };
         IFrameAPI.createController(latestAlbum, options, callback);
     };
 </script>
+{{/artist.hasPage}}

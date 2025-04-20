@@ -40,8 +40,6 @@ public class ArtistRestController {
     /**
      * REST Controller that returns all the artists in the DDBB
      * 
-     * FUTURE REFACTOR: PAGINATION
-     * 
      * @return A Collection of all the artist's DTOs.
      */
     @GetMapping
@@ -84,10 +82,7 @@ public class ArtistRestController {
     }
 
 
-    /*ARTIST CREATION CONTROLLER METHODS
-     * 
-     * FUTURE REFACTOR: Only admins can create artists. Also, images should be handled.
-    */
+    /*ARTIST CREATION CONTROLLER METHODS*/
 
     /**
      * REST Controller that handles the creation of an artist
@@ -125,10 +120,7 @@ public class ArtistRestController {
     }
 
 
-    /*ARTIST MODIFICATION CONTROLLER METHODS
-     * 
-     * FUTURE REFACTOR: Only admins can modify artists. Also, images should be handled.
-    */
+    /*ARTIST MODIFICATION CONTROLLER METHODS*/
     
     /**
      * REST Controller that handles the modification of an artist.
@@ -162,10 +154,7 @@ public class ArtistRestController {
     }
 
 
-    /*ARTIST DELETION CONTROLLER METHODS
-     * 
-     * FUTURE REFACTOR: Only admins can delete artists.
-    */
+    /*ARTIST DELETION CONTROLLER METHODS.*/
 
     /**
      * REST Controller that handles the deletion of an artist.
