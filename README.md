@@ -1469,9 +1469,6 @@ The following link leads to our team dashboard:
 [Link to the Trello Dashboard](https://trello.com/b/6p7qKvZK/ticketmaster-ssdd)
 
 ## Alfonso Rodríguez Gutt
-> [!NOTE]
-> Nested commits are those where more than one commit was used to implement a specific feature.
-
 ### ✅ Commit List
 
 1. [Add the UserRestController](https://github.com/SSDD-2025/Grupo-16/commit/3f7edb9796ca4b5dd0cef52028c1e9cb005ed32e)  
