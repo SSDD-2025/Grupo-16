@@ -1501,6 +1501,31 @@ The following link leads to our team dashboard:
 5. `TicketRestController.java`
    
 ## David Rísquez Gómez
+### ✅ Commit List
+1. [ArtistService refactor and securization (see commit comment).](https://github.com/SSDD-2025/Grupo-16/commit/12365403a257809ee6d023a49adb3df7edeac424)  
+
+2. [Artist REST photo and Spotify iFrame API implementation (and correcting its side effects).](https://github.com/SSDD-2025/Grupo-16/commit/1f28b560d7b323798ad70a05fd72afcf0810edd0) 
+
+3. [TicketService refactor and securization.](https://github.com/SSDD-2025/Grupo-16/commit/29040e7f34115ff9650737e12ff8112d6e2c4174)
+
+4. [Artist REST and Web pagination.](https://github.com/SSDD-2025/Grupo-16/commit/bb91b54131d1d4c2791bd5e28b590d2bbfc44deb)     
+
+5. [Migrate Web Login and Register to Spring Security.](https://github.com/SSDD-2025/Grupo-16/commit/b7d3b8f0f41ac54eded7abb16bde98f1bbf3bfc0)
+
+> [!NOTE]
+> Some of the preceding commits are partial commits related to a specific feature. Furthermore, other commits, such as the addition of Postman queries or documentation of methods, have not been incorporated due to their lower perceived importance compared to application functionalities.
+
+> [!IMPORTANT]
+> The file version accessible through the previously specified commit links may differ from the current status. This is due to incremental commits made thereafter, focusing on error rectifications, documentative comments integration, and related enhancements.
+### 📂 Files with the most participation
+1. `ArtistService.java`
+2. `ArtistRestController.java`
+3. `artistPagination.js`
+4. `TicketService.java`
+5. `SpotifyUpdate.js`
+
+> [!NOTE]
+> The documents highlighted exhibit participation that is either near-comprehensive or substantial. It should be acknowledged that significant contributions may also be present, albeit distributed, within other documents like UserService or ArtistController.
 
 # 📜 License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
