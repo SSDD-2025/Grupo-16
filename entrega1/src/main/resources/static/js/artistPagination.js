@@ -1,9 +1,13 @@
 let page = 0; // Initial page
 let totalPages = Infinity;  // Variable to safe the total amount of pages found
 let searchTerm = new URLSearchParams(window.location.search).get('search') || '';  // We get the search made (if it exists)
+let modificationActivated = false;
 
 document.addEventListener("DOMContentLoaded", function () {
 	const loadMoreButton = document.getElementById('load-more-artists');
+
+	let modificationParam = document.getElementById('modify').value;
+	modificationActivated = modificationParam === 'true';
 
 	//We load the first page of artists
 	loadMoreArtists();
@@ -76,7 +80,7 @@ function loadMoreArtists() {
 						</form>
 						{{/modifyArtist}}
 						{{#modifyArtist}} 
-						<form action="/admin/artist/{{id}}/modify" method="get">
+						<form action="/admin/artist/{{id}}" method="get">
 							<input type="submit" value="Modify">
 						</form>
 						{{/modifyArtist}}
@@ -88,7 +92,8 @@ function loadMoreArtists() {
 				container.innerHTML += Mustache.render(template, {
 					id: artist.id,
 					name: artist.name,
-					photo: artist.photoLink
+					photo: artist.photoLink,
+					modifyArtist: modificationActivated
 				});
 			});
 
