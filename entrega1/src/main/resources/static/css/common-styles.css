@@ -128,3 +128,17 @@ body {
     transform: scale(0.98);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+#load-container-general, #load-container-user{
+    width: 100%;
+    display:none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+}
+
+.load-photo{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}

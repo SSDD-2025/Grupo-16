@@ -125,19 +125,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handles TicketListEmptyException and returns a structured error response.
-     * @param exception is the exception thrown when the ticketList is empty
-     * @return a ResponseEntity containing an error message and a BAD_REQUEST status.
-     */
-    @ExceptionHandler(TicketListEmptyException.class)
-    public ResponseEntity<Map<String, Object>> handlerTicketListEmpty(TicketListEmptyException exception) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("message", exception.getMessage());
-        body.put("error", "TicketListEmpty");
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
-
-    /**
      * Handles ConcertNotFoundException and returns a structured error response.
      * @param exception is the exception thrown when a ticket is not found.
      * @return a ResponseEntity containing an error message and a NOT_FOUND status.

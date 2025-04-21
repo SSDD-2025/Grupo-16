@@ -2,6 +2,8 @@ let nextPage = 0;
 const size = 10;
 
 async function loadConcerts() {
+    loader.style.display = "flex";
+    await new Promise(resolve => setTimeout(resolve, 1000));
     try {
         let result;
         if (context === "main") {
@@ -17,6 +19,7 @@ async function loadConcerts() {
         if (data.content.length === 0 && nextPage === 0) {
             display.innerHTML = "<p>There are no concerts soon</p>";
             loadButton.style.display = "none";
+            loader.style.display = "none";
             return;
         }
 
@@ -34,6 +37,7 @@ async function loadConcerts() {
     } catch (error) {
         console.log("There has been an error loading the concerts: ", error);
     }
+    loader.style.display = "none";
 }
 
 function insertConcerts(concerts) {
@@ -79,6 +83,7 @@ let display = document.getElementById("concert-display");
 let loadButton = document.getElementById("load-more");
 let country = document.getElementById("country").value;
 let context = document.getElementById("context").value;
+let loader = document.getElementById("load-container-general");
 
 //Add event listener to the load button
 loadButton.addEventListener("click", loadConcerts);

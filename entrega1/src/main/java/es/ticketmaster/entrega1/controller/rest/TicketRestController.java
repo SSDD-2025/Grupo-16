@@ -19,7 +19,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
 import es.ticketmaster.entrega1.service.TicketService;
-import es.ticketmaster.entrega1.service.exceptions.TicketListEmptyException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -43,11 +42,7 @@ public class TicketRestController {
     @GetMapping({"/tickets/", "/tickets"})
     public Page<TicketDTO> getUserTickets(Pageable pageable) {
         Page<TicketDTO> list = ticketService.getTicketPage(pageable);
-        if (list.getTotalElements() == 0){
-            throw new TicketListEmptyException();
-        } else {
-            return list;
-        }
+        return list;
     }
 
     @Operation(summary = "Confirm purchase of tickets", description = "Confirms the purchase of tickets for a specific concert. Requires concert ID to link the tickets with the concert.")

@@ -5,6 +5,8 @@ const size = 10;
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 async function loadConcertsGeneral() {
+    loadGeneral.style.display = "flex";
+    await new Promise(resolve => setTimeout(resolve, 1000));
     try {
         let result = await fetch(`/api/concerts/?page=${nextPageGeneral}&size=${size}`);
         const data = await result.json();
@@ -12,6 +14,7 @@ async function loadConcertsGeneral() {
         if (data.content.length === 0 && nextPageGeneral === 0) {
             displayGeneral.innerHTML = "<h1>No concert found.</h1>";
             loadButtonGeneral.style.display = "none";
+            loadGeneral.style.display = "none";
             return;
         }
         insertConcerts(data.content,1);
@@ -19,15 +22,19 @@ async function loadConcertsGeneral() {
         // They are the rest of the data (there are no more)
         if (data.content.length < size) {
             loadButtonGeneral.style.display = "none";
+
         }
         nextPageGeneral++;
 
     } catch (error) {
         console.log("There has been an error loading the concerts: ", error);
     }
+    loadGeneral.style.display = "none";
 }
 
 async function loadConcertsUser() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    loadUser.style.display = "flex";
     try {
         let result = await fetch(`/api/concerts/near-user?country=${country}&page=${nextPageUser}&size=${size}`);
         const data = await result.json();
@@ -35,6 +42,7 @@ async function loadConcertsUser() {
         if (data.content.length === 0 && nextPageUser === 0) {
             displayUser.innerHTML = "<h1>No concert found.</h1>";
             loadButtonUser.style.display = "none";
+            loadUser.style.display = "none";
             return;
         }
         insertConcerts(data.content,2);
@@ -48,6 +56,7 @@ async function loadConcertsUser() {
     } catch (error) {
         console.log("There has been an error loading the concerts: ", error);
     }
+    loadUser.style.display = "none";
 }
 
 function insertConcerts(concerts,mode) {
@@ -117,6 +126,7 @@ function insertConcerts(concerts,mode) {
 // General elements
 let displayGeneral = document.getElementById("general-concert-container");
 let loadButtonGeneral = document.getElementById("load-more-2");
+let loadGeneral = document.getElementById("load-container-general");
 loadButtonGeneral.addEventListener("click", loadConcertsGeneral);
 window.addEventListener("load", loadConcertsGeneral);
 
@@ -124,10 +134,12 @@ window.addEventListener("load", loadConcertsGeneral);
 let logged = document.getElementById("logged").value;
 let displayUser;
 let loadButtonUser;
+let loadUser;
 let country;
 if (logged === "true"){
     displayUser = document.getElementById("personal-concert-container");
     loadButtonUser = document.getElementById("load-more-1");
+    loadUser = document.getElementById("load-container-user");
     country = document.getElementById("country").value;
     loadButtonUser.addEventListener("click",loadConcertsUser);
     window.addEventListener("load", loadConcertsUser);
