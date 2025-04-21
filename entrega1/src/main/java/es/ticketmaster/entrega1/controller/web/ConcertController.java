@@ -74,11 +74,11 @@ public class ConcertController {
      * @param id the id of the concert that is being modified
      * @return the concert-workbench.html with the appropriate attributes set
      */
-    @PostMapping("/admin/concert/{id}/modify")
-    public String formModifyConcert(Model model, @PathVariable long id, @RequestParam Pageable pageable) {
+    @GetMapping("/admin/concert/{id}/modify")
+    public String formModifyConcert(Model model, @PathVariable long id) {
 
         model.addAttribute("concert", concertService.findConcertById(id));
-        model.addAttribute("artistList", artistService.getEveryArtist(pageable));
+        model.addAttribute("artistList", artistService.getEveryArtist());
         return "concert-workbench";
     }
 
