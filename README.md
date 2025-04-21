@@ -1286,10 +1286,26 @@ The following section describes the situations or reasons why a file stops being
 ### Entities modification
 In this phase, certain modifications have been introduced with respect to the previously defined entities. Firstly, the existence of `UserEntity` roles (which are persisted in the database) is represented in the relational diagram by means of a `UserRoles` entity, given that each user can hold various roles. Secondly, a modification has been implemented in the `Artist` entity, removing the images corresponding to the albums, by virtue of the fact that the visualization of albums is now performed using Spotify iframes, the documentation for which can be found at [this link](https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api).
 
+### Diagrams modification
 These modifications, along with their collateral effects having been implemented, have significantly simplified and optimized the REST and web image handling of the `Artist` entity, with the artist's profile photo now being optional. With all these alterations incorporated, the resulting relational diagram is as follows:
 
 #### 📚 Relational Diagram
 ![Relational Diagram](Diagrams/DB_Relational_Diagram_2.png)
+
+#### 📚 Navigation Diagram
+Regarding the implementation of Spring Security, now we do not control the login or logout part of the web code. Because of this, our intermediate pages, like the Welcome page, are not being used. So, the new navigation diagram is:
+* Blue: all users
+* Green: registered users and administrators
+* Purple: only administrators
+* Note: from any page you can reach the error page
+![Navigation Diagram](/Diagrams/Navigation_Diagram_Mod.jpeg)
+
+>[!NOTE]
+> Keep in mind that the new error page is dynamic, meaning it changes depending on the error that occurred.
+
+>[!NOTE]
+> Keep in mind that the login page is actually reachable from any page that requires authentication, if the user is anonymous.
+
 
 ## 🚀 News
 Continuing with the development of this web application, the second phase focused primarily on enhancing the application's security and implementing the core back-end operations.
