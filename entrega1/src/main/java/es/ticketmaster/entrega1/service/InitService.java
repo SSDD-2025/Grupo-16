@@ -174,6 +174,13 @@ public class InitService {
 
         artistRepository.save(artist);
 
+        // Create and Save Artist: Miley Cyrus
+        mainText = "Boundary-pushing artist with a powerful, versatile voice. From pop anthems to rock grit, she constantly reinvents herself with raw honesty and bold expression.";
+        extText = "Singer, songwriter, and actress. Known for hits like \"Wrecking Ball\" and \"Flowers.\" A fearless and ever-evolving force in music and pop culture.";
+        artist = new Artist("Miley Cyrus", 58072460, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\MileyCyrus.jpg"), "/api/artists/9/photo", mainText, extText, "https://open.spotify.com/intl-es/album/0IuHVgAvbNDJnJepuSZ8Oz", "https://open.spotify.com/intl-es/album/5DvJgsMLbaR1HmAI6VhfcQ", "https://www.youtube.com/embed/My2FRPA3Gf8");
+
+        artistRepository.save(artist);
+
         //Create Users
         user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe", "USER","ADMIN");
         userRepository.save(user);

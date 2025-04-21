@@ -7,40 +7,73 @@
  */
 
 // Best album variables
+const best = document.getElementById("bestAlbumSpotifyLink");
 let bestAlbumUri = "";
-let best = document.getElementById("bestAlbumSpotifyLink");
-let bestPreview = document.getElementById("bestAlbumSpotifyLink-preview-container");
+const bestPreview = document.getElementById("bestAlbumSpotifyLink-preview-container");
+
+// Latest album variables
+const latest = document.getElementById("latestAlbumSpotifyLink");
+let latestAlbumUri = "";
+const latestPreview = document.getElementById("latestAlbumSpotifyLink-preview-container");
 
 // Listener to the best album input
 best.addEventListener("input", function () {
     let uri = extractSpotifyURI(best.value);
-    if (uri) { // If the URL is correct, it updates the iframe and display, calling the SpotifyEmbed updater
-        bestAlbumUri = uri;
-        updateSpotifyEmbed();
-        bestPreview.style.display = "block";
-    } else { // If the URL is not correct, it hides the display and re-stablishes the iframe div to the initial value
-        bestPreview.style.display = "none";
-        bestPreview.innerHTML = '<div id="embed-iframe-best-album"></div>'
-    }
+    handleSpotifyURICheck(uri, 'best');
 });
-
-// Latest album variables
-let latestAlbumUri = "";
-let latest = document.getElementById("latestAlbumSpotifyLink");
-let latestPreview = document.getElementById("latestAlbumSpotifyLink-preview-container");
+best.addEventListener("change", function () {
+    let uri = extractSpotifyURI(best.value);
+    handleSpotifyURICheck(uri, 'best');
+});
 
 // Listener to the latest album input
 latest.addEventListener("input", function () {
-    let uri = extractSpotifyURI(latest.value);
-    if (uri) { // If the URL is correct, it updates the iframe and display, calling the SpotifyEmbed updater
-        latestAlbumUri = uri;
-        updateSpotifyEmbed();
-        latestPreview.style.display = "block";
-    } else { // If the URL is not correct, it hides the display and re-stablishes the iframe div to the initial value
-        latestPreview.style.display = "none";
-        latestPreview.innerHTML = '<div id="embed-iframe-latest-album"></div>'
-    }
+    let uri = extractSpotifyURI(best.value);
+    handleSpotifyURICheck(uri, 'best');
 });
+latest.addEventListener("change", function () {
+    let uri = extractSpotifyURI(latest.value);
+    handleSpotifyURICheck(uri, 'latest');
+});
+
+//Initializer Call the initialization function when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeSpotifyPreviews);
+
+// Function to initialize the previews on page load
+function initializeSpotifyPreviews() {
+    if (best && best.value) {
+        let uriBest = extractSpotifyURI(best.value);
+        handleSpotifyURICheck(uriBest, 'best');
+    }
+    if (latest && latest.value) {
+        let uriLatest = extractSpotifyURI(latest.value);
+        handleSpotifyURICheck(uriLatest, 'latest');
+    }
+}
+
+// Function that handles the SpotifyUriChecking and updates the HTML elements by calling
+// the function updateSpotifyEmbed
+function handleSpotifyURICheck(uri, type) {
+    if (uri) {
+        if (type === 'best') {
+            bestAlbumUri = uri;
+            updateSpotifyEmbed();
+            bestPreview.style.display = "block";
+        } else if (type === 'latest') {
+            latestAlbumUri = uri;
+            updateSpotifyEmbed();
+            latestPreview.style.display = "block";
+        }
+    } else {
+        if (type === 'best') {
+            bestPreview.style.display = "none";
+            bestPreview.innerHTML = '<div id="embed-iframe-best-album"></div>'
+        } else if (type === 'latest') {
+            latestPreview.style.display = "none";
+            latestPreview.innerHTML = '<div id="embed-iframe-latest-album"></div>'
+        }
+    }
+}
 
 /**
  * Function that transforms any Spotify link into an embed one, which can be used by the Spotify iFrame API to load content.
