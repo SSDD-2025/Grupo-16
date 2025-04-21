@@ -12,6 +12,8 @@ tags:
   description: Endpoints for managing ticket resources
 - name: Users
   description: Endpoints for managing user resources
+- name: Artists
+  description: Endpoints for managing artist resources
 paths:
   /api/users/me:
     get:
@@ -437,7 +439,10 @@ paths:
   /api/artists/{id}:
     get:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Get an specific artist.
+      description: "Returns the path-specified by id Artist information. If any error\
+        \ occurs, a personalized error DTO will be returned with its specific information."
       operationId: getArtist
       parameters:
       - name: id
@@ -448,14 +453,24 @@ paths:
           format: int64
       responses:
         "200":
-          description: OK
+          description: Artist obtained successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "404":
+          description: "Not Found: Artist not found."
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ArtistDTO"
     put:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Modify an Artist
+      description: "Modifies the path-specified by id Artist and returns its saved\
+        \ information. If any error occurs, a personalized error DTO will be returned\
+        \ with its specific information."
       operationId: modifyArtist
       parameters:
       - name: id
@@ -471,15 +486,49 @@ paths:
               $ref: "#/components/schemas/ArtistDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Artist modified with success.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "400":
+          description: "Bad Resquest: Invalid data or format."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "404":
+          description: "Not Found: Artist not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ArtistDTO"
     delete:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Delete an Artist
+      description: "Deletes the path-specified by id Artist and returns its previous-to-deletion\
+        \ information. If any error occurs, a personalized error DTO will be returned\
+        \ with its specific information."
       operationId: deleteArtist
       parameters:
       - name: id
@@ -489,8 +538,38 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Artist deleted with success.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "400":
+          description: "Bad Resquest: Invalid data or format."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "404":
+          description: "Not Found: Artist not found."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
@@ -498,7 +577,10 @@ paths:
   /api/artists/{id}/photo:
     get:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Get the photo of an Artist.
+      description: "Returns the path-specified by id Artist image. If any error occurs,\
+        \ a personalized error DTO will be returned with its specific information."
       operationId: getPhoto
       parameters:
       - name: id
@@ -509,14 +591,24 @@ paths:
           format: int64
       responses:
         "200":
-          description: OK
+          description: Photo obtained successfully.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Artist or photo not found."
           content:
             '*/*':
               schema:
                 type: object
     put:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Modifies an Artist's photo
+      description: "Saves and activates the image as the path-specified by id Artist's\
+        \ photo. If any error occurs, a personalized error DTO will be returned with\
+        \ its specific information."
       operationId: replacePhoto
       parameters:
       - name: id
@@ -537,15 +629,49 @@ paths:
               required:
               - imageFile
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image uploaded with success.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: "Bad Resquest: Invalid image format"
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Artist or photo not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 type: object
     post:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Upload an Artist's photo
+      description: "Saves and activates the image as the path-specified by id Artist's\
+        \ photo. If any error occurs, a personalized error DTO will be returned with\
+        \ its specific information."
       operationId: createMainPhoto
       parameters:
       - name: id
@@ -566,15 +692,48 @@ paths:
               required:
               - imageFile
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image uploaded with success.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: "Bad Resquest: Invalid image format"
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Artist or photo not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
                 type: object
     delete:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Deletes an Artist's photo
+      description: "Deletes the photo of the path-specified by id Artist. If any error\
+        \ occurs, a personalized error DTO will be returned with its specific information."
       operationId: deleteMainPhoto
       parameters:
       - name: id
@@ -584,8 +743,32 @@ paths:
           type: integer
           format: int64
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Image deleted with success.
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "Not Found: Artist or photo not found."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: "Internal Server Error: Unexpected error."
           content:
             '*/*':
               schema:
@@ -796,7 +979,10 @@ paths:
   /api/artists:
     get:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Get all the existing artist.
+      description: "Returns a page of artists. The page size is modificable, but its\
+        \ default size is 0. As well, the default page is the first one."
       operationId: getAllArtists
       parameters:
       - name: pageable
@@ -811,14 +997,18 @@ paths:
           type: string
       responses:
         "200":
-          description: OK
+          description: All artists fetched successfully.
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PagedModelArtistDTO"
     post:
       tags:
-      - artist-rest-controller
+      - Artists
+      summary: Create a new Artist
+      description: "Creates an the post-specified Artist and returns its saved information.\
+        \ If any error occurs, a personalized error DTO will be returned with its\
+        \ specific information."
       operationId: createArtist
       requestBody:
         content:
@@ -828,18 +1018,75 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Artist created with success.
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ArtistDTO"
-  /api/tickets/:
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "405":
+          description: "Bad Request: User is not allowed to execute this function."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "400":
+          description: "Bad Request: Invalid data or format. The Artist's name is\
+            \ repeated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+        "500":
+          description: "Internal Server Error: Unexpected error."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArtistDTO"
+  /api/tickets:
     get:
       tags:
       - Tickets
       summary: Get the active user's ticket's list
       description: Shows the page which contains 10 tickets the active user owns
       operationId: getUserTickets
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "201":
+          description: Ticket list succesfully showed.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+        "400":
+          description: "Bad Request: petition failed or the page was empty."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+        "401":
+          description: "Unauthorized: User is not authenticated."
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTicketDTO"
+  /api/tickets/:
+    get:
+      tags:
+      - Tickets
+      summary: Get the active user's ticket's list
+      description: Shows the page which contains 10 tickets the active user owns
+      operationId: getUserTickets_1
       parameters:
       - name: pageable
         in: query
