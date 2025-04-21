@@ -340,6 +340,6 @@ public class Artist {
      * @return wether the artist can(not) have its own page.
      */
     public boolean canHavePage() {
-        return (this.popularityIndex > 0) && !this.mainInfo.isBlank() && !this.extendedInfo.isBlank() && !this.bestAlbumSpotifyLink.isBlank() && !this.latestAlbumSpotifyLink.isBlank() && !this.videoLink.isBlank();
+        return (this.popularityIndex > 0) && (this.mainInfo != null && !this.mainInfo.isBlank()) && (this.extendedInfo != null && !this.extendedInfo.isBlank()) && (this.bestAlbumSpotifyLink != null && !this.bestAlbumSpotifyLink.isBlank()) && (this.latestAlbumSpotifyLink != null && !this.latestAlbumSpotifyLink.isBlank()) && (this.videoLink != null && !this.videoLink.isBlank());
     }
 }

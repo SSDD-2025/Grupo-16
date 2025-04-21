@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "685e9af2-89dc-4c92-8833-240e4fd54b30",
+		"_postman_id": "b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43181860"
+		"_exporter_id": "43523109",
+		"_collection_link": "https://david-4078104.postman.co/workspace/David's-Workspace~57b4221e-dc52-494c-82d8-7be7fd21ee05/collection/43523109-b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac?action=share&source=collection_link&creator=43523109"
 	},
 	"item": [
 		{
@@ -645,6 +646,674 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "GET Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/artists",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET Artists default page",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "GET Artists custom page",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists?page=1&size=2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "GET Artist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/artists/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ariana Grande\",\r\n    \"popularityIndex\": 82801462,\r\n    \"mainInfo\": \"Global pop powerhouse with a soaring vocal range and instantly recognizable high ponytail. From teen idol to chart-topping superstar, delivering infectious hits and undeniable charisma.\",\r\n    \"extendedInfo\": \"Award-winning singer and songwriter known for anthems like thank u, next and 7 rings. A vocal advocate for animal rights and mental health awareness.\",\r\n    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/3tx8gQqWbGwqIGZHqDNrGe\",\r\n    \"latestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/5EYKrEDnKhhcNxGedaRQeK\",\r\n    \"videoLink\": \"https://www.youtube.com/watch?v=9WbCfHutDSE&ab_channel=ArianaGrandeVevo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8443/api/artists",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CREATE Artist with a repeated name",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Taylor Swift\",\r\n    \"popularityIndex\": 1111,\r\n    \"mainInfo\": \"Repeated name example.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CREATE Artist with no hasPage",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bad Bunny\",\r\n    \"popularityIndex\": 82400067,\r\n    \"mainInfo\": \"Example of artist creation that will not have a page (hasPage = false) because it does not have the required attributes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "UPDATE Artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Name will not change\",\r\n    \"popularityIndex\": 69343458,\r\n    \"mainInfo\": \"New main info content.\",\r\n    \"extendedInfo\": \"New extended info content\",\r\n    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/6FJxoadUE4JNVwWHghBwnb\",\r\n    \"latestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/6BzxX6zkDsYKFJ04ziU5xQ\",\r\n    \"videoLink\": \"https://www.youtube.com/embed/UL_JXt4FI6E\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8443/api/artists/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "UPDATE Artist deleting attributes",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Name will not change\",\r\n    \"popularityIndex\": 69343458,\r\n    \"mainInfo\": \"New main info content.\",\r\n    \"extendedInfo\": \"New extended info content\",\r\n    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/6FJxoadUE4JNVwWHghBwnb\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"5"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "UPDATE Artist that does not exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Name will not change\",\r\n    \"popularityIndex\": 69343458,\r\n    \"mainInfo\": \"New main info content.\",\r\n    \"extendedInfo\": \"New extended info content\",\r\n    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/6FJxoadUE4JNVwWHghBwnb\",\r\n    \"latestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/6BzxX6zkDsYKFJ04ziU5xQ\",\r\n    \"videoLink\": \"https://www.youtube.com/embed/UL_JXt4FI6E\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists/5000",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"5000"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "DELETE Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/artists/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DELETE Artist that does not exist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists/7000",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"7000"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "GET Artist photo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/artists/4/photo",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"4",
+								"photo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET Artist photo of an artist that does not exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists/4444/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"4444",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "GET Artist photo of an artist that does not have photo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists/8/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"8",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "CREATE Artist photo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageFile",
+									"type": "file",
+									"src": "postman-cloud:///1f01ea6e-0db2-4cb0-bdf9-a8794f77dcb0"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:8443/api/artists/8/photo",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"8",
+								"photo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CREATE Artist photo of an artist that already has photo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imageFile",
+											"type": "file",
+											"src": "postman-cloud:///1f01ea6e-0db2-4cb0-bdf9-a8794f77dcb0"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists/2/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CREATE Artist photo of a non existant artist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imageFile",
+											"type": "file",
+											"src": "postman-cloud:///1f01ea6e-0db2-4cb0-bdf9-a8794f77dcb0"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists/8888/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"8888",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "UPDATE Artist photo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageFile",
+									"type": "file",
+									"src": "postman-cloud:///1f01ea6e-0db2-4cb0-bdf9-a8794f77dcb0"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:8443/api/artists/3/photo",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"3",
+								"photo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "UPDATE Artist photo of an artist that does not exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imageFile",
+											"type": "file",
+											"src": "postman-cloud:///1f01ea6e-0db2-4cb0-bdf9-a8794f77dcb0"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/artists/33333/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"33333",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "DELETE Artist photo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/artists/1/photo",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"photo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DELETE Artist photo of an artist that does not exist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists/111111/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"111111",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "DELETE Artist photo of an artist that does not have photo",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/artists/1/photo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"artists",
+										"1",
+										"photo"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		}
