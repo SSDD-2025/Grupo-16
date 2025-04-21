@@ -5,6 +5,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -106,8 +107,8 @@ public class TicketController {
      * @param id id of the ticket
      * @return the page where the user is redirected
      */
-    @PostMapping("/ticket/delete")
-    public String ticketDeletion(Model model, @RequestParam long id) {
+    @GetMapping("/ticket/{id}/delete")
+    public String ticketDeletion(Model model, @PathVariable long id) {
 
         this.ticketService.deleteTicketWithId(id);
         return "redirect:/profile?showMyConcerts=true";

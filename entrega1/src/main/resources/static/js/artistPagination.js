@@ -4,7 +4,6 @@ let searchTerm = new URLSearchParams(window.location.search).get('search') || ''
 
 document.addEventListener("DOMContentLoaded", function () {
 	const loadMoreButton = document.getElementById('load-more-artists');
-	const url = `/api/artists?page=${page}&search=${searchTerm}`;
 
 	//We load the first page of artists
 	loadMoreArtists();

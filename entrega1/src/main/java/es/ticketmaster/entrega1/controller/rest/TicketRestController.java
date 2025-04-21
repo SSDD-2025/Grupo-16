@@ -40,7 +40,7 @@ public class TicketRestController {
         @ApiResponse(responseCode = "400", description = "Bad Request: petition failed or the page was empty."),
         @ApiResponse(responseCode = "401", description = "Unauthorized: User is not authenticated.")
     })
-    @GetMapping("/tickets/")
+    @GetMapping({"/tickets/", "/tickets"})
     public Page<TicketDTO> getUserTickets(Pageable pageable) {
         Page<TicketDTO> list = ticketService.getTicketPage(pageable);
         if (list.getTotalElements() == 0){
