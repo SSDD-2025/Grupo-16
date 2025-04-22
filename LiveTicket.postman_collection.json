@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac",
+		"_postman_id": "9d6858d5-d025-47a8-98f7-1e9d99e5c878",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43523109",
-		"_collection_link": "https://david-4078104.postman.co/workspace/David's-Workspace~57b4221e-dc52-494c-82d8-7be7fd21ee05/collection/43523109-b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac?action=share&source=collection_link&creator=43523109"
+		"_collection_link": "https://david-4078104.postman.co/workspace/David's-Workspace~57b4221e-dc52-494c-82d8-7be7fd21ee05/collection/43523109-9d6858d5-d025-47a8-98f7-1e9d99e5c878?action=share&source=collection_link&creator=43523109"
 	},
 	"item": [
 		{
@@ -253,7 +253,10 @@
 					"name": "GET Artist Concerts",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -329,10 +332,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1",
+							"raw": "https://localhost:8443/api/concerts/1",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -401,10 +406,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https://localhost:8443/api/concerts/1/image",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -431,10 +438,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https://localhost:8443/api/concerts/1/image",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -451,10 +460,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https://localhost:8443/api/concerts/1/image",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -508,7 +519,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"zone\": \"North Side\", \"price\": \"30\", \"ticketUser\": {\r\n                \"id\": 2,\r\n                \"username\": \"Fonssi29\",\r\n                \"password\": \"$2a$10$NsoNEvYDE8NXVi0S6n22W.xAMu1SQqj.wLl1TGeK8SkkDxiTqTNkO\",\r\n                \"email\": \"fonssi@gmail.com\",\r\n                \"country\": \"America\"\r\n            },\r\n            \"concert\": {\r\n                \"id\": 3,\r\n                \"artist\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Tate McRae\",\r\n                    \"popularityIndex\": 45652467,\r\n                    \"sessionCreated\": null,\r\n                    \"photoLink\": \"/api/artists/1/photo\",\r\n                    \"hasPage\": true,\r\n                    \"mainInfo\": \"Tate McRae, a singer, songwriter, and dancer born in Calgary (Canada) on July 1, 2003, gained fame with You Broke Me First (2021). She released hits like greedy, exes, and 2 hands. Her latest album, So Close To What, features the single It's ok I'm ok\",\r\n                    \"extendedInfo\": \"Tate McRae has been called the teen dance star turned future pop idol by i-D. She's praised by artists like Paula Abdul, who called her a gift from God, and choreographers like Stacey Tookey, Blake McGrath, and Travis Wall, who named her one of his muses\",\r\n                    \"bestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/0OUOx6rJXtL66AzTnP9KUE\",\r\n                    \"latestAlbumSpotifyLink\": \"https://open.spotify.com/intl-es/album/3w32SV56JvtJXsrYtThwzP\",\r\n                    \"videoLink\": \"https://www.youtube.com/embed/rwlFWWGaZ5Y\"\r\n                },\r\n                \"name\": \"Miss Possessive Tour\",\r\n                \"info\": \"Tate's First Arena Concert Ever\",\r\n                \"date\": \"2025-09-13T21:00:00\",\r\n                \"place\": \"America\",\r\n                \"price\": 80.0,\r\n                \"westStandsNumber\": 70,\r\n                \"eastStandsNumber\": 70,\r\n                \"northStandsNumber\": 69,\r\n                \"generalAdmissionNumber\": 100,\r\n                \"formattedTime\": \"21:00\"\r\n            }\r\n}",
+							"raw": "{\r\n    \"zone\": \"North\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -689,10 +700,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "GET Artists custom page",
@@ -722,10 +733,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -805,10 +816,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "CREATE Artist with no hasPage",
@@ -837,10 +848,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -901,10 +912,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "UPDATE Artist that does not exist",
@@ -934,10 +945,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -980,10 +991,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1028,10 +1039,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "GET Artist photo of an artist that does not have photo",
@@ -1053,10 +1064,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1132,10 +1143,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "CREATE Artist photo of a non existant artist",
@@ -1167,10 +1178,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1235,10 +1246,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1283,10 +1294,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "DELETE Artist photo of an artist that does not have photo",
@@ -1308,10 +1319,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}

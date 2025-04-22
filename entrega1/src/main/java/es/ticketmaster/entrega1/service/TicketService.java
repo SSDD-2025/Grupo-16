@@ -15,7 +15,6 @@ import es.ticketmaster.entrega1.dto.ticket.TicketMapper;
 import es.ticketmaster.entrega1.model.Concert;
 import es.ticketmaster.entrega1.model.Ticket;
 import es.ticketmaster.entrega1.model.UserEntity;
-import es.ticketmaster.entrega1.repository.ConcertRepository;
 import es.ticketmaster.entrega1.repository.TicketRepository;
 import es.ticketmaster.entrega1.repository.UserRepository;
 import es.ticketmaster.entrega1.service.exceptions.NotAllowedException;
@@ -30,9 +29,6 @@ public class TicketService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private ConcertRepository concertRepository;
     
     @Autowired
     private ConcertService concertService;
