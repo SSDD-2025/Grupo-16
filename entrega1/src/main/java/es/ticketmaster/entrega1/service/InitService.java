@@ -181,6 +181,48 @@ public class InitService {
 
         artistRepository.save(artist);
 
+        // Create and Save Artist: Nicki Minaj
+        mainText = "Nicki Minaj is a highly influential rapper, singer, and songwriter recognized for her complex lyrical skills, distinctive flow, and significant impact on contemporary music.";
+        extText = "Her extensive discography showcases a range of styles, from hardcore hip-hop to pop-infused tracks, solidifying her position as a multifaceted global artist.";
+        artist = new Artist("Nicki Minaj", 45598260, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\NickiMinaj.jpg"), "/api/artists/10/photo", mainText, extText, "https://open.spotify.com/intl-es/album/22F5ZYY1sxoJjk6HzZfmC1", "https://open.spotify.com/intl-es/album/78H3My21k0xQ72zYFpdrEa", "https://www.youtube.com/embed/SeIJmciN8mo");
+
+        artistRepository.save(artist);
+
+        // Create and Save Artist: Lady Gaga
+        mainText = "Lady Gaga is a globally acclaimed singer-songwriter, actress, and cultural icon known for her innovative artistry, powerful vocals, and transformative approach to pop music.";
+        extText = "Her work spans diverse genres, from electronic dance-pop to jazz and rock, marked by theatrical performances and a consistent exploration of identity and societal themes.";
+        artist = new Artist("Lady Gaga", 113507077, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\LadyGaga.jpg"), "/api/artists/11/photo", mainText, extText, "https://open.spotify.com/intl-es/album/1jpUMnKpRlng1OJN7LJauV", "https://open.spotify.com/intl-es/album/2MHUaRi9OCyTN02SoyRRBJ", "https://www.youtube.com/embed/vBynw9Isr28");
+
+        artistRepository.save(artist);
+
+        // Create and Save Artist: Adele
+        mainText = "Adele is a celebrated British singer-songwriter renowned for her powerful mezzo-soprano vocals, emotionally resonant lyrics, and significant impact on popular music.";
+        extText = "Her critically acclaimed albums explore themes of love, loss, and motherhood, marked by soulful performances and global commercial success.";
+        artist = new Artist("Adele", 56944202, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\Adele.jpg"), "/api/artists/12/photo", mainText, extText, "https://open.spotify.com/intl-es/album/5duyQokC4FMcWPYTV9Gpf9", "https://open.spotify.com/intl-es/album/21jF5jlMtzo94wbxmJ18aa", "https://www.youtube.com/embed/YQHsXMglC9A");
+
+        artistRepository.save(artist);
+
+        // Create and Save Artist: Charli XCX
+        mainText = "Charli XCX is a forward-thinking British singer-songwriter and producer known for her experimental approach to pop music, blending electronic sounds with catchy melodies.";
+        extText = "Her work often explores themes of technology, futurism, and female empowerment, characterized by collaborations and a distinct, innovative sound.";
+        artist = new Artist("Charli XCX", 31538661, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\CharliXCX.jpg"), "/api/artists/13/photo", mainText, extText, "https://open.spotify.com/intl-es/album/2lIZef4lzdvZkiiCzvPKj7", "https://open.spotify.com/intl-es/album/0W5woeQnfOZmVLSbggRRlR", "https://www.youtube.com/embed/huGd4efgdPA");
+
+        artistRepository.save(artist);
+
+        // Create and Save Artist: Chappell Roan
+        mainText = "Chappell Roan is an emerging American singer-songwriter known for her vibrant stage presence, anthemic pop songs, and exploration of identity and self-expression.";
+        extText = "Her music blends nostalgic pop influences with bold, theatrical aesthetics, creating a unique and captivating artistic persona.";
+        artist = new Artist("Chappell Roan", 45118458, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\ChappellRoan.jpg"), "/api/artists/14/photo", mainText, extText, "https://open.spotify.com/intl-es/album/0EiI8ylL0FmWWpgHVTsZjZ", "https://open.spotify.com/intl-es/album/0EiI8ylL0FmWWpgHVTsZjZ", "https://www.youtube.com/embed/6ENzV125lWc");
+
+        artistRepository.save(artist);
+
+        // Create and Save Artist: Doja Cat
+        mainText = "Doja Cat is a versatile American singer, rapper, and songwriter recognized for her genre-bending music, incorporating elements of pop, hip-hop, R&B, and electronic music.";
+        extText = "Her work is characterized by catchy hooks, playful lyrics, and a dynamic online presence, contributing to her widespread popularity and influence.";
+        artist = new Artist("Doja Cat", 55574402, imageService.getBlobOf("entrega1\\src\\main\\resources\\static\\DDBB\\DojaCat.jpg"), "/api/artists/15/photo", mainText, extText, "https://open.spotify.com/intl-es/album/1nAQbHeOWTfQzbOoFrvndW", "https://open.spotify.com/intl-es/album/5ho4S2bnJJdF0uwT8YiQsw", "https://www.youtube.com/embed/m4_9TFeMfJE");
+
+        artistRepository.save(artist);
+
         //Create Users
         user = new UserEntity("armiiin13", passwordEncoder.encode("eras1325"), "armiingrc@yahoo.com", "Europe", "USER","ADMIN");
         userRepository.save(user);
