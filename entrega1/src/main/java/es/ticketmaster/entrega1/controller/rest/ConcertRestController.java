@@ -148,8 +148,7 @@ public class ConcertRestController {
         @ApiResponse(responseCode = "500", description = "Internal Server Error: Unexpected error.")
     })
     @PostMapping("/{id}/image")
-    public ResponseEntity<Object> postPosterPhoto(@PathVariable long id, @RequestParam MultipartFile posterPhoto)
-            throws IOException {
+    public ResponseEntity<Object> postPosterPhoto(@PathVariable long id, @RequestParam MultipartFile posterPhoto) throws IOException {
         URI location = fromCurrentRequest().build().toUri();
         concertService.setPosterPhoto(id, posterPhoto.getInputStream(), posterPhoto.getSize(), posterPhoto != null);
         return ResponseEntity.created(location).build();

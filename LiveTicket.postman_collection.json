@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac",
+		"_postman_id": "10d42e5a-d3ef-4dad-84ef-65b4af76c803",
 		"name": "LiveTicket",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43523109",
-		"_collection_link": "https://david-4078104.postman.co/workspace/David's-Workspace~57b4221e-dc52-494c-82d8-7be7fd21ee05/collection/43523109-b94b2dc0-b21c-4f6a-9bd9-f9dad6b351ac?action=share&source=collection_link&creator=43523109"
+		"_exporter_id": "43184465",
+		"_collection_link": "https://gold-meadow-38913.postman.co/workspace/Team-Workspace~e4ed3cb0-8832-4d97-8938-6efbbdb1852c/collection/43184465-10d42e5a-d3ef-4dad-84ef-65b4af76c803?action=share&source=collection_link&creator=43184465"
 	},
 	"item": [
 		{
@@ -253,7 +253,31 @@
 					"name": "GET Artist Concerts",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/concerts/artists/3?page=0&size=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"concerts",
+								"artists",
+								"3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -329,10 +353,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1",
+							"raw": "https://localhost:8443/api/concerts/1",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -394,17 +420,19 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "posterPhoto",
 									"type": "file",
 									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https://localhost:8443/api/concerts/1/image",
+							"protocol": "https",
 							"host": [
-								"{{userURL}}"
+								"localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -424,18 +452,20 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "poster",
 									"type": "file",
 									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https::/localhost:8443/api/concerts/1/image",
 							"host": [
-								"{{userURL}}"
+								"https:"
 							],
+							"port": "",
 							"path": [
+								"localhost:8443",
 								"api",
 								"concerts",
 								"1",
@@ -451,10 +481,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{userURL}}/api/concerts/1/image",
+							"raw": "https:localhost:8443/api/concerts/1/image",
 							"host": [
-								"{{userURL}}"
+								"https:localhost"
 							],
+							"port": "8443",
 							"path": [
 								"api",
 								"concerts",
@@ -689,10 +720,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "GET Artists custom page",
@@ -722,10 +753,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -805,10 +836,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "CREATE Artist with no hasPage",
@@ -837,10 +868,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -901,10 +932,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "UPDATE Artist that does not exist",
@@ -934,10 +965,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -980,10 +1011,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1028,10 +1059,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "GET Artist photo of an artist that does not have photo",
@@ -1053,10 +1084,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1132,10 +1163,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "CREATE Artist photo of a non existant artist",
@@ -1167,10 +1198,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1235,10 +1266,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -1283,10 +1314,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "DELETE Artist photo of an artist that does not have photo",
@@ -1308,10 +1339,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
