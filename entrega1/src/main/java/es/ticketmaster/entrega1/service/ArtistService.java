@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -236,6 +238,10 @@ public class ArtistService {
             throw new ArtistAlreadyExistsException(artist.getName());
         }
 
+        artist.setBestAlbumSpotifyLink(extractSpotifyURI(artist.getBestAlbumSpotifyLink()));
+        artist.setLatestAlbumSpotifyLink(extractSpotifyURI(artist.getLatestAlbumSpotifyLink()));
+        artist.setVideoLink(extractYouTubeID(artist.getVideoLink()));
+
         /*Checks if the artist can(not) have its own page*/
         if (artist.canHavePage()) {
             artist.setHasPage(true);
@@ -318,6 +324,9 @@ public class ArtistService {
             artist.setConcertList(oldArtist.get().getConcertList());
             artist.setPhoto(oldArtist.get().getPhoto());
             artist.setPhotoLink(oldArtist.get().getPhotoLink());
+            artist.setBestAlbumSpotifyLink(extractSpotifyURI(artist.getBestAlbumSpotifyLink()));
+            artist.setLatestAlbumSpotifyLink(extractSpotifyURI(artist.getLatestAlbumSpotifyLink()));
+            artist.setVideoLink(extractYouTubeID(artist.getVideoLink()));
 
             /*In case the required attributes are provided, the artist can have page*/
             if (artist.canHavePage()) {
@@ -424,6 +433,48 @@ public class ArtistService {
             }
         } else {
             throw new ArtistNotFoundException(id);
+        }
+    }
+
+    /**
+     * Service method that gets the embed Spotify URI that can be
+     * displayed by the Spotify iFrameAPI.
+     * 
+     * @param url the URL to check
+     * @return the definitive URI / null in case it does not match the pattern
+     */
+    public static String extractSpotifyURI(String url) {
+        if (url == null) {
+            return null;
+        }
+        Pattern pattern = Pattern.compile("spotify\\.com/(?:intl-[a-z]{2}/)?(?:embed/)?(track|album|playlist)/([a-zA-Z0-9]+)(?:\\?|$)");
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            String type = matcher.group(1);
+            String id = matcher.group(2);
+            return String.format("spotify:%s:%s", type, id);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Service method that gets the embed YouTube URI that can be
+     * displayed by the YouTube iFrame.
+     * 
+     * @param url the URL to check
+     * @return the definitive URI / null in case it does not match the pattern
+     */
+    public static String extractYouTubeID(String url) {
+        if (url == null) {
+            return null;
+        }
+        Pattern pattern = Pattern.compile("(?:youtube\\.com/(?:.*[?&]v=|embed/|v/)|youtu\\.be/)([^\"&?/\\s]{11})");
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return null;
         }
     }
 }
