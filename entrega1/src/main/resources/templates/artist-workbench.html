@@ -71,13 +71,18 @@ can be instantly previsualized (image and artist name)-->
             <!--Actual form containing all the information of the artist that is compulsory to add-->
             {{#modificate}}
             <!--If the artist is going to be modified, the url for the controller is changed to the specific artist-->
-            <form action="/admin/artist/{{artist.id}}/modify" method="post" enctype="multipart/form-data"
-                class="general-container column-container">
-                {{/modificate}}
-                {{^modificate}}
+                <form action="/admin/artist/{{artist.id}}/modify" method="post" enctype="multipart/form-data"
+                    class="general-container column-container">
+            {{/modificate}}
+            {{^modificate}}
                 <form action="/admin/artist/register" method="post" enctype="multipart/form-data"
                     class="general-container column-container">
-                    {{/modificate}}
+            {{/modificate}}
+
+                    <!--Notification of general errors-->
+                    {{#error}}
+                    <div class="text-error">{{error}}</div>
+                    {{/error}}
 
                     <!--Artist name-->
                     <div class="attribute-container">
@@ -89,10 +94,6 @@ can be instantly previsualized (image and artist name)-->
                         <input type="text" placeholder="Name" id="name" name="name" required>
                         {{/artist.name}}
                     </div>
-                    <!--Notification of errors-->
-                    {{#error}}
-                    <div class="text-error">{{error}}</div>
-                    {{/error}}
 
                     <!--Popularity Index: optative, but compulsory to have page-->
                     <div class="attribute-container">
@@ -107,6 +108,10 @@ can be instantly previsualized (image and artist name)-->
                             min="1">
                         {{/artist.popularityIndex}}
                     </div>
+
+                    {{#imageError}}
+                    <div class="text-error">{{imageError}}</div>
+                    {{/imageError}}
 
                     <!--Artist main photo: optative-->
                     <div class="attribute-container">

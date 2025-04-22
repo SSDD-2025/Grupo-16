@@ -2,6 +2,7 @@ package es.ticketmaster.entrega1.controller.web;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -92,7 +93,7 @@ public class UserController {
         Principal user = request.getUserPrincipal();
         if (showMyConcerts) {
             model.addAttribute("showMyConcerts", true);
-            model.addAttribute("ticketList", userService.getTicketsForActiveUser(user).ticketList());
+            model.addAttribute("ticketList", userService.getTicketsForActiveUser(user).ticketList().stream().limit(10).collect(Collectors.toList()));
         } else if (showMyArtists) {
             model.addAttribute("showMyArtists", true);
             model.addAttribute("artistList", userService.getArtistsForActiveUser(user).artistsList());
@@ -154,7 +155,7 @@ public class UserController {
     }
 
     /**
-     * (PROVISIONAL) This method that stabishes default attributes for aspects dealing with the UserController
+     * This method that stabishes default attributes for aspects dealing with the UserController
      * This method should be completed so that the previous controller methods work correctly within the model
      * they have to provide 
      * 

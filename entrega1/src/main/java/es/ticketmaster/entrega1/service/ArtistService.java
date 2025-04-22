@@ -3,7 +3,6 @@ package es.ticketmaster.entrega1.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -229,7 +228,7 @@ public class ArtistService {
         Artist artist = artistMapper.toDomain(artistDTO);
 
         /*Checks compulsory conditions in order to create a new artist: Not repeated name*/
-        if (artist.getName() == null) {
+        if (artist.getName() == null || artist.getName().isBlank()) {
             throw new NotAllowedException("Create an artist without name");
         }
         if (artistExists(artist.getName())) {
@@ -264,6 +263,19 @@ public class ArtistService {
     public void createPhotoImage(long id, MultipartFile image) {
 
         Optional<Artist> artist = artistRepository.findById(id);
+
+        if (image == null || image.isEmpty()) {
+            throw new ImageException("Not a valid image.");
+        }
+
+        /*We get the content type to check if the image format is corect*/
+        String contentType = image.getContentType();
+        if (contentType == null ||
+            (!contentType.endsWith("/jpeg") &&
+            !contentType.endsWith("/jpg") &&
+            !contentType.endsWith("/png"))) {
+            throw new ImageException("Only images with JPEG, PNG and JPG format are allowed.");
+        }
 
         if (artist.isPresent()) {
             if (artist.get().getPhotoLink() != null) {
@@ -344,14 +356,10 @@ public class ArtistService {
 
         /*We get the content type to check if the image format is corect*/
         String contentType = image.getContentType();
-        if (contentType == null || !contentType.startsWith("image/")) {
-            throw new ImageException("Not a valid image format.");
-        }
-
-        // We check that the image fulfill the allowed types
-        List<String> allowedContentTypes = Arrays.asList("image/jpeg", "image/jpg", "image/png");
-        /*CAUTION WITH THE IMAGE NAME*/
-        if (!allowedContentTypes.contains(contentType)) {
+        if (contentType == null ||
+            (!contentType.endsWith("/jpeg") &&
+            !contentType.endsWith("/jpg") &&
+            !contentType.endsWith("/png"))) {
             throw new ImageException("Only images with JPEG, PNG and JPG format are allowed.");
         }
 

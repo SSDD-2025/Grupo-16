@@ -21,6 +21,9 @@ import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
 import es.ticketmaster.entrega1.service.exceptions.ArtistAlreadyExistsException;
+import es.ticketmaster.entrega1.service.exceptions.ArtistNotFoundException;
+import es.ticketmaster.entrega1.service.exceptions.ImageException;
+import es.ticketmaster.entrega1.service.exceptions.NotAllowedException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -87,9 +90,16 @@ public class ArtistController {
     }
 
     /**
-     * * Method that controlls the registration of a new artist. For that, the
+     * Method that controlls the registration of a new artist. For that, the
      * ArtistService is used, being this Service the one encharged of the DDBB
-     * handling. Afterwards, the user is redirected to the artist admin page
+     * handling. Afterwards, the user is redirected to the artist admin page.
+     * 
+     * This web method handles the possible errors thrown by the service and
+     * displays them inside an HTML so that is more visual for the user.
+     * The possible exceptions thrown by the service are:
+     * + ArtistAlreadyExistsException: notified using error Mustache variable
+     * + ImageException: notified using imageException Mustache variable
+     * + NotAllowedException: notified using error Mustache variable
      *
      * @param model the actual dynamic HTML
      * @param artist artist collected from the form
@@ -103,12 +113,27 @@ public class ArtistController {
 
         try {
             ArtistDTO registeredArtist = this.artistService.registerNewArtist(artist);
-            this.artistService.createPhotoImage(registeredArtist.id(), mainPhoto);
+            if (!(mainPhoto == null || mainPhoto.isEmpty())) {
+                this.artistService.createPhotoImage(registeredArtist.id(), mainPhoto);
+            }
 
         } catch (ArtistAlreadyExistsException e) {
+            /*Notification of the ArtistAlreadyExistsException via HTML */
             redirectAttributes.addFlashAttribute("error", "Artist name already exists");
             ArtistDTO artistAttributes = new ArtistDTO(artist.id(), null, artist.popularityIndex(), artist.hasPage(), artist.mainInfo(), artist.extendedInfo(), artist.bestAlbumSpotifyLink(), artist.latestAlbumSpotifyLink(), artist.videoLink(), artist.photoLink());
             redirectAttributes.addFlashAttribute("artist", artistAttributes);
+            return "redirect:/admin/artist/workbench";
+        } catch (ImageException e){
+            /*Notification of the ImageException via HTML */
+            redirectAttributes.addFlashAttribute("imageError", "ImageError: " + e.getMessage());
+            ArtistDTO artistAttributes = new ArtistDTO(artist.id(), artist.name(), artist.popularityIndex(), artist.hasPage(), artist.mainInfo(), artist.extendedInfo(), artist.bestAlbumSpotifyLink(), artist.latestAlbumSpotifyLink(), artist.videoLink(), null);
+            redirectAttributes.addFlashAttribute("artist", artistAttributes);
+            redirectAttributes.addFlashAttribute("modificate", true);
+            return "redirect:/admin/artist/workbench";
+        } catch (NotAllowedException e){
+            /*Notification of the NotAllowedException via HTML */
+            redirectAttributes.addFlashAttribute("error", "NotAllowedError: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("artist", artist);
             return "redirect:/admin/artist/workbench";
         }
 
@@ -120,6 +145,10 @@ public class ArtistController {
      * the ArtistService is used, being this Service the one encharged of the
      * DDBB handling. Afterwards, the user is redirected to the artist admin
      * page
+     * 
+     * The possible exceptions thrown by the service are:
+     * + ArtistNotFoundException: notified using error Mustache variable
+     * + ImageException: notified using imageException Mustache variable
      *
      * @param model the actual dynamic HTML
      * @param id id of the artist which modification is desired.
@@ -129,12 +158,26 @@ public class ArtistController {
      * @throws IOException
      */
     @PostMapping("/admin/artist/{id}/modify")
-    public String modifyArtist(Model model, @PathVariable long id, @ModelAttribute ArtistDTO artist, @RequestParam(required = false) MultipartFile mainPhoto) throws IOException {
-        this.artistService.modifyArtistWithId(artist, id);
-        if (!(mainPhoto == null || mainPhoto.isEmpty())) {
-            this.artistService.replacePhotoImage(id, mainPhoto);
-        }
-        return "redirect:/admin/artist";
+    public String modifyArtist(Model model, @PathVariable long id, @ModelAttribute ArtistDTO artist, @RequestParam(required = false) MultipartFile mainPhoto, RedirectAttributes redirectAttributes) throws IOException {
+        try{
+            this.artistService.modifyArtistWithId(artist, id);
+            if (!(mainPhoto == null || mainPhoto.isEmpty())) {
+                this.artistService.replacePhotoImage(id, mainPhoto);
+            }
+            return "redirect:/admin/artist";
+        } catch (ArtistNotFoundException e) {
+            /*Notification of the ArtistNotFoundException via HTML */
+            model.addAttribute("errorCode", "404 Not Found");
+            model.addAttribute("errorMessage", "Artist Not Found");
+            return "error";
+        } catch (ImageException e){
+            /*Notification of the ImageException via HTML */
+            redirectAttributes.addFlashAttribute("imageError", "ImageError:" + e.getMessage());
+            ArtistDTO artistAttributes = new ArtistDTO(artist.id(), artist.name(), artist.popularityIndex(), artist.hasPage(), artist.mainInfo(), artist.extendedInfo(), artist.bestAlbumSpotifyLink(), artist.latestAlbumSpotifyLink(), artist.videoLink(), null);
+            redirectAttributes.addFlashAttribute("artist", artistAttributes);
+            redirectAttributes.addFlashAttribute("modificate", true);
+            return "redirect:/admin/artist/workbench";
+        } 
     }
 
     /**
@@ -145,7 +188,6 @@ public class ArtistController {
      */
     @GetMapping("/admin/artist/workbench")
     public String prepareArtistWorkbench(Model model) {
-
         return "artist-workbench";
     }
 
@@ -175,6 +217,9 @@ public class ArtistController {
      * when the ID does not correspond to any artist are also handled,
      * redirecting the user to an error page. As well, if the deletion has been
      * achieved, the user is redirected to the artists administrator page.
+     * 
+     * The possible exceptions thrown by the service are:
+     * + ArtistNotFoundException: notified using error Mustache variable
      *
      * @param model model of the actual dynamic HTML
      * @param id id of the future deleted artist
@@ -188,8 +233,10 @@ public class ArtistController {
             /*If the deletion is successfull (the artist existed and now does not) */
             artistService.deleteArtistWithId(id);
             return "redirect:/admin/artist";
-        } catch (Exception e) {
-            /*In case any exception occured*/
+        } catch (ArtistNotFoundException e) {
+            /*Notification of the ArtistNotFoundException via HTML */
+            model.addAttribute("errorCode", "404 Not Found");
+            model.addAttribute("errorMessage", "Artist Not Found");
             return "error";
         }
     }
