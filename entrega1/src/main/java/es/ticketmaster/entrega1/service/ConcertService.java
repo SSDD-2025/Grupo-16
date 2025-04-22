@@ -442,6 +442,24 @@ public class ConcertService {
     }
 
     /**
+     * Method mainly use by other services that need to operate directly with the
+     * Concert entity (such as TicketService). It gets a concert by its ID.
+     * 
+     * @param id id of the concert to find
+     * @return Concert entity
+     * @throws ConcertNotFoundException
+     */
+    public Concert getConcertEntityById(long id){
+        Optional<Concert> concert = this.concertRepository.findById(id);
+
+        if(concert.isPresent()){
+            return concert.get();
+        } else {
+            throw new ConcertNotFoundException(id);
+        }
+    }
+
+    /**
      * Method that restores one ticket availability in a given zone of an
      * specific concert
      *

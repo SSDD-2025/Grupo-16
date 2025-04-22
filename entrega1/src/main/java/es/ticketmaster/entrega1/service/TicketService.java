@@ -1,14 +1,15 @@
 package es.ticketmaster.entrega1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import es.ticketmaster.entrega1.dto.concert.ConcertDTO;
 import es.ticketmaster.entrega1.dto.ticket.TicketDTO;
 import es.ticketmaster.entrega1.dto.ticket.TicketMapper;
 import es.ticketmaster.entrega1.model.Concert;
@@ -51,10 +52,26 @@ public class TicketService {
      * @param concert that corresponds to a certain ticket
      * @return the created ticket.
      */
-    private Ticket createTicket(String zone, float price, Concert concert) {
-        Ticket newTicket = new Ticket(zone, price, null, concert);
-        this.ticketRepository.save(newTicket);
-        return newTicket;
+    private Ticket createTicket(String zone, float price, long concertId) {
+
+        /*If no concert exists, an exception will be thrown*/
+        Concert concert = this.concertService.getConcertEntityById(concertId);
+        Optional<UserEntity> userEntity = this.userService.getUser();
+
+        if(userEntity.isPresent()){
+
+            if(this.concertService.verifyAvailability(concertId, 1, zone)){
+                Ticket newTicket = new Ticket(zone, price, userEntity.get(), concert);
+                this.ticketRepository.save(newTicket);
+                return newTicket;
+            } else {
+                return null;
+            }
+
+        } else {
+            throw new UserNotFoundException();
+        }
+
     }
 
     /**
@@ -68,7 +85,7 @@ public class TicketService {
         if(user.isPresent()){
             return this.ticketRepository.findTicketByTicketUserId(user.get().getId(), pageable).map(ticketMapper::toDTO);
         } else {
-            throw new UsernameNotFoundException("User not found.");
+            throw new UserNotFoundException();
         }
     }
 
@@ -84,23 +101,40 @@ public class TicketService {
      * @param number is the ammount of tickets de user has purchased.
      * @param concertId is the identification number for a concert.
      */
-    public void associateUserWithTicket(String type, int number, long concertId) {
-        UserEntity userEntity = this.userService.getUser().orElseThrow(() -> new UserNotFoundException());
-        List<Ticket> userTickets = userEntity.getTicketList(); /* Gets the actual ticket list for the respective user. */
-        Concert concert = this.concertRepository.findConcertById(concertId); /* Gets the respective concert. */
-        for (int i = 0; i < number; i++) {
-            Ticket newTicket = this.createTicket(type, concert.getPrice(), concert);
-            /* Creation of ticket. */
-            userTickets.add(newTicket);
-            /* Adding the ticket to the user ticket list. */
-            newTicket.setUser(userEntity);
-            /* Associating the ticket to the user. */
-            this.ticketRepository.save(newTicket);
-            /* Once it has been associated, the ticket is saved in its repository. */
+    public List<TicketDTO> associateUserWithTicket(String zone, int number, long concertId) {
+
+        Optional<UserEntity> userEntity = this.userService.getUser();
+
+        if(userEntity.isPresent()){
+
+            /*Gets the respective concert. In case there was no concert found, an exception will be thrown*/
+            ConcertDTO concert = this.concertService.findConcertById(concertId);
+
+            UserEntity user = userEntity.get();
+
+            List<TicketDTO> boughtTickets = new ArrayList<>();
+
+            List<Ticket> userTickets = user.getTicketList(); /* Gets the actual ticket list for the respective user. */
+            for (int i = 0; i < number; i++) {
+                Ticket newTicket = this.createTicket(zone, concert.price(), concertId);
+                if(newTicket != null){
+                    /* Creation of ticket. */
+                    userTickets.add(newTicket);
+                    boughtTickets.add(this.ticketMapper.toDTO(newTicket));
+                    /* Adding the ticket to the user ticket list. */
+                    newTicket.setUser(user);
+                    /* Associating the ticket to the user. */
+                    this.ticketRepository.save(newTicket);
+                    /* Once it has been associated, the ticket is saved in its repository. */
+                }
+            }
+            /* Now that the tickets have been added, the user's ticket list is updated. */
+            user.setTicketList(userTickets);
+            this.userRepository.save(user); /* Finally, we save in the database the updated ticket list for the user. */
+            return boughtTickets;
+        } else { /*In case the user was not found*/
+            throw new UserNotFoundException();
         }
-        /* Now that the tickets have been added, the user's ticket list is updated. */
-        userEntity.setTicketList(userTickets);
-        this.userRepository.save(userEntity); /* Finally, we save in the database the updated ticket list for the user. */
     }
 
     /**
