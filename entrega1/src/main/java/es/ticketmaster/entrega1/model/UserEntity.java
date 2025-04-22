@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,7 +35,7 @@ public class UserEntity {
     @OneToMany
     private List<Artist> artistsList = new LinkedList<>();
     
-    @OneToMany(mappedBy = "ticketUser")
+    @OneToMany(mappedBy = "ticketUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> ticketList = new LinkedList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
