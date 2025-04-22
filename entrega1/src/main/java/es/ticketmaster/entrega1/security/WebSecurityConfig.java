@@ -84,9 +84,9 @@ public class WebSecurityConfig {
 
                         // TicketRestController
                         .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/concert/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/tickets/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/concert/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/tickets/**").hasAnyRole("USER","ADMIN")
 
                         // PUBLIC ENDPOINTS:
                         .anyRequest().permitAll());

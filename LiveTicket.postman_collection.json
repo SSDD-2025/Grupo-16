@@ -255,7 +255,28 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "https://localhost:8443/api/concerts/artists/3?page=0&size=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"concerts",
+								"artists",
+								"3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
 						}
 					},
 					"response": []
@@ -399,7 +420,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "posterPhoto",
 									"type": "file",
 									"src": []
 								}
@@ -431,7 +452,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "poster",
 									"type": "file",
 									"src": []
 								}
@@ -445,6 +466,7 @@
 							],
 							"port": "8443",
 							"path": [
+								"localhost:8443",
 								"api",
 								"concerts",
 								"1",
