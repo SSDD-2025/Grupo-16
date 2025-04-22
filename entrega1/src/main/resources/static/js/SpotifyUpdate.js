@@ -21,17 +21,9 @@ best.addEventListener("input", function () {
     let uri = extractSpotifyURI(best.value);
     handleSpotifyURICheck(uri, 'best');
 });
-best.addEventListener("change", function () {
-    let uri = extractSpotifyURI(best.value);
-    handleSpotifyURICheck(uri, 'best');
-});
 
 // Listener to the latest album input
 latest.addEventListener("input", function () {
-    let uri = extractSpotifyURI(best.value);
-    handleSpotifyURICheck(uri, 'best');
-});
-latest.addEventListener("change", function () {
     let uri = extractSpotifyURI(latest.value);
     handleSpotifyURICheck(uri, 'latest');
 });
