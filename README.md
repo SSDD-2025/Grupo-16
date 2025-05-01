@@ -46,6 +46,11 @@
   - [Errors Management](#-errors-management)
   - [API REST Documentation](#-api-rest-documentation)
   - [Team Participation](#-team-participation)
+- [Phase 3](#-phase-3)
+  - [Execution Instructions for the Dockerized Application](#-execution-instructions-for-the-dockerized-application)
+  - [Docker Image Building Documentation](#-docker-image-building-documentation)
+  - [Documentation for Deploying to Virtual Machines](#-documentation-for-deploying-to-virtual-machines)
+  - [Application Deployed on Virtual Machines](#-application-deployed-on-virtual-machines)
 - [License](#-license)
 
 ## 🔧 Execution Instructions
@@ -1539,6 +1544,20 @@ The following link leads to our team dashboard:
 
 > [!NOTE]
 > The documents highlighted exhibit participation that is either near-comprehensive or substantial. It should be acknowledged that significant contributions may also be present, albeit distributed, within other documents like UserService or ArtistController.
+
+# 🐳 Phase 3
+
+## 📝 Execution Instructions for the Dockerized Application
+**INSTRUCCIONES DE EJECUCIÓN USANDO LOS DISTINTOS FICHEROS DOCKER COMPOSE. INDICAR LOS REQUISITOS NECESARIOS PARA QUE SE PUEDA EJECUTAR, AL IGUAL QUE EL (O LOS) COMANDOS NECESARIOS Y COMO ACCEDER A LA PÁGINA CUANDO ESTÉ LISTA PARA SER USADA.**
+
+## 🔨 Docker Image Building Documentation
+**REQUISITO NECESARIO PARA CONSTRUIR LA IMAGEN DE DOCKERIZADA Y COMO EJECUTAR EL SCRIPT NECESARIO PARA CONSTRUIR Y PUBLICAR LA IMAGEN DE DOCKER. TAMBIÉN INCLUIR EL COMANDO NECESARIO PARA HACERLO HACIENDO USO DE BUILDPACK.**
+
+## 💻 Documentation for Deploying to Virtual Machines
+**DESCRIPCIÓN DE REQUISITOS Y COMANDOS PARA PODER DESPLEGAR LA APLICACIÓN Y LA BD EN LAS MÁQUINAS VIRTUALES.**
+
+## 🚀 Application Deployed on Virtual Machines
+**SE INCLUIRÁ LA URL DE LA MÁQUINA VIRTUAL DONDE SE ALOJÓ LA APLICACIÓN. TAMBIÉN INCLUIR LAS CREDENCIALES DE LOS USUARIOS DE EJEMPLO (INCLUYENDO ADMINISTRADOR).**
 
 # 📜 License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
