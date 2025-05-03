@@ -1,0 +1,1 @@
+# Script de bash que creará la imagen.

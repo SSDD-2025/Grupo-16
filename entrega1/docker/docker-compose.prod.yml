@@ -1,0 +1,4 @@
+# Fichero que al ejecutarse con el comando “docker compose up” 
+# se descargue la imagen de la aplicación y de la base de datos de DockerHub y ejecute
+# la aplicación en el puerto 8443 local de forma que sea accesible en https://localhost:8443/.
+# Utilizará un volumen para almacenar los datos de la base de datos.

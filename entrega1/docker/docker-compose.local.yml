@@ -1,0 +1,2 @@
+#  Fichero similar al anterior, cuya única diferencia será que
+# construirá la imagen de la aplicación al lanzar el comando “docker compose up”.

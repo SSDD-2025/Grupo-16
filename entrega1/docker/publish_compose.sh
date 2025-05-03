@@ -1,0 +1,1 @@
+# Script de bash que publicará el fichero docker-compose.prod.yml en DockerHub como un OCI Artifact.
