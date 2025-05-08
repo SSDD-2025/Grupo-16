@@ -1,11 +1,17 @@
 package es.ticketmaster.entrega1.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Blob;
 
 import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +27,7 @@ public class ImageService {
      * @throws IOException if an error occurs during file handling
      */
     public Blob getBlobOf(MultipartFile photo) throws IOException {
-        if (photo!= null && !photo.isEmpty()) {
+        if (photo != null && !photo.isEmpty()) {
             return BlobProxy.generateProxy(photo.getInputStream(), photo.getSize());
         } else {
             return null;
@@ -43,5 +49,20 @@ public class ImageService {
         } catch (IOException e) {
             return null; //in case of error
         }
+    }
+
+    public Resource getResourceFromURL(String weburl) throws IOException {
+        URL url = new URL(weburl);
+        InputStream in = url.openStream();
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[4096];
+        int nRead;
+        while ((nRead = in.read(data)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        in.close();
+        byte[] imageBytes = buffer.toByteArray();
+
+        return new InputStreamResource(new ByteArrayInputStream(imageBytes));
     }
 }

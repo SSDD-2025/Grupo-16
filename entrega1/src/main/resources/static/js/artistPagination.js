@@ -65,7 +65,7 @@ function loadMoreArtists() {
 					{{/photo}}
 					{{^photo}}
 					<div class="artist-photo">
-						<img src="/media/no-photo-artist.png" class="image-in-container image-rounded">
+						<img src="https://i.postimg.cc/bNRC9R9b/no-photo-artist.png" class="image-in-container image-rounded">
 					</div>
 					{{/photo}}
 					<div class="name-container">

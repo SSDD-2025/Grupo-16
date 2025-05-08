@@ -1,5 +1,6 @@
 package es.ticketmaster.entrega1.controller.web;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -16,6 +17,7 @@ import es.ticketmaster.entrega1.model.Artist;
 import es.ticketmaster.entrega1.model.UserEntity;
 import es.ticketmaster.entrega1.service.ArtistService;
 import es.ticketmaster.entrega1.service.ConcertService;
+import es.ticketmaster.entrega1.service.ImageService;
 import es.ticketmaster.entrega1.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -30,6 +32,8 @@ public class ImageController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired ImageService imageService;
 
     /**
      * It shows the artist photo on the page where the mapping is called Acts
@@ -85,13 +89,14 @@ public class ImageController {
     }
 
     /**
-     * 
+     *
      * @param id id of the concert whose poster photo is going to be shown
-     * @return the photo on the ResponseEntity<Object> if everything went well (otherwise returns a not found object)
+     * @return the photo on the ResponseEntity<Object> if everything went well
+     * (otherwise returns a not found object)
      * @throws SQLException
      */
     @GetMapping("/concert/{id}/download-poster")
-    public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException {
+    public ResponseEntity<Object> downloadConcertPoster(@PathVariable long id) throws SQLException, IOException {
 
         Blob concertImage = concertService.getConcertImage(id);
 
@@ -103,7 +108,11 @@ public class ImageController {
                     .contentLength(concertImage.length()).body(file);
 
         } else {
-            return ResponseEntity.notFound().build();
+            Resource defaultImage = imageService.getResourceFromURL("https://i.postimg.cc/jS2hjWdd/default-poster.png");
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .body(defaultImage);
         }
     }
 }
