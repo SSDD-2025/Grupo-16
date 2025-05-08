@@ -69,6 +69,14 @@ public class ImageService {
         return new InputStreamResource(new ByteArrayInputStream(imageBytes));
     }
 
+    /**
+     * Converts a remote image from a given URL into a Blob object.
+     *
+     * @param imageUrl the URL of the remote image to be converted into a Blob.
+     * @return a Blob object representing the remote image.
+     * @throws ResponseStatusException if an error occurs while processing the image,
+     * such as an invalid URL or an issue with reading the image.
+     */
     public Blob remoteImageToBlob(String imageUrl){
         try {
             Resource image = new UrlResource(imageUrl);
