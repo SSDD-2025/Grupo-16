@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>es.ticketmaster</groupId>
 	<artifactId>entrega1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>entrega1</name>
 	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
