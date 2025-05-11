@@ -1570,7 +1570,7 @@ docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
 >[!IMPORTANT]
 > Note that this command only works if run from `Grupo16/`. If you're running it from a different path, you'll need to adjust the path.
 
-Once the `docker image` has been succesfully built, you can upload it to your `dockerhub account` by following the next steps:
+Once the `docker image` has been succesfully built, you can upload it to your `Docker Hub account` by following the next steps:
 
 ### 1) Login into your docker personal account
 You have two ways in which you can login. The first one is by doing 
@@ -1608,25 +1608,40 @@ Where:
 - `<image-name>` is the name of the image (In this case is `liveticket`).
 - `<tag>` is the version of the application (In this case is `1.0.0`).
 
-### Image Build and Push with Scripts
-Another way you can build and publish the docker image for this spring application, is executing the `create_image.sh` and `publish_image.sh` scritps.
+### Image Build and Push using Scripts
+This guide explains how to build and publish a Docker image for your Spring application using provided scripts. 
 
-The [create_image.sh](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/create_image.sh) scrtipt will build the image based on the Dockerfile by following these stepts:
+>[!NOTE]
+> Since some colleagues experience issues with `docker login` when using Bash terminals (such as Git Bash), the scripts are provided in two versions: `.sh` for Linux and `.ps1` for Windows. This approach ensures that both Linux and Windows users can execute the scripts without compatibility problems.
+>
+> [Linux Scripts](https://github.com/SSDD-2025/Grupo-16/tree/main/docker/scripts/linux)
+>
+> [Windows Scripts](https://github.com/SSDD-2025/Grupo-16/tree/main/docker/scripts/windows)
 
-i) Open a `bash terminal` and navigate to `Grupo16/docker/` directory.
+#### Build Docker Image
+In order to build the docker image of the application, you will need to excute the `create_image` script. 
 
-ii) Once there, execute:
+If you are a Linux user, open a `Bash terminal`, navigate to `Grupo16/docker/scripts/linux/`, and execute:
 ````sh
 ./create_image.sh
 ````
 
-The [publish_image.sh](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/publish_image.sh) script will push the image to DockerHub by following these steps:
+If you are a Windows user, open a `PowerShell terminal`, navigate to `Grupo16/docker/scripts/windows/`, and execute:
+````ps
+./create_image.ps1
+````
 
-i) Open a `bash terminal` and navigate to `Grupo16/docker/` directory.
+#### Publish Docker Image on Docker Hub
+Once the previous script has been executed, you can publish the image to your `Docker Hub account` by executing the `publish_image` script.
 
-ii) Once there, execute:
+If you are a Linux user, open a `Bash terminal`, navigate to `Grupo16/docker/scripts/linux/`, and execute:
 ````sh
 ./publish_image.sh
+````
+
+If you are a Windows user, open a `PowerShell terminal`, navigate to `Grupo16/docker/scripts/windows/`, and execute:
+````ps
+./publish_image.ps1
 ````
 
 ### Buildpack
