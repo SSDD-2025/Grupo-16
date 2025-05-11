@@ -1553,6 +1553,9 @@ To deploy the application with all of its images, they were uploaded to [Postima
 
 The same applies to the page icons.
 
+>[!NOTE]
+> Please note that images may be displayed at a lower quality than in previous phases due to this hosting service.
+
 ## 📝 Execution Instructions for the Dockerized Application
 **INSTRUCCIONES DE EJECUCIÓN USANDO LOS DISTINTOS FICHEROS DOCKER COMPOSE. INDICAR LOS REQUISITOS NECESARIOS PARA QUE SE PUEDA EJECUTAR, AL IGUAL QUE EL (O LOS) COMANDOS NECESARIOS Y COMO ACCEDER A LA PÁGINA CUANDO ESTÉ LISTA PARA SER USADA.**
 
@@ -1584,7 +1587,7 @@ If you prefer to authenticate using a PAT, you'll first need to create a new one
 
 i) Go to [dockerhub](https://hub.docker.com/) and login.
 
-ii) Click on your profile picture (the circle that appears in the upper right corner) and go to `account settings`.
+ii) Click on your profile picture (the circle in the upper right corner) and go to `account settings`.
 
 iii) In the panel that should appear on the righ side, click on `Personal access tokens` and then click on `Generate new token`.
 
