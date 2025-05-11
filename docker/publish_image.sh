@@ -14,4 +14,6 @@ docker login
 
 docker tag "$IMAGE_NAME:$IMAGE_TAG" "$FULL_IMAGE_NAME"
 
+echo "Pushing image to Docker Hub..."
 docker push "$FULL_IMAGE_NAME"
+echo "Image successfully pushed: $FULL_IMAGE_NAME"
