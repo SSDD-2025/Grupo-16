@@ -1585,7 +1585,7 @@ where `<dockerhub-username>` is your docker username account. This differs from 
 
 If you prefer to authenticate using a PAT, you'll first need to create a new one:
 
-i) Go to [dockerhub](https://hub.docker.com/) and login.
+i) Go to [Docker Hub](https://hub.docker.com/) and login.
 
 ii) Click on your profile picture (the circle in the upper right corner) and go to `account settings`.
 
