@@ -1559,13 +1559,13 @@ The same applies to the page icons.
 ## 🔨 Docker Image Building Documentation
 In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` install in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
 
-Once your `docker engine` is active, you will be able to build the `docker image` based on the `Dockerfile` locate it in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
+Once your `docker engine` is up and running, you will be able to build the `docker image` based on the `Dockerfile` located in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
 ````sh
 docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
 ````
 
 >[!IMPORTANT]
-> Be advised that this command only works if it is executed from `Grupo16/`. If it is going to be executed from another route, you should adjust the path.
+> Note that this command only works if run from `Grupo16/`. If you're running it from a different path, you'll need to adjust the path.
 
 Once the `docker image` has been succesfully built, you can upload it to your `dockerhub account` by following the next steps:
 
@@ -1578,9 +1578,9 @@ And the second one by doing:
 ````sh
 docker login -u <dockerhub-username>
 ````
-where `<dockerhub-username>` is your docker username account. The difference between this way and the previous one, is that here you will need to enter your password or your `Personal Access Token (PAT)`. 
+where `<dockerhub-username>` is your docker username account. This differs from the previous method by entering your password or `Personal Access Token (PAT)`. 
 
-In case you preffer authenticate yourself by a PAT, first you will have to create a new one:
+If you prefer to authenticate using a PAT, you'll first need to create a new one:
 
 i) Go to [dockerhub](https://hub.docker.com/) and login.
 
@@ -1588,7 +1588,7 @@ ii) Click on your profile picture (the circle that appears in the upper right co
 
 iii) In the panel that should appear on the righ side, click on `Personal access tokens` and then click on `Generate new token`.
 
-iv) Enter the information that it is required. We recommend that you establish an `expiration date` for your token.
+iv) Enter the information that it is required. We recommend you to establish an `expiration date` for your token.
 
 v) Once you have click on the  `Generate` button, the token will appear and you will need to put it in the terminal where you are currently authenticating yourself.
 
