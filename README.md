@@ -47,6 +47,7 @@
   - [API REST Documentation](#-api-rest-documentation)
   - [Team Participation](#-team-participation)
 - [Phase 3](#-phase-3)
+  - [Considerations](#-considerations) 
   - [Execution Instructions for the Dockerized Application](#-execution-instructions-for-the-dockerized-application)
   - [Docker Image Building Documentation](#-docker-image-building-documentation)
   - [Documentation for Deploying to Virtual Machines](#-documentation-for-deploying-to-virtual-machines)
@@ -1547,11 +1548,86 @@ The following link leads to our team dashboard:
 
 # 🐳 Phase 3
 
+## 📌 Considerations
+To deploy the application with all of its images, they were uploaded to [Postimage](https://postimages.org/es/), an online image hosting service. As a result, all links referencing the images have been updated to point to their corresponding URLs on this platform. For example: https://i.postimg.cc/vDyFw0SM/MPT-poster.jpg
+
+The same applies to the page icons.
+
 ## 📝 Execution Instructions for the Dockerized Application
 **INSTRUCCIONES DE EJECUCIÓN USANDO LOS DISTINTOS FICHEROS DOCKER COMPOSE. INDICAR LOS REQUISITOS NECESARIOS PARA QUE SE PUEDA EJECUTAR, AL IGUAL QUE EL (O LOS) COMANDOS NECESARIOS Y COMO ACCEDER A LA PÁGINA CUANDO ESTÉ LISTA PARA SER USADA.**
 
 ## 🔨 Docker Image Building Documentation
-**REQUISITO NECESARIO PARA CONSTRUIR LA IMAGEN DE DOCKERIZADA Y COMO EJECUTAR EL SCRIPT NECESARIO PARA CONSTRUIR Y PUBLICAR LA IMAGEN DE DOCKER. TAMBIÉN INCLUIR EL COMANDO NECESARIO PARA HACERLO HACIENDO USO DE BUILDPACK.**
+In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` install in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
+
+Once your `docker engine` is active, you will be able to build the `docker image` based on the `Dockerfile` locate it in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
+````sh
+docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
+````
+
+>[!IMPORTANT]
+> Be advised that this command only works if it is executed from `Grupo16/`. If it is going to be executed from another route, you should adjust the path.
+
+Once the `docker image` has been succesfully built, you can upload it to your `dockerhub account` by following the next steps:
+
+### 1) Login into your docker personal account
+You have two ways in which you can login. The first one is by doing 
+````sh
+docker login
+````
+And the second one by doing:
+````sh
+docker login -u <dockerhub-username>
+````
+where `<dockerhub-username>` is your docker username account. The difference between this way and the previous one, is that here you will need to enter your password or your `Personal Access Token (PAT)`. 
+
+In case you preffer authenticate yourself by a PAT, first you will have to create a new one:
+
+i) Go to [dockerhub](https://hub.docker.com/) and login.
+
+ii) Click on your profile picture (the circle that appears in the upper right corner) and go to `account settings`.
+
+iii) In the panel that should appear on the righ side, click on `Personal access tokens` and then click on `Generate new token`.
+
+iv) Enter the information that it is required. We recommend that you establish an `expiration date` for your token.
+
+v) Once you have click on the  `Generate` button, the token will appear and you will need to put it in the terminal where you are currently authenticating yourself.
+
+>[!WARNING]
+> Please note that the token will no longer appear, so be careful not to lose it.
+
+### 2) Push the Image
+Now that you've successfully logged into your account, you'll just need to run the following command to upload the image to DockerHub:
+````sh
+docker push <username>/<image-name>:<tag>
+````
+Where:
+- `<username>` is your doccker username.
+- `<image-name>` is the name of the image (In this case is `liveticket`).
+- `<tag>` is the version of the application (In this case is `1.0.0`).
+
+### Image Build and Push with Scripts
+Another way you can build and publish the docker image for this spring application, is executing the `create_image.sh` and `publish_image.sh` scritps.
+
+The [create_image.sh](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/create_image.sh) scrtipt will build the image based on the Dockerfile by following these stepts:
+
+i) Open a `bash terminal` and navigate to `Grupo16/docker/` directory.
+
+ii) Once there, execute:
+````sh
+./create_image.sh
+````
+
+The [publish_image.sh](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/publish_image.sh) script will push the image to DockerHub by following these steps:
+
+i) Open a `bash terminal` and navigate to `Grupo16/docker/` directory.
+
+ii) Once there, execute:
+````sh
+./publish_image.sh
+````
+
+### Buildpack
+**TBD**
 
 ## 💻 Documentation for Deploying to Virtual Machines
 **DESCRIPCIÓN DE REQUISITOS Y COMANDOS PARA PODER DESPLEGAR LA APLICACIÓN Y LA BD EN LAS MÁQUINAS VIRTUALES.**
