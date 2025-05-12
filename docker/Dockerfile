@@ -4,10 +4,10 @@ FROM maven:3.9.9-eclipse-temurin-21-jammy AS builder
 # Work directory where all the commands will be executed.
 WORKDIR /project
 
-COPY ./pom.xml /project/
+COPY pom.xml /project/
 
 RUN mvn dependency:go-offline
-COPY ./src /project/src
+COPY /src /project/src
 
 # Execute the project compilation and download the needed dependencies.
 RUN mvn -B package -DskipTests

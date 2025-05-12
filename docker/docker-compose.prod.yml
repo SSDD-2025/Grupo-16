@@ -1,4 +1,33 @@
-# Fichero que al ejecutarse con el comando “docker compose up” 
-# se descargue la imagen de la aplicación y de la base de datos de DockerHub y ejecute
-# la aplicación en el puerto 8443 local de forma que sea accesible en https://localhost:8443/.
-# Utilizará un volumen para almacenar los datos de la base de datos.
+# Docker compose that only uses public images
+services:
+  # Spring boot app cotainer
+  web:
+    image: liveticket/liveticket
+    ports: 
+      - 8443:8443
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database/liveticket
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=LiveTicket
+    depends_on:
+      database:
+        condition: service_healthy
+
+  # Database container
+  database:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=LiveTicket
+      - MYSQL_DATABASE=liveticket
+    volumes:
+      - database_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
+# We create a volume in the DDBB container to persist information
+volumes:
+  database_data:
