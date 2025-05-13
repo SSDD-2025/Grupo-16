@@ -1557,10 +1557,104 @@ The same applies to the page icons.
 > Please note that images may be displayed at a lower quality than in previous phases due to this hosting service.
 
 ## 📝 Execution Instructions for the Dockerized Application
-**INSTRUCCIONES DE EJECUCIÓN USANDO LOS DISTINTOS FICHEROS DOCKER COMPOSE. INDICAR LOS REQUISITOS NECESARIOS PARA QUE SE PUEDA EJECUTAR, AL IGUAL QUE EL (O LOS) COMANDOS NECESARIOS Y COMO ACCEDER A LA PÁGINA CUANDO ESTÉ LISTA PARA SER USADA.**
+The only requirement to execute the Dockerized Application is to have `docker compose` installed and operative in the host where the app is wanted to be executed. Normally,`docker desktop` (Windows and Mac) includes `docker compose` by default. Also, `docker engine` (Linux) may require of an installation to use docker compose.
+
+Anyways, to find help with the installation of `docker engine`, `docker desktop` or `docker compose` visit the [official docker documentation](https://docs.docker.com/desktop/).
+
+>[!IMPORTANT]
+> Bare in mind that our public images in DockerHub were developed with Linux. The following explanations work correctly in Linux, but some as the point 3 may cause errors in Windows.
+
+### 1) Production docker-compose (`docker-compose.prod.yml`).
+Considerations for this execution method:
+<ul>
+  <li>A public docker image of the app is used (liveticket/liveticket:1.0.0).</li>
+  <li>No Dockerfile is used.</li>
+  <li>No login is required (for execution).</li>
+</ul>
+
+Once the `docker-compose.prod.yml` is fully configured, we situate the terminal in `/Grupo-16/docker`. There we will execute:
+
+````sh
+docker compose -f docker-compose.prod.yml up
+````
+>[!IMPORTANT]
+> Note that this command only works if it is executed inside `/Grupo16/docker`. If you want to execute it from another directory, adjust the path.
+
+After that, the containers will be running in foreground until they are stopped (`Ctrl+C` or `^C`).
+
+In order to mantain the process in background so that the bash is available for more commands, just include the argument `-d` in the previous command.
+
+After the execution, the next elements are created:
+<ul>
+  <li>Docker Network created automatically by the Docker Compose to link the containers.</li>
+  <li>Docker Volume to persist the data saved in the database.</li>
+  <li>Docker Container of the Web App.</li>
+  <li>Docker Container of the Database.</li>
+</ul>
+
+Observe that the initiation of the Database container occurs in first place. It is not until this initiation occurs that the Web App container begins to activate. This is because the `docker-compose.prod.yml` checks the health state of the containers on which others depend and does not run them until `service_healthy` is returned.
+
+If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the docker-compose).
+
+### 2) Local docker-compose (`docker-compose.local.yml`).
+
+Considerations for this execution method:
+<ul>
+  <li>No public docker image is needed to execute the app with this method.</li>
+  <li>A functional Dockerfile is used.</li>
+  <li>A local volume is used to save the database.</li>
+  <li>No login is required (for execution).</li>
+</ul>
+
+Once the `docker-compose.local.yml` is fully configured, we situate the terminal in `/Grupo-16/entrega1`. There we will execute:
+
+````sh
+docker compose -f ../docker/docker-compose.local.yml up
+````
+>[!IMPORTANT]
+> This command only works if it is executed inside `/Grupo16/entrega1`, since the docker-compose was explicitly configured fot that. If you want to execute it from another directory, adjust the path.
+
+After that, the containers will be running in foreground until they are stopped (`Ctrl+C` or `^C`).
+
+In order to mantain the process in background so that the bash is available for more commands, just include the argument `-d` in the previous command.
+
+In the execution, the construction of a local docker image takes place and it is connected to the database container by an automatically created Docker Network. As well, a directory named `mysql` will be created at the same level than `entrega1` or `docker`. Here, the database will be saved. 
+
+Observe that the initiation of the Database container occurs in first place (directory creation and general structuration). It is not until this initiation occurs that the Web App container begins to activate. This is because the `docker-compose.local.yml` checks the health state of the containers on which others depend and does not run them until `service_healthy` is returned.
+
+If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the docker-compose). 
+
+### 3) App execution using the public OCI Artifact.
+>[!IMPORTANT]
+> In Windows problems may occur with this method as far as ./env is concerned. Please, consider using WSL.
+
+Considerations for this execution method:
+<ul>
+  <li>This method can be executed from any host since it is based in the usage of public docker-compose files in DockerHub.</li>
+  <li>It makes use of a public docker-compose OCI Artifact (liveticket/liveticket-compose:1.0.0)</li>
+  <li>There are no local files or local specific directories needed for the execution.</li>
+  <li>No login is required (for execution).</li>
+</ul>
+
+With this method, the configuration file is not local, it needs to be downloaded from an OCI register (DockerHub). In order to run the app like this, the next command needs to be executed:
+````sh
+docker compose -f oci://docker.io/liveticket/liveticket-compose:1.0.0 up
+````
+Now, the OCI artifact corresponding to the `docker-file.yml` will be locally downloaded and the initiation of the different services (volumes, containers and networks) will happen similarly as in the first method.
+
+Observe that the initiation of the Database container occurs in first place. It is not until this initiation occurs that the Web App container begins to activate. This is because the public docker compose checks the health state of the containers on which others depend and does not run them until `service_healthy` is returned.
+
+For each of the needed images, Docker will check if the image is downloaded in the host so that is available to use or will pull them from their repository (in this case, from DockerHub).
+
+After, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the artifact).
+
+>[!NOTE]
+> In order to delete or finish the execution in any of the exposed methods, just execute `docker compose -f path_to_docker-compose down -v` (without `-v` if you want to persist the volumes).
+
+
 
 ## 🔨 Docker Image Building Documentation
-In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` install in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
+In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` installed in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
 
 Once your `docker engine` is up and running, you will be able to build the `docker image` based on the `Dockerfile` located in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
 ````sh
