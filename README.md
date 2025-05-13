@@ -1651,14 +1651,12 @@ After, you will have access to the webpage in `https://localhost:8443` (at port 
 >[!NOTE]
 > In order to delete or finish the execution in any of the exposed methods, just execute `docker compose -f path_to_docker-compose down -v` (without `-v` if you want to persist the volumes).
 
-
-
 ## 🔨 Docker Image Building Documentation
 In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` installed in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
 
 Once your `docker engine` is up and running, you will be able to build the `docker image` based on the `Dockerfile` located in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
 ````sh
-docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
+docker build -f docker/Dockerfile -t liveticket/liveticket:1.0.0 ./entrega1
 ````
 
 >[!IMPORTANT]
