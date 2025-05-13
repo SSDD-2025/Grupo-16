@@ -1,6 +1,6 @@
 # Docker compose that only uses public images
 services:
-  # Spring boot app cotainer
+  # Spring boot app container
   web:
     image: liveticket/liveticket:1.0.0
     ports: 
