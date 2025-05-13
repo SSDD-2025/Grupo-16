@@ -2,7 +2,7 @@
 services:
   # Spring boot app cotainer
   web:
-    image: liveticket/liveticket
+    image: liveticket/liveticket:1.0.0
     ports: 
       - 8443:8443
     environment:
