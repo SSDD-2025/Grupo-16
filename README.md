@@ -1739,7 +1739,10 @@ If you are a Windows user, open a `PowerShell terminal`, navigate to `Grupo16/do
 ````
 
 ### Buildpack
-**TBD**
+Another alternative to build the docker image is with `bulidpack`. This can be done by executing the following command:
+````log
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=liveticket/liveticket:1.0.0
+````
 
 ## 💻 Documentation for Deploying to Virtual Machines
 **DESCRIPCIÓN DE REQUISITOS Y COMANDOS PARA PODER DESPLEGAR LA APLICACIÓN Y LA BD EN LAS MÁQUINAS VIRTUALES.**
