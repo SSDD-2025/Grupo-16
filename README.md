@@ -1737,7 +1737,7 @@ If you are a Windows user, open a `PowerShell terminal`, navigate to `Grupo16/do
 ````
 
 ### Buildpack
-Another alternative to build the docker image is with `bulidpack`. This can be done by executing the following command:
+Another alternative to build the docker image is with `buildpack`. This can be done by executing the following command:
 ````log
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=liveticket/liveticket:1.0.0
 ````
