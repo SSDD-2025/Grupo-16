@@ -1696,7 +1696,7 @@ Now that you've successfully logged into your account, you'll just need to run t
 docker push <username>/<image-name>:<tag>
 ````
 Where:
-- `<username>` is your doccker username.
+- `<username>` is your docker username.
 - `<image-name>` is the name of the image (In this case is `liveticket`).
 - `<tag>` is the version of the application (In this case is `1.0.0`).
 
