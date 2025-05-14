@@ -1816,6 +1816,7 @@ The application works the same way as it used to be, it just runs in other place
   * Username: armiiin13; Password: eras1325.
    * Username: Fonssi29; Password: pollitoPio.
    * Username: davih; Password: davilico.
+
 You can also create your own account to test it.
 
 # 📜 License
