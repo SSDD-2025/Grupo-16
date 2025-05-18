@@ -1577,6 +1577,7 @@ Due to the need to access the web application remotely, a new URL specifying the
 
 >[!IMPORTANT]
 > Please note that environment variables are not included when exporting a Postman collection. Therefore, to use them, you will need to define them manually in your local environment.
+>
 > Additionally, all requests in the current collection are configured to use `localURL`.
 
 ## 📝 Execution Instructions for the Dockerized Application
