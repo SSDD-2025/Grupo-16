@@ -1618,7 +1618,7 @@ After the execution, the next elements are created:
 
 Observe that the initiation of the Database container occurs in first place. It is not until this initiation occurs that the Web App container begins to activate. This is because the `docker-compose.prod.yml` checks the health state of the containers on which others depend and does not run them until `service_healthy` is returned.
 
-If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the docker-compose).
+If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 of the host that executes the docker-compose).
 
 ### 2) Local docker-compose (`docker-compose.local.yml`).
 
@@ -1644,9 +1644,15 @@ In order to mantain the process in background so that the bash is available for 
 
 In the execution, the construction of a local docker image takes place and it is connected to the database container by an automatically created Docker Network. As well, a directory named `mysql` will be created at the same level than `entrega1` or `docker`. Here, the database will be saved. 
 
+Also, this method might use a previously built image. In order to force docker compose to build the image from scratch (f.e. we change something in a HTML), you might just add `--build` at the end of the previous command:
+
+````sh
+docker compose -f ../docker/docker-compose.local.yml up --build
+````
+
 Observe that the initiation of the Database container occurs in first place (directory creation and general structuration). It is not until this initiation occurs that the Web App container begins to activate. This is because the `docker-compose.local.yml` checks the health state of the containers on which others depend and does not run them until `service_healthy` is returned.
 
-If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the docker-compose). 
+If all of the previous steps took place correctly and the initializing execution finished, you will have access to the webpage in `https://localhost:8443` (at port 8443 of the host that executes the docker-compose). 
 
 ### 3) App execution using the public OCI Artifact.
 >[!IMPORTANT]
@@ -1670,7 +1676,7 @@ Observe that the initiation of the Database container occurs in first place. It 
 
 For each of the needed images, Docker will check if the image is downloaded in the host so that is available to use or will pull them from their repository (in this case, from DockerHub).
 
-After, you will have access to the webpage in `https://localhost:8443` (at port 8443 in the host that executes the artifact).
+After, you will have access to the webpage in `https://localhost:8443` (at port 8443 of the host that executes the artifact).
 
 >[!NOTE]
 > In order to delete or finish the execution in any of the exposed methods, just execute `docker compose -f path_to_docker-compose down -v` (without `-v` if you want to persist the volumes).
