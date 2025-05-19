@@ -1570,7 +1570,7 @@ Due to the need to access the web application remotely, a new URL specifying the
     </tr>
     <tr>
       <td>remoteURL</td>
-      <td>https://193.147.60.56</td>
+      <td>https://193.147.60.56:8443</td>
     </tr>
   </tbody>
 </table>
@@ -1827,14 +1827,14 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=LiveTicket -e MYSQL_DAT
 
 When the database is created, switch to the MV1 terminal and launch the application from the Docker image. It is important that, in the command, you specify the database URL because now it is not `localhost` as we have in the `application.properties`, but it is located at the MV2 address.
 ````bash
-docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.114/liveticketdb fonssi29/liveticket:1.0.0
+docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.114/liveticketdb liveticket/liveticket:1.0.0
 ````
 >[!NOTE]
 >Notice the `-d` parameter on both run commands. This is so the command runs on the background, leaving the prompt active in order to execute other operations as `docker ps` or `docker stop`.
 
 ## 🚀 Application Deployed on Virtual Machines
 When the application is launch from the virtual machines, you can access to it by its URL as the same way we previous do using `https://localhost:8443`. Because now the application does not run on our computer we cannot use the `localhost` variable, instead we need to use the public IP address of our virtual machine. In our case, this is:
-https://193.147.60.56
+https://193.147.60.56:8443
 
 The application works the same way as it used to be, it just runs in other place. You can access it using the following default administrator users:
   * Username: armiiin13; Password: eras1325.
