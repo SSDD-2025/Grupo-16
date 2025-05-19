@@ -7,7 +7,7 @@
 set -e
 
 # Variables
-USERNAME="davidrisqgom"
+USERNAME="liveticket"
 TAG_VERSION="1.0.0"
 COMPOSE_FILE="docker-compose.prod.yml" # This script should be executed in the directory where the COMPOSE_FILE is
 APP_NAME="liveticket"
