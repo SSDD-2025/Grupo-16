@@ -1570,7 +1570,7 @@ Due to the need to access the web application remotely, a new URL specifying the
     </tr>
     <tr>
       <td>remoteURL</td>
-      <td>https://193.147.60.56</td>
+      <td>https://193.147.60.56:8443</td>
     </tr>
   </tbody>
 </table>
@@ -1834,7 +1834,7 @@ docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=
 
 ## 🚀 Application Deployed on Virtual Machines
 When the application is launch from the virtual machines, you can access to it by its URL as the same way we previous do using `https://localhost:8443`. Because now the application does not run on our computer we cannot use the `localhost` variable, instead we need to use the public IP address of our virtual machine. In our case, this is:
-https://193.147.60.56
+https://193.147.60.56:8443
 
 The application works the same way as it used to be, it just runs in other place. You can access it using the following default administrator users:
   * Username: armiiin13; Password: eras1325.
