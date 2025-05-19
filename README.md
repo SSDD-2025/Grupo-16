@@ -1827,7 +1827,7 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=LiveTicket -e MYSQL_DAT
 
 When the database is created, switch to the MV1 terminal and launch the application from the Docker image. It is important that, in the command, you specify the database URL because now it is not `localhost` as we have in the `application.properties`, but it is located at the MV2 address.
 ````bash
-docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.114/liveticketdb fonssi29/liveticket:1.0.0
+docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.114/liveticketdb liveticket/liveticket:1.0.0
 ````
 >[!NOTE]
 >Notice the `-d` parameter on both run commands. This is so the command runs on the background, leaving the prompt active in order to execute other operations as `docker ps` or `docker stop`.
