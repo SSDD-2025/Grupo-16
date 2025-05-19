@@ -130,6 +130,9 @@
 				<configuration>
 					<!-- Change if error with used port-->
 					<jmxPort>9099</jmxPort>
+					<image>
+      					<name>liveticket/liveticket:1.0.0</name>
+    				</image>
 				</configuration>
 				<executions>
 					<execution>
