@@ -1557,28 +1557,26 @@ The same applies to the page icons.
 > Please note that images may be displayed at a lower quality than in previous phases due to this hosting service.
 
 ### Postman Collection
-Due to the need to access the web application remotely, a new URL specifying the target IP address is required. To facilitate this, two environment variables were created in Postman, allowing requests to be made either locally or remotely. These variables are:
+Due to the need to access the web application remotely, a new URL specifying the target IP address is required. To facilitate this, two environments were created giving the variable `localURL` different values, depending if it is used in the virtual machines or not:
 <table>
   <thead>
-    <th>Name</th>
+    <th>Environment</th>
     <th>Value</th>
   </thead>
   <tbody>
     <tr>
-      <td>localURL</td>
+      <td>LiveTicket Local</td>
       <td>https://localhost:8443</td>
     </tr>
     <tr>
-      <td>remoteURL</td>
+      <td>LiveTicket Remote</td>
       <td>https://193.147.60.56:8443</td>
     </tr>
   </tbody>
 </table>
 
 >[!IMPORTANT]
-> Please note that environment variables are not included when exporting a Postman collection. Therefore, to use them, you will need to define them manually in your local environment.
->
-> Additionally, all requests in the current collection are configured to use `localURL`.
+> Please note that these environments are not included when exporting a Postman collection. Therefore, to use them, you will need to create them manually in your own Postman.
 
 ## 📝 Execution Instructions for the Dockerized Application
 The only requirement to execute the Dockerized Application is to have `docker compose` installed and operative in the host where the app is wanted to be executed. Normally,`docker desktop` (Windows and Mac) includes `docker compose` by default. Also, `docker engine` (Linux) may require of an installation to use docker compose.
