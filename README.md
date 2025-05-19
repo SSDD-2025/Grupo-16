@@ -1556,6 +1556,30 @@ The same applies to the page icons.
 >[!NOTE]
 > Please note that images may be displayed at a lower quality than in previous phases due to this hosting service.
 
+### Postman Collection
+Due to the need to access the web application remotely, a new URL specifying the target IP address is required. To facilitate this, two environment variables were created in Postman, allowing requests to be made either locally or remotely. These variables are:
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>localURL</td>
+      <td>https://localhost:8443</td>
+    </tr>
+    <tr>
+      <td>remoteURL</td>
+      <td>https://193.147.60.56:8443</td>
+    </tr>
+  </tbody>
+</table>
+
+>[!IMPORTANT]
+> Please note that environment variables are not included when exporting a Postman collection. Therefore, to use them, you will need to define them manually in your local environment.
+>
+> Additionally, all requests in the current collection are configured to use `localURL`.
+
 ## 📝 Execution Instructions for the Dockerized Application
 The only requirement to execute the Dockerized Application is to have `docker compose` installed and operative in the host where the app is wanted to be executed. Normally,`docker desktop` (Windows and Mac) includes `docker compose` by default. Also, `docker engine` (Linux) may require of an installation to use docker compose.
 
@@ -1651,14 +1675,12 @@ After, you will have access to the webpage in `https://localhost:8443` (at port 
 >[!NOTE]
 > In order to delete or finish the execution in any of the exposed methods, just execute `docker compose -f path_to_docker-compose down -v` (without `-v` if you want to persist the volumes).
 
-
-
 ## 🔨 Docker Image Building Documentation
 In order to dockerize the spring application (only the web part, no database included) it is needed to have the `docker engine` installed in your local machine. In case you do not have it, you can download it by accessing the official [docker documentation](https://docs.docker.com/desktop/).
 
 Once your `docker engine` is up and running, you will be able to build the `docker image` based on the `Dockerfile` located in the [docker folder](https://github.com/SSDD-2025/Grupo-16/blob/main/docker/Dockerfile), by executing the next command:
 ````sh
-docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
+docker build -f docker/Dockerfile -t liveticket/liveticket:1.0.0 ./entrega1
 ````
 
 >[!IMPORTANT]
@@ -1698,7 +1720,7 @@ Now that you've successfully logged into your account, you'll just need to run t
 docker push <username>/<image-name>:<tag>
 ````
 Where:
-- `<username>` is your doccker username.
+- `<username>` is your docker username.
 - `<image-name>` is the name of the image (In this case is `liveticket`).
 - `<tag>` is the version of the application (In this case is `1.0.0`).
 
@@ -1739,13 +1761,87 @@ If you are a Windows user, open a `PowerShell terminal`, navigate to `Grupo16/do
 ````
 
 ### Buildpack
-**TBD**
+Another alternative to build the docker image is with `buildpack`. This can be done by executing the following command:
+````log
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=liveticket/liveticket:1.0.0
+````
 
 ## 💻 Documentation for Deploying to Virtual Machines
-**DESCRIPCIÓN DE REQUISITOS Y COMANDOS PARA PODER DESPLEGAR LA APLICACIÓN Y LA BD EN LAS MÁQUINAS VIRTUALES.**
+In order to deploy the application onto the virtual machines, you will first need the IP addresses and access keys to each virtual machine involved in the process. In this case we will be explaining how to deploy the application using two virtual machines: one for the application and other for the database, as well as how to create a connection between them.
+
+All the connections will be made using __Secure Shell (SSH)__, which is a network protocol that allows secure communication between the user and a remote machine over a network, ensuring the protection of transmitted data.
+
+From this point on, we will refer to the virtual machine hosting the application as __MV1__ and the one hosting the database as __MV2__.
+
+>[!NOTE]
+>To facilitate the following steps we recommend you execute the commands from the folder where you have the access keys to the virtual machines, to ease the description of the relative paths to each key. To move between directories you can directly open a terminal from the folder or move to it using the `cd` command.
+
+### 1) Connecting our computer to the MV1
+Open a Windows/ Linux terminal on your computer and execute a command that connects your computer to the MV1. This command is build the following way:
+````sh
+ssh -i <access-key> <user>@<IP-address-MV1>
+````
+Where:
+- `<access-key>` is the access key to the virtual machines.
+- `<user>` is your username inside the MV1.
+- `<IP-address>` is the public IP address or domain of the virtual machine.
+
+In our case, the command should be:
+````sh
+ssh -i ssh-keys/sidi16.key vmuser@193.147.60.56
+````
+>[!NOTE]
+>Executing this command for the first time will show a warning message telling you the machine you want to connect to is unknown. To complete the communication you will need to write `y` or `yes`(depending on the terminal).
+
+### 2) Create a SSH Tunel between the Virtual Machines
+Open another terminal on your computer. Now we will be creating the tunel between the two machines and, when finished, it will show us the terminal of the MV2. This command looks similar to the previous one, having the following structure:
+````sh
+ssh -t -i <access-key> <user>@<IP-address> ssh <IP-address-MV2>
+````
+Where:
+- `<access-key>` is the access key to the virtual machines.
+- `<user>` is your username inside the MV1.
+- `<IP-address-MV1>` is the public IP address or domain of the virtual machine.
+- `IP-address-MV2` is the IP address to the MV2 or its domain
+  
+In our case it should be:
+````sh
+ssh -t -i ssh-keys/sidi16.key vmuser@193.147.60.56 ssh sidi16-2
+````
+
+>[!IMPORTANT]
+>If the virtual machines do not have `Docker` install you must install it. This is because the application is containerized and runs inside a Docker environment.
+>To install Docker on a Linux machine you can execute the following command:
+>````bash
+>curl -fsSL https://get.docker.com -o get-docker.sh
+>````
+>You can see other ways to install it or more information on [Install Docker Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+
+### 3) Deploying the Application
+To this point you should have opened two terminals on your computer: one being the MV1 and the other being the MV2. Both virtual machines should have docker installed.
+
+Before starting the application, you need to create and run the database on the MV2. To do this, you will launch a `MySQL` container on the MV2 using a Docker image with the root_password, password and database name specified in the application's `application.properties` file. This container will use the port number 3306 of MV2 and will connect to the port 3306 of the MV1.
+````bash
+docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=LiveTicket -e MYSQL_DATABASE=liveticketdb -e MYSQL_PASSWORD=LiveTicket -p 3306:3306 -d mysql:8
+````
+
+When the database is created, switch to the MV1 terminal and launch the application from the Docker image. It is important that, in the command, you specify the database URL because now it is not `localhost` as we have in the `application.properties`, but it is located at the MV2 address.
+````bash
+docker run -d --name liveticket-container -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.114/liveticketdb liveticket/liveticket:1.0.0
+````
+>[!NOTE]
+>Notice the `-d` parameter on both run commands. This is so the command runs on the background, leaving the prompt active in order to execute other operations as `docker ps` or `docker stop`.
 
 ## 🚀 Application Deployed on Virtual Machines
-**SE INCLUIRÁ LA URL DE LA MÁQUINA VIRTUAL DONDE SE ALOJÓ LA APLICACIÓN. TAMBIÉN INCLUIR LAS CREDENCIALES DE LOS USUARIOS DE EJEMPLO (INCLUYENDO ADMINISTRADOR).**
+When the application is launch from the virtual machines, you can access to it by its URL as the same way we previous do using `https://localhost:8443`. Because now the application does not run on our computer we cannot use the `localhost` variable, instead we need to use the public IP address of our virtual machine. In our case, this is:
+https://193.147.60.56:8443
+
+The application works the same way as it used to be, it just runs in other place. You can access it using the following default administrator users:
+  * Username: armiiin13; Password: eras1325.
+   * Username: Fonssi29; Password: pollitoPio.
+   * Username: davih; Password: davilico.
+
+You can also create your own account to test it.
 
 # 📜 License
 This project follows the Apache 2.0 license regulations. For more information you can consult it [Here](LICENSE).
