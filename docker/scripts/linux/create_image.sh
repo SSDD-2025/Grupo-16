@@ -5,5 +5,5 @@ set -e
 
 # Image building using the Dockerfile.
 echo "Building Docker Image..."
-docker build -f docker/Dockerfile -t fonssi29/liveticket:1.0.0 ./entrega1
-echo "Image "fonssi29/liveticket:1.0.0" built succesfully"
+docker build -f docker/Dockerfile -t liveticket/liveticket:1.0.0 ./entrega1
+echo "Image "liveticket/liveticket:1.0.0" built succesfully"

@@ -12,7 +12,7 @@ APP_NAME="liveticket"
 PUBLICATION=$USERNAME/$APP_NAME-compose:$TAG_VERSION
 
 # Login the user
-docker login
+docker login -u "$USERNAME"
 
 # Inform the user of the process
 echo "⚙️ Publishing the Docker Compose file"
